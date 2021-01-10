@@ -9,6 +9,7 @@ import Foundation
 import XcodeKit
 import SwiftSyntax
 
+// https://docs.swift.org/swift-book/LanguageGuide/Protocols.html
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
