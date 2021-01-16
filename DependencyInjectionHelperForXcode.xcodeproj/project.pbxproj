@@ -21,6 +21,8 @@
 		3032244825AAFD3A002BB110 /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 3032244725AAFD3A002BB110 /* SwiftSyntax */; };
 		3032244925AAFD3D002BB110 /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3032242C25AAFCEB002BB110 /* XcodeKit.framework */; };
 		3032244A25AAFD3D002BB110 /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3032242C25AAFCEB002BB110 /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30B8A3DD25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; };
+		30B8A3DE25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		30B8A3DF25B2EA6B00F643CD /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				30B8A3DE25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +106,7 @@
 		3032243125AAFCEB002BB110 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
 		3032243325AAFCEB002BB110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3032243425AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DependencyInjectionHelperForXcodeExtension.entitlements; sourceTree = "<group>"; };
+		30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = lib_InternalSwiftSyntaxParser.dylib; path = ../../../../Applications/Xcode.app/Contents/Frameworks/lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +115,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3032244225AAFD2D002BB110 /* SwiftSyntax in Frameworks */,
+				30B8A3DD25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +203,7 @@
 		3032242925AAFCEB002BB110 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */,
 				3032242A25AAFCEB002BB110 /* Cocoa.framework */,
 				3032242C25AAFCEB002BB110 /* XcodeKit.framework */,
 			);
@@ -216,6 +232,7 @@
 				303223EF25AAFC41002BB110 /* Frameworks */,
 				303223F025AAFC41002BB110 /* Resources */,
 				3032243B25AAFCEB002BB110 /* Embed App Extensions */,
+				30B8A3DF25B2EA6B00F643CD /* Embed Libraries */,
 			);
 			buildRules = (
 			);

@@ -24,22 +24,37 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                 completionHandler(nil)
                 return
             }
-            
-            let sourceFileText = lines.joined()
-            let sourceFile = try SyntaxParser.parse(
-                source: sourceFileText
-            )
-            
+
             for selection in selections {
-                _ = ProtocolExtractor(
+                let selectedLines = lines[selection.start.line..<selection.end.line]
+                // SwiftSyntax
+                
+                let sourceFile = try SyntaxParser.parse(source: selectedLines.joined())
+                
+                let extracter = ProtocolExtractor(
                     selection: selection
                 )
-                .visit(sourceFile)
-                // replace slection range
+                extracter.walk(sourceFile)
+                dump(extracter.keyword)
+                dump(extracter.members)
+                dump(extracter.identifier)
+                
+                // make protocol
+                // wirte buffer first line ater import
+                
+//                let incremented = AddPublicToKeywords().visit(sourceFile)
+//
+//                let incrementedLines = incremented.description.lines
+//
+//                let selectedRange = NSRange(
+//                    location: selection.start.line,
+//                    length: selection.end.line - selection.start.line
+//                )
+//                buffer.lines.replaceObjects(
+//                    in: selectedRange,
+//                    withObjectsFrom: incrementedLines
+//                )
             }
-            
-   
-            
         } catch let e {
             print(e)
         }
@@ -57,11 +72,64 @@ class ProtocolExtractor: SyntaxVisitor {
         self.selection = selection
     }
     
+    var keyword: TokenSyntax?
+    var identifier: TokenSyntax?
+    var members = [MemberDeclListItemSyntax]()
+    
+    override func visit(_ node: CodeBlockSyntax) -> SyntaxVisitorContinueKind {
+        return .visitChildren
+    }
+    
     override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
-        .visitChildren
+        keyword = node.classKeyword
+        identifier = node.identifier
+        members = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
+            if member.decl.is(VariableDeclSyntax.self)
+               || member.decl.is(FunctionDeclSyntax.self) {
+                return member
+            } else {
+                return nil
+            }
+        }
+        
+        return .skipChildren
     }
     
     override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
-        .visitChildren
+        keyword = node.structKeyword
+        identifier = node.identifier
+        members = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
+            if member.decl.is(VariableDeclSyntax.self)
+               || member.decl.is(FunctionDeclSyntax.self) {
+                return member
+            } else {
+                return nil
+            }
+        }
+        
+        return .skipChildren
     }
+    
+    override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
+        keyword = node.enumKeyword
+        identifier = node.identifier
+        members = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
+            if member.decl.is(VariableDeclSyntax.self)
+               || member.decl.is(FunctionDeclSyntax.self) {
+                return member
+            } else {
+                return nil
+            }
+        }
+        
+        return .skipChildren
+    }
+}
+
+class TargetDecl {
+    init(decl: DeclSyntaxProtocol) {
+        self.decl = decl
+    }
+    
+    let decl: DeclSyntaxProtocol
 }
