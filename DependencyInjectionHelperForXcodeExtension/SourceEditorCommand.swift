@@ -8,6 +8,7 @@
 import Foundation
 import XcodeKit
 import SwiftSyntax
+import Stencil
 
 // https://docs.swift.org/swift-book/LanguageGuide/Protocols.html
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
@@ -35,15 +36,54 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                     selection: selection
                 )
                 extracter.walk(sourceFile)
-                dump(extracter.keyword)
-                dump(extracter.members)
-                dump(extracter.identifier)
-                
-                // make protocol
-                // wirte buffer first line ater import
-                
-//                let incremented = AddPublicToKeywords().visit(sourceFile)
+
+                var functionTokens = [[String: Any?]]()
+                extracter.functions.forEach { (funcDeclSyntax) in
+                    let identifier = funcDeclSyntax.identifier.text
+//                    let parameterList = funcDeclSyntax.signature.input.parameterList.compactMap { param -> (String, [String])? in
+//                        guard let type = param.type?.as(TypeSyntax.self)?.tokens.map({ $0.text }) else {
+//                            return nil
+//                        }
 //
+//                        let label: String
+//                        switch (param.firstToken?.text, param.secondName?.text) {
+//                        case let (firstText?, secondText?):
+//                            label = "\(firstText) \(secondText)"
+//                        case let (firstText?, nil):
+//                            label = firstText
+//                        case let (nil, secondText?):
+//                            label = secondText
+//                        case (nil, nil):
+//                            label = ""
+//                        }
+//
+//                        return (label, type)
+//                    }
+                    let inputValue = funcDeclSyntax.signature.input.description
+                    let outputValue = funcDeclSyntax.signature.output?.description
+                    
+                    let functionToken: [String: Any?] = [
+                        "identifier": identifier,
+                        "params": inputValue,
+                        "return": outputValue
+                    ]
+                    functionTokens.append(functionToken)
+                }
+                
+                let templateText = """
+                protocol {{ identifier }}Protocol {
+                    {%for f in functionList %}
+                    func {{ f.identifier }}{{f.params}}{{f.return}}
+                    {% endfor %}
+                }
+                """
+                let template = Template(templateString: templateText)
+                let text = try? template.render([
+                    "identifier" : extracter.identifier!.text,
+                    "functionList": functionTokens
+                ])
+                print(text!)
+                
 //                let incrementedLines = incremented.description.lines
 //
 //                let selectedRange = NSRange(
@@ -74,7 +114,9 @@ class ProtocolExtractor: SyntaxVisitor {
     
     var keyword: TokenSyntax?
     var identifier: TokenSyntax?
-    var members = [MemberDeclListItemSyntax]()
+    var functions = [FunctionDeclSyntax]()
+    var variables = [MemberDeclListItemSyntax]()
+    var initilizers = [MemberDeclListItemSyntax]()
     
     override func visit(_ node: CodeBlockSyntax) -> SyntaxVisitorContinueKind {
         return .visitChildren
@@ -83,9 +125,18 @@ class ProtocolExtractor: SyntaxVisitor {
     override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
         keyword = node.classKeyword
         identifier = node.identifier
-        members = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
-            if member.decl.is(VariableDeclSyntax.self)
-               || member.decl.is(FunctionDeclSyntax.self) {
+        functions = node.members.members.compactMap { (member) -> FunctionDeclSyntax? in
+            member.decl.as(FunctionDeclSyntax.self)
+        }
+        variables = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
+            if member.decl.is(VariableDeclSyntax.self) {
+                return member
+            } else {
+                return nil
+            }
+        }
+        initilizers = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
+            if member.decl.is(InitializerDeclSyntax.self) {
                 return member
             } else {
                 return nil
@@ -95,41 +146,33 @@ class ProtocolExtractor: SyntaxVisitor {
         return .skipChildren
     }
     
-    override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
-        keyword = node.structKeyword
-        identifier = node.identifier
-        members = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
-            if member.decl.is(VariableDeclSyntax.self)
-               || member.decl.is(FunctionDeclSyntax.self) {
-                return member
-            } else {
-                return nil
-            }
-        }
+//    override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
+//        keyword = node.structKeyword
+//        identifier = node.identifier
+//        members = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
+//            if member.decl.is(VariableDeclSyntax.self)
+//               || member.decl.is(FunctionDeclSyntax.self) {
+//                return member
+//            } else {
+//                return nil
+//            }
+//        }
+//
+//        return .skipChildren
+//    }
+//
+//    override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
+//        keyword = node.enumKeyword
+//        identifier = node.identifier
+//        members = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
+//            if member.decl.is(VariableDeclSyntax.self)
+//               || member.decl.is(FunctionDeclSyntax.self) {
+//                return member
+//            } else {
+//                return nil
+//            }
+//        }
         
-        return .skipChildren
-    }
-    
-    override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
-        keyword = node.enumKeyword
-        identifier = node.identifier
-        members = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
-            if member.decl.is(VariableDeclSyntax.self)
-               || member.decl.is(FunctionDeclSyntax.self) {
-                return member
-            } else {
-                return nil
-            }
-        }
-        
-        return .skipChildren
-    }
-}
-
-class TargetDecl {
-    init(decl: DeclSyntaxProtocol) {
-        self.decl = decl
-    }
-    
-    let decl: DeclSyntaxProtocol
+//        return .skipChildren
+//    }
 }

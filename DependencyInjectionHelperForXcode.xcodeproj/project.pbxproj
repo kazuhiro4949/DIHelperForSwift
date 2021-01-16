@@ -23,6 +23,8 @@
 		3032244A25AAFD3D002BB110 /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3032242C25AAFCEB002BB110 /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30B8A3DD25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; };
 		30B8A3DE25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		30B8A3E425B310DD00F643CD /* Stencil in Frameworks */ = {isa = PBXBuildFile; productRef = 30B8A3E325B310DD00F643CD /* Stencil */; };
+		30B8A3E825B310F900F643CD /* Stencil in Frameworks */ = {isa = PBXBuildFile; productRef = 30B8A3E725B310F900F643CD /* Stencil */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30B8A3E425B310DD00F643CD /* Stencil in Frameworks */,
 				3032244225AAFD2D002BB110 /* SwiftSyntax in Frameworks */,
 				30B8A3DD25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */,
 			);
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3032244925AAFD3D002BB110 /* XcodeKit.framework in Frameworks */,
+				30B8A3E825B310F900F643CD /* Stencil in Frameworks */,
 				3032242B25AAFCEB002BB110 /* Cocoa.framework in Frameworks */,
 				3032244825AAFD3A002BB110 /* SwiftSyntax in Frameworks */,
 			);
@@ -242,6 +246,7 @@
 			name = DependencyInjectionHelperForXcode;
 			packageProductDependencies = (
 				3032244125AAFD2D002BB110 /* SwiftSyntax */,
+				30B8A3E325B310DD00F643CD /* Stencil */,
 			);
 			productName = DependencyInjectionHelperForXcode;
 			productReference = 303223F225AAFC41002BB110 /* DependencyInjectionHelperForXcode.app */;
@@ -299,6 +304,7 @@
 			name = DependencyInjectionHelperForXcodeExtension;
 			packageProductDependencies = (
 				3032244725AAFD3A002BB110 /* SwiftSyntax */,
+				30B8A3E725B310F900F643CD /* Stencil */,
 			);
 			productName = DependencyInjectionHelperForXcodeExtension;
 			productReference = 3032242825AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.appex */;
@@ -340,6 +346,7 @@
 			mainGroup = 303223E925AAFC41002BB110;
 			packageReferences = (
 				3032244025AAFD2D002BB110 /* XCRemoteSwiftPackageReference "swift-syntax" */,
+				30B8A3E225B310DD00F643CD /* XCRemoteSwiftPackageReference "Stencil" */,
 			);
 			productRefGroup = 303223F325AAFC41002BB110 /* Products */;
 			projectDirPath = "";
@@ -797,6 +804,14 @@
 				kind = branch;
 			};
 		};
+		30B8A3E225B310DD00F643CD /* XCRemoteSwiftPackageReference "Stencil" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:stencilproject/Stencil.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.14.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -809,6 +824,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3032244025AAFD2D002BB110 /* XCRemoteSwiftPackageReference "swift-syntax" */;
 			productName = SwiftSyntax;
+		};
+		30B8A3E325B310DD00F643CD /* Stencil */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 30B8A3E225B310DD00F643CD /* XCRemoteSwiftPackageReference "Stencil" */;
+			productName = Stencil;
+		};
+		30B8A3E725B310F900F643CD /* Stencil */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 30B8A3E225B310DD00F643CD /* XCRemoteSwiftPackageReference "Stencil" */;
+			productName = Stencil;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
