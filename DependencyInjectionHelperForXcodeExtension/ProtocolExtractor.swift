@@ -11,26 +11,14 @@ import SwiftSyntax
 
 class ProtocolExtractor: SyntaxVisitor {
     
-    var protocolDeclSyntaxes = [ProtocolDeclSyntax]()
-    
-    var keyword: TokenSyntax?
-    var identifier: TokenSyntax?
-    var functions = [FunctionDeclSyntax]()
-    var variables = [VariableDeclSyntax]()
-    var initilizers = [InitializerDeclSyntax]()
-    
-    override func visit(_ node: CodeBlockSyntax) -> SyntaxVisitorContinueKind {
-        return .visitChildren
-    }
+    var protocolDeclSyntaxList = [ProtocolDeclSyntax]()
     
     override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
         guard !node.hasGenerics() else {
             return .skipChildren
         }
         
-        keyword = node.classKeyword
-        identifier = node.identifier
-        functions = node.members.members.compactMap { (member) -> FunctionDeclSyntax? in
+        let functions = node.members.members.compactMap { (member) -> FunctionDeclSyntax? in
             guard let functionDecl = member.decl.as(FunctionDeclSyntax.self) else {
                 return nil
             }
@@ -49,10 +37,10 @@ class ProtocolExtractor: SyntaxVisitor {
             
             return functionDecl
         }
-        variables = node.members.members.compactMap { (member) -> VariableDeclSyntax? in
+        let variables = node.members.members.compactMap { (member) -> VariableDeclSyntax? in
             member.decl.as(VariableDeclSyntax.self)
         }
-        initilizers = node.members.members.compactMap { (member) -> InitializerDeclSyntax? in
+        let initilizers = node.members.members.compactMap { (member) -> InitializerDeclSyntax? in
             guard let initializerDecl = member.decl.as(InitializerDeclSyntax.self) else {
                 return nil
             }
@@ -72,29 +60,71 @@ class ProtocolExtractor: SyntaxVisitor {
             return initializerDecl
         }
         
+        protocolDeclSyntaxList.append(
+            makeProtocolDecl(identifier: node.identifier,
+                             varDecls: variables,
+                             funcDelcs: functions,
+                             initDecls: initilizers,
+                             isClass: true)
+        )
+        
         return .skipChildren
     }
-    
-    override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind {
-        .visitChildren
-    }
-    
+
     override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
         guard !node.hasGenerics() else {
             return .skipChildren
         }
         
-        keyword = node.structKeyword
-        identifier = node.identifier
-        functions = node.members.members.compactMap { (member) -> FunctionDeclSyntax? in
-            member.decl.as(FunctionDeclSyntax.self)
+        let functions = node.members.members.compactMap { (member) -> FunctionDeclSyntax? in
+            guard let functionDecl = member.decl.as(FunctionDeclSyntax.self) else {
+                return nil
+            }
+            
+            if functionDecl.hasGenerics() {
+                return nil
+            }
+            
+            let hasPrivate = functionDecl.modifiers?.contains(where: {
+                $0.name.text == "private"
+            }) ?? false
+            
+            if hasPrivate {
+                return nil
+            }
+            
+            return functionDecl
         }
-        variables = node.members.members.compactMap { (member) -> VariableDeclSyntax? in
+        let variables = node.members.members.compactMap { (member) -> VariableDeclSyntax? in
             member.decl.as(VariableDeclSyntax.self)
         }
-        initilizers = node.members.members.compactMap { (member) -> InitializerDeclSyntax? in
-            member.decl.as(InitializerDeclSyntax.self)
+        let initilizers = node.members.members.compactMap { (member) -> InitializerDeclSyntax? in
+            guard let initializerDecl = member.decl.as(InitializerDeclSyntax.self) else {
+                return nil
+            }
+            
+            if initializerDecl.genericParameterClause != nil {
+                return nil
+            }
+            
+            let hasPrivate = initializerDecl.modifiers?.contains(where: {
+                $0.name.text == "private"
+            }) ?? false
+            
+            if hasPrivate {
+                return nil
+            }
+            
+            return initializerDecl
         }
+        
+        protocolDeclSyntaxList.append(
+            makeProtocolDecl(identifier: node.identifier,
+                             varDecls: variables,
+                             funcDelcs: functions,
+                             initDecls: initilizers,
+                             isClass: true)
+        )
         
         return .skipChildren
     }
@@ -104,18 +134,81 @@ class ProtocolExtractor: SyntaxVisitor {
             return .skipChildren
         }
         
-        keyword = node.enumKeyword
-        identifier = node.identifier
-        functions = node.members.members.compactMap { (member) -> FunctionDeclSyntax? in
-            member.decl.as(FunctionDeclSyntax.self)
+        let functions = node.members.members.compactMap { (member) -> FunctionDeclSyntax? in
+            guard let functionDecl = member.decl.as(FunctionDeclSyntax.self) else {
+                return nil
+            }
+            
+            if functionDecl.hasGenerics() {
+                return nil
+            }
+            
+            let hasPrivate = functionDecl.modifiers?.contains(where: {
+                $0.name.text == "private"
+            }) ?? false
+            
+            if hasPrivate {
+                return nil
+            }
+            
+            return functionDecl
         }
-        variables = node.members.members.compactMap { (member) -> VariableDeclSyntax? in
+        let variables = node.members.members.compactMap { (member) -> VariableDeclSyntax? in
             member.decl.as(VariableDeclSyntax.self)
         }
-        initilizers = node.members.members.compactMap { (member) -> InitializerDeclSyntax? in
-            member.decl.as(InitializerDeclSyntax.self)
+        let initilizers = node.members.members.compactMap { (member) -> InitializerDeclSyntax? in
+            guard let initializerDecl = member.decl.as(InitializerDeclSyntax.self) else {
+                return nil
+            }
+            
+            if initializerDecl.genericParameterClause != nil {
+                return nil
+            }
+            
+            let hasPrivate = initializerDecl.modifiers?.contains(where: {
+                $0.name.text == "private"
+            }) ?? false
+            
+            if hasPrivate {
+                return nil
+            }
+            
+            return initializerDecl
         }
+        
+        protocolDeclSyntaxList.append(
+            makeProtocolDecl(identifier: node.identifier,
+                             varDecls: variables,
+                             funcDelcs: functions,
+                             initDecls: initilizers,
+                             isClass: true)
+        )
         
         return .skipChildren
     }
+    
+    private func makeProtocolDecl(
+        identifier: TokenSyntax,
+        varDecls: [VariableDeclSyntax],
+        funcDelcs: [FunctionDeclSyntax],
+        initDecls: [InitializerDeclSyntax],
+        isClass: Bool) -> ProtocolDeclSyntax {
+        
+        let varInterfaces = Array(varDecls
+                .filter(\.notHasPrivateGetterSetter)
+                .map { $0.makeInterfaces() }
+                .joined()
+        )
+        .map(\.toMemberDeclListItem)
+        
+        let initInterfaces = initDecls.map(\.interface).map(\.toMemberDeclListItem)
+        let funcInterfaces = funcDelcs.map(\.interface).map(\.toMemberDeclListItem)
+        let membersInterfaces = varInterfaces + initInterfaces + funcInterfaces
+        
+        return SyntaxFactory.makeProtocolForDependencyInjection(
+            identifier: identifier.makeStringLiteral(with: "Protocol"),
+            members: SyntaxFactory.makeMemberDeclList(membersInterfaces)
+        )
+    }
+    
 }

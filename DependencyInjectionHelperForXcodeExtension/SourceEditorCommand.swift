@@ -31,25 +31,9 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                 
                 let extracter = ProtocolExtractor()
                 extracter.walk(sourceFile)
-
-                let varInterfaces = Array(
-                    extracter
-                        .variables
-                        .filter(\.notHasPrivateGetterSetter)
-                        .map { $0.makeInterfaces() }
-                        .joined()
-                )
-                .map(\.toMemberDeclListItem)
-                let initInterfaces = extracter.initilizers.map(\.interface).map(\.toMemberDeclListItem)
-                let funcInterfaces = extracter.functions.map(\.interface).map(\.toMemberDeclListItem)
-                let membersInterfaces = varInterfaces + initInterfaces + funcInterfaces
-                
-               let protocolDecl = SyntaxFactory.makeProtocolForDependencyInjection(
-                    identifier: extracter.identifier!.makeStringLiteral(with: "Protocol"),
-                    members: SyntaxFactory.makeMemberDeclList(membersInterfaces)
-                )
-                
-                print(protocolDecl.description)
+                extracter.protocolDeclSyntaxList.forEach {
+                    print($0.description)
+                }
             }
         } catch let e {
             print(e)
