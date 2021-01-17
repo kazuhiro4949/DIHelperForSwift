@@ -23,6 +23,16 @@
 		3032244A25AAFD3D002BB110 /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3032242C25AAFCEB002BB110 /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30B8A3DD25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; };
 		30B8A3DE25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		30B8A3EF25B479D800F643CD /* AccessorBlockSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */; };
+		30B8A3F525B47A9500F643CD /* VariableDeclSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3F425B47A9500F643CD /* VariableDeclSyntax.swift */; };
+		30B8A3F925B47AAA00F643CD /* TokenSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3F825B47AAA00F643CD /* TokenSyntax.swift */; };
+		30B8A3FD25B47AC400F643CD /* InitializerDeclSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3FC25B47AC400F643CD /* InitializerDeclSyntax.swift */; };
+		30B8A40125B47ADD00F643CD /* FunctionDeclSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A40025B47ADD00F643CD /* FunctionDeclSyntax.swift */; };
+		30B8A40525B47B0000F643CD /* HasGenericParameterClause.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A40425B47B0000F643CD /* HasGenericParameterClause.swift */; };
+		30B8A40A25B47B2B00F643CD /* HasGenericParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A40925B47B2B00F643CD /* HasGenericParameter.swift */; };
+		30B8A41025B47B4200F643CD /* PatternBindingSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A40F25B47B4200F643CD /* PatternBindingSyntax.swift */; };
+		30B8A41425B47B5900F643CD /* SyntaxFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A41325B47B5900F643CD /* SyntaxFactory.swift */; };
+		30B8A41825B47B7D00F643CD /* ProtocolExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A41725B47B7D00F643CD /* ProtocolExtractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +117,16 @@
 		3032243325AAFCEB002BB110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3032243425AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DependencyInjectionHelperForXcodeExtension.entitlements; sourceTree = "<group>"; };
 		30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = lib_InternalSwiftSyntaxParser.dylib; path = ../../../../Applications/Xcode.app/Contents/Frameworks/lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
+		30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessorBlockSyntax.swift; sourceTree = "<group>"; };
+		30B8A3F425B47A9500F643CD /* VariableDeclSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableDeclSyntax.swift; sourceTree = "<group>"; };
+		30B8A3F825B47AAA00F643CD /* TokenSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSyntax.swift; sourceTree = "<group>"; };
+		30B8A3FC25B47AC400F643CD /* InitializerDeclSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerDeclSyntax.swift; sourceTree = "<group>"; };
+		30B8A40025B47ADD00F643CD /* FunctionDeclSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionDeclSyntax.swift; sourceTree = "<group>"; };
+		30B8A40425B47B0000F643CD /* HasGenericParameterClause.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasGenericParameterClause.swift; sourceTree = "<group>"; };
+		30B8A40925B47B2B00F643CD /* HasGenericParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasGenericParameter.swift; sourceTree = "<group>"; };
+		30B8A40F25B47B4200F643CD /* PatternBindingSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternBindingSyntax.swift; sourceTree = "<group>"; };
+		30B8A41325B47B5900F643CD /* SyntaxFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxFactory.swift; sourceTree = "<group>"; };
+		30B8A41725B47B7D00F643CD /* ProtocolExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolExtractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,12 +233,38 @@
 		3032242E25AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension */ = {
 			isa = PBXGroup;
 			children = (
+				30B8A40825B47B1E00F643CD /* Protocols */,
+				30B8A3ED25B479BD00F643CD /* Extensions */,
 				3032242F25AAFCEB002BB110 /* SourceEditorExtension.swift */,
 				3032243125AAFCEB002BB110 /* SourceEditorCommand.swift */,
+				30B8A41725B47B7D00F643CD /* ProtocolExtractor.swift */,
 				3032243325AAFCEB002BB110 /* Info.plist */,
 				3032243425AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.entitlements */,
 			);
 			path = DependencyInjectionHelperForXcodeExtension;
+			sourceTree = "<group>";
+		};
+		30B8A3ED25B479BD00F643CD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */,
+				30B8A3F425B47A9500F643CD /* VariableDeclSyntax.swift */,
+				30B8A3F825B47AAA00F643CD /* TokenSyntax.swift */,
+				30B8A3FC25B47AC400F643CD /* InitializerDeclSyntax.swift */,
+				30B8A40025B47ADD00F643CD /* FunctionDeclSyntax.swift */,
+				30B8A40F25B47B4200F643CD /* PatternBindingSyntax.swift */,
+				30B8A41325B47B5900F643CD /* SyntaxFactory.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		30B8A40825B47B1E00F643CD /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				30B8A40425B47B0000F643CD /* HasGenericParameterClause.swift */,
+				30B8A40925B47B2B00F643CD /* HasGenericParameter.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,8 +462,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30B8A41825B47B7D00F643CD /* ProtocolExtractor.swift in Sources */,
+				30B8A3F525B47A9500F643CD /* VariableDeclSyntax.swift in Sources */,
+				30B8A41425B47B5900F643CD /* SyntaxFactory.swift in Sources */,
+				30B8A40525B47B0000F643CD /* HasGenericParameterClause.swift in Sources */,
 				3032243025AAFCEB002BB110 /* SourceEditorExtension.swift in Sources */,
 				3032243225AAFCEB002BB110 /* SourceEditorCommand.swift in Sources */,
+				30B8A3EF25B479D800F643CD /* AccessorBlockSyntax.swift in Sources */,
+				30B8A3F925B47AAA00F643CD /* TokenSyntax.swift in Sources */,
+				30B8A3FD25B47AC400F643CD /* InitializerDeclSyntax.swift in Sources */,
+				30B8A40125B47ADD00F643CD /* FunctionDeclSyntax.swift in Sources */,
+				30B8A40A25B47B2B00F643CD /* HasGenericParameter.swift in Sources */,
+				30B8A41025B47B4200F643CD /* PatternBindingSyntax.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
