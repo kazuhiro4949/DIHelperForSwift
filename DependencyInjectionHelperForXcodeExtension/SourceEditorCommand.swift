@@ -43,12 +43,27 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                         funcKeyword: funcDeclSyntax.funcKeyword
                             .withLeadingTrivia(.zero)
                             .withTrailingTrivia(.spaces(1)),
-                        identifier: funcDeclSyntax.identifier
-                            .withTrailingTrivia(.spaces(1)),
+                        identifier: funcDeclSyntax.identifier,
                         genericParameterClause: nil,
                         signature: funcDeclSyntax.signature,
                         genericWhereClause: nil,
                         body: nil)
+                }
+                
+                let protocolInitializerDecls = extracter.initilizers.map { (initilizerDeclSyntax) in
+                    SyntaxFactory.makeInitializerDecl(
+                        attributes: nil,
+                        modifiers: nil,
+                        initKeyword: SyntaxFactory.makeInitKeyword(
+                            leadingTrivia: .zero
+                        ),
+                        optionalMark: initilizerDeclSyntax.optionalMark,
+                        genericParameterClause: nil,
+                        parameters: initilizerDeclSyntax.parameters,
+                        throwsOrRethrowsKeyword: initilizerDeclSyntax.throwsOrRethrowsKeyword,
+                        genericWhereClause: nil,
+                        body: nil
+                    )
                 }
                 
                 var variables = [VariableDeclSyntax]()
@@ -103,8 +118,6 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                     }
                 }
 
-                
-
                 let meberDeclList = SyntaxFactory.makeMemberDeclList(
                     variables.map {
                         SyntaxFactory.makeMemberDeclListItem(
@@ -112,6 +125,14 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                                 .withLeadingTrivia(.spaces(4))
                                 .withTrailingTrivia(.newlines(1)),
                             semicolon: nil)
+                    } +
+                    protocolInitializerDecls.map {
+                        SyntaxFactory.makeMemberDeclListItem(
+                            decl: DeclSyntax($0)
+                                .withLeadingTrivia(.spaces(4))
+                                .withTrailingTrivia(.newlines(1)),
+                            semicolon: nil
+                        )
                     } +
                     protocolFunctionDecls.map {
                     SyntaxFactory.makeMemberDeclListItem(
@@ -123,16 +144,20 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                 )
                 
                 let memberDeclBlock = SyntaxFactory.makeMemberDeclBlock(
-                    leftBrace: SyntaxFactory.makeLeftBraceToken()
-                        .withTrailingTrivia(.newlines(1)),
+                    leftBrace: SyntaxFactory.makeLeftBraceToken(
+                        leadingTrivia: .zero,
+                        trailingTrivia: .newlines(1)
+                    ),
                     members: meberDeclList
                         .withTrailingTrivia(.newlines(1)),
-                    rightBrace: SyntaxFactory.makeRightBraceToken())
+                    rightBrace: SyntaxFactory.makeRightBraceToken()
+                )
                 
                 let protocolDecl = SyntaxFactory.makeProtocolDecl(
                     attributes: nil,
                     modifiers: nil,
-                    protocolKeyword: SyntaxFactory.makeProtocolKeyword()
+                    protocolKeyword: SyntaxFactory
+                        .makeProtocolKeyword()
                         .withTrailingTrivia(.spaces(1)),
                     identifier: extracter.identifier!
                         .withTrailingTrivia(.spaces(1)),
