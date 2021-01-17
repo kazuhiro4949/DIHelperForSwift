@@ -28,54 +28,15 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
 
             for selection in selections {
                 let selectedLines = lines[selection.start.line..<selection.end.line]
-                
                 let sourceFile = try SyntaxParser.parse(source: selectedLines.joined())
                 
-                let extracter = ProtocolExtractor(
-                    selection: selection
-                )
+                let extracter = ProtocolExtractor()
                 extracter.walk(sourceFile)
 
-                let protocolFunctionDecls = extracter.functions.map { (funcDeclSyntax) in
-                    SyntaxFactory.makeFunctionDecl(
-                        attributes: nil,
-                        modifiers: nil,
-                        funcKeyword: funcDeclSyntax.funcKeyword
-                            .withLeadingTrivia(.zero)
-                            .withTrailingTrivia(.spaces(1)),
-                        identifier: funcDeclSyntax.identifier,
-                        genericParameterClause: nil,
-                        signature: funcDeclSyntax.signature,
-                        genericWhereClause: nil,
-                        body: nil)
-                }
-                
-                let protocolInitializerDecls = extracter.initilizers.map { (initilizerDeclSyntax) in
-                    SyntaxFactory.makeInitializerDecl(
-                        attributes: nil,
-                        modifiers: nil,
-                        initKeyword: SyntaxFactory.makeInitKeyword(
-                            leadingTrivia: .zero
-                        ),
-                        optionalMark: initilizerDeclSyntax.optionalMark,
-                        genericParameterClause: nil,
-                        parameters: initilizerDeclSyntax.parameters,
-                        throwsOrRethrowsKeyword: initilizerDeclSyntax.throwsOrRethrowsKeyword,
-                        genericWhereClause: nil,
-                        body: nil
-                    )
-                }
-                
-                var variables = [VariableDeclSyntax]()
-                extracter.variables
-                    .filter {
-                        let hasPrivate = $0.modifiers?.contains(where: { (modifier) -> Bool in
-                            modifier.name.text == "private" && modifier.detail == nil
-                        }) ?? false
-                        return !hasPrivate
-                    }
-                    .forEach { (variableDeclSyntax) in
-                    if variableDeclSyntax.bindings.count == 1 {
+                let variables: [VariableDeclSyntax] = Array(extracter.variables
+                    .filter(\.notHasPrivateGetterSetter)
+                    .map { (variableDeclSyntax) -> [VariableDeclSyntax] in
+                    if !variableDeclSyntax.hasMultipleProps {
                         let binding = variableDeclSyntax.bindings.first!
                         
                         if let accessorBlock = binding.accessor?.as(AccessorBlockSyntax.self) { // setter, getter, didSet
@@ -96,97 +57,26 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                             }
                             
                             let protocolVariable = binding.convertForProtocol(with: contextualKeyword)
-                            variables.append(protocolVariable)
-                        } else if binding.accessor?.is(CodeBlockSyntax.self) == true { // computed
-                            let protocolVariable = binding.convertForProtocol(with: .get)
-                            variables.append(protocolVariable)
+                            return [protocolVariable]
+                        } else if variableDeclSyntax.isComputedProperty {
+                            return [binding.convertForProtocol(with: .get)]
                         } else {
-                            let hasPrivateSetter = variableDeclSyntax.modifiers?.contains(where: { (modifier) -> Bool in
-                                modifier.name.text == "private" && modifier.detail?.text == "set"
-                            }) ?? false
-                            
-                            let contextualKeyword: PatternBindingSyntax.ContextualKeyword
-                            if variableDeclSyntax.letOrVarKeyword.tokenKind == .letKeyword || hasPrivateSetter {
-                                contextualKeyword = .get
-                            } else {
-                                contextualKeyword = [.get, .set]
-                            }
-                            let protocolVariable = binding.convertForProtocol(with: contextualKeyword)
-                            variables.append(protocolVariable)
+                            return variableDeclSyntax.makeInterfacesFromBindings()
                         }
                     } else {
-                        // let, var
-                        let contextualKeyword: PatternBindingSyntax.ContextualKeyword
-                        if variableDeclSyntax.letOrVarKeyword.tokenKind == .letKeyword {
-                            contextualKeyword = .get
-                        } else {
-                            contextualKeyword = [.get, .set]
-                        }
-                        
-                        let reversedBinding = variableDeclSyntax.bindings.reversed()
-                        var currentTypeAnnotation: TypeAnnotationSyntax?
-                        let protocolVariables = reversedBinding.map { (binidng) -> VariableDeclSyntax in
-                            if let typeAnnotation = binidng.typeAnnotation {
-                                currentTypeAnnotation = typeAnnotation
-                            }
-                            
-                            let bindingWithTypeAnnotation = binidng.withTypeAnnotation(currentTypeAnnotation)
-                            return bindingWithTypeAnnotation.convertForProtocol(with: contextualKeyword)
-                        }
-                        variables.append(contentsOf: protocolVariables)
+                        return variableDeclSyntax.makeInterfacesFromBindings()
                     }
-                }
-
-                let meberDeclList = SyntaxFactory.makeMemberDeclList(
-                    variables.map {
-                        SyntaxFactory.makeMemberDeclListItem(
-                            decl: DeclSyntax($0)
-                                .withLeadingTrivia(.spaces(4))
-                                .withTrailingTrivia(.newlines(1)),
-                            semicolon: nil)
-                    } +
-                    protocolInitializerDecls.map {
-                        SyntaxFactory.makeMemberDeclListItem(
-                            decl: DeclSyntax($0)
-                                .withLeadingTrivia(.spaces(4))
-                                .withTrailingTrivia(.newlines(1)),
-                            semicolon: nil
-                        )
-                    } +
-                    protocolFunctionDecls.map {
-                    SyntaxFactory.makeMemberDeclListItem(
-                        decl: DeclSyntax($0)
-                            .withLeadingTrivia(.spaces(4))
-                            .withTrailingTrivia(.newlines(1)),
-                        semicolon: nil)
-                    }
+                }.joined())
+                
+                
+                let members: [MemberDeclListItemSyntax] = variables.map(\.toMemberDeclListItem) +
+                        extracter.initilizers.map(\.interface).map(\.toMemberDeclListItem) +
+                        extracter.functions.map(\.interface).map(\.toMemberDeclListItem)
+                
+               let protocolDecl = SyntaxFactory.makeProtocolForDependencyInjection(
+                    identifier: extracter.identifier!.makeStringLiteral(with: "Protocol"),
+                    members: SyntaxFactory.makeMemberDeclList(members)
                 )
-                
-                let memberDeclBlock = SyntaxFactory.makeMemberDeclBlock(
-                    leftBrace: SyntaxFactory.makeLeftBraceToken(
-                        leadingTrivia: .zero,
-                        trailingTrivia: .newlines(1)
-                    ),
-                    members: meberDeclList
-                        .withTrailingTrivia(.newlines(1)),
-                    rightBrace: SyntaxFactory.makeRightBraceToken()
-                )
-                
-                
-                let protocolIdentifier = extracter
-                    .identifier!
-                    .withKind(.stringLiteral(extracter.identifier!.text + "Protocol"))
-                let protocolDecl = SyntaxFactory.makeProtocolDecl(
-                    attributes: nil,
-                    modifiers: nil,
-                    protocolKeyword: SyntaxFactory
-                        .makeProtocolKeyword()
-                        .withTrailingTrivia(.spaces(1)),
-                    identifier: protocolIdentifier
-                        .withTrailingTrivia(.spaces(1)),
-                    inheritanceClause: nil, // Anyobject if class
-                    genericWhereClause: nil,
-                    members: memberDeclBlock)
                 
                 print(protocolDecl.description)
             }
@@ -199,13 +89,9 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     
 }
 
-
-
 class ProtocolExtractor: SyntaxVisitor {
-    let selection: XCSourceTextRange
-    init(selection: XCSourceTextRange) {
-        self.selection = selection
-    }
+    
+    var protocolDeclSyntaxes = [ProtocolDeclSyntax]()
     
     var keyword: TokenSyntax?
     var identifier: TokenSyntax?
@@ -218,7 +104,7 @@ class ProtocolExtractor: SyntaxVisitor {
     }
     
     override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
-        guard node.hasGenerics() else {
+        guard !node.hasGenerics() else {
             return .skipChildren
         }
         
@@ -274,7 +160,7 @@ class ProtocolExtractor: SyntaxVisitor {
     }
     
     override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
-        guard node.hasGenerics() else {
+        guard !node.hasGenerics() else {
             return .skipChildren
         }
         
@@ -294,7 +180,7 @@ class ProtocolExtractor: SyntaxVisitor {
     }
 
     override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
-        guard node.hasGenerics() else {
+        guard !node.hasGenerics() else {
             return .skipChildren
         }
         
@@ -325,6 +211,35 @@ extension SyntaxFactory {
             ),
             parameter: nil,
             body: nil)
+    }
+    
+    static func makeProtocolMemberDeclBlock(members: MemberDeclListSyntax) -> MemberDeclBlockSyntax {
+        SyntaxFactory.makeMemberDeclBlock(
+            leftBrace: SyntaxFactory.makeLeftBraceToken(
+                leadingTrivia: .zero,
+                trailingTrivia: .newlines(1)
+            ),
+            members: members
+                .withTrailingTrivia(.newlines(1)),
+            rightBrace: SyntaxFactory.makeRightBraceToken()
+        )
+    }
+    
+    static func makeProtocolForDependencyInjection(
+        identifier: TokenSyntax,
+        members: MemberDeclListSyntax) -> ProtocolDeclSyntax {
+        
+        SyntaxFactory.makeProtocolDecl(
+            attributes: nil,
+            modifiers: nil,
+            protocolKeyword: SyntaxFactory
+                .makeProtocolKeyword()
+                .withTrailingTrivia(.spaces(1)),
+            identifier: identifier
+                .withTrailingTrivia(.spaces(1)),
+            inheritanceClause: nil, // Anyobject if class
+            genericWhereClause: nil,
+            members: makeProtocolMemberDeclBlock(members: members))
     }
 }
 
@@ -392,6 +307,7 @@ extension PatternBindingSyntax {
     }
 }
 
+// MARK:-
 
 protocol HasGenericParameterClause {
     var genericParameterClause: GenericParameterClauseSyntax? { get }
@@ -418,3 +334,135 @@ extension StructDeclSyntax: HasGenericParameterClause {}
 extension EnumDeclSyntax: HasGenericParameter {}
 extension FunctionDeclSyntax: HasGenericParameterClause {}
 extension InitializerDeclSyntax: HasGenericParameterClause {}
+
+// MARK:-
+
+extension VariableDeclSyntax {
+    var toMemberDeclListItem: MemberDeclListItemSyntax {
+        SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(self)
+                .withLeadingTrivia(.spaces(4))
+                .withTrailingTrivia(.newlines(1)),
+            semicolon: nil
+        )
+    }
+}
+
+extension FunctionDeclSyntax {
+    var interface: FunctionDeclSyntax {
+        SyntaxFactory.makeFunctionDecl(
+            attributes: nil,
+            modifiers: nil,
+            funcKeyword: funcKeyword
+                .withLeadingTrivia(.zero)
+                .withTrailingTrivia(.spaces(1)),
+            identifier: identifier,
+            genericParameterClause: nil,
+            signature: signature,
+            genericWhereClause: nil,
+            body: nil)
+    }
+    
+    var toMemberDeclListItem: MemberDeclListItemSyntax {
+        SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(self)
+                .withLeadingTrivia(.spaces(4))
+                .withTrailingTrivia(.newlines(1)),
+            semicolon: nil
+        )
+    }
+}
+
+extension InitializerDeclSyntax {
+    var interface: InitializerDeclSyntax {
+        SyntaxFactory.makeInitializerDecl(
+            attributes: nil,
+            modifiers: nil,
+            initKeyword: SyntaxFactory.makeInitKeyword(
+                leadingTrivia: .zero
+            ),
+            optionalMark: optionalMark,
+            genericParameterClause: nil,
+            parameters: parameters,
+            throwsOrRethrowsKeyword: throwsOrRethrowsKeyword,
+            genericWhereClause: nil,
+            body: nil
+        )
+    }
+    
+    var toMemberDeclListItem: MemberDeclListItemSyntax {
+        SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(self)
+                .withLeadingTrivia(.spaces(4))
+                .withTrailingTrivia(.newlines(1)),
+            semicolon: nil
+        )
+    }
+}
+
+
+// MARK:-
+extension TokenSyntax {
+    func makeStringLiteral(with suffixText: String) -> TokenSyntax {
+        return withKind(.stringLiteral(text + suffixText))
+    }
+}
+
+
+// MARK:-
+extension VariableDeclSyntax {
+    func makeInterfacesFromBindings() -> [VariableDeclSyntax] {
+        makeTypeAnnotatedBindings()
+            .map {
+                $0.convertForProtocol(with: contextualKeywords)
+            }
+    }
+    
+    func makeTypeAnnotatedBindings() -> [PatternBindingSyntax] {
+        typealias ReducedResult = (syntaxList: [PatternBindingSyntax], curreontTypeAnno: TypeAnnotationSyntax?)
+        return bindings.reversed().reduce(ReducedResult([], nil)) { (result, binding) in
+            let typeAnnotation = binding.typeAnnotation ?? result.curreontTypeAnno
+            let bindingWithTypeAnnotation = binding.withTypeAnnotation(typeAnnotation)
+            return (result.syntaxList + [bindingWithTypeAnnotation], typeAnnotation)
+        }
+        .syntaxList
+    }
+    
+    var contextualKeywords: PatternBindingSyntax.ContextualKeyword {
+        if letOrVarKeyword.tokenKind == .letKeyword || hasPrivateSetter {
+            return .get
+        } else {
+            return [.get, .set]
+        }
+    }
+    
+    var hasMultipleProps: Bool {
+        bindings.count != 1
+    }
+    
+    var hasPrivateGetterSetter: Bool {
+        modifiers?.contains(where: { (modifier) -> Bool in
+            modifier.name.text == "private" && modifier.detail == nil
+        }) ?? false
+    }
+    
+    var hasPrivateSetter: Bool {
+        modifiers?.contains(where: { (modifier) -> Bool in
+            modifier.name.text == "private" && modifier.detail?.text == "set"
+        }) ?? false
+    }
+    
+    var notHasPrivateGetterSetter: Bool {
+        !hasPrivateGetterSetter
+    }
+    
+    var isComputedProperty: Bool {
+        guard bindings.count == 1 else {
+            return false
+        }
+        
+        let binding = bindings.first!
+        
+        return binding.accessor?.is(CodeBlockSyntax.self) == true
+    }
+}
