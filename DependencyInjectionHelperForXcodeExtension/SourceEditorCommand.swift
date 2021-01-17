@@ -153,13 +153,17 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                     rightBrace: SyntaxFactory.makeRightBraceToken()
                 )
                 
+                
+                let protocolIdentifier = extracter
+                    .identifier!
+                    .withKind(.stringLiteral(extracter.identifier!.text + "Protocol"))
                 let protocolDecl = SyntaxFactory.makeProtocolDecl(
                     attributes: nil,
                     modifiers: nil,
                     protocolKeyword: SyntaxFactory
                         .makeProtocolKeyword()
                         .withTrailingTrivia(.spaces(1)),
-                    identifier: extracter.identifier!
+                    identifier: protocolIdentifier
                         .withTrailingTrivia(.spaces(1)),
                     inheritanceClause: nil, // Anyobject if class
                     genericWhereClause: nil,
@@ -214,35 +218,37 @@ class ProtocolExtractor: SyntaxVisitor {
         .visitChildren
     }
     
-//    override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
-//        keyword = node.structKeyword
-//        identifier = node.identifier
-//        members = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
-//            if member.decl.is(VariableDeclSyntax.self)
-//               || member.decl.is(FunctionDeclSyntax.self) {
-//                return member
-//            } else {
-//                return nil
-//            }
-//        }
-//
-//        return .skipChildren
-//    }
-//
-//    override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
-//        keyword = node.enumKeyword
-//        identifier = node.identifier
-//        members = node.members.members.compactMap { (member) -> MemberDeclListItemSyntax? in
-//            if member.decl.is(VariableDeclSyntax.self)
-//               || member.decl.is(FunctionDeclSyntax.self) {
-//                return member
-//            } else {
-//                return nil
-//            }
-//        }
+    override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
+        keyword = node.structKeyword
+        identifier = node.identifier
+        functions = node.members.members.compactMap { (member) -> FunctionDeclSyntax? in
+            member.decl.as(FunctionDeclSyntax.self)
+        }
+        variables = node.members.members.compactMap { (member) -> VariableDeclSyntax? in
+            member.decl.as(VariableDeclSyntax.self)
+        }
+        initilizers = node.members.members.compactMap { (member) -> InitializerDeclSyntax? in
+            member.decl.as(InitializerDeclSyntax.self)
+        }
         
-//        return .skipChildren
-//    }
+        return .skipChildren
+    }
+
+    override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
+        keyword = node.enumKeyword
+        identifier = node.identifier
+        functions = node.members.members.compactMap { (member) -> FunctionDeclSyntax? in
+            member.decl.as(FunctionDeclSyntax.self)
+        }
+        variables = node.members.members.compactMap { (member) -> VariableDeclSyntax? in
+            member.decl.as(VariableDeclSyntax.self)
+        }
+        initilizers = node.members.members.compactMap { (member) -> InitializerDeclSyntax? in
+            member.decl.as(InitializerDeclSyntax.self)
+        }
+        
+        return .skipChildren
+    }
 }
 
 extension SyntaxFactory {
