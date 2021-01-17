@@ -78,7 +78,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                     if variableDeclSyntax.bindings.count == 1 {
                         let binding = variableDeclSyntax.bindings.first!
                         
-                        if let accessorBlock = binding.accessor?.as(AccessorBlockSyntax.self) { // setter, getter
+                        if let accessorBlock = binding.accessor?.as(AccessorBlockSyntax.self) { // setter, getter, didSet
                             var contextualKeyword: PatternBindingSyntax.ContextualKeyword = []
                             accessorBlock.accessors.forEach { (accessor) in
                                 if accessor.accessorKind.text == "get" {
@@ -88,14 +88,25 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                                 }
                             }
                             
+                            let hasPrivateSetter = variableDeclSyntax.modifiers?.contains(where: { (modifier) -> Bool in
+                                modifier.name.text == "private" && modifier.detail?.text == "set"
+                            }) ?? false
+                            if hasPrivateSetter {
+                                contextualKeyword.remove(.set)
+                            }
+                            
                             let protocolVariable = binding.convertForProtocol(with: contextualKeyword)
                             variables.append(protocolVariable)
                         } else if binding.accessor?.is(CodeBlockSyntax.self) == true { // computed
                             let protocolVariable = binding.convertForProtocol(with: .get)
                             variables.append(protocolVariable)
                         } else {
+                            let hasPrivateSetter = variableDeclSyntax.modifiers?.contains(where: { (modifier) -> Bool in
+                                modifier.name.text == "private" && modifier.detail?.text == "set"
+                            }) ?? false
+                            
                             let contextualKeyword: PatternBindingSyntax.ContextualKeyword
-                            if variableDeclSyntax.letOrVarKeyword.tokenKind == .letKeyword {
+                            if variableDeclSyntax.letOrVarKeyword.tokenKind == .letKeyword || hasPrivateSetter {
                                 contextualKeyword = .get
                             } else {
                                 contextualKeyword = [.get, .set]
@@ -207,7 +218,7 @@ class ProtocolExtractor: SyntaxVisitor {
     }
     
     override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
-        guard node.genericParameterClause == nil else {
+        guard node.hasGenerics() else {
             return .skipChildren
         }
         
@@ -218,7 +229,7 @@ class ProtocolExtractor: SyntaxVisitor {
                 return nil
             }
             
-            if functionDecl.genericParameterClause != nil {
+            if functionDecl.hasGenerics() {
                 return nil
             }
             
@@ -263,7 +274,7 @@ class ProtocolExtractor: SyntaxVisitor {
     }
     
     override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
-        guard node.genericParameterClause == nil else {
+        guard node.hasGenerics() else {
             return .skipChildren
         }
         
@@ -283,7 +294,7 @@ class ProtocolExtractor: SyntaxVisitor {
     }
 
     override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
-        guard node.genericParameters == nil else {
+        guard node.hasGenerics() else {
             return .skipChildren
         }
         
@@ -380,3 +391,30 @@ extension PatternBindingSyntax {
         return variableDecl
     }
 }
+
+
+protocol HasGenericParameterClause {
+    var genericParameterClause: GenericParameterClauseSyntax? { get }
+}
+
+extension HasGenericParameterClause {
+    func hasGenerics() -> Bool {
+        genericParameterClause != nil
+    }
+}
+
+protocol HasGenericParameter {
+    var genericParameters: GenericParameterClauseSyntax? { get }
+}
+
+extension HasGenericParameter {
+    func hasGenerics() -> Bool {
+        genericParameters != nil
+    }
+}
+
+extension ClassDeclSyntax: HasGenericParameterClause {}
+extension StructDeclSyntax: HasGenericParameterClause {}
+extension EnumDeclSyntax: HasGenericParameter {}
+extension FunctionDeclSyntax: HasGenericParameterClause {}
+extension InitializerDeclSyntax: HasGenericParameterClause {}
