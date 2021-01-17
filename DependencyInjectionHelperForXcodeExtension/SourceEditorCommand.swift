@@ -33,49 +33,21 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                 let extracter = ProtocolExtractor()
                 extracter.walk(sourceFile)
 
-                let variables: [VariableDeclSyntax] = Array(extracter.variables
-                    .filter(\.notHasPrivateGetterSetter)
-                    .map { (variableDeclSyntax) -> [VariableDeclSyntax] in
-                    if !variableDeclSyntax.hasMultipleProps {
-                        let binding = variableDeclSyntax.bindings.first!
-                        
-                        if let accessorBlock = binding.accessor?.as(AccessorBlockSyntax.self) { // setter, getter, didSet
-                            var contextualKeyword: PatternBindingSyntax.ContextualKeyword = []
-                            accessorBlock.accessors.forEach { (accessor) in
-                                if accessor.accessorKind.text == "get" {
-                                    contextualKeyword.insert(.get)
-                                } else if accessor.accessorKind.text == "set" {
-                                    contextualKeyword.insert(.set)
-                                }
-                            }
-                            
-                            let hasPrivateSetter = variableDeclSyntax.modifiers?.contains(where: { (modifier) -> Bool in
-                                modifier.name.text == "private" && modifier.detail?.text == "set"
-                            }) ?? false
-                            if hasPrivateSetter {
-                                contextualKeyword.remove(.set)
-                            }
-                            
-                            let protocolVariable = binding.convertForProtocol(with: contextualKeyword)
-                            return [protocolVariable]
-                        } else if variableDeclSyntax.isComputedProperty {
-                            return [binding.convertForProtocol(with: .get)]
-                        } else {
-                            return variableDeclSyntax.makeInterfacesFromBindings()
-                        }
-                    } else {
-                        return variableDeclSyntax.makeInterfacesFromBindings()
-                    }
-                }.joined())
-                
-                
-                let members: [MemberDeclListItemSyntax] = variables.map(\.toMemberDeclListItem) +
-                        extracter.initilizers.map(\.interface).map(\.toMemberDeclListItem) +
-                        extracter.functions.map(\.interface).map(\.toMemberDeclListItem)
+                let varInterfaces = Array(
+                    extracter
+                        .variables
+                        .filter(\.notHasPrivateGetterSetter)
+                        .map { $0.makeInterfaces() }
+                        .joined()
+                )
+                .map(\.toMemberDeclListItem)
+                let initInterfaces = extracter.initilizers.map(\.interface).map(\.toMemberDeclListItem)
+                let funcInterfaces = extracter.functions.map(\.interface).map(\.toMemberDeclListItem)
+                let membersInterfaces = varInterfaces + initInterfaces + funcInterfaces
                 
                let protocolDecl = SyntaxFactory.makeProtocolForDependencyInjection(
                     identifier: extracter.identifier!.makeStringLiteral(with: "Protocol"),
-                    members: SyntaxFactory.makeMemberDeclList(members)
+                    members: SyntaxFactory.makeMemberDeclList(membersInterfaces)
                 )
                 
                 print(protocolDecl.description)
@@ -411,6 +383,34 @@ extension TokenSyntax {
 
 // MARK:-
 extension VariableDeclSyntax {
+    func makeInterfaces() -> [VariableDeclSyntax] {
+        if hasMultipleProps {
+            // comma separated stored properties
+            return makeInterfacesFromBindings()
+        }
+        
+        guard let binding = bindings.first else {
+            return []
+        }
+        
+        if let accessorBlock = binding.accessor?.as(AccessorBlockSyntax.self),
+           accessorBlock.hasGetter {
+            // getter or getter,setter
+            let keywordsFromAccessor = accessorBlock.contextualKeywords
+            let keywordsFromVariable = contextualKeywords
+            let protocolVariable = binding.convertForProtocol(
+                with: keywordsFromAccessor.intersection(keywordsFromVariable)
+            )
+            return [protocolVariable]
+        } else if isComputedProperty {
+            // computed property
+            return [binding.convertForProtocol(with: .get)]
+        } else {
+            // stored property
+            return makeInterfacesFromBindings()
+        }
+    }
+    
     func makeInterfacesFromBindings() -> [VariableDeclSyntax] {
         makeTypeAnnotatedBindings()
             .map {
@@ -464,5 +464,23 @@ extension VariableDeclSyntax {
         let binding = bindings.first!
         
         return binding.accessor?.is(CodeBlockSyntax.self) == true
+    }
+}
+
+extension AccessorBlockSyntax {
+    var hasGetter: Bool {
+        accessors.contains {
+            $0.accessorKind.text == "get"
+        }
+    }
+    
+    var contextualKeywords: PatternBindingSyntax.ContextualKeyword {
+        accessors.reduce(into: PatternBindingSyntax.ContextualKeyword()) { (result, accessor) in
+            if accessor.accessorKind.text == "get" {
+                result.insert(.get)
+            } else if accessor.accessorKind.text == "set" {
+                result.insert(.set)
+            }
+        }
     }
 }
