@@ -67,7 +67,7 @@ extension VariableDeclSyntax {
                 if value.is(StringLiteralExprSyntax.self) {
                     typeString = "String"
                 } else if value.is(FloatLiteralExprSyntax.self) {
-                    typeString = "Float"
+                    typeString = "Double"
                 } else if value.is(IntegerLiteralExprSyntax.self) {
                     typeString = "Int"
                 } else if value.is(BooleanLiteralExprSyntax.self) {
@@ -79,7 +79,11 @@ extension VariableDeclSyntax {
                 bindingWithTypeAnnotation = binding.withTypeAnnotation(
                     SyntaxFactory.makeTypeAnnotation(
                     colon: SyntaxFactory.makeColonToken(),
-                    type: SyntaxFactory.makeTypeIdentifier(typeString, leadingTrivia: .spaces(1), trailingTrivia: .newlines(1)))
+                    type: SyntaxFactory.makeTypeIdentifier(
+                        typeString,
+                        leadingTrivia: .spaces(1),
+                        trailingTrivia: .spaces(1))
+                    )
                 )
             case .none:
                 bindingWithTypeAnnotation = binding

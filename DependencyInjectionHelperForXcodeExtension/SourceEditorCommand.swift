@@ -31,9 +31,13 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                 
                 let extracter = ProtocolExtractor()
                 extracter.walk(sourceFile)
-                extracter.protocolDeclSyntaxList.forEach {
-                    print($0.description)
+                let generatedLines: [String] = extracter.protocolDeclSyntaxList.map {
+                    let leadingTrivia = $0.leadingTrivia?.appending(.newlines(1)) ?? .newlines(1)
+                    let newlineAppdingProtocolDecl = $0.withLeadingTrivia(leadingTrivia)
+                    return newlineAppdingProtocolDecl.description
                 }
+                
+                buffer.lines.addObjects(from: generatedLines)
             }
         } catch let e {
             print(e)
