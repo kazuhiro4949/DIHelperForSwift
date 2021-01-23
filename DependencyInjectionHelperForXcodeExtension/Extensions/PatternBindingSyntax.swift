@@ -51,7 +51,8 @@ extension PatternBindingSyntax {
         
         let patternBinding = SyntaxFactory.makePatternBinding(
             pattern: pattern,
-            typeAnnotation: typeAnnotation,
+            typeAnnotation: typeAnnotation?
+                .withTrailingTrivia(.spaces(1)),
             initializer: nil,
             accessor: Syntax(accessorBlock),
             trailingComma: nil)
