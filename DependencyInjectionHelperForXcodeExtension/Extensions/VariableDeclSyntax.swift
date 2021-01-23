@@ -46,11 +46,45 @@ extension VariableDeclSyntax {
     }
     
     func makeTypeAnnotatedBindings() -> [PatternBindingSyntax] {
-        typealias ReducedResult = (syntaxList: [PatternBindingSyntax], curreontTypeAnno: TypeAnnotationSyntax?)
+        typealias ReducedResult = (syntaxList: [PatternBindingSyntax], currentValue: Either<TypeAnnotationSyntax, ExprSyntax>?)
         return bindings.reversed().reduce(ReducedResult([], nil)) { (result, binding) in
-            let typeAnnotation = binding.typeAnnotation ?? result.curreontTypeAnno
-            let bindingWithTypeAnnotation = binding.withTypeAnnotation(typeAnnotation)
-            return (result.syntaxList + [bindingWithTypeAnnotation], typeAnnotation)
+            let either: Either<TypeAnnotationSyntax, ExprSyntax>?
+            if let typeAnnotation = binding.typeAnnotation {
+                either = Either(typeAnnotation)
+            } else if let initializer = binding.initializer {
+                either = Either(initializer.value)
+            } else {
+                either = result.currentValue
+            }
+            
+            let bindingWithTypeAnnotation: PatternBindingSyntax
+            switch either {
+            case .first(let typeAnnotation):
+                bindingWithTypeAnnotation = binding.withTypeAnnotation(typeAnnotation)
+            case .second(let value):
+                
+                let typeString: String
+                if value.is(StringLiteralExprSyntax.self) {
+                    typeString = "String"
+                } else if value.is(FloatLiteralExprSyntax.self) {
+                    typeString = "Float"
+                } else if value.is(IntegerLiteralExprSyntax.self) {
+                    typeString = "Int"
+                } else if value.is(BooleanLiteralExprSyntax.self) {
+                    typeString = "Bool"
+                } else {
+                    typeString = "<#T##Any#>"
+                }
+                
+                bindingWithTypeAnnotation = binding.withTypeAnnotation(
+                    SyntaxFactory.makeTypeAnnotation(
+                    colon: SyntaxFactory.makeColonToken(),
+                    type: SyntaxFactory.makeTypeIdentifier(typeString, leadingTrivia: .spaces(1), trailingTrivia: .newlines(1)))
+                )
+            case .none:
+                bindingWithTypeAnnotation = binding
+            }
+            return (result.syntaxList + [bindingWithTypeAnnotation], either)
         }
         .syntaxList
     }
@@ -104,3 +138,14 @@ extension VariableDeclSyntax {
 }
 
 
+enum Either<First, Second> {
+    case first(First), second(Second)
+    
+    init(_ first: First) {
+        self = .first(first)
+    }
+    
+    init(_ second: Second) {
+        self = .second(second)
+    }
+}
