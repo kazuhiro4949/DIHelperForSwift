@@ -203,11 +203,31 @@ class ProtocolExtractor: SyntaxVisitor {
         
         let initInterfaces = initDecls.map(\.interface).map(\.toMemberDeclListItem)
         let funcInterfaces = funcDelcs.map(\.interface).map(\.toMemberDeclListItem)
-        let membersInterfaces = varInterfaces + initInterfaces + funcInterfaces
         
+        var memberInterfaces = [MemberDeclListItemSyntax]()
+        if !Settings.shared.protocolSettings.getIgnorance(ignorance: .function) {
+            memberInterfaces.append(contentsOf: funcInterfaces)
+        }
+        if !Settings.shared.protocolSettings.getIgnorance(ignorance: .storedProperty) {
+            //TODO:-
+        }
+        if !Settings.shared.protocolSettings.getIgnorance(ignorance: .computedGetterSetterProperty) {
+            memberInterfaces.append(contentsOf: varInterfaces)
+        }
+        if !Settings.shared.protocolSettings.getIgnorance(ignorance: .initializer) {
+            memberInterfaces.append(contentsOf: initInterfaces)
+        }
+        
+        let format = Settings.shared.protocolSettings.nameFormat
+        let formattedString = String(format: format, identifier.text)
         return SyntaxFactory.makeProtocolForDependencyInjection(
-            identifier: identifier.makeStringLiteral(with: "Protocol"),
-            members: SyntaxFactory.makeMemberDeclList(membersInterfaces)
+            identifier: identifier
+                .withKind(
+                    .stringLiteral(
+                        formattedString
+                    )
+                ),
+            members: SyntaxFactory.makeMemberDeclList(memberInterfaces)
         )
     }
     

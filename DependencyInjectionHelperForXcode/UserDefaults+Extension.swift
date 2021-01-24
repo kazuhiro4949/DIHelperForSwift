@@ -10,6 +10,6 @@ import Foundation
 
 extension UserDefaults {
     static var group = UserDefaults(
-        suiteName: "xxxx.kazuhiro.hayashi.DependencyInjectionHelperForXcode"
+        suiteName: "R33Y42SDDR.kazuhiro.hayashi.DependencyInjectionHelperForXcode"
     )!
 }

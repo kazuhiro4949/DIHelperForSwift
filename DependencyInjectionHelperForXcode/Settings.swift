@@ -27,14 +27,12 @@ class Settings {
             }
         }
         
-        var ignorance: Ignorance? {
-            get {
-                let rawValue = UserDefaults.group.integer(forKey: "ignorance")
-                return Ignorance(rawValue: rawValue)
-            }
-            set {
-                UserDefaults.group.set(newValue?.rawValue, forKey: "ignorance")
-            }
+        func setIgnorance(ignorance: Ignorance, value: Bool) {
+            UserDefaults.group.set(value, forKey: "ignorance\(ignorance.rawValue)")
+        }
+        
+        func getIgnorance(ignorance: Ignorance) -> Bool {
+            return UserDefaults.group.bool(forKey: "ignorance\(ignorance.rawValue)")
         }
     }
     

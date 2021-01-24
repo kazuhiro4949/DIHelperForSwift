@@ -13,18 +13,14 @@ class ProtocolViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        nameTextField.stringValue = Settings.shared.protocolSettings.nameFormat
+        
     }
     
     
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
-        let value: String
-        if sender.stringValue.isEmpty {
-            value = "%@Protocol"
-        } else {
-            value = sender.stringValue
-        }
-        
-        UserDefaults.group.set(value, forKey: "ProtocolName")
+        let value = sender.stringValue.isEmpty ? "%@Protocol" : sender.stringValue
+        Settings.shared.protocolSettings.nameFormat = value
     }
     
     
@@ -34,7 +30,10 @@ class ProtocolViewController: NSViewController {
             return
         }
         
-        Settings.shared.protocolSettings.ignorance = ignorance
+        Settings.shared.protocolSettings.setIgnorance(
+            ignorance: ignorance,
+            value: sender.state == .on
+        )
     }
 }
 
@@ -46,9 +45,9 @@ extension NSControl.StateValue {
         case .off:
             return .on
         case .mixed:
-            return .mixed
+            fatalError()
         default:
-            return .mixed
+            fatalError()
         }
     }
 }

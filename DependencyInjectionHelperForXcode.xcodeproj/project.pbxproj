@@ -29,7 +29,6 @@
 		30B8A3DE25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		30B8A3EF25B479D800F643CD /* AccessorBlockSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */; };
 		30B8A3F525B47A9500F643CD /* VariableDeclSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3F425B47A9500F643CD /* VariableDeclSyntax.swift */; };
-		30B8A3F925B47AAA00F643CD /* TokenSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3F825B47AAA00F643CD /* TokenSyntax.swift */; };
 		30B8A3FD25B47AC400F643CD /* InitializerDeclSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3FC25B47AC400F643CD /* InitializerDeclSyntax.swift */; };
 		30B8A40125B47ADD00F643CD /* FunctionDeclSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A40025B47ADD00F643CD /* FunctionDeclSyntax.swift */; };
 		30B8A40525B47B0000F643CD /* HasGenericParameterClause.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A40425B47B0000F643CD /* HasGenericParameterClause.swift */; };
@@ -131,7 +130,6 @@
 		30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = lib_InternalSwiftSyntaxParser.dylib; path = ../../../../Applications/Xcode.app/Contents/Frameworks/lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
 		30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessorBlockSyntax.swift; sourceTree = "<group>"; };
 		30B8A3F425B47A9500F643CD /* VariableDeclSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableDeclSyntax.swift; sourceTree = "<group>"; };
-		30B8A3F825B47AAA00F643CD /* TokenSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSyntax.swift; sourceTree = "<group>"; };
 		30B8A3FC25B47AC400F643CD /* InitializerDeclSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerDeclSyntax.swift; sourceTree = "<group>"; };
 		30B8A40025B47ADD00F643CD /* FunctionDeclSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionDeclSyntax.swift; sourceTree = "<group>"; };
 		30B8A40425B47B0000F643CD /* HasGenericParameterClause.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasGenericParameterClause.swift; sourceTree = "<group>"; };
@@ -272,7 +270,6 @@
 			children = (
 				30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */,
 				30B8A3F425B47A9500F643CD /* VariableDeclSyntax.swift */,
-				30B8A3F825B47AAA00F643CD /* TokenSyntax.swift */,
 				30B8A3FC25B47AC400F643CD /* InitializerDeclSyntax.swift */,
 				30B8A40025B47ADD00F643CD /* FunctionDeclSyntax.swift */,
 				30B8A40F25B47B4200F643CD /* PatternBindingSyntax.swift */,
@@ -521,7 +518,6 @@
 				3063F32A25BD400300B6038C /* UserDefaults+Extension.swift in Sources */,
 				3032243225AAFCEB002BB110 /* SourceEditorCommand.swift in Sources */,
 				30B8A3EF25B479D800F643CD /* AccessorBlockSyntax.swift in Sources */,
-				30B8A3F925B47AAA00F643CD /* TokenSyntax.swift in Sources */,
 				30B8A3FD25B47AC400F643CD /* InitializerDeclSyntax.swift in Sources */,
 				30B8A40125B47ADD00F643CD /* FunctionDeclSyntax.swift in Sources */,
 				30B8A40A25B47B2B00F643CD /* HasGenericParameter.swift in Sources */,
