@@ -17,14 +17,19 @@ class DetailViewController: NSViewController {
     }
     
     func replace(to vc: NSViewController) {
-        childViewController?.removeFromParent()
-        childViewController?.view.removeFromSuperview()
-        
         addChild(vc)
         vc.view.translatesAutoresizingMaskIntoConstraints = true
         vc.view.autoresizingMask = [.width, .height]
         vc.view.frame = view.bounds
-        view.addSubview(vc.view)
+        
+        
+        if let childVc = childViewController {
+            view.animator().replaceSubview(childVc.view, with: vc.view)
+        } else {
+            view.addSubview(vc.view)
+        }
+        
+        childViewController?.removeFromParent()
         childViewController = vc
     }
 }
