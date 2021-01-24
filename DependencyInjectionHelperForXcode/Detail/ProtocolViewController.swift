@@ -8,14 +8,6 @@
 
 import Cocoa
 
-enum Ignorance: Int {
-    case storedProperty
-    case computedGetterSetterProperty
-    case function
-    case initializer
-    case internalMember
-}
-
 class ProtocolViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
     
@@ -37,14 +29,12 @@ class ProtocolViewController: NSViewController {
     
     
     @IBAction func ignoranceButtonDidClick(_ sender: NSButton) {
-        guard let ignorance = Ignorance(rawValue: sender.tag) else {
+        guard let ignorance = Settings.ProtocolSetting.Ignorance(rawValue: sender.tag) else {
             sender.state = sender.state.toggle()
             return
         }
         
-        UserDefaults.group.set(
-            sender.state.rawValue,
-            forKey: "Ignorance_\(ignorance.rawValue)")
+        Settings.shared.protocolSettings.ignorance = ignorance
     }
 }
 

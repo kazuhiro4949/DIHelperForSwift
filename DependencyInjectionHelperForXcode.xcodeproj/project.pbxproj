@@ -22,6 +22,9 @@
 		3032244925AAFD3D002BB110 /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3032242C25AAFCEB002BB110 /* XcodeKit.framework */; };
 		3032244A25AAFD3D002BB110 /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3032242C25AAFCEB002BB110 /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3063F31B25BD1B8300B6038C /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */; };
+		3063F31F25BD3CF700B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
+		3063F32725BD400000B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
+		3063F32A25BD400300B6038C /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */; };
 		30B8A3DD25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; };
 		30B8A3DE25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		30B8A3EF25B479D800F643CD /* AccessorBlockSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */; };
@@ -124,6 +127,7 @@
 		3032243325AAFCEB002BB110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3032243425AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DependencyInjectionHelperForXcodeExtension.entitlements; sourceTree = "<group>"; };
 		3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		3063F31E25BD3CF700B6038C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = lib_InternalSwiftSyntaxParser.dylib; path = ../../../../Applications/Xcode.app/Contents/Frameworks/lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
 		30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessorBlockSyntax.swift; sourceTree = "<group>"; };
 		30B8A3F425B47A9500F643CD /* VariableDeclSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableDeclSyntax.swift; sourceTree = "<group>"; };
@@ -216,6 +220,7 @@
 				303223FE25AAFC42002BB110 /* Info.plist */,
 				303223FF25AAFC42002BB110 /* DependencyInjectionHelperForXcode.entitlements */,
 				3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */,
+				3063F31E25BD3CF700B6038C /* Settings.swift */,
 			);
 			path = DependencyInjectionHelperForXcode;
 			sourceTree = "<group>";
@@ -478,6 +483,7 @@
 				30E035E925BC310A000D49EE /* SplitViewController.swift in Sources */,
 				303223F825AAFC41002BB110 /* ViewController.swift in Sources */,
 				30E035DF25BC303B000D49EE /* ProtocolViewController.swift in Sources */,
+				3063F31F25BD3CF700B6038C /* Settings.swift in Sources */,
 				30B8A42725BC27B500F643CD /* MenuViewController.swift in Sources */,
 				30B8A42B25BC2B8500F643CD /* MenuTableCellView.swift in Sources */,
 				303223F625AAFC41002BB110 /* AppDelegate.swift in Sources */,
@@ -508,9 +514,11 @@
 			files = (
 				30B8A41825B47B7D00F643CD /* ProtocolExtractor.swift in Sources */,
 				30B8A3F525B47A9500F643CD /* VariableDeclSyntax.swift in Sources */,
+				3063F32725BD400000B6038C /* Settings.swift in Sources */,
 				30B8A41425B47B5900F643CD /* SyntaxFactory.swift in Sources */,
 				30B8A40525B47B0000F643CD /* HasGenericParameterClause.swift in Sources */,
 				3032243025AAFCEB002BB110 /* SourceEditorExtension.swift in Sources */,
+				3063F32A25BD400300B6038C /* UserDefaults+Extension.swift in Sources */,
 				3032243225AAFCEB002BB110 /* SourceEditorCommand.swift in Sources */,
 				30B8A3EF25B479D800F643CD /* AccessorBlockSyntax.swift in Sources */,
 				30B8A3F925B47AAA00F643CD /* TokenSyntax.swift in Sources */,
