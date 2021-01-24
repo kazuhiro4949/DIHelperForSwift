@@ -16,6 +16,7 @@ class Settings {
             case function
             case initializer
             case internalMember
+            case override
         }
         
         var nameFormat: String {

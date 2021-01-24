@@ -762,13 +762,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="44" horizontalPageScroll="10" verticalLineScroll="44" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hi5-dg-q2o">
-                                <rect key="frame" x="0.0" y="0.0" width="180" height="305"/>
+                                <rect key="frame" x="0.0" y="0.0" width="180" height="303"/>
                                 <clipView key="contentView" drawsBackground="NO" id="uA8-dW-TzF">
-                                    <rect key="frame" x="1" y="1" width="178" height="303"/>
+                                    <rect key="frame" x="1" y="1" width="178" height="301"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="d5V-si-5h0">
-                                            <rect key="frame" x="0.0" y="0.0" width="178" height="303"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="178" height="301"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="17" height="0.0"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -864,10 +864,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ax3-Vo-QSj">
-                                <rect key="frame" x="20" y="124" width="588" height="282"/>
+                                <rect key="frame" x="20" y="100" width="588" height="306"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fbs-Nb-t3k">
-                                        <rect key="frame" x="-2" y="251" width="97" height="31"/>
+                                        <rect key="frame" x="-2" y="275" width="97" height="31"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Protocol" id="yYy-na-5aG">
                                             <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -875,13 +875,13 @@
                                         </textFieldCell>
                                     </textField>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="MpR-se-Dt0">
-                                        <rect key="frame" x="0.0" y="243" width="163" height="8"/>
+                                        <rect key="frame" x="0.0" y="267" width="163" height="8"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="8" id="ERp-cv-HQq"/>
                                         </constraints>
                                     </customView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BmI-Cu-iJv">
-                                        <rect key="frame" x="-2" y="229" width="283" height="14"/>
+                                        <rect key="frame" x="-2" y="253" width="283" height="14"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="How to extract protocols from class, struct and enum" id="821-JY-48K">
                                             <font key="font" textStyle="subheadline" name=".SFNS-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -889,13 +889,13 @@
                                         </textFieldCell>
                                     </textField>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="xJL-jJ-rz0">
-                                        <rect key="frame" x="0.0" y="197" width="163" height="32"/>
+                                        <rect key="frame" x="0.0" y="221" width="163" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="fv7-SQ-OBc"/>
                                         </constraints>
                                     </customView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ui7-oF-K2a">
-                                        <rect key="frame" x="0.0" y="176" width="308" height="21"/>
+                                        <rect key="frame" x="0.0" y="200" width="308" height="21"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MZ9-uk-Xdg">
                                                 <rect key="frame" x="-2" y="5" width="104" height="16"/>
@@ -933,16 +933,16 @@
                                         </customSpacing>
                                     </stackView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Tw5-0K-8lS">
-                                        <rect key="frame" x="0.0" y="160" width="163" height="16"/>
+                                        <rect key="frame" x="0.0" y="184" width="163" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="GkC-vf-PIc"/>
                                         </constraints>
                                     </customView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UpZ-X8-OxK">
-                                        <rect key="frame" x="0.0" y="48" width="335" height="112"/>
+                                        <rect key="frame" x="0.0" y="48" width="335" height="136"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Fr-t4-BND">
-                                                <rect key="frame" x="-2" y="96" width="104" height="16"/>
+                                                <rect key="frame" x="-2" y="120" width="104" height="16"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="gc6-pu-3XZ"/>
                                                 </constraints>
@@ -953,10 +953,10 @@
                                                 </textFieldCell>
                                             </textField>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f4E-fE-KtJ">
-                                                <rect key="frame" x="108" y="0.0" width="227" height="112"/>
+                                                <rect key="frame" x="108" y="0.0" width="227" height="136"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="weD-oJ-5yM">
-                                                        <rect key="frame" x="-2" y="95" width="123" height="18"/>
+                                                        <rect key="frame" x="-2" y="119" width="123" height="18"/>
                                                         <buttonCell key="cell" type="check" title="Stored Property" bezelStyle="regularSquare" imagePosition="left" inset="2" id="pmc-jt-Ly0">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -966,7 +966,7 @@
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="aIk-lV-5pv">
-                                                        <rect key="frame" x="-2" y="71" width="229" height="18"/>
+                                                        <rect key="frame" x="-2" y="95" width="229" height="18"/>
                                                         <buttonCell key="cell" type="check" title="Computed, getter/setter Property" bezelStyle="regularSquare" imagePosition="left" inset="2" id="tbq-ds-Do7">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -976,7 +976,7 @@
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="o06-wa-XcN">
-                                                        <rect key="frame" x="-2" y="47" width="79" height="18"/>
+                                                        <rect key="frame" x="-2" y="71" width="79" height="18"/>
                                                         <buttonCell key="cell" type="check" title="Function" bezelStyle="regularSquare" imagePosition="left" inset="2" id="oX5-7e-W6h">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -986,7 +986,7 @@
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="298-4g-dwV">
-                                                        <rect key="frame" x="-2" y="23" width="81" height="18"/>
+                                                        <rect key="frame" x="-2" y="47" width="81" height="18"/>
                                                         <buttonCell key="cell" type="check" title="Initializer" bezelStyle="regularSquare" imagePosition="left" inset="2" id="r5C-pe-wwb">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -996,13 +996,23 @@
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="Q6U-6r-otQ">
-                                                        <rect key="frame" x="-2" y="-1" width="132" height="18"/>
+                                                        <rect key="frame" x="-2" y="23" width="132" height="18"/>
                                                         <buttonCell key="cell" type="check" title="Internal Members" bezelStyle="regularSquare" imagePosition="left" inset="2" id="aH3-Ov-lmM">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
                                                             <action selector="ignoranceButtonDidClick:" target="asd-Ik-LFz" id="y4m-Pi-baF"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button verticalHuggingPriority="750" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="hWI-wM-Rcn">
+                                                        <rect key="frame" x="-2" y="-1" width="139" height="18"/>
+                                                        <buttonCell key="cell" type="check" title="Override Members" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hVk-zJ-HwZ">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="ignoranceButtonDidClick:" target="asd-Ik-LFz" id="NVd-Zf-sam"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1012,8 +1022,10 @@
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
+                                                    <integer value="1000"/>
                                                 </visibilityPriorities>
                                                 <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
