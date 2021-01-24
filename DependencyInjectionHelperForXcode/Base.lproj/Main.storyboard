@@ -918,6 +918,9 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <connections>
+                                                    <action selector="textFieldDidChangeValue:" target="asd-Ik-LFz" id="PwP-3h-gDC"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <visibilityPriorities>
@@ -954,38 +957,53 @@
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="weD-oJ-5yM">
                                                         <rect key="frame" x="-2" y="95" width="123" height="18"/>
-                                                        <buttonCell key="cell" type="check" title="Stored Property" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="pmc-jt-Ly0">
+                                                        <buttonCell key="cell" type="check" title="Stored Property" bezelStyle="regularSquare" imagePosition="left" inset="2" id="pmc-jt-Ly0">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="ignoranceButtonDidClick:" target="asd-Ik-LFz" id="2Af-Et-aQe"/>
+                                                        </connections>
                                                     </button>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aIk-lV-5pv">
+                                                    <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="aIk-lV-5pv">
                                                         <rect key="frame" x="-2" y="71" width="229" height="18"/>
-                                                        <buttonCell key="cell" type="check" title="Computed, getter/setter Property" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="tbq-ds-Do7">
+                                                        <buttonCell key="cell" type="check" title="Computed, getter/setter Property" bezelStyle="regularSquare" imagePosition="left" inset="2" id="tbq-ds-Do7">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="ignoranceButtonDidClick:" target="asd-Ik-LFz" id="419-Fg-iHs"/>
+                                                        </connections>
                                                     </button>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o06-wa-XcN">
+                                                    <button verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="o06-wa-XcN">
                                                         <rect key="frame" x="-2" y="47" width="79" height="18"/>
-                                                        <buttonCell key="cell" type="check" title="Function" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oX5-7e-W6h">
+                                                        <buttonCell key="cell" type="check" title="Function" bezelStyle="regularSquare" imagePosition="left" inset="2" id="oX5-7e-W6h">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="ignoranceButtonDidClick:" target="asd-Ik-LFz" id="ESX-lV-xKd"/>
+                                                        </connections>
                                                     </button>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="298-4g-dwV">
+                                                    <button verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="298-4g-dwV">
                                                         <rect key="frame" x="-2" y="23" width="81" height="18"/>
-                                                        <buttonCell key="cell" type="check" title="Initializer" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="r5C-pe-wwb">
+                                                        <buttonCell key="cell" type="check" title="Initializer" bezelStyle="regularSquare" imagePosition="left" inset="2" id="r5C-pe-wwb">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="ignoranceButtonDidClick:" target="asd-Ik-LFz" id="5W9-J2-aEG"/>
+                                                        </connections>
                                                     </button>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q6U-6r-otQ">
+                                                    <button verticalHuggingPriority="750" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="Q6U-6r-otQ">
                                                         <rect key="frame" x="-2" y="-1" width="132" height="18"/>
-                                                        <buttonCell key="cell" type="check" title="Internal Members" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aH3-Ov-lmM">
+                                                        <buttonCell key="cell" type="check" title="Internal Members" bezelStyle="regularSquare" imagePosition="left" inset="2" id="aH3-Ov-lmM">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="ignoranceButtonDidClick:" target="asd-Ik-LFz" id="y4m-Pi-baF"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <visibilityPriorities>
@@ -1080,6 +1098,9 @@
                             <constraint firstItem="ax3-Vo-QSj" firstAttribute="leading" secondItem="8CL-z3-ktl" secondAttribute="leading" constant="20" symbolic="YES" id="uJj-1o-0Yv"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="nameTextField" destination="nqM-ta-ude" id="cfm-uA-g5y"/>
+                    </connections>
                 </viewController>
                 <customObject id="gup-JJ-4ms" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

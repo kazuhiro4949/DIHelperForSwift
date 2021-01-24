@@ -21,6 +21,7 @@
 		3032244825AAFD3A002BB110 /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 3032244725AAFD3A002BB110 /* SwiftSyntax */; };
 		3032244925AAFD3D002BB110 /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3032242C25AAFCEB002BB110 /* XcodeKit.framework */; };
 		3032244A25AAFD3D002BB110 /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3032242C25AAFCEB002BB110 /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3063F31B25BD1B8300B6038C /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */; };
 		30B8A3DD25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; };
 		30B8A3DE25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		30B8A3EF25B479D800F643CD /* AccessorBlockSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */; };
@@ -122,6 +123,7 @@
 		3032243125AAFCEB002BB110 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
 		3032243325AAFCEB002BB110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3032243425AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DependencyInjectionHelperForXcodeExtension.entitlements; sourceTree = "<group>"; };
+		3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = lib_InternalSwiftSyntaxParser.dylib; path = ../../../../Applications/Xcode.app/Contents/Frameworks/lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
 		30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessorBlockSyntax.swift; sourceTree = "<group>"; };
 		30B8A3F425B47A9500F643CD /* VariableDeclSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableDeclSyntax.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				303223FB25AAFC42002BB110 /* Main.storyboard */,
 				303223FE25AAFC42002BB110 /* Info.plist */,
 				303223FF25AAFC42002BB110 /* DependencyInjectionHelperForXcode.entitlements */,
+				3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */,
 			);
 			path = DependencyInjectionHelperForXcode;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				30B8A42725BC27B500F643CD /* MenuViewController.swift in Sources */,
 				30B8A42B25BC2B8500F643CD /* MenuTableCellView.swift in Sources */,
 				303223F625AAFC41002BB110 /* AppDelegate.swift in Sources */,
+				3063F31B25BD1B8300B6038C /* UserDefaults+Extension.swift in Sources */,
 				30E035ED25BC31A4000D49EE /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
