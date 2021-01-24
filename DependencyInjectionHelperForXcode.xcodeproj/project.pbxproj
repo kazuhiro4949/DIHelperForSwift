@@ -33,6 +33,12 @@
 		30B8A41025B47B4200F643CD /* PatternBindingSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A40F25B47B4200F643CD /* PatternBindingSyntax.swift */; };
 		30B8A41425B47B5900F643CD /* SyntaxFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A41325B47B5900F643CD /* SyntaxFactory.swift */; };
 		30B8A41825B47B7D00F643CD /* ProtocolExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A41725B47B7D00F643CD /* ProtocolExtractor.swift */; };
+		30B8A42725BC27B500F643CD /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A42625BC27B500F643CD /* MenuViewController.swift */; };
+		30B8A42B25BC2B8500F643CD /* MenuTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A42A25BC2B8500F643CD /* MenuTableCellView.swift */; };
+		30E035DF25BC303B000D49EE /* ProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E035DE25BC303B000D49EE /* ProtocolViewController.swift */; };
+		30E035E525BC3059000D49EE /* MockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E035E425BC3059000D49EE /* MockViewController.swift */; };
+		30E035E925BC310A000D49EE /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E035E825BC310A000D49EE /* SplitViewController.swift */; };
+		30E035ED25BC31A4000D49EE /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E035EC25BC31A4000D49EE /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +133,12 @@
 		30B8A40F25B47B4200F643CD /* PatternBindingSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternBindingSyntax.swift; sourceTree = "<group>"; };
 		30B8A41325B47B5900F643CD /* SyntaxFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxFactory.swift; sourceTree = "<group>"; };
 		30B8A41725B47B7D00F643CD /* ProtocolExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolExtractor.swift; sourceTree = "<group>"; };
+		30B8A42625BC27B500F643CD /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		30B8A42A25BC2B8500F643CD /* MenuTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableCellView.swift; sourceTree = "<group>"; };
+		30E035DE25BC303B000D49EE /* ProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolViewController.swift; sourceTree = "<group>"; };
+		30E035E425BC3059000D49EE /* MockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockViewController.swift; sourceTree = "<group>"; };
+		30E035E825BC310A000D49EE /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		30E035EC25BC31A4000D49EE /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,8 +204,11 @@
 		303223F425AAFC41002BB110 /* DependencyInjectionHelperForXcode */ = {
 			isa = PBXGroup;
 			children = (
+				30E035E325BC3049000D49EE /* Detail */,
+				30B8A41F25BC278600F643CD /* Menu */,
 				303223F525AAFC41002BB110 /* AppDelegate.swift */,
 				303223F725AAFC41002BB110 /* ViewController.swift */,
+				30E035E825BC310A000D49EE /* SplitViewController.swift */,
 				303223F925AAFC42002BB110 /* Assets.xcassets */,
 				303223FB25AAFC42002BB110 /* Main.storyboard */,
 				303223FE25AAFC42002BB110 /* Info.plist */,
@@ -265,6 +280,25 @@
 				30B8A40925B47B2B00F643CD /* HasGenericParameter.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		30B8A41F25BC278600F643CD /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				30B8A42625BC27B500F643CD /* MenuViewController.swift */,
+				30B8A42A25BC2B8500F643CD /* MenuTableCellView.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		30E035E325BC3049000D49EE /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				30E035DE25BC303B000D49EE /* ProtocolViewController.swift */,
+				30E035E425BC3059000D49EE /* MockViewController.swift */,
+				30E035EC25BC31A4000D49EE /* DetailViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -437,8 +471,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30E035E525BC3059000D49EE /* MockViewController.swift in Sources */,
+				30E035E925BC310A000D49EE /* SplitViewController.swift in Sources */,
 				303223F825AAFC41002BB110 /* ViewController.swift in Sources */,
+				30E035DF25BC303B000D49EE /* ProtocolViewController.swift in Sources */,
+				30B8A42725BC27B500F643CD /* MenuViewController.swift in Sources */,
+				30B8A42B25BC2B8500F643CD /* MenuTableCellView.swift in Sources */,
 				303223F625AAFC41002BB110 /* AppDelegate.swift in Sources */,
+				30E035ED25BC31A4000D49EE /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
