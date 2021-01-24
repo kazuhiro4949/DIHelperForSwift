@@ -20,8 +20,12 @@ class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         menuViewController.delegate = self
+        let vc = storyboard?.instantiateController(
+            withIdentifier: NSStoryboard.SceneIdentifier("ProtocolViewController")
+        ) as! ProtocolViewController
+        detailViewController.replace(to: vc)
+        menuViewController.tableView.selectRowIndexes([0], byExtendingSelection: true)
     }
-    
 }
 
 extension SplitViewController: MenuViewControllerDelegate {

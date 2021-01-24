@@ -837,6 +837,9 @@
                             <constraint firstItem="hi5-dg-q2o" firstAttribute="top" secondItem="sK2-Z5-SX2" secondAttribute="top" id="rmZ-D9-MB5"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="d5V-si-5h0" id="vOd-ZZ-IlP"/>
+                    </connections>
                 </viewController>
                 <customObject id="6qG-m0-T9a" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

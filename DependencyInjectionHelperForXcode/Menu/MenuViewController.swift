@@ -19,6 +19,7 @@ protocol MenuViewControllerDelegate: AnyObject {
 
 class MenuViewController: NSViewController {
     private var dataSource: [Menu] = [.protocol, .mock]
+    @IBOutlet weak var tableView: NSTableView!
     
     weak var delegate: MenuViewControllerDelegate?
     
