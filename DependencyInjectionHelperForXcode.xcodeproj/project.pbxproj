@@ -25,6 +25,8 @@
 		3063F31F25BD3CF700B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
 		3063F32725BD400000B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
 		3063F32A25BD400300B6038C /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */; };
+		309BB2EA25C15FDB0067D991 /* GenerateStubCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BB2E925C15FDB0067D991 /* GenerateStubCommand.swift */; };
+		309BB2F025C160A20067D991 /* MockGenerater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BB2EF25C160A20067D991 /* MockGenerater.swift */; };
 		30B8A3DD25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; };
 		30B8A3DE25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		30B8A3EF25B479D800F643CD /* AccessorBlockSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */; };
@@ -127,6 +129,8 @@
 		3032243425AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DependencyInjectionHelperForXcodeExtension.entitlements; sourceTree = "<group>"; };
 		3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		3063F31E25BD3CF700B6038C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		309BB2E925C15FDB0067D991 /* GenerateStubCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateStubCommand.swift; sourceTree = "<group>"; };
+		309BB2EF25C160A20067D991 /* MockGenerater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGenerater.swift; sourceTree = "<group>"; };
 		30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = lib_InternalSwiftSyntaxParser.dylib; path = ../../../../Applications/Xcode.app/Contents/Frameworks/lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
 		30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessorBlockSyntax.swift; sourceTree = "<group>"; };
 		30B8A3F425B47A9500F643CD /* VariableDeclSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableDeclSyntax.swift; sourceTree = "<group>"; };
@@ -258,9 +262,11 @@
 				30B8A3ED25B479BD00F643CD /* Extensions */,
 				3032242F25AAFCEB002BB110 /* SourceEditorExtension.swift */,
 				3032243125AAFCEB002BB110 /* SourceEditorCommand.swift */,
+				309BB2E925C15FDB0067D991 /* GenerateStubCommand.swift */,
 				30B8A41725B47B7D00F643CD /* ProtocolExtractor.swift */,
 				3032243325AAFCEB002BB110 /* Info.plist */,
 				3032243425AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.entitlements */,
+				309BB2EF25C160A20067D991 /* MockGenerater.swift */,
 			);
 			path = DependencyInjectionHelperForXcodeExtension;
 			sourceTree = "<group>";
@@ -513,11 +519,13 @@
 				30B8A3F525B47A9500F643CD /* VariableDeclSyntax.swift in Sources */,
 				3063F32725BD400000B6038C /* Settings.swift in Sources */,
 				30B8A41425B47B5900F643CD /* SyntaxFactory.swift in Sources */,
+				309BB2EA25C15FDB0067D991 /* GenerateStubCommand.swift in Sources */,
 				30B8A40525B47B0000F643CD /* HasGenericParameterClause.swift in Sources */,
 				3032243025AAFCEB002BB110 /* SourceEditorExtension.swift in Sources */,
 				3063F32A25BD400300B6038C /* UserDefaults+Extension.swift in Sources */,
 				3032243225AAFCEB002BB110 /* SourceEditorCommand.swift in Sources */,
 				30B8A3EF25B479D800F643CD /* AccessorBlockSyntax.swift in Sources */,
+				309BB2F025C160A20067D991 /* MockGenerater.swift in Sources */,
 				30B8A3FD25B47AC400F643CD /* InitializerDeclSyntax.swift in Sources */,
 				30B8A40125B47ADD00F643CD /* FunctionDeclSyntax.swift in Sources */,
 				30B8A40A25B47B2B00F643CD /* HasGenericParameter.swift in Sources */,

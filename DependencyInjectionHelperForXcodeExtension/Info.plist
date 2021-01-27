@@ -36,6 +36,14 @@
 					<key>XCSourceEditorCommandName</key>
 					<string>Source Editor Command</string>
 				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).GenerateStubCommand</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateStubCommand</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate Stub</string>
+				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>
 			<string>$(PRODUCT_MODULE_NAME).SourceEditorExtension</string>
