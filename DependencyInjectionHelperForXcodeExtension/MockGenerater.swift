@@ -76,6 +76,16 @@ class MockGenerater: SyntaxVisitor {
                     memberDeclListItems.append(argsVarDeclItem)
                 }
                 
+                // val properties
+                let returnVal = makeReturnValIfNeeded(
+                    funcDecl: funcDeclSyntax,
+                    indentationCount: indentationValue
+                )
+                if let (returnVarDeclItem, returnCodeBlockItem) = returnVal {
+                    codeBlockItems.append(returnCodeBlockItem)
+                    memberDeclListItems.append(returnVarDeclItem)
+                }
+                
                 // block
                 let block = SyntaxFactory.makeCodeBlock(
                     leftBrace: SyntaxFactory.makeLeftBraceToken(
@@ -149,6 +159,89 @@ class MockGenerater: SyntaxVisitor {
         )
         print(mockClassDecl.description)
         return .skipChildren
+    }
+    
+    private func makeReturnValIfNeeded(funcDecl: FunctionDeclSyntax, indentationCount: Int) -> (
+        MemberDeclListItemSyntax,
+        CodeBlockItemSyntax
+    )? {
+        let _output = funcDecl.signature.output
+        guard let output = _output else {
+            return nil
+        }
+        
+        let identifier = "\(funcDecl.identifier.text)_val"
+        
+        let varDecl = SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: SyntaxFactory
+                .makeVarKeyword(
+                    leadingTrivia: .spaces(indentationCount),
+                    trailingTrivia: .spaces(1)
+                ),
+            bindings: SyntaxFactory
+                .makePatternBindingList([
+                    SyntaxFactory.makePatternBinding(
+                        pattern: PatternSyntax(SyntaxFactory
+                            .makeIdentifierPattern(
+                                identifier: SyntaxFactory.makeIdentifier(
+                                    identifier
+                                )
+                            )
+                        ),
+                        typeAnnotation: SyntaxFactory
+                            .makeTypeAnnotation(
+                                colon: SyntaxFactory.makeColonToken(),
+                                type: TypeSyntax(
+                                    SyntaxFactory
+                                        .makeImplicitlyUnwrappedOptionalType(
+                                            wrappedType: output.returnType,
+                                            exclamationMark: SyntaxFactory.makeExclamationMarkToken()
+                                        )
+                                ).withLeadingTrivia(.spaces(1))
+                            ),
+                        initializer: nil,
+                        accessor: nil,
+                        trailingComma: nil
+                    )
+                ])
+        )
+        
+        let varDeclItem = SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(varDecl)
+                .withTrailingTrivia(.newlines(1)),
+            semicolon: nil
+        )
+        
+
+        let codeBlockItem = SyntaxFactory.makeCodeBlockItem(
+            item: Syntax(SyntaxFactory.makeSequenceExpr(
+                elements: SyntaxFactory
+                    .makeExprList([
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory
+                                            .makeReturnKeyword(),
+                                        declNameArguments: nil
+                                    )
+                                    .withLeadingTrivia(.spaces(indentationCount * 2))
+                        ),
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory
+                                            .makeIdentifier(identifier),
+                                        declNameArguments: nil
+                                    )
+                                    .withLeadingTrivia(.spaces(1))
+                                    .withTrailingTrivia(.newlines(1))
+                        )
+                    ])
+            )),
+            semicolon: nil,
+            errorTokens: nil)
+        
+        return (varDeclItem, codeBlockItem)
     }
     
     private func makeArgsValIfNeeded(funcDecl: FunctionDeclSyntax, indentationCount: Int) -> (
