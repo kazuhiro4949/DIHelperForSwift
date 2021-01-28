@@ -44,84 +44,37 @@ class MockGenerater: SyntaxVisitor {
         let identifier = SyntaxFactory
             .makeToken(.identifier(title), presence: .present)
         
+        let indentationValue = 4
+        
         let decls = node.members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
             if let funcDeclSyntax = item.decl.as(FunctionDeclSyntax.self) {
-                let indentationValue = 4
                 let indentationTrivia = Trivia(pieces: [.spaces(indentationValue)])
+                var codeBlockItems = [CodeBlockItemSyntax]()
+                var memberDeclListItems = [MemberDeclListItemSyntax]()
                 
                 // call properties
-                let callIdentifier = "\(funcDeclSyntax.identifier.text)_wasCalled"
-                
-                let callVarDecl = SyntaxFactory.makeVariableDecl(
-                    attributes: nil,
-                    modifiers: nil,
-                    letOrVarKeyword: SyntaxFactory.makeVarKeyword(
-                        leadingTrivia: indentationTrivia,
-                        trailingTrivia: .spaces(1)),
-                    bindings: SyntaxFactory
-                        .makePatternBindingList([
-                            SyntaxFactory.makePatternBinding(
-                                pattern: PatternSyntax(SyntaxFactory
-                                    .makeIdentifierPattern(
-                                        identifier: SyntaxFactory.makeIdentifier(
-                                            callIdentifier
-                                        )
-                                    )
-                                ),
-                                typeAnnotation: nil,
-                                initializer: SyntaxFactory.makeInitializerClause(
-                                    equal: SyntaxFactory.makeEqualToken(
-                                        leadingTrivia: .spaces(1),
-                                        trailingTrivia: .spaces(1)
-                                    ),
-                                    value: ExprSyntax(SyntaxFactory
-                                        .makeBooleanLiteralExpr(
-                                            booleanLiteral: SyntaxFactory
-                                                .makeFalseKeyword()
-                                        ))
-                                ),
-                                accessor: nil,
-                                trailingComma: nil
-                            )
-                        ]))
-                
-                let callVarDeclItem = SyntaxFactory.makeMemberDeclListItem(
-                    decl: DeclSyntax(callVarDecl)
-                        .withTrailingTrivia(.newlines(1)),
-                    semicolon: nil
+                let (callVarDeclItem, callCodeBlockItem) = makeCallVal(
+                    funcDecl: funcDeclSyntax,
+                    indentationCount: indentationValue
                 )
-                
-
-                let callCodeBlockItem = SyntaxFactory.makeCodeBlockItem(
-                    item: Syntax(SyntaxFactory.makeSequenceExpr(
-                        elements: SyntaxFactory
-                            .makeExprList([
-                                ExprSyntax(SyntaxFactory
-                                            .makeIdentifierExpr(
-                                                identifier: SyntaxFactory
-                                                    .makeIdentifier(callIdentifier),
-                                                declNameArguments: nil
-                                            )
-                                            .withLeadingTrivia(Trivia(pieces: [.spaces(indentationValue * 2)]))
-                                            .withTrailingTrivia(.spaces(1))
-                                ),
-                                ExprSyntax(SyntaxFactory
-                                            .makeIdentifierExpr(
-                                                identifier: SyntaxFactory.makeEqualToken(),
-                                                declNameArguments: nil
-                                            )
-                                            .withTrailingTrivia(.spaces(1))
-                                ),
-                                ExprSyntax(SyntaxFactory
-                                            .makeIdentifierExpr(
-                                                identifier: SyntaxFactory.makeTrueKeyword(),
-                                                declNameArguments: nil
-                                            )
-                                            .withTrailingTrivia(.newlines(1))
-                                )
-                            ]))),
-                    semicolon: nil,
-                    errorTokens: nil)
+                codeBlockItems.append(callCodeBlockItem)
+                memberDeclListItems.append(callVarDeclItem)
+                // call properties
+                let (countVarDeclItem, countCodeBlockItem) = makeCountVal(
+                    funcDecl: funcDeclSyntax,
+                    indentationCount: indentationValue
+                )
+                codeBlockItems.append(countCodeBlockItem)
+                memberDeclListItems.append(countVarDeclItem)
+                // arg properties
+                let argsVal = makeArgsValIfNeeded(
+                    funcDecl: funcDeclSyntax,
+                    indentationCount: indentationValue
+                )
+                if let (argsVarDeclItem, argsCodeBlockItem) = argsVal {
+                    codeBlockItems.append(argsCodeBlockItem)
+                    memberDeclListItems.append(argsVarDeclItem)
+                }
                 
                 // block
                 let block = SyntaxFactory.makeCodeBlock(
@@ -130,11 +83,7 @@ class MockGenerater: SyntaxVisitor {
                         trailingTrivia: [.spaces(1), .newlines(1)]
                     ),
                     statements: SyntaxFactory
-                        .makeCodeBlockItemList(
-                            [
-                                callCodeBlockItem
-                            ]
-                        ),
+                        .makeCodeBlockItemList(codeBlockItems),
                     rightBrace: SyntaxFactory.makeRightBraceToken(
                         leadingTrivia: indentationTrivia,
                         trailingTrivia: .newlines(1)
@@ -153,8 +102,8 @@ class MockGenerater: SyntaxVisitor {
                         decl: funcSyntax,
                         semicolon: nil
                     )
-                
-                return [callVarDeclItem, funcSyntaxItem]
+                memberDeclListItems.append(funcSyntaxItem)
+                return memberDeclListItems
             } else {
                 return nil
             }
@@ -186,17 +135,321 @@ class MockGenerater: SyntaxVisitor {
             members: SyntaxFactory.makeMemberDeclBlock(
                 leftBrace: SyntaxFactory
                     .makeLeftBraceToken()
+                    .withLeadingTrivia(.zero)
                     .withTrailingTrivia(.newlines(1)),
                 members: SyntaxFactory
                     .makeMemberDeclList(decls.flatMap { $0 })
+                    .withLeadingTrivia(.spaces(indentationValue))
                     .withTrailingTrivia(.newlines(1)),
                 rightBrace: SyntaxFactory
                     .makeRightBraceToken()
+                    .withLeadingTrivia(.zero)
                     .withTrailingTrivia(.newlines(1))
             )
         )
         print(mockClassDecl.description)
         return .skipChildren
+    }
+    
+    private func makeArgsValIfNeeded(funcDecl: FunctionDeclSyntax, indentationCount: Int) -> (
+        MemberDeclListItemSyntax,
+        CodeBlockItemSyntax
+    )? {
+        let paramters = funcDecl.signature.input.parameterList
+        guard !paramters.isEmpty else {
+            return nil
+        }
+        
+        let identifier = "\(funcDecl.identifier.text)_args"
+        
+        let tupleElements = paramters
+            .compactMap { paramter -> TupleTypeElementSyntax? in
+                let tokenSyntax: TokenSyntax
+                if let secondName = paramter.secondName {
+                    tokenSyntax = secondName
+                } else if let firstName = paramter.firstName {
+                    tokenSyntax = firstName
+                } else {
+                    tokenSyntax = SyntaxFactory.makeIdentifier("")
+                }
+                
+                let type: TypeSyntax = paramter.type ?? SyntaxFactory.makeTypeIdentifier("")
+                
+                
+                return SyntaxFactory.makeTupleTypeElement(
+                    name: tokenSyntax,
+                    colon: paramter.colon,
+                    type: type,
+                    trailingComma: paramter.trailingComma)
+        }
+        
+        let bindingTupleElements = paramters
+            .compactMap { paramter -> TupleExprElementSyntax? in
+                let tokenSyntax: TokenSyntax
+                if let secondName = paramter.secondName {
+                    tokenSyntax = secondName
+                } else if let firstName = paramter.firstName {
+                    tokenSyntax = firstName
+                } else {
+                    tokenSyntax = SyntaxFactory.makeIdentifier("")
+                }
+                
+                return SyntaxFactory.makeTupleExprElement(
+                    label: nil,
+                    colon: nil,
+                    expression: ExprSyntax(
+                        SyntaxFactory
+                            .makeVariableExpr(tokenSyntax.text)
+                    ),
+                    trailingComma: paramter.trailingComma)
+        }
+        
+        let varDecl = SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: SyntaxFactory
+                .makeVarKeyword(
+                    leadingTrivia: .spaces(indentationCount),
+                    trailingTrivia: .spaces(1)
+                ),
+            bindings: SyntaxFactory
+                .makePatternBindingList([
+                    SyntaxFactory.makePatternBinding(
+                        pattern: PatternSyntax(SyntaxFactory
+                            .makeIdentifierPattern(
+                                identifier: SyntaxFactory.makeIdentifier(
+                                    identifier
+                                )
+                            )
+                        ),
+                        typeAnnotation: SyntaxFactory
+                            .makeTypeAnnotation(
+                                colon: SyntaxFactory.makeColonToken(),
+                                type: TypeSyntax(SyntaxFactory
+                                    .makeOptionalType(
+                                        wrappedType: TypeSyntax(
+                                            SyntaxFactory
+                                                .makeTupleType(
+                                                    leftParen: SyntaxFactory.makeLeftParenToken(),
+                                                    elements:
+                                                        SyntaxFactory
+                                                            .makeTupleTypeElementList(tupleElements),
+                                                    rightParen: SyntaxFactory.makeRightParenToken())
+                                        ),
+                                        questionMark: SyntaxFactory.makePostfixQuestionMarkToken()
+                                    )
+                                )
+                            ),
+                        initializer: nil,
+                        accessor: nil,
+                        trailingComma: nil
+                    )
+                ])
+        )
+        
+        let varDeclItem = SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(varDecl)
+                .withTrailingTrivia(.newlines(1)),
+            semicolon: nil
+        )
+        
+
+        let codeBlockItem = SyntaxFactory.makeCodeBlockItem(
+            item: Syntax(SyntaxFactory.makeSequenceExpr(
+                elements: SyntaxFactory
+                    .makeExprList([
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory
+                                            .makeIdentifier(identifier),
+                                        declNameArguments: nil
+                                    )
+                                    .withLeadingTrivia(.spaces(indentationCount * 2))
+                                    .withTrailingTrivia(.spaces(1))
+                        ),
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory.makeIdentifier("="),
+                                        declNameArguments: nil
+                                    )
+                                    .withTrailingTrivia(.spaces(1))
+                        ),
+                        ExprSyntax(SyntaxFactory.makeTupleExpr(
+                                    leftParen: SyntaxFactory.makeLeftParenToken(),
+                                    elementList: SyntaxFactory
+                                        .makeTupleExprElementList(
+                                            bindingTupleElements
+                                        ),
+                                    rightParen: SyntaxFactory.makeRightParenToken())
+                                    .withTrailingTrivia(.newlines(1))
+                        )
+                    ])
+            )),
+            semicolon: nil,
+            errorTokens: nil)
+        
+        return (varDeclItem, codeBlockItem)
+    }
+    
+    private func makeCountVal(funcDecl: FunctionDeclSyntax, indentationCount: Int) -> (
+        MemberDeclListItemSyntax,
+        CodeBlockItemSyntax
+    ) {
+        let identifier = "\(funcDecl.identifier.text)_callCount"
+        
+        let varDecl = SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: SyntaxFactory.makeVarKeyword(
+                leadingTrivia: .spaces(indentationCount),
+                trailingTrivia: .spaces(1)),
+            bindings: SyntaxFactory
+                .makePatternBindingList([
+                    SyntaxFactory.makePatternBinding(
+                        pattern: PatternSyntax(SyntaxFactory
+                            .makeIdentifierPattern(
+                                identifier: SyntaxFactory.makeIdentifier(
+                                    identifier
+                                )
+                            )
+                        ),
+                        typeAnnotation: nil,
+                        initializer: SyntaxFactory.makeInitializerClause(
+                            equal: SyntaxFactory.makeEqualToken(
+                                leadingTrivia: .spaces(1),
+                                trailingTrivia: .spaces(1)
+                            ),
+                            value: ExprSyntax(SyntaxFactory
+                                .makeBooleanLiteralExpr(
+                                    booleanLiteral: SyntaxFactory
+                                        .makeIntegerLiteral("0")
+                                ))
+                        ),
+                        accessor: nil,
+                        trailingComma: nil
+                    )
+                ]))
+        
+        let varDeclItem = SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(varDecl)
+                .withTrailingTrivia(.newlines(1)),
+            semicolon: nil
+        )
+        
+
+        let codeBlockItem = SyntaxFactory.makeCodeBlockItem(
+            item: Syntax(SyntaxFactory.makeSequenceExpr(
+                elements: SyntaxFactory
+                    .makeExprList([
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory
+                                            .makeIdentifier(identifier),
+                                        declNameArguments: nil
+                                    )
+                                    .withLeadingTrivia(.spaces(indentationCount * 2))
+                                    .withTrailingTrivia(.spaces(1))
+                        ),
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory.makeIdentifier("+="),
+                                        declNameArguments: nil
+                                    )
+                                    .withTrailingTrivia(.spaces(1))
+                        ),
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory.makeIntegerLiteral("1"),
+                                        declNameArguments: nil
+                                    )
+                                    .withTrailingTrivia(.newlines(1))
+                        )
+                    ])
+            )),
+            semicolon: nil,
+            errorTokens: nil)
+        
+        return (varDeclItem, codeBlockItem)
+    }
+    
+    private func makeCallVal(funcDecl: FunctionDeclSyntax, indentationCount: Int) -> (
+        MemberDeclListItemSyntax,
+        CodeBlockItemSyntax
+    ) {
+        let callIdentifier = "\(funcDecl.identifier.text)_wasCalled"
+        
+        let callVarDecl = SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: SyntaxFactory.makeVarKeyword(
+                leadingTrivia: .spaces(indentationCount),
+                trailingTrivia: .spaces(1)),
+            bindings: SyntaxFactory
+                .makePatternBindingList([
+                    SyntaxFactory.makePatternBinding(
+                        pattern: PatternSyntax(SyntaxFactory
+                            .makeIdentifierPattern(
+                                identifier: SyntaxFactory.makeIdentifier(
+                                    callIdentifier
+                                )
+                            )
+                        ),
+                        typeAnnotation: nil,
+                        initializer: SyntaxFactory.makeInitializerClause(
+                            equal: SyntaxFactory.makeEqualToken(
+                                leadingTrivia: .spaces(1),
+                                trailingTrivia: .spaces(1)
+                            ),
+                            value: ExprSyntax(SyntaxFactory
+                                .makeBooleanLiteralExpr(
+                                    booleanLiteral: SyntaxFactory
+                                        .makeFalseKeyword()
+                                ))
+                        ),
+                        accessor: nil,
+                        trailingComma: nil
+                    )
+                ]))
+        
+        let callVarDeclItem = SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(callVarDecl)
+                .withTrailingTrivia(.newlines(1)),
+            semicolon: nil
+        )
+        
+
+        let callCodeBlockItem = SyntaxFactory.makeCodeBlockItem(
+            item: Syntax(SyntaxFactory.makeSequenceExpr(
+                elements: SyntaxFactory
+                    .makeExprList([
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory
+                                            .makeIdentifier(callIdentifier),
+                                        declNameArguments: nil
+                                    )
+                                    .withLeadingTrivia(.spaces(indentationCount * 2))
+                                    .withTrailingTrivia(.spaces(1))
+                        ),
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory.makeEqualToken(),
+                                        declNameArguments: nil
+                                    )
+                                    .withTrailingTrivia(.spaces(1))
+                        ),
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory.makeTrueKeyword(),
+                                        declNameArguments: nil
+                                    )
+                                    .withTrailingTrivia(.newlines(1))
+                        )
+                    ]))),
+            semicolon: nil,
+            errorTokens: nil)
+        
+        return (callVarDeclItem, callCodeBlockItem)
     }
     
     override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
