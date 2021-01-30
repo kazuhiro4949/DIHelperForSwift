@@ -133,7 +133,10 @@ class MockGenerater: SyntaxVisitor {
                         indentationCount: indentationValue
                     )
                     memberDeclItems.append(wasCalledDecl)
-                    codeBlockItems.append(wasCalledBlockExpr)
+                    codeBlockItems.append(
+                        wasCalledBlockExpr
+                            .withLeadingTrivia(.spaces(indentationValue * 3))
+                    )
                     
                     // count
                     let (countVarDecl, countBlockExpr) = makeCountVal(
@@ -141,8 +144,12 @@ class MockGenerater: SyntaxVisitor {
                         indentationCount: indentationValue
                     )
                     memberDeclItems.append(countVarDecl)
-                    codeBlockItems.append(countBlockExpr)
+                    codeBlockItems.append(
+                        countBlockExpr
+                            .withLeadingTrivia(.spaces(indentationValue * 3))
+                    )
                     
+                    // args
                     if accessor.accessorKind.text == "set", let type = binding.typeAnnotation?.type {
                         let typeSyntax: TypeSyntax
                         if let optionalType = type.as(OptionalTypeSyntax.self) {
@@ -165,9 +172,35 @@ class MockGenerater: SyntaxVisitor {
                             indentationCount: indentationValue
                         )
                         memberDeclItems.append(argsDecl)
-                        codeBlockItems.append(argsBlockExpr)
+                        codeBlockItems.append(
+                            argsBlockExpr
+                                .withLeadingTrivia(.spaces(indentationValue * 3))
+                        )
                     }
                     
+                    // return
+                    if accessor.accessorKind.text == "get", let type = binding.typeAnnotation?.type {
+                        let typeSyntax: TypeSyntax
+                        if let optionalType = type.as(OptionalTypeSyntax.self) {
+                            typeSyntax = optionalType
+                                .wrappedType
+                                .withTrailingTrivia(.zero)
+                        } else {
+                            typeSyntax = type
+                                .withTrailingTrivia(.zero)
+                        }
+                        
+                        let (returnDecl, returnBlockExpr) = makeReturnVal(
+                            identifierBaseText: baseIdentifierText,
+                            typeSyntax: typeSyntax,
+                            indentationCount: indentationValue
+                        )
+                        memberDeclItems.append(returnDecl)
+                        codeBlockItems.append(
+                            returnBlockExpr
+                                .withLeadingTrivia(.spaces(indentationValue * 3))
+                        )
+                    }
                     
                     let accessor = SyntaxFactory.makeAccessorDecl(
                         attributes: accessor.attributes,
@@ -285,8 +318,22 @@ class MockGenerater: SyntaxVisitor {
             return nil
         }
         
-        let identifier = "\(funcDecl.identifier.text)_val"
+        return makeReturnVal(
+            identifierBaseText: funcDecl.identifier.text,
+            typeSyntax: output.returnType,
+            indentationCount: indentationCount
+        )
+    }
+    
+    private func makeReturnVal(
+        identifierBaseText: String,
+        typeSyntax: TypeSyntax,
+        indentationCount: Int) -> (
+        MemberDeclListItemSyntax,
+        CodeBlockItemSyntax
+    ) {
         
+        let identifier = "\(identifierBaseText)_val"
         let varDecl = SyntaxFactory.makeVariableDecl(
             attributes: nil,
             modifiers: nil,
@@ -311,7 +358,7 @@ class MockGenerater: SyntaxVisitor {
                                 type: TypeSyntax(
                                     SyntaxFactory
                                         .makeImplicitlyUnwrappedOptionalType(
-                                            wrappedType: output.returnType,
+                                            wrappedType: typeSyntax,
                                             exclamationMark: SyntaxFactory.makeExclamationMarkToken()
                                         )
                                 ).withLeadingTrivia(.spaces(1))
@@ -368,8 +415,6 @@ class MockGenerater: SyntaxVisitor {
             return nil
         }
         
-        let identifier = "\(funcDecl.identifier.text)_args"
-        
         let tupleElements = paramters
             .compactMap { paramter -> TupleTypeElementSyntax? in
                 let tokenSyntax: TokenSyntax
@@ -413,7 +458,7 @@ class MockGenerater: SyntaxVisitor {
         }
         
         return makeArgsVal(
-            identifierBaseText: identifier,
+            identifierBaseText: funcDecl.identifier.text,
             typeSyntax: TypeSyntax(
                 SyntaxFactory
                     .makeTupleType(
@@ -422,7 +467,7 @@ class MockGenerater: SyntaxVisitor {
                             SyntaxFactory
                                 .makeTupleTypeElementList(tupleElements),
                         rightParen: SyntaxFactory.makeRightParenToken())
-            ),
+            ).withLeadingTrivia(.spaces(1)),
             substitutionExprSyntax: ExprSyntax(SyntaxFactory.makeTupleExpr(
                                                 leftParen: SyntaxFactory.makeLeftParenToken(),
                                                 elementList: SyntaxFactory
