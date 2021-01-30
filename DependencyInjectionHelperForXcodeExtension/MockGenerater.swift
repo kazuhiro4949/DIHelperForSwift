@@ -432,74 +432,109 @@ class MockGenerater: SyntaxVisitor {
         CodeBlockItemSyntax
     )? {
         let paramters = funcDecl.signature.input.parameterList
-        guard !paramters.isEmpty else {
+        if paramters.isEmpty {
             return nil
-        }
-        
-        let tupleElements = paramters
-            .compactMap { paramter -> TupleTypeElementSyntax? in
-                let tokenSyntax: TokenSyntax
-                if let secondName = paramter.secondName {
-                    tokenSyntax = secondName
-                } else if let firstName = paramter.firstName {
-                    tokenSyntax = firstName
-                } else {
-                    tokenSyntax = SyntaxFactory.makeIdentifier("")
-                }
-                
-                let type: TypeSyntax = paramter.type ?? SyntaxFactory.makeTypeIdentifier("")
-                
-                
-                return SyntaxFactory.makeTupleTypeElement(
-                    name: tokenSyntax,
-                    colon: paramter.colon,
-                    type: type,
-                    trailingComma: paramter.trailingComma)
-        }
-        
-        let bindingTupleElements = paramters
-            .compactMap { paramter -> TupleExprElementSyntax? in
-                let tokenSyntax: TokenSyntax
-                if let secondName = paramter.secondName {
-                    tokenSyntax = secondName
-                } else if let firstName = paramter.firstName {
-                    tokenSyntax = firstName
-                } else {
-                    tokenSyntax = SyntaxFactory.makeIdentifier("")
-                }
-                
-                return SyntaxFactory.makeTupleExprElement(
-                    label: nil,
-                    colon: nil,
-                    expression: ExprSyntax(
-                        SyntaxFactory
-                            .makeVariableExpr(tokenSyntax.text)
-                    ),
-                    trailingComma: paramter.trailingComma)
-        }
-        
-        return makeArgsVal(
-            identifierBaseText: identifierBaseText,
-            typeSyntax: TypeSyntax(
-                SyntaxFactory
-                    .makeTupleType(
-                        leftParen: SyntaxFactory.makeLeftParenToken(),
-                        elements:
+        } else if paramters.count == 1,
+                  let parameter = paramters.first,
+                  let type = parameter.type {
+            
+            let tokenSyntax: TokenSyntax
+            if let secondName = parameter.secondName {
+                tokenSyntax = secondName
+            } else if let firstName = parameter.firstName {
+                tokenSyntax = firstName
+            } else {
+                tokenSyntax = SyntaxFactory.makeIdentifier("")
+            }
+            
+            let typeSyntax: TypeSyntax
+            if let optionalType = type.as(OptionalTypeSyntax.self) {
+                typeSyntax = optionalType
+                    .wrappedType
+                    .withTrailingTrivia(.zero)
+            } else {
+                typeSyntax = type
+                    .withTrailingTrivia(.zero)
+            }
+            
+            
+            return makeArgsVal(
+                identifierBaseText: identifierBaseText,
+                typeSyntax: typeSyntax,
+                substitutionExprSyntax: ExprSyntax(
+                    SyntaxFactory
+                        .makeVariableExpr(tokenSyntax.text)
+                        .withTrailingTrivia(.newlines(1))
+                ),
+                indentationCount: indentationCount
+            )
+        } else {
+            let tupleElements = paramters
+                .compactMap { paramter -> TupleTypeElementSyntax? in
+                    let tokenSyntax: TokenSyntax
+                    if let secondName = paramter.secondName {
+                        tokenSyntax = secondName
+                    } else if let firstName = paramter.firstName {
+                        tokenSyntax = firstName
+                    } else {
+                        tokenSyntax = SyntaxFactory.makeIdentifier("")
+                    }
+                    
+                    let type: TypeSyntax = paramter.type ?? SyntaxFactory.makeTypeIdentifier("")
+                    
+                    
+                    return SyntaxFactory.makeTupleTypeElement(
+                        name: tokenSyntax,
+                        colon: paramter.colon,
+                        type: type,
+                        trailingComma: paramter.trailingComma)
+            }
+            
+            let bindingTupleElements = paramters
+                .compactMap { paramter -> TupleExprElementSyntax? in
+                    let tokenSyntax: TokenSyntax
+                    if let secondName = paramter.secondName {
+                        tokenSyntax = secondName
+                    } else if let firstName = paramter.firstName {
+                        tokenSyntax = firstName
+                    } else {
+                        tokenSyntax = SyntaxFactory.makeIdentifier("")
+                    }
+                    
+                    return SyntaxFactory.makeTupleExprElement(
+                        label: nil,
+                        colon: nil,
+                        expression: ExprSyntax(
                             SyntaxFactory
-                                .makeTupleTypeElementList(tupleElements),
-                        rightParen: SyntaxFactory.makeRightParenToken())
-            ).withLeadingTrivia(.spaces(1)),
-            substitutionExprSyntax: ExprSyntax(SyntaxFactory.makeTupleExpr(
-                                                leftParen: SyntaxFactory.makeLeftParenToken(),
-                                                elementList: SyntaxFactory
-                                                    .makeTupleExprElementList(
-                                                        bindingTupleElements
-                                                    ),
-                                                rightParen: SyntaxFactory.makeRightParenToken())
-                                                .withTrailingTrivia(.newlines(1))
-                                    ),
-            indentationCount: indentationCount
-        )
+                                .makeVariableExpr(tokenSyntax.text)
+                        ),
+                        trailingComma: paramter.trailingComma)
+            }
+            
+            return makeArgsVal(
+                identifierBaseText: identifierBaseText,
+                typeSyntax: TypeSyntax(
+                    SyntaxFactory
+                        .makeTupleType(
+                            leftParen: SyntaxFactory.makeLeftParenToken(),
+                            elements:
+                                SyntaxFactory
+                                    .makeTupleTypeElementList(tupleElements),
+                            rightParen: SyntaxFactory.makeRightParenToken())
+                ).withLeadingTrivia(.spaces(1)),
+                substitutionExprSyntax: ExprSyntax(SyntaxFactory.makeTupleExpr(
+                                                    leftParen: SyntaxFactory.makeLeftParenToken(),
+                                                    elementList: SyntaxFactory
+                                                        .makeTupleExprElementList(
+                                                            bindingTupleElements
+                                                        ),
+                                                    rightParen: SyntaxFactory.makeRightParenToken())
+                                                    .withTrailingTrivia(.newlines(1))
+                                        ),
+                indentationCount: indentationCount
+            )
+        }
+
     }
     
     private func makeArgsVal(
