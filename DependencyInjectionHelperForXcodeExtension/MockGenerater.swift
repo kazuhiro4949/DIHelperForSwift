@@ -52,23 +52,59 @@ class MockGenerater: SyntaxVisitor {
             var memberDeclListItems = [MemberDeclListItemSyntax]()
             
             if let funcDeclSyntax = item.decl.as(FunctionDeclSyntax.self) {
+                let paramListText = funcDeclSyntax.signature.input.parameterList.description
+                let trivialsRemovedParamListText = paramListText
+                    .replacingOccurrences(
+                        of: "[_\\n\\s\\t]",
+                        with: "",
+                        options: .regularExpression,
+                        range: paramListText.range(of: paramListText)
+                    )
+                    
+                    
+                let encdedParamListText = trivialsRemovedParamListText.replacingOccurrences(
+                    of: "[\\(\\)]",
+                    with: "$p",
+                    options: .regularExpression,
+                    range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
+                ).replacingOccurrences(
+                    of: "[\\[\\]]",
+                    with: "$b",
+                    options: .regularExpression,
+                    range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
+                )
+                .replacingOccurrences(
+                    of: "[\\.,:]",
+                    with: "_",
+                    options: .regularExpression,
+                    range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
+                )
+                
+                
+                let identifierBaseText: String
+                if encdedParamListText.isEmpty {
+                    identifierBaseText = funcDeclSyntax.identifier.text
+                } else {
+                    identifierBaseText = "\(funcDeclSyntax.identifier.text)_\(encdedParamListText)"
+                }
                 
                 // call properties
                 let (callVarDeclItem, callCodeBlockItem) = makeCallVal(
-                    identifierBaseText: funcDeclSyntax.identifier.text,
+                    identifierBaseText: identifierBaseText,
                     indentationCount: indentationValue
                 )
                 codeBlockItems.append(callCodeBlockItem)
                 memberDeclListItems.append(callVarDeclItem)
                 // count properties
                 let (countVarDeclItem, countCodeBlockItem) = makeCountVal(
-                    identifierBaseText: funcDeclSyntax.identifier.text,
+                    identifierBaseText: identifierBaseText,
                     indentationCount: indentationValue
                 )
                 codeBlockItems.append(countCodeBlockItem)
                 memberDeclListItems.append(countVarDeclItem)
                 // arg properties
                 let argsVal = makeArgsValIfNeeded(
+                    identifierBaseText: identifierBaseText,
                     funcDecl: funcDeclSyntax,
                     indentationCount: indentationValue
                 )
@@ -79,6 +115,7 @@ class MockGenerater: SyntaxVisitor {
                 
                 // val properties
                 let returnVal = makeReturnValIfNeeded(
+                    identifierBaseText: identifierBaseText,
                     funcDecl: funcDeclSyntax,
                     indentationCount: indentationValue
                 )
@@ -309,7 +346,7 @@ class MockGenerater: SyntaxVisitor {
         return .skipChildren
     }
     
-    private func makeReturnValIfNeeded(funcDecl: FunctionDeclSyntax, indentationCount: Int) -> (
+    private func makeReturnValIfNeeded(identifierBaseText: String, funcDecl: FunctionDeclSyntax, indentationCount: Int) -> (
         MemberDeclListItemSyntax,
         CodeBlockItemSyntax
     )? {
@@ -319,7 +356,7 @@ class MockGenerater: SyntaxVisitor {
         }
         
         return makeReturnVal(
-            identifierBaseText: funcDecl.identifier.text,
+            identifierBaseText: identifierBaseText,
             typeSyntax: output.returnType,
             indentationCount: indentationCount
         )
@@ -406,7 +443,10 @@ class MockGenerater: SyntaxVisitor {
         return (varDeclItem, codeBlockItem)
     }
     
-    private func makeArgsValIfNeeded(funcDecl: FunctionDeclSyntax, indentationCount: Int) -> (
+    private func makeArgsValIfNeeded(
+        identifierBaseText: String,
+        funcDecl: FunctionDeclSyntax,
+        indentationCount: Int) -> (
         MemberDeclListItemSyntax,
         CodeBlockItemSyntax
     )? {
@@ -458,7 +498,7 @@ class MockGenerater: SyntaxVisitor {
         }
         
         return makeArgsVal(
-            identifierBaseText: funcDecl.identifier.text,
+            identifierBaseText: identifierBaseText,
             typeSyntax: TypeSyntax(
                 SyntaxFactory
                     .makeTupleType(
