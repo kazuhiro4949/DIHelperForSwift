@@ -47,10 +47,11 @@ class MockGenerater: SyntaxVisitor {
         let indentationValue = 4
         
         let decls = node.members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
+            let indentationTrivia = Trivia(pieces: [.spaces(indentationValue)])
+            var codeBlockItems = [CodeBlockItemSyntax]()
+            var memberDeclListItems = [MemberDeclListItemSyntax]()
+            
             if let funcDeclSyntax = item.decl.as(FunctionDeclSyntax.self) {
-                let indentationTrivia = Trivia(pieces: [.spaces(indentationValue)])
-                var codeBlockItems = [CodeBlockItemSyntax]()
-                var memberDeclListItems = [MemberDeclListItemSyntax]()
                 
                 // call properties
                 let (callVarDeclItem, callCodeBlockItem) = makeCallVal(
@@ -114,6 +115,148 @@ class MockGenerater: SyntaxVisitor {
                     )
                 memberDeclListItems.append(funcSyntaxItem)
                 return memberDeclListItems
+            } else if let variableDecl = item.decl.as(VariableDeclSyntax.self) {
+                // protocol always has the following pattern.
+                let binding = variableDecl.bindings.first!
+                let accessorBlock = binding.accessor!.as(AccessorBlockSyntax.self)
+                
+                let identifier = binding.pattern.as(IdentifierPatternSyntax.self)!.identifier
+                
+                let decls = accessorBlock?.accessors.map({ (accessor) -> (AccessorDeclSyntax, VariableDeclSyntax)in
+                    
+                    let wasCallIdentifier = "\(identifier.text)_\(accessor.accessorKind.text)_wasCalled"
+                    let wasCalledDecl = SyntaxFactory.makeVariableDecl(
+                        attributes: nil,
+                        modifiers: nil,
+                        letOrVarKeyword: SyntaxFactory
+                            .makeVarKeyword()
+                            .withTrailingTrivia(.spaces(1)),
+                        bindings: SyntaxFactory
+                            .makePatternBindingList(
+                                [
+                                    SyntaxFactory.makePatternBinding(
+                                        pattern: PatternSyntax(SyntaxFactory
+                                            .makeIdentifierPattern(
+                                                identifier: SyntaxFactory
+                                                    .makeIdentifier(wasCallIdentifier)
+                                            ))
+                                            .withTrailingTrivia(.spaces(1)),
+                                        typeAnnotation: nil,
+                                        initializer: SyntaxFactory
+                                            .makeInitializerClause(
+                                                equal: SyntaxFactory
+                                                    .makeEqualToken()
+                                                    .withTrailingTrivia(.spaces(1)),
+                                                value: ExprSyntax(
+                                                    SyntaxFactory
+                                                        .makeBooleanLiteralExpr(
+                                                            booleanLiteral: SyntaxFactory
+                                                                .makeFalseKeyword()
+                                                        )
+                                                )
+                                            ),
+                                        accessor: nil,
+                                        trailingComma: nil)
+                                ]
+                            )
+                    )
+                    .withLeadingTrivia(.spaces(indentationValue))
+                    .withTrailingTrivia(.newlines(1))
+                    
+                    let wasCalledExpr = Syntax(SyntaxFactory
+                                                .makeSequenceExpr(
+                                                    elements: SyntaxFactory.makeExprList([
+                                                        ExprSyntax(SyntaxFactory.makeIdentifierExpr(
+                                                            identifier: SyntaxFactory
+                                                                .makeIdentifier(wasCallIdentifier),
+                                                            declNameArguments: nil))
+                                                            .withTrailingTrivia(.spaces(1))
+                                                        ,
+                                                        ExprSyntax(
+                                                            SyntaxFactory
+                                                                .makeAssignmentExpr(
+                                                                    assignToken: SyntaxFactory.makeEqualToken()
+                                                                )
+                                                        )
+                                                        .withTrailingTrivia(.spaces(1)),
+                                                        ExprSyntax(
+                                                            SyntaxFactory
+                                                                .makeBooleanLiteralExpr(
+                                                                    booleanLiteral: SyntaxFactory.makeTrueKeyword())
+                                                        ),
+                                                    ]
+                                                    )
+                                                )
+                    )
+                    .withLeadingTrivia(.spaces(indentationValue * 3))
+                    .withTrailingTrivia(.newlines(1))
+                    
+                    let accessor = SyntaxFactory.makeAccessorDecl(
+                        attributes: accessor.attributes,
+                        modifier: accessor.modifier,
+                        accessorKind: accessor.accessorKind
+                            .withLeadingTrivia([.spaces(indentationValue * 2)]),
+                        parameter: accessor.parameter,
+                        body: SyntaxFactory.makeCodeBlock(
+                            leftBrace: SyntaxFactory
+                                .makeLeftBraceToken()
+                                .withLeadingTrivia(.spaces(1))
+                                .withTrailingTrivia(.newlines(1)),
+                            statements: SyntaxFactory
+                                .makeCodeBlockItemList([
+                                    SyntaxFactory
+                                        .makeCodeBlockItem(
+                                            item: wasCalledExpr,
+                                            semicolon: nil,
+                                            errorTokens: nil
+                                        )
+                                        
+                                ]),
+                            rightBrace: SyntaxFactory
+                                .makeRightBraceToken()
+                                .withLeadingTrivia([.spaces(indentationValue * 2)])
+                                .withTrailingTrivia([.newlines(1)])
+                        ))
+                    
+                    return (accessor, wasCalledDecl)
+                })
+                
+                let patternList = SyntaxFactory.makePatternBindingList([
+                    SyntaxFactory.makePatternBinding(
+                        pattern: binding.pattern,
+                        typeAnnotation: binding.typeAnnotation,
+                        initializer: nil,
+                        accessor: Syntax(
+                            SyntaxFactory
+                                .makeAccessorBlock(
+                                    leftBrace: SyntaxFactory
+                                        .makeLeftBraceToken()
+                                        .withTrailingTrivia(.newlines(1)),
+                                    accessors: SyntaxFactory.makeAccessorList(
+                                        decls?.map { $0.0 } ?? []
+                                    ),
+                                    rightBrace: SyntaxFactory
+                                        .makeRightBraceToken()
+                                        .withLeadingTrivia(.spaces(indentationValue))
+                                        .withTrailingTrivia(.newlines(1))
+                                )
+                        ),
+                        trailingComma: nil)
+                ])
+                
+                let variable = SyntaxFactory.makeVariableDecl(
+                    attributes: nil,
+                    modifiers: nil,
+                    letOrVarKeyword: SyntaxFactory
+                        .makeVarKeyword()
+                        .withLeadingTrivia(.spaces(indentationValue))
+                        .withTrailingTrivia(.spaces(1)),
+                    bindings: patternList)
+                let declListItem = SyntaxFactory.makeMemberDeclListItem(
+                    decl: DeclSyntax(variable),
+                    semicolon: nil
+                )
+                return [declListItem]
             } else {
                 return nil
             }
