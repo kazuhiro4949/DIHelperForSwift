@@ -55,14 +55,14 @@ class MockGenerater: SyntaxVisitor {
                 
                 // call properties
                 let (callVarDeclItem, callCodeBlockItem) = makeCallVal(
-                    funcDecl: funcDeclSyntax,
+                    identifierBaseText: funcDeclSyntax.identifier.text,
                     indentationCount: indentationValue
                 )
                 codeBlockItems.append(callCodeBlockItem)
                 memberDeclListItems.append(callVarDeclItem)
-                // call properties
+                // count properties
                 let (countVarDeclItem, countCodeBlockItem) = makeCountVal(
-                    funcDecl: funcDeclSyntax,
+                    identifierBaseText: funcDeclSyntax.identifier.text,
                     indentationCount: indentationValue
                 )
                 codeBlockItems.append(countCodeBlockItem)
@@ -122,74 +122,21 @@ class MockGenerater: SyntaxVisitor {
                 
                 let identifier = binding.pattern.as(IdentifierPatternSyntax.self)!.identifier
                 
-                let decls = accessorBlock?.accessors.map({ (accessor) -> (AccessorDeclSyntax, VariableDeclSyntax)in
+                let decls = accessorBlock?.accessors.map({ (accessor) -> (AccessorDeclSyntax, [MemberDeclListItemSyntax])in
                     
-                    let wasCallIdentifier = "\(identifier.text)_\(accessor.accessorKind.text)_wasCalled"
-                    let wasCalledDecl = SyntaxFactory.makeVariableDecl(
-                        attributes: nil,
-                        modifiers: nil,
-                        letOrVarKeyword: SyntaxFactory
-                            .makeVarKeyword()
-                            .withTrailingTrivia(.spaces(1)),
-                        bindings: SyntaxFactory
-                            .makePatternBindingList(
-                                [
-                                    SyntaxFactory.makePatternBinding(
-                                        pattern: PatternSyntax(SyntaxFactory
-                                            .makeIdentifierPattern(
-                                                identifier: SyntaxFactory
-                                                    .makeIdentifier(wasCallIdentifier)
-                                            ))
-                                            .withTrailingTrivia(.spaces(1)),
-                                        typeAnnotation: nil,
-                                        initializer: SyntaxFactory
-                                            .makeInitializerClause(
-                                                equal: SyntaxFactory
-                                                    .makeEqualToken()
-                                                    .withTrailingTrivia(.spaces(1)),
-                                                value: ExprSyntax(
-                                                    SyntaxFactory
-                                                        .makeBooleanLiteralExpr(
-                                                            booleanLiteral: SyntaxFactory
-                                                                .makeFalseKeyword()
-                                                        )
-                                                )
-                                            ),
-                                        accessor: nil,
-                                        trailingComma: nil)
-                                ]
-                            )
-                    )
-                    .withLeadingTrivia(.spaces(indentationValue))
-                    .withTrailingTrivia(.newlines(1))
+                    let wasCallIdentifier = "\(identifier.text)_\(accessor.accessorKind.text)"
                     
-                    let wasCalledExpr = Syntax(SyntaxFactory
-                                                .makeSequenceExpr(
-                                                    elements: SyntaxFactory.makeExprList([
-                                                        ExprSyntax(SyntaxFactory.makeIdentifierExpr(
-                                                            identifier: SyntaxFactory
-                                                                .makeIdentifier(wasCallIdentifier),
-                                                            declNameArguments: nil))
-                                                            .withTrailingTrivia(.spaces(1))
-                                                        ,
-                                                        ExprSyntax(
-                                                            SyntaxFactory
-                                                                .makeAssignmentExpr(
-                                                                    assignToken: SyntaxFactory.makeEqualToken()
-                                                                )
-                                                        )
-                                                        .withTrailingTrivia(.spaces(1)),
-                                                        ExprSyntax(
-                                                            SyntaxFactory
-                                                                .makeBooleanLiteralExpr(
-                                                                    booleanLiteral: SyntaxFactory.makeTrueKeyword())
-                                                        ),
-                                                    ]
-                                                    )
-                                                )
+                    // wasCalled
+                    let (wasCalledDecl, wasCalledBlockExpr) = makeCallVal(
+                        identifierBaseText: wasCallIdentifier,
+                        indentationCount: indentationValue
                     )
-                    .withLeadingTrivia(.spaces(indentationValue * 3))
-                    .withTrailingTrivia(.newlines(1))
+                    
+                    // count
+                    let (countVarDecl, countBlockExpr) = makeCountVal(
+                        identifierBaseText: wasCallIdentifier,
+                        indentationCount: indentationValue
+                    )
                     
                     let accessor = SyntaxFactory.makeAccessorDecl(
                         attributes: accessor.attributes,
@@ -204,13 +151,10 @@ class MockGenerater: SyntaxVisitor {
                                 .withTrailingTrivia(.newlines(1)),
                             statements: SyntaxFactory
                                 .makeCodeBlockItemList([
-                                    SyntaxFactory
-                                        .makeCodeBlockItem(
-                                            item: wasCalledExpr,
-                                            semicolon: nil,
-                                            errorTokens: nil
-                                        )
-                                        
+                                    wasCalledBlockExpr
+                                        .withLeadingTrivia(.spaces(indentationValue * 3)),
+                                    countBlockExpr
+                                        .withLeadingTrivia(.spaces(indentationValue * 3))
                                 ]),
                             rightBrace: SyntaxFactory
                                 .makeRightBraceToken()
@@ -218,7 +162,7 @@ class MockGenerater: SyntaxVisitor {
                                 .withTrailingTrivia([.newlines(1)])
                         ))
                     
-                    return (accessor, wasCalledDecl)
+                    return (accessor, [wasCalledDecl, countVarDecl])
                 })
                 
                 let patternList = SyntaxFactory.makePatternBindingList([
@@ -244,10 +188,7 @@ class MockGenerater: SyntaxVisitor {
                         trailingComma: nil)
                 ])
                 
-                let propDeclListItems = decls?.map {
-                    SyntaxFactory.makeMemberDeclListItem(
-                        decl: DeclSyntax($0.1), semicolon: nil)
-                } ?? []
+                let propDeclListItems = decls?.map { $0.1 }.flatMap { $0 } ?? []
                 
                 let variable = SyntaxFactory.makeVariableDecl(
                     attributes: nil,
@@ -532,11 +473,11 @@ class MockGenerater: SyntaxVisitor {
         return (varDeclItem, codeBlockItem)
     }
     
-    private func makeCountVal(funcDecl: FunctionDeclSyntax, indentationCount: Int) -> (
+    private func makeCountVal(identifierBaseText: String, indentationCount: Int) -> (
         MemberDeclListItemSyntax,
         CodeBlockItemSyntax
     ) {
-        let identifier = "\(funcDecl.identifier.text)_callCount"
+        let identifier = "\(identifierBaseText)_callCount"
         
         let varDecl = SyntaxFactory.makeVariableDecl(
             attributes: nil,
@@ -613,11 +554,11 @@ class MockGenerater: SyntaxVisitor {
         return (varDeclItem, codeBlockItem)
     }
     
-    private func makeCallVal(funcDecl: FunctionDeclSyntax, indentationCount: Int) -> (
+    private func makeCallVal(identifierBaseText: String, indentationCount: Int) -> (
         MemberDeclListItemSyntax,
         CodeBlockItemSyntax
     ) {
-        let callIdentifier = "\(funcDecl.identifier.text)_wasCalled"
+        let callIdentifier = "\(identifierBaseText)_wasCalled"
         
         let callVarDecl = SyntaxFactory.makeVariableDecl(
             attributes: nil,
