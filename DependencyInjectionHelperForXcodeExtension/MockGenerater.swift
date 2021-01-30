@@ -123,20 +123,51 @@ class MockGenerater: SyntaxVisitor {
                 let identifier = binding.pattern.as(IdentifierPatternSyntax.self)!.identifier
                 
                 let decls = accessorBlock?.accessors.map({ (accessor) -> (AccessorDeclSyntax, [MemberDeclListItemSyntax])in
-                    
-                    let wasCallIdentifier = "\(identifier.text)_\(accessor.accessorKind.text)"
+                    var memberDeclItems = [MemberDeclListItemSyntax]()
+                    var codeBlockItems = [CodeBlockItemSyntax]()
+                    let baseIdentifierText = "\(identifier.text)_\(accessor.accessorKind.text)"
                     
                     // wasCalled
                     let (wasCalledDecl, wasCalledBlockExpr) = makeCallVal(
-                        identifierBaseText: wasCallIdentifier,
+                        identifierBaseText: baseIdentifierText,
                         indentationCount: indentationValue
                     )
+                    memberDeclItems.append(wasCalledDecl)
+                    codeBlockItems.append(wasCalledBlockExpr)
                     
                     // count
                     let (countVarDecl, countBlockExpr) = makeCountVal(
-                        identifierBaseText: wasCallIdentifier,
+                        identifierBaseText: baseIdentifierText,
                         indentationCount: indentationValue
                     )
+                    memberDeclItems.append(countVarDecl)
+                    codeBlockItems.append(countBlockExpr)
+                    
+                    if accessor.accessorKind.text == "set", let type = binding.typeAnnotation?.type {
+                        let typeSyntax: TypeSyntax
+                        if let optionalType = type.as(OptionalTypeSyntax.self) {
+                            typeSyntax = optionalType
+                                .wrappedType
+                                .withTrailingTrivia(.zero)
+                        } else {
+                            typeSyntax = type
+                                .withTrailingTrivia(.zero)
+                        }
+                        
+                        let (argsDecl, argsBlockExpr) = makeArgsVal(
+                            identifierBaseText: baseIdentifierText,
+                            typeSyntax: typeSyntax,
+                            substitutionExprSyntax: ExprSyntax(
+                                SyntaxFactory
+                                    .makeVariableExpr("newValue")
+                                    .withTrailingTrivia(.newlines(1))
+                            ),
+                            indentationCount: indentationValue
+                        )
+                        memberDeclItems.append(argsDecl)
+                        codeBlockItems.append(argsBlockExpr)
+                    }
+                    
                     
                     let accessor = SyntaxFactory.makeAccessorDecl(
                         attributes: accessor.attributes,
@@ -150,19 +181,14 @@ class MockGenerater: SyntaxVisitor {
                                 .withLeadingTrivia(.spaces(1))
                                 .withTrailingTrivia(.newlines(1)),
                             statements: SyntaxFactory
-                                .makeCodeBlockItemList([
-                                    wasCalledBlockExpr
-                                        .withLeadingTrivia(.spaces(indentationValue * 3)),
-                                    countBlockExpr
-                                        .withLeadingTrivia(.spaces(indentationValue * 3))
-                                ]),
+                                .makeCodeBlockItemList(codeBlockItems),
                             rightBrace: SyntaxFactory
                                 .makeRightBraceToken()
                                 .withLeadingTrivia([.spaces(indentationValue * 2)])
                                 .withTrailingTrivia([.newlines(1)])
                         ))
                     
-                    return (accessor, [wasCalledDecl, countVarDecl])
+                    return (accessor, memberDeclItems)
                 })
                 
                 let patternList = SyntaxFactory.makePatternBindingList([
@@ -386,6 +412,41 @@ class MockGenerater: SyntaxVisitor {
                     trailingComma: paramter.trailingComma)
         }
         
+        return makeArgsVal(
+            identifierBaseText: identifier,
+            typeSyntax: TypeSyntax(
+                SyntaxFactory
+                    .makeTupleType(
+                        leftParen: SyntaxFactory.makeLeftParenToken(),
+                        elements:
+                            SyntaxFactory
+                                .makeTupleTypeElementList(tupleElements),
+                        rightParen: SyntaxFactory.makeRightParenToken())
+            ),
+            substitutionExprSyntax: ExprSyntax(SyntaxFactory.makeTupleExpr(
+                                                leftParen: SyntaxFactory.makeLeftParenToken(),
+                                                elementList: SyntaxFactory
+                                                    .makeTupleExprElementList(
+                                                        bindingTupleElements
+                                                    ),
+                                                rightParen: SyntaxFactory.makeRightParenToken())
+                                                .withTrailingTrivia(.newlines(1))
+                                    ),
+            indentationCount: indentationCount
+        )
+    }
+    
+    private func makeArgsVal(
+        identifierBaseText: String,
+        typeSyntax: TypeSyntax,
+        substitutionExprSyntax: ExprSyntax,
+        indentationCount: Int) -> (
+            MemberDeclListItemSyntax,
+            CodeBlockItemSyntax
+        ) {
+        
+        let identifier = "\(identifierBaseText)_args"
+        
         let varDecl = SyntaxFactory.makeVariableDecl(
             attributes: nil,
             modifiers: nil,
@@ -409,15 +470,7 @@ class MockGenerater: SyntaxVisitor {
                                 colon: SyntaxFactory.makeColonToken(),
                                 type: TypeSyntax(SyntaxFactory
                                     .makeOptionalType(
-                                        wrappedType: TypeSyntax(
-                                            SyntaxFactory
-                                                .makeTupleType(
-                                                    leftParen: SyntaxFactory.makeLeftParenToken(),
-                                                    elements:
-                                                        SyntaxFactory
-                                                            .makeTupleTypeElementList(tupleElements),
-                                                    rightParen: SyntaxFactory.makeRightParenToken())
-                                        ),
+                                        wrappedType: typeSyntax,
                                         questionMark: SyntaxFactory.makePostfixQuestionMarkToken()
                                     )
                                 )
@@ -456,15 +509,7 @@ class MockGenerater: SyntaxVisitor {
                                     )
                                     .withTrailingTrivia(.spaces(1))
                         ),
-                        ExprSyntax(SyntaxFactory.makeTupleExpr(
-                                    leftParen: SyntaxFactory.makeLeftParenToken(),
-                                    elementList: SyntaxFactory
-                                        .makeTupleExprElementList(
-                                            bindingTupleElements
-                                        ),
-                                    rightParen: SyntaxFactory.makeRightParenToken())
-                                    .withTrailingTrivia(.newlines(1))
-                        )
+                        substitutionExprSyntax
                     ])
             )),
             semicolon: nil,
