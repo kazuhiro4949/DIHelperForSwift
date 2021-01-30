@@ -26,6 +26,7 @@ class MockGenerater: SyntaxVisitor {
     }
     
     let mockType: MockType
+    var mockDecls = [ClassDeclSyntax]()
     
     override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind {
         let nameFormat = Settings.shared.protocolSettings.nameFormat
@@ -55,7 +56,7 @@ class MockGenerater: SyntaxVisitor {
                 
                 var identifierBaseText = funcDeclSyntax.identifier.text
                 
-                // TODO:- added ignorance option
+                // TODO:- added ignorance and increment option
                 let paramListText = funcDeclSyntax.signature.input.parameterList.description
                 let returnText = funcDeclSyntax.signature.input.parameterList.description
                 let encodedParamListText = paramListText.replacingToVariableAllowedString()
@@ -322,7 +323,7 @@ class MockGenerater: SyntaxVisitor {
                     .withTrailingTrivia(.newlines(1))
             )
         )
-        print(mockClassDecl.description)
+        mockDecls.append(mockClassDecl)
         return .skipChildren
     }
     

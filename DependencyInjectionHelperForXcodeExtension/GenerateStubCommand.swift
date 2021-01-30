@@ -32,13 +32,14 @@ class GenerateStubCommand: NSObject, XCSourceEditorCommand {
                 
                 let generater = MockGenerater(mockType: .stub)
                 generater.walk(sourceFile)
-//                let generatedLines: [String] = extracter.protocolDeclSyntaxList.map {
-//                    let leadingTrivia = $0.leadingTrivia?.appending(.newlines(1)) ?? .newlines(1)
-//                    let newlineAppdingProtocolDecl = $0.withLeadingTrivia(leadingTrivia)
-//                    return newlineAppdingProtocolDecl.description
-//                }
-//
-//                buffer.lines.addObjects(from: generatedLines)
+                
+                let generatedLines: [String] = generater.mockDecls.map {
+                    let leadingTrivia = $0.leadingTrivia?.appending(.newlines(1)) ?? .newlines(1)
+                    let newlineAppdingProtocolDecl = $0.withLeadingTrivia(leadingTrivia)
+                    return newlineAppdingProtocolDecl.description
+                }
+                
+                buffer.lines.addObjects(from: generatedLines)
             }
         } catch let e {
             print(e)
