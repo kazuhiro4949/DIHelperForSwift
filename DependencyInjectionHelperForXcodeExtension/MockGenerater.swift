@@ -52,41 +52,21 @@ class MockGenerater: SyntaxVisitor {
             var memberDeclListItems = [MemberDeclListItemSyntax]()
             
             if let funcDeclSyntax = item.decl.as(FunctionDeclSyntax.self) {
+                
+                var identifierBaseText = funcDeclSyntax.identifier.text
+                
+                // TODO:- added ignorance option
                 let paramListText = funcDeclSyntax.signature.input.parameterList.description
-                let trivialsRemovedParamListText = paramListText
-                    .replacingOccurrences(
-                        of: "[_\\n\\s\\t]",
-                        with: "",
-                        options: .regularExpression,
-                        range: paramListText.range(of: paramListText)
-                    )
-                    
-                    
-                let encdedParamListText = trivialsRemovedParamListText.replacingOccurrences(
-                    of: "[\\(\\)]",
-                    with: "$p",
-                    options: .regularExpression,
-                    range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
-                ).replacingOccurrences(
-                    of: "[\\[\\]]",
-                    with: "$b",
-                    options: .regularExpression,
-                    range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
-                )
-                .replacingOccurrences(
-                    of: "[\\.,:]",
-                    with: "_",
-                    options: .regularExpression,
-                    range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
-                )
-                
-                
-                let identifierBaseText: String
-                if encdedParamListText.isEmpty {
-                    identifierBaseText = funcDeclSyntax.identifier.text
-                } else {
-                    identifierBaseText = "\(funcDeclSyntax.identifier.text)_\(encdedParamListText)"
+                let returnText = funcDeclSyntax.signature.input.parameterList.description
+                let encodedParamListText = paramListText.replacingToVariableAllowedString()
+                let encodedReturnText = returnText.replacingToVariableAllowedString()
+                if !encodedParamListText.isEmpty {
+                    identifierBaseText = "\(identifierBaseText)_\(encodedParamListText)"
                 }
+                if !encodedReturnText.isEmpty {
+                    identifierBaseText = "\(identifierBaseText)_\(encodedReturnText)"
+                }
+                //
                 
                 // call properties
                 let (callVarDeclItem, callCodeBlockItem) = makeCallVal(
@@ -773,5 +753,32 @@ class MockGenerater: SyntaxVisitor {
 extension String {
     var nsString: NSString {
         self as NSString
+    }
+    
+    func replacingToVariableAllowedString() -> String {
+        let trivialsRemovedParamListText = replacingOccurrences(
+                of: "[_\\n\\s\\t]",
+                with: "",
+                options: .regularExpression,
+                range: self.range(of: self)
+            )
+        let encodedString = trivialsRemovedParamListText.replacingOccurrences(
+            of: "[\\(\\)]",
+            with: "$p",
+            options: .regularExpression,
+            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
+        ).replacingOccurrences(
+            of: "[\\[\\]]",
+            with: "$b",
+            options: .regularExpression,
+            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
+        )
+        .replacingOccurrences(
+            of: "[\\.,:]",
+            with: "_",
+            options: .regularExpression,
+            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
+        )
+        return encodedString
     }
 }
