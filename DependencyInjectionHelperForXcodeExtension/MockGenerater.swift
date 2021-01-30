@@ -244,6 +244,11 @@ class MockGenerater: SyntaxVisitor {
                         trailingComma: nil)
                 ])
                 
+                let propDeclListItems = decls?.map {
+                    SyntaxFactory.makeMemberDeclListItem(
+                        decl: DeclSyntax($0.1), semicolon: nil)
+                } ?? []
+                
                 let variable = SyntaxFactory.makeVariableDecl(
                     attributes: nil,
                     modifiers: nil,
@@ -256,7 +261,7 @@ class MockGenerater: SyntaxVisitor {
                     decl: DeclSyntax(variable),
                     semicolon: nil
                 )
-                return [declListItem]
+                return propDeclListItems + [declListItem]
             } else {
                 return nil
             }
