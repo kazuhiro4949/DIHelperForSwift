@@ -18,7 +18,10 @@ enum MockType {
         case .stub:
             return "%@Stub"
         case .spy:
-            return Settings.shared.spySettings.nameFormat ?? "%@Spy"
+            return Settings
+                .shared
+                .spySettings
+                .nameFormat ?? "%@Spy"
         }
     }
 }
@@ -90,20 +93,7 @@ class MockGenerater: SyntaxVisitor {
                     return []
                 }
                 
-                var identifierBaseText = funcDeclSyntax.identifier.text
-                
-                // TODO:- added ignorance and increment option
-                let paramListText = funcDeclSyntax.signature.input.parameterList.description
-                let returnText = funcDeclSyntax.signature.output?.returnType.description ?? ""
-                let encodedParamListText = paramListText.replacingToVariableAllowedString()
-                let encodedReturnText = returnText.replacingToVariableAllowedString()
-                if !encodedParamListText.isEmpty {
-                    identifierBaseText = "\(identifierBaseText)_\(encodedParamListText)"
-                }
-                if !encodedReturnText.isEmpty {
-                    identifierBaseText = "\(identifierBaseText)_\(encodedReturnText)"
-                }
-                //
+                let identifierBaseText = funcDeclSyntax.signatureAddedIdentifier
                 
                 // call properties
                 if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
@@ -719,78 +709,18 @@ class MockGenerater: SyntaxVisitor {
         CodeBlockItemSyntax
     ) {
         let callIdentifier = "\(identifierBaseText)_wasCalled"
-        
-        let callVarDecl = SyntaxFactory.makeVariableDecl(
-            attributes: nil,
-            modifiers: nil,
-            letOrVarKeyword: SyntaxFactory.makeVarKeyword(
-                leadingTrivia: .indent,
-                trailingTrivia: .spaces(1)),
-            bindings: SyntaxFactory
-                .makePatternBindingList([
-                    SyntaxFactory.makePatternBinding(
-                        pattern: PatternSyntax(SyntaxFactory
-                            .makeIdentifierPattern(
-                                identifier: SyntaxFactory.makeIdentifier(
-                                    callIdentifier
-                                )
-                            )
-                        ),
-                        typeAnnotation: nil,
-                        initializer: SyntaxFactory.makeInitializerClause(
-                            equal: SyntaxFactory.makeEqualToken(
-                                leadingTrivia: .spaces(1),
-                                trailingTrivia: .spaces(1)
-                            ),
-                            value: ExprSyntax(SyntaxFactory
-                                .makeBooleanLiteralExpr(
-                                    booleanLiteral: SyntaxFactory
-                                        .makeFalseKeyword()
-                                ))
-                        ),
-                        accessor: nil,
-                        trailingComma: nil
-                    )
-                ]))
-        
         let callVarDeclItem = SyntaxFactory.makeMemberDeclListItem(
-            decl: DeclSyntax(callVarDecl)
-                .withTrailingTrivia(.newlines(1)),
+            decl: DeclSyntax(
+                SyntaxFactory
+                    .makeCallSyntax(
+                        identifierText: callIdentifier
+                    ))
+            .withTrailingTrivia(.newlines(1)),
             semicolon: nil
         )
-        
-
-        let callCodeBlockItem = SyntaxFactory.makeCodeBlockItem(
-            item: Syntax(SyntaxFactory.makeSequenceExpr(
-                elements: SyntaxFactory
-                    .makeExprList([
-                        ExprSyntax(SyntaxFactory
-                                    .makeIdentifierExpr(
-                                        identifier: SyntaxFactory
-                                            .makeIdentifier(callIdentifier),
-                                        declNameArguments: nil
-                                    )
-                                    .withLeadingTrivia(.indent(2))
-                                    .withTrailingTrivia(.spaces(1))
-                        ),
-                        ExprSyntax(SyntaxFactory
-                                    .makeIdentifierExpr(
-                                        identifier: SyntaxFactory.makeEqualToken(),
-                                        declNameArguments: nil
-                                    )
-                                    .withTrailingTrivia(.spaces(1))
-                        ),
-                        ExprSyntax(SyntaxFactory
-                                    .makeIdentifierExpr(
-                                        identifier: SyntaxFactory.makeTrueKeyword(),
-                                        declNameArguments: nil
-                                    )
-                                    .withTrailingTrivia(.newlines(1))
-                        )
-                    ]))),
-            semicolon: nil,
-            errorTokens: nil)
-        
+        let callCodeBlockItem = SyntaxFactory.makeTrueSubstitutionExpr(
+            callIdentifier: callIdentifier
+        )
         return (callVarDeclItem, callCodeBlockItem)
     }
     
@@ -848,8 +778,75 @@ extension String {
     }
 }
 
-
 extension SyntaxFactory {
+    static func makeTrueSubstitutionExpr(callIdentifier: String) -> CodeBlockItemSyntax {
+        SyntaxFactory.makeCodeBlockItem(
+            item: Syntax(SyntaxFactory.makeSequenceExpr(
+                elements: SyntaxFactory
+                    .makeExprList([
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory
+                                            .makeIdentifier(callIdentifier),
+                                        declNameArguments: nil
+                                    )
+                                    .withLeadingTrivia(.indent(2))
+                                    .withTrailingTrivia(.spaces(1))
+                        ),
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory.makeEqualToken(),
+                                        declNameArguments: nil
+                                    )
+                                    .withTrailingTrivia(.spaces(1))
+                        ),
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: SyntaxFactory.makeTrueKeyword(),
+                                        declNameArguments: nil
+                                    )
+                                    .withTrailingTrivia(.newlines(1))
+                        )
+                    ]))),
+            semicolon: nil,
+            errorTokens: nil)
+    }
+    
+    static func makeCallSyntax(identifierText: String) -> VariableDeclSyntax {
+        SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: SyntaxFactory.makeVarKeyword(
+                leadingTrivia: .indent,
+                trailingTrivia: .spaces(1)),
+            bindings: SyntaxFactory
+                .makePatternBindingList([
+                    SyntaxFactory.makePatternBinding(
+                        pattern: PatternSyntax(SyntaxFactory
+                            .makeIdentifierPattern(
+                                identifier: SyntaxFactory.makeIdentifier(
+                                    identifierText
+                                )
+                            )
+                        ),
+                        typeAnnotation: nil,
+                        initializer: SyntaxFactory.makeInitializerClause(
+                            equal: SyntaxFactory.makeEqualToken(
+                                leadingTrivia: .spaces(1),
+                                trailingTrivia: .spaces(1)
+                            ),
+                            value: ExprSyntax(SyntaxFactory
+                                .makeBooleanLiteralExpr(
+                                    booleanLiteral: SyntaxFactory
+                                        .makeFalseKeyword()
+                                ))
+                        ),
+                        accessor: nil,
+                        trailingComma: nil
+                    )
+                ]))
+    }
+    
     static func makeReturnSyntax(identifier: String, typeSyntax: TypeSyntax) -> PatternBindingSyntax {
         let unwrappedTypeSyntax: TypeSyntax
         // remove optional or iuo
@@ -1010,5 +1007,25 @@ extension Trivia {
     
     static func indent(_ level: Int) -> Trivia {
         .spaces(Settings.shared.indentationValue * level)
+    }
+}
+
+extension FunctionDeclSyntax {
+    var signatureAddedIdentifier: String {
+        var identifierBaseText = identifier.text
+        
+        // TODO:- added ignorance and increment option
+        let paramListText = signature.input.parameterList.description
+        let returnText = signature.output?.returnType.description ?? ""
+        let encodedParamListText = paramListText.replacingToVariableAllowedString()
+        let encodedReturnText = returnText.replacingToVariableAllowedString()
+        if !encodedParamListText.isEmpty {
+            identifierBaseText = "\(identifierBaseText)_\(encodedParamListText)"
+        }
+        if !encodedReturnText.isEmpty {
+            identifierBaseText = "\(identifierBaseText)_\(encodedReturnText)"
+        }
+        
+        return identifierBaseText
     }
 }
