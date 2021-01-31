@@ -29,7 +29,7 @@ class MockGenerater: SyntaxVisitor {
     var mockDecls = [ClassDeclSyntax]()
     
     override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind {
-        let nameFormat = Settings.shared.protocolSettings.nameFormat
+        let nameFormat = Settings.shared.protocolSettings.nameFormat ?? "%@Protocol"
         let regexString = nameFormat.replacingOccurrences(of: "%@", with: "(.+)")
         let regex = try? NSRegularExpression(pattern: "^\(regexString)$", options: [])
         let protocolName = node.identifier.text

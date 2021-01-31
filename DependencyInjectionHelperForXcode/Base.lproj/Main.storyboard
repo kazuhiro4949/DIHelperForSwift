@@ -1136,10 +1136,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWV-Q7-dlu">
-                                <rect key="frame" x="20" y="20" width="620" height="388"/>
+                                <rect key="frame" x="20" y="20" width="620" height="420"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Ef-jV-OOJ">
-                                        <rect key="frame" x="-2" y="357" width="47" height="31"/>
+                                        <rect key="frame" x="-2" y="389" width="47" height="31"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Spy" id="UBT-jH-SdU">
                                             <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1147,13 +1147,13 @@
                                         </textFieldCell>
                                     </textField>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="HzF-Sy-gOU">
-                                        <rect key="frame" x="0.0" y="349" width="163" height="8"/>
+                                        <rect key="frame" x="0.0" y="381" width="163" height="8"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="8" id="IS2-lS-d5k"/>
                                         </constraints>
                                     </customView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-oV-2e9">
-                                        <rect key="frame" x="-2" y="335" width="168" height="14"/>
+                                        <rect key="frame" x="-2" y="367" width="168" height="14"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="How to make spy from protocol" id="hiq-mT-MRC">
                                             <font key="font" textStyle="subheadline" name=".SFNS-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1161,13 +1161,13 @@
                                         </textFieldCell>
                                     </textField>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fk1-TL-i9U">
-                                        <rect key="frame" x="0.0" y="291" width="163" height="44"/>
+                                        <rect key="frame" x="0.0" y="323" width="163" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="NTu-TW-Ynl"/>
                                         </constraints>
                                     </customView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QAW-Ax-3Gd">
-                                        <rect key="frame" x="-2" y="270" width="42" height="21"/>
+                                        <rect key="frame" x="-2" y="302" width="42" height="21"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Type" id="kbR-dc-Pow">
                                             <font key="font" textStyle="title2" name=".SFNS-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1175,13 +1175,13 @@
                                         </textFieldCell>
                                     </textField>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="klr-Sj-ALO">
-                                        <rect key="frame" x="0.0" y="262" width="163" height="8"/>
+                                        <rect key="frame" x="0.0" y="294" width="163" height="8"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="8" id="Llv-2A-6e5"/>
                                         </constraints>
                                     </customView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JfX-kY-kBq">
-                                        <rect key="frame" x="0.0" y="241" width="308" height="21"/>
+                                        <rect key="frame" x="0.0" y="273" width="308" height="21"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iat-qB-4bL">
                                                 <rect key="frame" x="-2" y="5" width="104" height="16"/>
@@ -1204,6 +1204,9 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <connections>
+                                                    <action selector="textFieldDidChangeValue:" target="Ewn-fR-1gh" id="KiW-66-V8x"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <visibilityPriorities>
@@ -1216,13 +1219,13 @@
                                         </customSpacing>
                                     </stackView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="GJR-Oj-RUO">
-                                        <rect key="frame" x="0.0" y="221" width="163" height="20"/>
+                                        <rect key="frame" x="0.0" y="253" width="163" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="g8Q-3g-Eij"/>
                                         </constraints>
                                     </customView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qG6-U2-41n">
-                                        <rect key="frame" x="-2" y="200" width="68" height="21"/>
+                                        <rect key="frame" x="-2" y="232" width="68" height="21"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Member" id="oqP-gW-lxY">
                                             <font key="font" textStyle="title2" name=".SFNS-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1230,13 +1233,13 @@
                                         </textFieldCell>
                                     </textField>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="chU-9W-AMC">
-                                        <rect key="frame" x="0.0" y="192" width="163" height="8"/>
+                                        <rect key="frame" x="0.0" y="224" width="163" height="8"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="8" id="nhk-vO-cfY"/>
                                         </constraints>
                                     </customView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WKc-zk-sTa">
-                                        <rect key="frame" x="0.0" y="128" width="186" height="64"/>
+                                        <rect key="frame" x="0.0" y="160" width="186" height="64"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1p2-R0-7o7">
                                                 <rect key="frame" x="-2" y="48" width="104" height="16"/>
@@ -1258,6 +1261,9 @@
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="targetButtonDidClick:" target="Ewn-fR-1gh" id="TnT-zR-6U8"/>
+                                                        </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="fda-iu-FEw">
                                                         <rect key="frame" x="-2" y="23" width="76" height="18"/>
@@ -1266,7 +1272,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="ignoranceButtonDidClick:" target="asd-Ik-LFz" id="mmo-86-f2O"/>
+                                                            <action selector="targetButtonDidClick:" target="Ewn-fR-1gh" id="YvR-D6-e9a"/>
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="k7Y-tC-zco">
@@ -1275,6 +1281,9 @@
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="targetButtonDidClick:" target="Ewn-fR-1gh" id="i5K-bL-p2M"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <visibilityPriorities>
@@ -1299,13 +1308,13 @@
                                         </customSpacing>
                                     </stackView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="9xt-35-aFG">
-                                        <rect key="frame" x="0.0" y="112" width="163" height="16"/>
+                                        <rect key="frame" x="0.0" y="144" width="163" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="XQF-Lm-UIf"/>
                                         </constraints>
                                     </customView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ddF-OB-dhy">
-                                        <rect key="frame" x="0.0" y="48" width="244" height="64"/>
+                                        <rect key="frame" x="0.0" y="80" width="244" height="64"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8qo-v1-A9h">
                                                 <rect key="frame" x="-2" y="48" width="104" height="16"/>
@@ -1328,7 +1337,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="ignoranceButtonDidClick:" target="asd-Ik-LFz" id="t10-Em-KKs"/>
+                                                            <action selector="captureButtonDidClick:" target="Ewn-fR-1gh" id="r7R-b0-gfW"/>
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rwy-Zp-2nt">
@@ -1337,6 +1346,9 @@
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="captureButtonDidClick:" target="Ewn-fR-1gh" id="LOz-ug-w5q"/>
+                                                        </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="F2p-cL-wIa">
                                                         <rect key="frame" x="-2" y="-1" width="138" height="18"/>
@@ -1345,7 +1357,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="ignoranceButtonDidClick:" target="asd-Ik-LFz" id="ODT-sC-bsm"/>
+                                                            <action selector="captureButtonDidClick:" target="Ewn-fR-1gh" id="gEB-DE-HPz"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1371,13 +1383,13 @@
                                         </customSpacing>
                                     </stackView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="RHT-g6-bNY">
-                                        <rect key="frame" x="0.0" y="16" width="163" height="32"/>
+                                        <rect key="frame" x="0.0" y="48" width="163" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="J4j-0Y-ibU"/>
                                         </constraints>
                                     </customView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CgO-0h-4BE">
-                                        <rect key="frame" x="0.0" y="0.0" width="268" height="16"/>
+                                        <rect key="frame" x="0.0" y="32" width="268" height="16"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="17M-5D-opZ">
                                                 <rect key="frame" x="-2" y="0.0" width="70" height="16"/>
@@ -1405,8 +1417,15 @@
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Jlt-f4-fda">
+                                        <rect key="frame" x="0.0" y="0.0" width="163" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="vEv-Nv-7d3"/>
+                                        </constraints>
+                                    </customView>
                                 </subviews>
                                 <visibilityPriorities>
+                                    <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
@@ -1439,6 +1458,7 @@
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
                         </subviews>
@@ -1449,6 +1469,15 @@
                             <constraint firstItem="BWV-Q7-dlu" firstAttribute="top" secondItem="jqv-GE-Set" secondAttribute="top" constant="20" symbolic="YES" id="dvS-Cz-XGy"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="callCountCaptureButton" destination="Rwy-Zp-2nt" id="8BY-Aw-1Cr"/>
+                        <outlet property="calledOrNotCaptureButton" destination="FB9-G9-gIN" id="f3l-Qv-PPj"/>
+                        <outlet property="functionTargetButton" destination="fda-iu-FEw" id="MCA-31-HTH"/>
+                        <outlet property="initializerTargetButton" destination="k7Y-tC-zco" id="Z3N-4A-sAe"/>
+                        <outlet property="nameTextField" destination="dQm-2K-dHC" id="ASB-TJ-kDa"/>
+                        <outlet property="passedArgumentCaptureButton" destination="F2p-cL-wIa" id="VEp-Sc-ut9"/>
+                        <outlet property="propertyTargetButton" destination="tf1-t6-o9Q" id="DFD-Ee-g6a"/>
+                    </connections>
                 </viewController>
                 <customObject id="azd-tH-hds" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

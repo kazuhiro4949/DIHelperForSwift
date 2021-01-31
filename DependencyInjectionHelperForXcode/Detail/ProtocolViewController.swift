@@ -23,7 +23,7 @@ class ProtocolViewController: NSViewController {
         nameTextField.stringValue = Settings
             .shared
             .protocolSettings
-            .nameFormat
+            .nameFormat ?? ""
         
         setupButtons()
     }
@@ -74,7 +74,7 @@ class ProtocolViewController: NSViewController {
     }
     
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
-        let value = sender.stringValue.isEmpty ? "%@Protocol" : sender.stringValue
+        let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.protocolSettings.nameFormat = value
     }
     

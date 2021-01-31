@@ -218,7 +218,7 @@ class ProtocolExtractor: SyntaxVisitor {
             memberInterfaces.append(contentsOf: initInterfaces)
         }
         
-        let format = Settings.shared.protocolSettings.nameFormat
+        let format = Settings.shared.protocolSettings.nameFormat ?? "%@Protocol"
         let formattedString = String(format: format, identifier.text)
         return SyntaxFactory.makeProtocolForDependencyInjection(
             identifier: identifier
