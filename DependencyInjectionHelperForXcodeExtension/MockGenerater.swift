@@ -769,7 +769,7 @@ extension String {
     
     func replacingToVariableAllowedString() -> String {
         let trivialsRemovedParamListText = replacingOccurrences(
-                of: "[_\\n\\s\\t]",
+                of: "[\\n\\s\\t]",
                 with: "",
                 options: .regularExpression,
                 range: self.range(of: self)
@@ -795,6 +795,11 @@ extension String {
             options: .regularExpression,
             range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
         )
+        .replacingOccurrences(
+            of: "[_]",
+            with: "$u",
+            options: .regularExpression,
+            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText))
         .replacingOccurrences(
             of: "[\\.]",
             with: "$d",
