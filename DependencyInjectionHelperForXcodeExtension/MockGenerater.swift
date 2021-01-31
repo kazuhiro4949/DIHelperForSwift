@@ -200,8 +200,7 @@ class MockGenerater: SyntaxVisitor {
                     if accessor.accessorKind.text == "get", let type = binding.typeAnnotation?.type {
                         let typeSyntax: TypeSyntax
                         if let optionalType = type.as(OptionalTypeSyntax.self) {
-                            typeSyntax = optionalType
-                                .wrappedType
+                            typeSyntax = type
                                 .withTrailingTrivia(.zero)
                         } else {
                             typeSyntax = type
@@ -362,31 +361,14 @@ class MockGenerater: SyntaxVisitor {
                 ),
             bindings: SyntaxFactory
                 .makePatternBindingList([
-                    SyntaxFactory.makePatternBinding(
-                        pattern: PatternSyntax(SyntaxFactory
-                            .makeIdentifierPattern(
-                                identifier: SyntaxFactory.makeIdentifier(
-                                    identifier
-                                )
-                            )
-                        ),
-                        typeAnnotation: SyntaxFactory
-                            .makeTypeAnnotation(
-                                colon: SyntaxFactory.makeColonToken(),
-                                type: TypeSyntax(
-                                    SyntaxFactory
-                                        .makeImplicitlyUnwrappedOptionalType(
-                                            wrappedType: typeSyntax,
-                                            exclamationMark: SyntaxFactory.makeExclamationMarkToken()
-                                        )
-                                ).withLeadingTrivia(.spaces(1))
-                            ),
-                        initializer: nil,
-                        accessor: nil,
-                        trailingComma: nil
-                    )
+                    SyntaxFactory
+                        .makeReturnSyntax(
+                            identifier: identifier,
+                            typeSyntax: typeSyntax
+                        )
                 ])
         )
+        
         
         let varDeclItem = SyntaxFactory.makeMemberDeclListItem(
             decl: DeclSyntax(varDecl)
@@ -816,5 +798,140 @@ extension String {
             range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
         )
         return encodedString
+    }
+}
+
+
+extension SyntaxFactory {
+    static func makeReturnSyntax(identifier: String, typeSyntax: TypeSyntax) -> PatternBindingSyntax {
+        let unwrappedTypeSyntax: TypeSyntax
+        // remove optional or iuo
+        if let optionalTypeSyntax = typeSyntax.as(OptionalTypeSyntax.self) {
+            unwrappedTypeSyntax = optionalTypeSyntax.wrappedType
+        } else if let iuoTypeSyntax = typeSyntax.as(ImplicitlyUnwrappedOptionalTypeSyntax.self) {
+            unwrappedTypeSyntax = iuoTypeSyntax.wrappedType
+        } else {
+            unwrappedTypeSyntax = typeSyntax
+        }
+        
+        var processedTypeSyntax = typeSyntax
+        var valueExpr: ExprSyntax?
+        if let simpleType = unwrappedTypeSyntax.as(SimpleTypeIdentifierSyntax.self),
+            let literal = simpleType.tryToConvertToLiteralExpr() {
+            valueExpr = literal
+        } else if unwrappedTypeSyntax.is(ArrayTypeSyntax.self) {
+            valueExpr = ExprSyntax(SyntaxFactory
+                                    .makeArrayExpr(
+                                        leftSquare: SyntaxFactory
+                                            .makeLeftSquareBracketToken(),
+                                        elements: SyntaxFactory.makeBlankArrayElementList(),
+                                        rightSquare: SyntaxFactory
+                                            .makeRightSquareBracketToken()
+                                    )
+            )
+        } else if unwrappedTypeSyntax.is(DictionaryTypeSyntax.self) {
+            valueExpr = ExprSyntax(SyntaxFactory
+                .makeDictionaryExpr(
+                    leftSquare: SyntaxFactory
+                        .makeLeftSquareBracketToken(),
+                    content: Syntax(SyntaxFactory
+                                        .makeDictionaryElementList(
+                                            [SyntaxFactory
+                                                .makeDictionaryElement(
+                                                    keyExpression: ExprSyntax(SyntaxFactory
+                                                                                .makeBlankUnknownExpr()),
+                                                    colon: SyntaxFactory.makeColonToken(),
+                                                    valueExpression: ExprSyntax(SyntaxFactory
+                                                                                    .makeBlankUnknownExpr()),
+                                                    trailingComma: nil)
+                                            ]
+                                        )
+                    ),
+                    rightSquare: SyntaxFactory
+                        .makeRightSquareBracketToken()))
+        } else {
+            
+            // add parentheses to anonymous function
+            if let functionTypeSyntax = unwrappedTypeSyntax.as(FunctionTypeSyntax.self) {
+                processedTypeSyntax = TypeSyntax(SyntaxFactory.makeTupleType(
+                    leftParen: SyntaxFactory.makeLeftParenToken(),
+                    elements: SyntaxFactory
+                        .makeTupleTypeElementList(
+                            [
+                                SyntaxFactory.makeTupleTypeElement(
+                                    type: TypeSyntax(functionTypeSyntax),
+                                    trailingComma: nil)
+                            ]
+                        ),
+                    rightParen: SyntaxFactory.makeRightParenToken()))
+            }
+            
+            // wrap in iuo
+            processedTypeSyntax = TypeSyntax(SyntaxFactory
+                .makeImplicitlyUnwrappedOptionalType(
+                    wrappedType: processedTypeSyntax,
+                    exclamationMark: SyntaxFactory
+                        .makeExclamationMarkToken()
+                )
+            )
+        }
+        
+        let initializerExpr = valueExpr.flatMap {
+            SyntaxFactory.makeInitializerClause(
+                equal: SyntaxFactory.makeEqualToken(),
+                value: $0)
+        }
+        
+        return SyntaxFactory.makePatternBinding(
+            pattern: PatternSyntax(SyntaxFactory
+                .makeIdentifierPattern(
+                    identifier: SyntaxFactory.makeIdentifier(
+                        identifier
+                    )
+                )
+            ),
+            typeAnnotation: SyntaxFactory
+                .makeTypeAnnotation(
+                    colon: SyntaxFactory.makeColonToken(),
+                    type: processedTypeSyntax
+                        .withLeadingTrivia(.spaces(1))
+                ),
+            initializer: initializerExpr,
+            accessor: nil,
+            trailingComma: nil
+        )
+    }
+}
+
+extension SimpleTypeIdentifierSyntax {
+    func tryToConvertToLiteralExpr() -> ExprSyntax? {
+        switch name.text {
+        case "String":
+            return ExprSyntax(SyntaxFactory
+                .makeStringLiteralExpr(""))
+        case "Int", "Int8", "Int16","Int32", "Int64":
+            return ExprSyntax(SyntaxFactory
+                .makeIntegerLiteralExpr(
+                    digits: SyntaxFactory
+                        .makeIntegerLiteral("0")
+                )
+            )
+        case "UInt", "UInt8", "UInt16","UInt32", "UInt64":
+            return ExprSyntax(SyntaxFactory
+                .makeIntegerLiteralExpr(
+                    digits: SyntaxFactory
+                        .makeIntegerLiteral("0")
+                )
+            )
+        case "Double", "Float":
+            return ExprSyntax(SyntaxFactory
+                .makeFloatLiteralExpr(
+                    floatingDigits: SyntaxFactory
+                        .makeFloatingLiteral("0.0")
+                )
+            )
+        default:
+            return nil
+        }
     }
 }
