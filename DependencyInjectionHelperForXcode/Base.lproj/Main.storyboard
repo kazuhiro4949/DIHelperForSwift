@@ -694,7 +694,7 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="5Dm-WT-7Rn"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -710,17 +710,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="mEX-8B-J4t">
-                                <rect key="frame" x="0.0" y="0.0" width="660" height="380"/>
+                                <rect key="frame" x="20" y="20" width="620" height="340"/>
                                 <connections>
-                                    <segue destination="fJp-Gr-sI9" kind="embed" id="62F-tJ-eCs"/>
+                                    <segue destination="stu-7R-Ivy" kind="embed" id="Bna-jf-9cX"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="mEX-8B-J4t" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Wq2-Oa-x0a"/>
-                            <constraint firstItem="mEX-8B-J4t" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="d8T-go-OOf"/>
-                            <constraint firstAttribute="trailing" secondItem="mEX-8B-J4t" secondAttribute="trailing" id="uRs-Vj-k8A"/>
-                            <constraint firstAttribute="bottom" secondItem="mEX-8B-J4t" secondAttribute="bottom" id="wAk-jo-iBQ"/>
+                            <constraint firstItem="mEX-8B-J4t" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="Wq2-Oa-x0a"/>
+                            <constraint firstItem="mEX-8B-J4t" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="d8T-go-OOf"/>
+                            <constraint firstAttribute="trailing" secondItem="mEX-8B-J4t" secondAttribute="trailing" constant="20" symbolic="YES" id="uRs-Vj-k8A"/>
+                            <constraint firstAttribute="bottom" secondItem="mEX-8B-J4t" secondAttribute="bottom" constant="20" symbolic="YES" id="wAk-jo-iBQ"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -752,6 +752,32 @@
                 <customObject id="FIF-rM-Hge" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="170" y="1336"/>
+        </scene>
+        <!--Tab View Controller-->
+        <scene sceneID="jnE-1X-IX0">
+            <objects>
+                <tabViewController selectedTabViewItemIndex="0" tabStyle="unspecified" id="stu-7R-Ivy" sceneMemberID="viewController">
+                    <tabViewItems>
+                        <tabViewItem id="9sB-m8-nes"/>
+                        <tabViewItem id="cQX-p5-nOg"/>
+                    </tabViewItems>
+                    <tabView key="tabView" id="t7I-WN-0YA">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <font key="font" metaFont="message"/>
+                        <connections>
+                            <outlet property="delegate" destination="stu-7R-Ivy" id="BF2-Qd-Y4s"/>
+                        </connections>
+                    </tabView>
+                    <connections>
+                        <outlet property="tabView" destination="t7I-WN-0YA" id="VOq-qZ-Dp6"/>
+                        <segue destination="asd-Ik-LFz" kind="relationship" relationship="tabItems" id="Lg6-Sg-jsD"/>
+                        <segue destination="Ewn-fR-1gh" kind="relationship" relationship="tabItems" id="vaf-uk-qLk"/>
+                    </connections>
+                </tabViewController>
+                <customObject id="d5y-aW-0lU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="824" y="620"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="qfu-rl-fJ2">
@@ -858,10 +884,10 @@
             </objects>
             <point key="canvasLocation" x="750" y="1522"/>
         </scene>
-        <!--Protocol View Controller-->
+        <!--Protocol-->
         <scene sceneID="853-bS-CMm">
             <objects>
-                <viewController storyboardIdentifier="ProtocolViewController" id="asd-Ik-LFz" customClass="ProtocolViewController" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Protocol" storyboardIdentifier="ProtocolViewController" id="asd-Ik-LFz" customClass="ProtocolViewController" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="8CL-z3-ktl">
                         <rect key="frame" x="0.0" y="0.0" width="628" height="426"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1125,12 +1151,12 @@
                 </viewController>
                 <customObject id="gup-JJ-4ms" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1230" y="1556"/>
+            <point key="canvasLocation" x="1678" y="409"/>
         </scene>
-        <!--Mock View Controller-->
+        <!--Spy-->
         <scene sceneID="vAt-aE-Gfv">
             <objects>
-                <viewController storyboardIdentifier="MockViewController" id="Ewn-fR-1gh" customClass="MockViewController" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Spy" storyboardIdentifier="MockViewController" id="Ewn-fR-1gh" customClass="MockViewController" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" misplaced="YES" id="jqv-GE-Set">
                         <rect key="frame" x="0.0" y="0.0" width="660" height="375"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1481,7 +1507,7 @@
                 </viewController>
                 <customObject id="azd-tH-hds" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1277" y="2055"/>
+            <point key="canvasLocation" x="1685" y="1150"/>
         </scene>
     </scenes>
 </document>
