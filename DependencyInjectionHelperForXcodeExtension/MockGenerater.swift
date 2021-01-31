@@ -58,7 +58,7 @@ class MockGenerater: SyntaxVisitor {
                 
                 // TODO:- added ignorance and increment option
                 let paramListText = funcDeclSyntax.signature.input.parameterList.description
-                let returnText = funcDeclSyntax.signature.input.parameterList.description
+                let returnText = funcDeclSyntax.signature.output?.returnType.description ?? ""
                 let encodedParamListText = paramListText.replacingToVariableAllowedString()
                 let encodedReturnText = returnText.replacingToVariableAllowedString()
                 if !encodedParamListText.isEmpty {
@@ -784,10 +784,20 @@ extension String {
             with: "$b",
             options: .regularExpression,
             range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
+        ).replacingOccurrences(
+            of: "[:]",
+            with: "$k",
+            options: .regularExpression,
+            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
+        ).replacingOccurrences(
+            of: "[,]",
+            with: "$c",
+            options: .regularExpression,
+            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
         )
         .replacingOccurrences(
-            of: "[\\.,:]",
-            with: "_",
+            of: "[\\.]",
+            with: "$d",
             options: .regularExpression,
             range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
         )
