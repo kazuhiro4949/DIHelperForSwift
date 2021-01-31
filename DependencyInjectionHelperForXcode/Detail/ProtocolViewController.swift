@@ -25,7 +25,7 @@ class ProtocolViewController: NSViewController {
             .protocolSettings
             .nameFormat
         
-        setupButtons() 
+        setupButtons()
     }
     
     private func setupButtons() {
@@ -77,7 +77,6 @@ class ProtocolViewController: NSViewController {
         let value = sender.stringValue.isEmpty ? "%@Protocol" : sender.stringValue
         Settings.shared.protocolSettings.nameFormat = value
     }
-    
     
     @IBAction func ignoranceButtonDidClick(_ sender: NSButton) {
         guard let ignorance = Settings.ProtocolSetting.Ignorance(rawValue: sender.tag) else {
