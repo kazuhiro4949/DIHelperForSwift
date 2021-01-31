@@ -1114,7 +1114,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="computedGetterSetterPropertyButton" destination="aIk-lV-5pv" id="Rjh-AG-Quu"/>
+                        <outlet property="functionIgnoranceButton" destination="o06-wa-XcN" id="PrJ-aa-b21"/>
+                        <outlet property="initializerIgnoranceButton" destination="298-4g-dwV" id="r7W-tE-jcQ"/>
+                        <outlet property="internalMemberIgnoranceButton" destination="Q6U-6r-otQ" id="8LT-Mc-r0P"/>
                         <outlet property="nameTextField" destination="nqM-ta-ude" id="cfm-uA-g5y"/>
+                        <outlet property="overrideMemberIgnoranceButton" destination="hWI-wM-Rcn" id="i2X-Ww-o9P"/>
+                        <outlet property="storedPropertyIgnoranceButton" destination="weD-oJ-5yM" id="R6G-A3-91G"/>
                     </connections>
                 </viewController>
                 <customObject id="gup-JJ-4ms" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

@@ -11,12 +11,67 @@ import Cocoa
 class ProtocolViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
     
+    @IBOutlet weak var storedPropertyIgnoranceButton: NSButton!
+    @IBOutlet weak var computedGetterSetterPropertyButton: NSButton!
+    @IBOutlet weak var functionIgnoranceButton: NSButton!
+    @IBOutlet weak var initializerIgnoranceButton: NSButton!
+    @IBOutlet weak var internalMemberIgnoranceButton: NSButton!
+    @IBOutlet weak var overrideMemberIgnoranceButton: NSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameTextField.stringValue = Settings.shared.protocolSettings.nameFormat
+        nameTextField.stringValue = Settings
+            .shared
+            .protocolSettings
+            .nameFormat
         
+        setupButtons() 
     }
     
+    private func setupButtons() {
+        storedPropertyIgnoranceButton.state = NSControl.StateValue(
+            isOn: Settings
+                .shared
+                .protocolSettings
+                .getIgnorance(ignorance: .storedProperty)
+        )
+        
+        computedGetterSetterPropertyButton.state = NSControl.StateValue(
+            isOn: Settings
+                .shared
+                .protocolSettings
+                .getIgnorance(ignorance: .computedGetterSetterProperty)
+        )
+        
+        functionIgnoranceButton.state = NSControl.StateValue(
+            isOn: Settings
+                .shared
+                .protocolSettings
+                .getIgnorance(ignorance: .function)
+        )
+        
+        initializerIgnoranceButton.state = NSControl.StateValue(
+            isOn: Settings
+                .shared
+                .protocolSettings
+                .getIgnorance(ignorance: .initializer)
+        )
+        
+        internalMemberIgnoranceButton.state = NSControl.StateValue(
+            isOn: Settings
+                .shared
+                .protocolSettings
+                .getIgnorance(ignorance: .internalMember)
+        )
+        
+        
+        overrideMemberIgnoranceButton.state = NSControl.StateValue(
+            isOn: Settings
+                .shared
+                .protocolSettings
+                .getIgnorance(ignorance: .override)
+        )
+    }
     
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? "%@Protocol" : sender.stringValue
@@ -48,6 +103,14 @@ extension NSControl.StateValue {
             fatalError()
         default:
             fatalError()
+        }
+    }
+    
+    init(isOn: Bool) {
+        if isOn == true {
+            self = .on
+        } else {
+            self = .off
         }
     }
 }
