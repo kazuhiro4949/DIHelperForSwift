@@ -198,14 +198,8 @@ class MockGenerater: SyntaxVisitor {
                     
                     // return
                     if accessor.accessorKind.text == "get", let type = binding.typeAnnotation?.type {
-                        let typeSyntax: TypeSyntax
-                        if let optionalType = type.as(OptionalTypeSyntax.self) {
-                            typeSyntax = type
-                                .withTrailingTrivia(.zero)
-                        } else {
-                            typeSyntax = type
-                                .withTrailingTrivia(.zero)
-                        }
+                        let typeSyntax = type
+                            .withTrailingTrivia(.zero)
                         
                         let (returnDecl, returnBlockExpr) = makeReturnVal(
                             identifierBaseText: baseIdentifierText,
