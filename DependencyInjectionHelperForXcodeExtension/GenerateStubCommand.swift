@@ -30,7 +30,7 @@ class GenerateStubCommand: NSObject, XCSourceEditorCommand {
                 let selectedLines = lines[selection.start.line..<selection.end.line]
                 let sourceFile = try SyntaxParser.parse(source: selectedLines.joined())
                 
-                let generater = MockGenerater(mockType: .stub)
+                let generater = MockGenerater(mockType: .spy)
                 generater.walk(sourceFile)
                 
                 let generatedLines: [String] = generater.mockDecls.map {

@@ -11,11 +11,14 @@ import SwiftSyntax
 
 enum MockType {
     case stub
+    case spy
     
     var format: String {
         switch self {
         case .stub:
             return "%@Stub"
+        case .spy:
+            return Settings.shared.spySettings.nameFormat ?? "%@Spy"
         }
     }
 }
@@ -34,12 +37,26 @@ class MockGenerater: SyntaxVisitor {
         let regex = try? NSRegularExpression(pattern: "^\(regexString)$", options: [])
         let protocolName = node.identifier.text
         
+        let baseName: String
+        let firstMatch = regex?.firstMatch(
+            in: protocolName,
+            options: .anchored,
+            range: protocolName
+                .nsString
+                .range(of: protocolName)
+        )
         
-        guard let match = regex?.firstMatch(in: protocolName, options: .anchored, range: protocolName.nsString.range(of: protocolName)) else {
-            return .skipChildren
+        if let _firstMatch = firstMatch {
+            baseName = protocolName
+                .nsString
+                .substring(
+                    with: _firstMatch
+                        .range(at: 1)
+                )
+        } else {
+            baseName = protocolName
         }
         
-        let baseName = protocolName.nsString.substring(with: match.range(at: 1))
         let title = String(format: mockType.format, baseName)
         
         let identifier = SyntaxFactory
@@ -53,6 +70,9 @@ class MockGenerater: SyntaxVisitor {
             var memberDeclListItems = [MemberDeclListItemSyntax]()
             
             if let funcDeclSyntax = item.decl.as(FunctionDeclSyntax.self) {
+                guard !Settings.shared.spySettings.getTarget(target: .function) else {
+                    return []
+                }
                 
                 var identifierBaseText = funcDeclSyntax.identifier.text
                 
@@ -70,28 +90,34 @@ class MockGenerater: SyntaxVisitor {
                 //
                 
                 // call properties
-                let (callVarDeclItem, callCodeBlockItem) = makeCallVal(
-                    identifierBaseText: identifierBaseText,
-                    indentationCount: indentationValue
-                )
-                codeBlockItems.append(callCodeBlockItem)
-                memberDeclListItems.append(callVarDeclItem)
+                if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
+                    let (callVarDeclItem, callCodeBlockItem) = makeCallVal(
+                        identifierBaseText: identifierBaseText,
+                        indentationCount: indentationValue
+                    )
+                    codeBlockItems.append(callCodeBlockItem)
+                    memberDeclListItems.append(callVarDeclItem)
+                }
                 // count properties
-                let (countVarDeclItem, countCodeBlockItem) = makeCountVal(
-                    identifierBaseText: identifierBaseText,
-                    indentationCount: indentationValue
-                )
-                codeBlockItems.append(countCodeBlockItem)
-                memberDeclListItems.append(countVarDeclItem)
+                if !Settings.shared.spySettings.getCapture(capture: .callCount) {
+                    let (countVarDeclItem, countCodeBlockItem) = makeCountVal(
+                        identifierBaseText: identifierBaseText,
+                        indentationCount: indentationValue
+                    )
+                    codeBlockItems.append(countCodeBlockItem)
+                    memberDeclListItems.append(countVarDeclItem)
+                }
                 // arg properties
-                let argsVal = makeArgsValIfNeeded(
-                    identifierBaseText: identifierBaseText,
-                    funcDecl: funcDeclSyntax,
-                    indentationCount: indentationValue
-                )
-                if let (argsVarDeclItem, argsCodeBlockItem) = argsVal {
-                    codeBlockItems.append(argsCodeBlockItem)
-                    memberDeclListItems.append(argsVarDeclItem)
+                if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
+                    let argsVal = makeArgsValIfNeeded(
+                        identifierBaseText: identifierBaseText,
+                        funcDecl: funcDeclSyntax,
+                        indentationCount: indentationValue
+                    )
+                    if let (argsVarDeclItem, argsCodeBlockItem) = argsVal {
+                        codeBlockItems.append(argsCodeBlockItem)
+                        memberDeclListItems.append(argsVarDeclItem)
+                    }
                 }
                 
                 // val properties
@@ -134,6 +160,10 @@ class MockGenerater: SyntaxVisitor {
                 memberDeclListItems.append(funcSyntaxItem)
                 return memberDeclListItems
             } else if let variableDecl = item.decl.as(VariableDeclSyntax.self) {
+                guard !Settings.shared.spySettings.getTarget(target: .property) else {
+                    return []
+                }
+                
                 // protocol always has the following pattern.
                 let binding = variableDecl.bindings.first!
                 let accessorBlock = binding.accessor!.as(AccessorBlockSyntax.self)
@@ -146,54 +176,60 @@ class MockGenerater: SyntaxVisitor {
                     let baseIdentifierText = "\(identifier.text)_\(accessor.accessorKind.text)"
                     
                     // wasCalled
-                    let (wasCalledDecl, wasCalledBlockExpr) = makeCallVal(
-                        identifierBaseText: baseIdentifierText,
-                        indentationCount: indentationValue
-                    )
-                    memberDeclItems.append(wasCalledDecl)
-                    codeBlockItems.append(
-                        wasCalledBlockExpr
-                            .withLeadingTrivia(.spaces(indentationValue * 3))
-                    )
-                    
-                    // count
-                    let (countVarDecl, countBlockExpr) = makeCountVal(
-                        identifierBaseText: baseIdentifierText,
-                        indentationCount: indentationValue
-                    )
-                    memberDeclItems.append(countVarDecl)
-                    codeBlockItems.append(
-                        countBlockExpr
-                            .withLeadingTrivia(.spaces(indentationValue * 3))
-                    )
-                    
-                    // args
-                    if accessor.accessorKind.text == "set", let type = binding.typeAnnotation?.type {
-                        let typeSyntax: TypeSyntax
-                        if let optionalType = type.as(OptionalTypeSyntax.self) {
-                            typeSyntax = optionalType
-                                .wrappedType
-                                .withTrailingTrivia(.zero)
-                        } else {
-                            typeSyntax = type
-                                .withTrailingTrivia(.zero)
-                        }
-                        
-                        let (argsDecl, argsBlockExpr) = makeArgsVal(
+                    if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
+                        let (wasCalledDecl, wasCalledBlockExpr) = makeCallVal(
                             identifierBaseText: baseIdentifierText,
-                            typeSyntax: typeSyntax,
-                            substitutionExprSyntax: ExprSyntax(
-                                SyntaxFactory
-                                    .makeVariableExpr("newValue")
-                                    .withTrailingTrivia(.newlines(1))
-                            ),
                             indentationCount: indentationValue
                         )
-                        memberDeclItems.append(argsDecl)
+                        memberDeclItems.append(wasCalledDecl)
                         codeBlockItems.append(
-                            argsBlockExpr
+                            wasCalledBlockExpr
                                 .withLeadingTrivia(.spaces(indentationValue * 3))
                         )
+                    }
+                    
+                    // count
+                    if !Settings.shared.spySettings.getCapture(capture: .callCount) {
+                        let (countVarDecl, countBlockExpr) = makeCountVal(
+                            identifierBaseText: baseIdentifierText,
+                            indentationCount: indentationValue
+                        )
+                        memberDeclItems.append(countVarDecl)
+                        codeBlockItems.append(
+                            countBlockExpr
+                                .withLeadingTrivia(.spaces(indentationValue * 3))
+                        )
+                    }
+                    
+                    // args
+                    if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
+                        if accessor.accessorKind.text == "set", let type = binding.typeAnnotation?.type {
+                            let typeSyntax: TypeSyntax
+                            if let optionalType = type.as(OptionalTypeSyntax.self) {
+                                typeSyntax = optionalType
+                                    .wrappedType
+                                    .withTrailingTrivia(.zero)
+                            } else {
+                                typeSyntax = type
+                                    .withTrailingTrivia(.zero)
+                            }
+                            
+                            let (argsDecl, argsBlockExpr) = makeArgsVal(
+                                identifierBaseText: baseIdentifierText,
+                                typeSyntax: typeSyntax,
+                                substitutionExprSyntax: ExprSyntax(
+                                    SyntaxFactory
+                                        .makeVariableExpr("newValue")
+                                        .withTrailingTrivia(.newlines(1))
+                                ),
+                                indentationCount: indentationValue
+                            )
+                            memberDeclItems.append(argsDecl)
+                            codeBlockItems.append(
+                                argsBlockExpr
+                                    .withLeadingTrivia(.spaces(indentationValue * 3))
+                            )
+                        }
                     }
                     
                     // return
