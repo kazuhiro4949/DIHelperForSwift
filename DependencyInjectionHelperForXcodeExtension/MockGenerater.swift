@@ -828,7 +828,8 @@ extension SyntaxFactory {
                                     .makeArrayExpr(
                                         leftSquare: SyntaxFactory
                                             .makeLeftSquareBracketToken(),
-                                        elements: SyntaxFactory.makeBlankArrayElementList(),
+                                        elements: SyntaxFactory
+                                            .makeBlankArrayElementList(),
                                         rightSquare: SyntaxFactory
                                             .makeRightSquareBracketToken()
                                     )
@@ -842,11 +843,16 @@ extension SyntaxFactory {
                                         .makeDictionaryElementList(
                                             [SyntaxFactory
                                                 .makeDictionaryElement(
-                                                    keyExpression: ExprSyntax(SyntaxFactory
-                                                                                .makeBlankUnknownExpr()),
-                                                    colon: SyntaxFactory.makeColonToken(),
-                                                    valueExpression: ExprSyntax(SyntaxFactory
-                                                                                    .makeBlankUnknownExpr()),
+                                                    keyExpression: ExprSyntax(
+                                                        SyntaxFactory
+                                                            .makeBlankUnknownExpr()
+                                                    ),
+                                                    colon: SyntaxFactory
+                                                        .makeColonToken(),
+                                                    valueExpression: ExprSyntax(
+                                                        SyntaxFactory
+                                                            .makeBlankUnknownExpr()
+                                                    ),
                                                     trailingComma: nil)
                                             ]
                                         )
@@ -882,7 +888,9 @@ extension SyntaxFactory {
         
         let initializerExpr = valueExpr.flatMap {
             SyntaxFactory.makeInitializerClause(
-                equal: SyntaxFactory.makeEqualToken(),
+                equal: SyntaxFactory
+                    .makeEqualToken()
+                    .withTrailingTrivia(.spaces(1)),
                 value: $0)
         }
         
@@ -896,10 +904,12 @@ extension SyntaxFactory {
             ),
             typeAnnotation: SyntaxFactory
                 .makeTypeAnnotation(
-                    colon: SyntaxFactory.makeColonToken(),
+                    colon: SyntaxFactory
+                        .makeColonToken()
+                        .withTrailingTrivia(.spaces(1)),
                     type: processedTypeSyntax
-                        .withLeadingTrivia(.spaces(1))
-                ),
+                )
+                .withTrailingTrivia(.spaces(1)),
             initializer: initializerExpr,
             accessor: nil,
             trailingComma: nil
@@ -913,7 +923,10 @@ extension SimpleTypeIdentifierSyntax {
         case "String":
             return ExprSyntax(SyntaxFactory
                 .makeStringLiteralExpr(""))
-        case "Int", "Int8", "Int16","Int32", "Int64":
+        case "NSString":
+            return ExprSyntax(SyntaxFactory
+                .makeStringLiteralExpr(""))
+        case "Int", "Int8", "Int16","Int32", "Int64", "NSInteger":
             return ExprSyntax(SyntaxFactory
                 .makeIntegerLiteralExpr(
                     digits: SyntaxFactory
@@ -927,7 +940,7 @@ extension SimpleTypeIdentifierSyntax {
                         .makeIntegerLiteral("0")
                 )
             )
-        case "Double", "Float":
+        case "Double", "Float", "Float32", "Float64", "CGFloat":
             return ExprSyntax(SyntaxFactory
                 .makeFloatLiteralExpr(
                     floatingDigits: SyntaxFactory
