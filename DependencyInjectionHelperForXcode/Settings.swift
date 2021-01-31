@@ -79,4 +79,7 @@ class Settings {
     static let shared = Settings()
     let protocolSettings = ProtocolSetting()
     let spySettings = SpySetting()
+    var indentationValue: Int {
+        4
+    }
 }

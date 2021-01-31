@@ -31,41 +31,57 @@ class MockGenerater: SyntaxVisitor {
     let mockType: MockType
     var mockDecls = [ClassDeclSyntax]()
     
-    override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind {
-        let nameFormat = Settings.shared.protocolSettings.nameFormat ?? "%@Protocol"
-        let regexString = nameFormat.replacingOccurrences(of: "%@", with: "(.+)")
-        let regex = try? NSRegularExpression(pattern: "^\(regexString)$", options: [])
-        let protocolName = node.identifier.text
-        
-        let baseName: String
-        let firstMatch = regex?.firstMatch(
-            in: protocolName,
-            options: .anchored,
-            range: protocolName
-                .nsString
-                .range(of: protocolName)
-        )
-        
-        if let _firstMatch = firstMatch {
-            baseName = protocolName
-                .nsString
-                .substring(
-                    with: _firstMatch
-                        .range(at: 1)
-                )
-        } else {
-            baseName = protocolName
+    class ProtocolNameHandler {
+        let node: ProtocolDeclSyntax
+        init(_ node: ProtocolDeclSyntax) {
+            self.node = node
         }
         
-        let title = String(format: mockType.format, baseName)
+        var originalName: String {
+            node.identifier.text
+        }
         
-        let identifier = SyntaxFactory
-            .makeToken(.identifier(title), presence: .present)
+        func getBaseName() -> String {
+            let nameFormat = Settings
+                .shared
+                .protocolSettings
+                .nameFormat ?? "%@Protocol"
+            
+            let regexString = nameFormat
+                .replacingOccurrences(
+                    of: "%@",
+                    with: "(.+)"
+                )
+            let regex = try? NSRegularExpression(
+                pattern: "^\(regexString)$",
+                options: []
+            )
+            
+            let firstMatch = regex?.firstMatch(
+                in: originalName,
+                options: .anchored,
+                range: originalName
+                    .nsString
+                    .range(of: originalName)
+            )
+            
+            if let _firstMatch = firstMatch {
+                return originalName.nsString
+                    .substring(with: _firstMatch.range(at: 1))
+            } else {
+                return originalName
+            }
+        }
+    }
+    
+    override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind {
+        let protocolNameHandler = ProtocolNameHandler(node)
+        let baseName = protocolNameHandler.getBaseName()
         
-        let indentationValue = 4
+        let mockName = String(format: mockType.format, baseName)
+        let identifier = SyntaxFactory.makeIdentifier(mockName)
         
         let decls = node.members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
-            let indentationTrivia = Trivia(pieces: [.spaces(indentationValue)])
             var codeBlockItems = [CodeBlockItemSyntax]()
             var memberDeclListItems = [MemberDeclListItemSyntax]()
             
@@ -92,8 +108,7 @@ class MockGenerater: SyntaxVisitor {
                 // call properties
                 if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
                     let (callVarDeclItem, callCodeBlockItem) = makeCallVal(
-                        identifierBaseText: identifierBaseText,
-                        indentationCount: indentationValue
+                        identifierBaseText: identifierBaseText
                     )
                     codeBlockItems.append(callCodeBlockItem)
                     memberDeclListItems.append(callVarDeclItem)
@@ -101,8 +116,7 @@ class MockGenerater: SyntaxVisitor {
                 // count properties
                 if !Settings.shared.spySettings.getCapture(capture: .callCount) {
                     let (countVarDeclItem, countCodeBlockItem) = makeCountVal(
-                        identifierBaseText: identifierBaseText,
-                        indentationCount: indentationValue
+                        identifierBaseText: identifierBaseText
                     )
                     codeBlockItems.append(countCodeBlockItem)
                     memberDeclListItems.append(countVarDeclItem)
@@ -111,8 +125,7 @@ class MockGenerater: SyntaxVisitor {
                 if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
                     let argsVal = makeArgsValIfNeeded(
                         identifierBaseText: identifierBaseText,
-                        funcDecl: funcDeclSyntax,
-                        indentationCount: indentationValue
+                        funcDecl: funcDeclSyntax
                     )
                     if let (argsVarDeclItem, argsCodeBlockItem) = argsVal {
                         codeBlockItems.append(argsCodeBlockItem)
@@ -123,8 +136,7 @@ class MockGenerater: SyntaxVisitor {
                 // val properties
                 let returnVal = makeReturnValIfNeeded(
                     identifierBaseText: identifierBaseText,
-                    funcDecl: funcDeclSyntax,
-                    indentationCount: indentationValue
+                    funcDecl: funcDeclSyntax
                 )
                 if let (returnVarDeclItem, returnCodeBlockItem) = returnVal {
                     codeBlockItems.append(returnCodeBlockItem)
@@ -140,7 +152,7 @@ class MockGenerater: SyntaxVisitor {
                     statements: SyntaxFactory
                         .makeCodeBlockItemList(codeBlockItems),
                     rightBrace: SyntaxFactory.makeRightBraceToken(
-                        leadingTrivia: indentationTrivia,
+                        leadingTrivia: .indent,
                         trailingTrivia: .newlines(1)
                     )
                 )
@@ -149,7 +161,7 @@ class MockGenerater: SyntaxVisitor {
                 let funcSyntax = DeclSyntax(
                     funcDeclSyntax
                         .withBody(block)
-                        .withLeadingTrivia(indentationTrivia)
+                        .withLeadingTrivia(.indent)
                         .withTrailingTrivia(.newlines(2))
                 )
                 let funcSyntaxItem = SyntaxFactory
@@ -178,26 +190,24 @@ class MockGenerater: SyntaxVisitor {
                     // wasCalled
                     if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
                         let (wasCalledDecl, wasCalledBlockExpr) = makeCallVal(
-                            identifierBaseText: baseIdentifierText,
-                            indentationCount: indentationValue
+                            identifierBaseText: baseIdentifierText
                         )
                         memberDeclItems.append(wasCalledDecl)
                         codeBlockItems.append(
                             wasCalledBlockExpr
-                                .withLeadingTrivia(.spaces(indentationValue * 3))
+                                .withLeadingTrivia(.indent(3))
                         )
                     }
                     
                     // count
                     if !Settings.shared.spySettings.getCapture(capture: .callCount) {
                         let (countVarDecl, countBlockExpr) = makeCountVal(
-                            identifierBaseText: baseIdentifierText,
-                            indentationCount: indentationValue
+                            identifierBaseText: baseIdentifierText
                         )
                         memberDeclItems.append(countVarDecl)
                         codeBlockItems.append(
                             countBlockExpr
-                                .withLeadingTrivia(.spaces(indentationValue * 3))
+                                .withLeadingTrivia(.indent(3))
                         )
                     }
                     
@@ -221,13 +231,12 @@ class MockGenerater: SyntaxVisitor {
                                     SyntaxFactory
                                         .makeVariableExpr("newValue")
                                         .withTrailingTrivia(.newlines(1))
-                                ),
-                                indentationCount: indentationValue
+                                )
                             )
                             memberDeclItems.append(argsDecl)
                             codeBlockItems.append(
                                 argsBlockExpr
-                                    .withLeadingTrivia(.spaces(indentationValue * 3))
+                                    .withLeadingTrivia(.indent(3))
                             )
                         }
                     }
@@ -239,13 +248,12 @@ class MockGenerater: SyntaxVisitor {
                         
                         let (returnDecl, returnBlockExpr) = makeReturnVal(
                             identifierBaseText: baseIdentifierText,
-                            typeSyntax: typeSyntax,
-                            indentationCount: indentationValue
+                            typeSyntax: typeSyntax
                         )
                         memberDeclItems.append(returnDecl)
                         codeBlockItems.append(
                             returnBlockExpr
-                                .withLeadingTrivia(.spaces(indentationValue * 3))
+                                .withLeadingTrivia(.indent(3))
                         )
                     }
                     
@@ -253,7 +261,7 @@ class MockGenerater: SyntaxVisitor {
                         attributes: accessor.attributes,
                         modifier: accessor.modifier,
                         accessorKind: accessor.accessorKind
-                            .withLeadingTrivia([.spaces(indentationValue * 2)]),
+                            .withLeadingTrivia(.indent(3)),
                         parameter: accessor.parameter,
                         body: SyntaxFactory.makeCodeBlock(
                             leftBrace: SyntaxFactory
@@ -264,7 +272,7 @@ class MockGenerater: SyntaxVisitor {
                                 .makeCodeBlockItemList(codeBlockItems),
                             rightBrace: SyntaxFactory
                                 .makeRightBraceToken()
-                                .withLeadingTrivia([.spaces(indentationValue * 2)])
+                                .withLeadingTrivia(.indent(2))
                                 .withTrailingTrivia([.newlines(1)])
                         ))
                     
@@ -287,7 +295,7 @@ class MockGenerater: SyntaxVisitor {
                                     ),
                                     rightBrace: SyntaxFactory
                                         .makeRightBraceToken()
-                                        .withLeadingTrivia(.spaces(indentationValue))
+                                        .withLeadingTrivia(.indent)
                                         .withTrailingTrivia(.newlines(1))
                                 )
                         ),
@@ -301,7 +309,7 @@ class MockGenerater: SyntaxVisitor {
                     modifiers: nil,
                     letOrVarKeyword: SyntaxFactory
                         .makeVarKeyword()
-                        .withLeadingTrivia(.spaces(indentationValue))
+                        .withLeadingTrivia(.indent)
                         .withTrailingTrivia(.spaces(1)),
                     bindings: patternList)
                 let declListItem = SyntaxFactory.makeMemberDeclListItem(
@@ -332,7 +340,7 @@ class MockGenerater: SyntaxVisitor {
                     .makeInheritedTypeList(
                         [SyntaxFactory
                             .makeInheritedType(
-                                typeName: SyntaxFactory.makeTypeIdentifier(protocolName), trailingComma: nil)]
+                                typeName: SyntaxFactory.makeTypeIdentifier(protocolNameHandler.originalName), trailingComma: nil)]
                     )
             )
             .withTrailingTrivia(.spaces(1)),
@@ -344,7 +352,7 @@ class MockGenerater: SyntaxVisitor {
                     .withTrailingTrivia(.newlines(1)),
                 members: SyntaxFactory
                     .makeMemberDeclList(decls.flatMap { $0 })
-                    .withLeadingTrivia(.spaces(indentationValue))
+                    .withLeadingTrivia(.indent)
                     .withTrailingTrivia(.newlines(1)),
                 rightBrace: SyntaxFactory
                     .makeRightBraceToken()
@@ -356,7 +364,7 @@ class MockGenerater: SyntaxVisitor {
         return .skipChildren
     }
     
-    private func makeReturnValIfNeeded(identifierBaseText: String, funcDecl: FunctionDeclSyntax, indentationCount: Int) -> (
+    private func makeReturnValIfNeeded(identifierBaseText: String, funcDecl: FunctionDeclSyntax) -> (
         MemberDeclListItemSyntax,
         CodeBlockItemSyntax
     )? {
@@ -367,15 +375,13 @@ class MockGenerater: SyntaxVisitor {
         
         return makeReturnVal(
             identifierBaseText: identifierBaseText,
-            typeSyntax: output.returnType,
-            indentationCount: indentationCount
+            typeSyntax: output.returnType
         )
     }
     
     private func makeReturnVal(
         identifierBaseText: String,
-        typeSyntax: TypeSyntax,
-        indentationCount: Int) -> (
+        typeSyntax: TypeSyntax) -> (
         MemberDeclListItemSyntax,
         CodeBlockItemSyntax
     ) {
@@ -386,7 +392,7 @@ class MockGenerater: SyntaxVisitor {
             modifiers: nil,
             letOrVarKeyword: SyntaxFactory
                 .makeVarKeyword(
-                    leadingTrivia: .spaces(indentationCount),
+                    leadingTrivia: .indent,
                     trailingTrivia: .spaces(1)
                 ),
             bindings: SyntaxFactory
@@ -417,7 +423,7 @@ class MockGenerater: SyntaxVisitor {
                                             .makeReturnKeyword(),
                                         declNameArguments: nil
                                     )
-                                    .withLeadingTrivia(.spaces(indentationCount * 2))
+                                    .withLeadingTrivia(.indent(2))
                         ),
                         ExprSyntax(SyntaxFactory
                                     .makeIdentifierExpr(
@@ -438,8 +444,7 @@ class MockGenerater: SyntaxVisitor {
     
     private func makeArgsValIfNeeded(
         identifierBaseText: String,
-        funcDecl: FunctionDeclSyntax,
-        indentationCount: Int) -> (
+        funcDecl: FunctionDeclSyntax) -> (
         MemberDeclListItemSyntax,
         CodeBlockItemSyntax
     )? {
@@ -477,8 +482,7 @@ class MockGenerater: SyntaxVisitor {
                     SyntaxFactory
                         .makeVariableExpr(tokenSyntax.text)
                         .withTrailingTrivia(.newlines(1))
-                ),
-                indentationCount: indentationCount
+                )
             )
         } else {
             let tupleElements = paramters
@@ -542,8 +546,7 @@ class MockGenerater: SyntaxVisitor {
                                                         ),
                                                     rightParen: SyntaxFactory.makeRightParenToken())
                                                     .withTrailingTrivia(.newlines(1))
-                                        ),
-                indentationCount: indentationCount
+                                        )
             )
         }
 
@@ -552,8 +555,7 @@ class MockGenerater: SyntaxVisitor {
     private func makeArgsVal(
         identifierBaseText: String,
         typeSyntax: TypeSyntax,
-        substitutionExprSyntax: ExprSyntax,
-        indentationCount: Int) -> (
+        substitutionExprSyntax: ExprSyntax) -> (
             MemberDeclListItemSyntax,
             CodeBlockItemSyntax
         ) {
@@ -565,7 +567,7 @@ class MockGenerater: SyntaxVisitor {
             modifiers: nil,
             letOrVarKeyword: SyntaxFactory
                 .makeVarKeyword(
-                    leadingTrivia: .spaces(indentationCount),
+                    leadingTrivia: .indent,
                     trailingTrivia: .spaces(1)
                 ),
             bindings: SyntaxFactory
@@ -612,7 +614,7 @@ class MockGenerater: SyntaxVisitor {
                                             .makeIdentifier(identifier),
                                         declNameArguments: nil
                                     )
-                                    .withLeadingTrivia(.spaces(indentationCount * 2))
+                                    .withLeadingTrivia(.indent)
                                     .withTrailingTrivia(.spaces(1))
                         ),
                         ExprSyntax(SyntaxFactory
@@ -631,7 +633,7 @@ class MockGenerater: SyntaxVisitor {
         return (varDeclItem, codeBlockItem)
     }
     
-    private func makeCountVal(identifierBaseText: String, indentationCount: Int) -> (
+    private func makeCountVal(identifierBaseText: String) -> (
         MemberDeclListItemSyntax,
         CodeBlockItemSyntax
     ) {
@@ -641,7 +643,7 @@ class MockGenerater: SyntaxVisitor {
             attributes: nil,
             modifiers: nil,
             letOrVarKeyword: SyntaxFactory.makeVarKeyword(
-                leadingTrivia: .spaces(indentationCount),
+                leadingTrivia: .indent,
                 trailingTrivia: .spaces(1)),
             bindings: SyntaxFactory
                 .makePatternBindingList([
@@ -687,7 +689,7 @@ class MockGenerater: SyntaxVisitor {
                                             .makeIdentifier(identifier),
                                         declNameArguments: nil
                                     )
-                                    .withLeadingTrivia(.spaces(indentationCount * 2))
+                                    .withLeadingTrivia(.indent(2))
                                     .withTrailingTrivia(.spaces(1))
                         ),
                         ExprSyntax(SyntaxFactory
@@ -712,7 +714,7 @@ class MockGenerater: SyntaxVisitor {
         return (varDeclItem, codeBlockItem)
     }
     
-    private func makeCallVal(identifierBaseText: String, indentationCount: Int) -> (
+    private func makeCallVal(identifierBaseText: String) -> (
         MemberDeclListItemSyntax,
         CodeBlockItemSyntax
     ) {
@@ -722,7 +724,7 @@ class MockGenerater: SyntaxVisitor {
             attributes: nil,
             modifiers: nil,
             letOrVarKeyword: SyntaxFactory.makeVarKeyword(
-                leadingTrivia: .spaces(indentationCount),
+                leadingTrivia: .indent,
                 trailingTrivia: .spaces(1)),
             bindings: SyntaxFactory
                 .makePatternBindingList([
@@ -768,7 +770,7 @@ class MockGenerater: SyntaxVisitor {
                                             .makeIdentifier(callIdentifier),
                                         declNameArguments: nil
                                     )
-                                    .withLeadingTrivia(.spaces(indentationCount * 2))
+                                    .withLeadingTrivia(.indent(2))
                                     .withTrailingTrivia(.spaces(1))
                         ),
                         ExprSyntax(SyntaxFactory
@@ -991,5 +993,22 @@ extension SimpleTypeIdentifierSyntax {
         default:
             return nil
         }
+    }
+}
+
+extension SyntaxFactory {
+    func makeIdentifier(_ text: String) -> TokenSyntax {
+        SyntaxFactory
+            .makeToken(.identifier(text), presence: .present)
+    }
+}
+
+extension Trivia {
+    static var indent: Trivia {
+        .spaces(Settings.shared.indentationValue)
+    }
+    
+    static func indent(_ level: Int) -> Trivia {
+        .spaces(Settings.shared.indentationValue * level)
     }
 }
