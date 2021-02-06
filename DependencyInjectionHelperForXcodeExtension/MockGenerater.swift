@@ -26,6 +26,50 @@ enum MockType {
     }
 }
 
+
+class ProtocolNameHandler {
+    let node: ProtocolDeclSyntax
+    init(_ node: ProtocolDeclSyntax) {
+        self.node = node
+    }
+    
+    var originalName: String {
+        node.identifier.text
+    }
+    
+    func getBaseName() -> String {
+        let nameFormat = Settings
+            .shared
+            .protocolSettings
+            .nameFormat ?? "%@Protocol"
+        
+        let regexString = nameFormat
+            .replacingOccurrences(
+                of: "%@",
+                with: "(.+)"
+            )
+        let regex = try? NSRegularExpression(
+            pattern: "^\(regexString)$",
+            options: []
+        )
+        
+        let firstMatch = regex?.firstMatch(
+            in: originalName,
+            options: .anchored,
+            range: originalName
+                .nsString
+                .range(of: originalName)
+        )
+        
+        if let _firstMatch = firstMatch {
+            return originalName.nsString
+                .substring(with: _firstMatch.range(at: 1))
+        } else {
+            return originalName
+        }
+    }
+}
+
 class MockGenerater: SyntaxVisitor {
     internal init(mockType: MockType) {
         self.mockType = mockType
@@ -33,49 +77,7 @@ class MockGenerater: SyntaxVisitor {
     
     let mockType: MockType
     var mockDecls = [ClassDeclSyntax]()
-    
-    class ProtocolNameHandler {
-        let node: ProtocolDeclSyntax
-        init(_ node: ProtocolDeclSyntax) {
-            self.node = node
-        }
-        
-        var originalName: String {
-            node.identifier.text
-        }
-        
-        func getBaseName() -> String {
-            let nameFormat = Settings
-                .shared
-                .protocolSettings
-                .nameFormat ?? "%@Protocol"
-            
-            let regexString = nameFormat
-                .replacingOccurrences(
-                    of: "%@",
-                    with: "(.+)"
-                )
-            let regex = try? NSRegularExpression(
-                pattern: "^\(regexString)$",
-                options: []
-            )
-            
-            let firstMatch = regex?.firstMatch(
-                in: originalName,
-                options: .anchored,
-                range: originalName
-                    .nsString
-                    .range(of: originalName)
-            )
-            
-            if let _firstMatch = firstMatch {
-                return originalName.nsString
-                    .substring(with: _firstMatch.range(at: 1))
-            } else {
-                return originalName
-            }
-        }
-    }
+
     
     override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind {
         let protocolNameHandler = ProtocolNameHandler(node)
@@ -297,10 +299,7 @@ class MockGenerater: SyntaxVisitor {
                 let variable = SyntaxFactory.makeVariableDecl(
                     attributes: nil,
                     modifiers: nil,
-                    letOrVarKeyword: SyntaxFactory
-                        .makeVarKeyword()
-                        .withLeadingTrivia(.indent)
-                        .withTrailingTrivia(.spaces(1)),
+                    letOrVarKeyword: .makeFormattedVarKeyword(),
                     bindings: patternList)
                 let declListItem = SyntaxFactory.makeMemberDeclListItem(
                     decl: DeclSyntax(variable),
@@ -315,41 +314,14 @@ class MockGenerater: SyntaxVisitor {
         let mockClassDecl = SyntaxFactory.makeClassDecl(
             attributes: nil,
             modifiers: nil,//ModifierListSyntax?,
-            classKeyword: SyntaxFactory
-                .makeClassKeyword(
-                    leadingTrivia: .zero,
-                    trailingTrivia: .spaces(1)
-                ),
+            classKeyword: .makeFormattedClassKeyword(),
             identifier: identifier,
             genericParameterClause: nil,
-            inheritanceClause: SyntaxFactory.makeTypeInheritanceClause(
-                colon: SyntaxFactory
-                    .makeColonToken()
-                    .withTrailingTrivia(.spaces(1)),
-                inheritedTypeCollection: SyntaxFactory
-                    .makeInheritedTypeList(
-                        [SyntaxFactory
-                            .makeInheritedType(
-                                typeName: SyntaxFactory.makeTypeIdentifier(protocolNameHandler.originalName), trailingComma: nil)]
-                    )
-            )
-            .withTrailingTrivia(.spaces(1)),
+            inheritanceClause: .makeFormattedProtocol(protocolNameHandler),
             genericWhereClause: nil,
-            members: SyntaxFactory.makeMemberDeclBlock(
-                leftBrace: SyntaxFactory
-                    .makeLeftBraceToken()
-                    .withLeadingTrivia(.zero)
-                    .withTrailingTrivia(.newlines(1)),
-                members: SyntaxFactory
-                    .makeMemberDeclList(decls.flatMap { $0 })
-                    .withLeadingTrivia(.indent)
-                    .withTrailingTrivia(.newlines(1)),
-                rightBrace: SyntaxFactory
-                    .makeRightBraceToken()
-                    .withLeadingTrivia(.zero)
-                    .withTrailingTrivia(.newlines(1))
-            )
+            members: .makeFormatted(with: decls)
         )
+        
         mockDecls.append(mockClassDecl)
         return .skipChildren
     }
@@ -375,61 +347,20 @@ class MockGenerater: SyntaxVisitor {
         MemberDeclListItemSyntax,
         CodeBlockItemSyntax
     ) {
-        
         let identifier = "\(identifierBaseText)_val"
-        let varDecl = SyntaxFactory.makeVariableDecl(
-            attributes: nil,
-            modifiers: nil,
-            letOrVarKeyword: SyntaxFactory
-                .makeVarKeyword(
-                    leadingTrivia: .indent,
-                    trailingTrivia: .spaces(1)
-                ),
-            bindings: SyntaxFactory
-                .makePatternBindingList([
-                    SyntaxFactory
-                        .makeReturnSyntax(
-                            identifier: identifier,
-                            typeSyntax: typeSyntax
-                        )
-                ])
-        )
-        
-        
-        let varDeclItem = SyntaxFactory.makeMemberDeclListItem(
-            decl: DeclSyntax(varDecl)
-                .withTrailingTrivia(.newlines(1)),
-            semicolon: nil
-        )
-        
-
-        let codeBlockItem = SyntaxFactory.makeCodeBlockItem(
-            item: Syntax(SyntaxFactory.makeSequenceExpr(
-                elements: SyntaxFactory
-                    .makeExprList([
-                        ExprSyntax(SyntaxFactory
-                                    .makeIdentifierExpr(
-                                        identifier: SyntaxFactory
-                                            .makeReturnKeyword(),
-                                        declNameArguments: nil
-                                    )
-                                    .withLeadingTrivia(.indent(2))
+        return (SyntaxFactory
+                    .makeMemberDeclListItem(
+                        decl: DeclSyntax(
+                            VariableDeclSyntax
+                                .makeReturnedValForMock(identifier, typeSyntax)
                         ),
-                        ExprSyntax(SyntaxFactory
-                                    .makeIdentifierExpr(
-                                        identifier: SyntaxFactory
-                                            .makeIdentifier(identifier),
-                                        declNameArguments: nil
-                                    )
-                                    .withLeadingTrivia(.spaces(1))
-                                    .withTrailingTrivia(.newlines(1))
-                        )
-                    ])
-            )),
-            semicolon: nil,
-            errorTokens: nil)
-        
-        return (varDeclItem, codeBlockItem)
+                        semicolon: nil
+                ),
+                .makeFormattedExpr(
+                    expr: SyntaxFactory.makeReturnKeyword(),
+                    right: SyntaxFactory.makeIdentifier(identifier)
+                )
+        )
     }
     
     private func makeArgsValIfNeeded(
@@ -551,76 +482,25 @@ class MockGenerater: SyntaxVisitor {
         ) {
         
         let identifier = "\(identifierBaseText)_args"
-        
-        let varDecl = SyntaxFactory.makeVariableDecl(
-            attributes: nil,
-            modifiers: nil,
-            letOrVarKeyword: SyntaxFactory
-                .makeVarKeyword(
-                    leadingTrivia: .indent,
-                    trailingTrivia: .spaces(1)
-                ),
-            bindings: SyntaxFactory
-                .makePatternBindingList([
-                    SyntaxFactory.makePatternBinding(
-                        pattern: PatternSyntax(SyntaxFactory
-                            .makeIdentifierPattern(
-                                identifier: SyntaxFactory.makeIdentifier(
-                                    identifier
-                                )
-                            )
-                        ),
-                        typeAnnotation: SyntaxFactory
-                            .makeTypeAnnotation(
-                                colon: SyntaxFactory.makeColonToken(),
-                                type: TypeSyntax(SyntaxFactory
-                                    .makeOptionalType(
-                                        wrappedType: typeSyntax,
-                                        questionMark: SyntaxFactory.makePostfixQuestionMarkToken()
-                                    )
-                                )
-                            ),
-                        initializer: nil,
-                        accessor: nil,
-                        trailingComma: nil
+        return (
+            .makeFormattedAssign(
+                to: identifier,
+                typeAnnotation: .makeFormatted(
+                    TypeSyntax(SyntaxFactory
+                        .makeOptionalType(
+                            wrappedType: typeSyntax,
+                            questionMark: SyntaxFactory.makePostfixQuestionMarkToken()
+                        )
                     )
-                ])
+                )
+            ),
+            .makeFormattedExpr(
+                left: SyntaxFactory.makeIdentifier(identifier),
+                expr: SyntaxFactory.makeEqualToken(),
+                right: substitutionExprSyntax
+            )
         )
-        
-        let varDeclItem = SyntaxFactory.makeMemberDeclListItem(
-            decl: DeclSyntax(varDecl)
-                .withTrailingTrivia(.newlines(1)),
-            semicolon: nil
-        )
-        
 
-        let codeBlockItem = SyntaxFactory.makeCodeBlockItem(
-            item: Syntax(SyntaxFactory.makeSequenceExpr(
-                elements: SyntaxFactory
-                    .makeExprList([
-                        ExprSyntax(SyntaxFactory
-                                    .makeIdentifierExpr(
-                                        identifier: SyntaxFactory
-                                            .makeIdentifier(identifier),
-                                        declNameArguments: nil
-                                    )
-                                    .withLeadingTrivia(.indent)
-                                    .withTrailingTrivia(.spaces(1))
-                        ),
-                        ExprSyntax(SyntaxFactory
-                                    .makeIdentifierExpr(
-                                        identifier: SyntaxFactory.makeIdentifier("="),
-                                        declNameArguments: nil
-                                    )
-                                    .withTrailingTrivia(.spaces(1))
-                        ),
-                        substitutionExprSyntax
-                    ])
-            )),
-            semicolon: nil,
-            errorTokens: nil)
-        
-        return (varDeclItem, codeBlockItem)
     }
     
     private func makeCountVal(identifierBaseText: String) -> (
@@ -628,100 +508,35 @@ class MockGenerater: SyntaxVisitor {
         CodeBlockItemSyntax
     ) {
         let identifier = "\(identifierBaseText)_callCount"
-        
-        let varDecl = SyntaxFactory.makeVariableDecl(
-            attributes: nil,
-            modifiers: nil,
-            letOrVarKeyword: SyntaxFactory.makeVarKeyword(
-                leadingTrivia: .indent,
-                trailingTrivia: .spaces(1)),
-            bindings: SyntaxFactory
-                .makePatternBindingList([
-                    SyntaxFactory.makePatternBinding(
-                        pattern: PatternSyntax(SyntaxFactory
-                            .makeIdentifierPattern(
-                                identifier: SyntaxFactory.makeIdentifier(
-                                    identifier
-                                )
-                            )
-                        ),
-                        typeAnnotation: nil,
-                        initializer: SyntaxFactory.makeInitializerClause(
-                            equal: SyntaxFactory.makeEqualToken(
-                                leadingTrivia: .spaces(1),
-                                trailingTrivia: .spaces(1)
-                            ),
-                            value: ExprSyntax(SyntaxFactory
-                                .makeBooleanLiteralExpr(
-                                    booleanLiteral: SyntaxFactory
-                                        .makeIntegerLiteral("0")
-                                ))
-                        ),
-                        accessor: nil,
-                        trailingComma: nil
-                    )
-                ]))
-        
-        let varDeclItem = SyntaxFactory.makeMemberDeclListItem(
-            decl: DeclSyntax(varDecl)
-                .withTrailingTrivia(.newlines(1)),
-            semicolon: nil
+        return (
+            .makeFormattedAssign(
+                to: identifier,
+                from: .makeZeroKeyword()
+            ),
+            .makeFormattedExpr(
+                left: SyntaxFactory
+                    .makeIdentifier(identifier),
+                expr: SyntaxFactory.makeIdentifier("+="),
+                right: SyntaxFactory.makeIntegerLiteral("1")
+            )
         )
-        
-
-        let codeBlockItem = SyntaxFactory.makeCodeBlockItem(
-            item: Syntax(SyntaxFactory.makeSequenceExpr(
-                elements: SyntaxFactory
-                    .makeExprList([
-                        ExprSyntax(SyntaxFactory
-                                    .makeIdentifierExpr(
-                                        identifier: SyntaxFactory
-                                            .makeIdentifier(identifier),
-                                        declNameArguments: nil
-                                    )
-                                    .withLeadingTrivia(.indent(2))
-                                    .withTrailingTrivia(.spaces(1))
-                        ),
-                        ExprSyntax(SyntaxFactory
-                                    .makeIdentifierExpr(
-                                        identifier: SyntaxFactory.makeIdentifier("+="),
-                                        declNameArguments: nil
-                                    )
-                                    .withTrailingTrivia(.spaces(1))
-                        ),
-                        ExprSyntax(SyntaxFactory
-                                    .makeIdentifierExpr(
-                                        identifier: SyntaxFactory.makeIntegerLiteral("1"),
-                                        declNameArguments: nil
-                                    )
-                                    .withTrailingTrivia(.newlines(1))
-                        )
-                    ])
-            )),
-            semicolon: nil,
-            errorTokens: nil)
-        
-        return (varDeclItem, codeBlockItem)
     }
     
     private func makeCallVal(identifierBaseText: String) -> (
         MemberDeclListItemSyntax,
         CodeBlockItemSyntax
     ) {
+        
         let callIdentifier = "\(identifierBaseText)_wasCalled"
-        let callVarDeclItem = SyntaxFactory.makeMemberDeclListItem(
-            decl: DeclSyntax(
-                SyntaxFactory
-                    .makeCallSyntax(
-                        identifierText: callIdentifier
-                    ))
-            .withTrailingTrivia(.newlines(1)),
-            semicolon: nil
+        return (
+            .makeFormattedAssign(
+                to: callIdentifier,
+                from: .makeFalseKeyword()
+            ),
+            .makeTrueSubstitutionExpr(
+                callIdentifier: callIdentifier
+            )
         )
-        let callCodeBlockItem = SyntaxFactory.makeTrueSubstitutionExpr(
-            callIdentifier: callIdentifier
-        )
-        return (callVarDeclItem, callCodeBlockItem)
     }
     
     override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
@@ -778,16 +593,138 @@ extension String {
     }
 }
 
+extension PatternBindingListSyntax {
+    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> PatternBindingListSyntax {
+        SyntaxFactory
+            .makePatternBindingList([
+                .makeReturnedValForMock(identifier, typeSyntax)
+            ])
+    }
+}
+
+extension MemberDeclBlockSyntax {
+    static func makeFormatted(with decls: [[MemberDeclListItemSyntax]]) -> MemberDeclBlockSyntax {
+        SyntaxFactory.makeMemberDeclBlock(
+            leftBrace: .makeCleanFormattedLeftBrance(),
+            members: .makeFormattedMemberDeclList(decls),
+            rightBrace: .makeCleanFormattedRightBrance()
+        )
+    }
+}
+
+extension TypeInheritanceClauseSyntax {
+    static func makeFormattedProtocol(_ handler: ProtocolNameHandler) -> TypeInheritanceClauseSyntax {
+        SyntaxFactory.makeTypeInheritanceClause(
+            colon: SyntaxFactory
+                .makeColonToken()
+                .withTrailingTrivia(.spaces(1)),
+            inheritedTypeCollection: SyntaxFactory
+                .makeInheritedTypeList(
+                    [SyntaxFactory
+                        .makeInheritedType(
+                            typeName: SyntaxFactory
+                                .makeTypeIdentifier(handler.originalName),
+                            trailingComma: nil
+                        )
+                    ]
+                )
+        )
+        .withTrailingTrivia(.spaces(1))
+    }
+}
+
+extension TokenSyntax {
+    static func makeFormattedVarKeyword() -> TokenSyntax {
+        SyntaxFactory
+            .makeVarKeyword()
+            .withLeadingTrivia(.indent)
+            .withTrailingTrivia(.spaces(1))
+    }
+    
+    static func makeFormattedClassKeyword() -> TokenSyntax {
+        SyntaxFactory
+            .makeClassKeyword(
+                leadingTrivia: .zero,
+                trailingTrivia: .spaces(1)
+            )
+    }
+    
+    static func makeCleanFormattedLeftBrance() -> TokenSyntax {
+        SyntaxFactory
+            .makeLeftBraceToken()
+            .withLeadingTrivia(.zero)
+            .withTrailingTrivia(.newlines(1))
+    }
+    
+    static func makeCleanFormattedRightBrance() -> TokenSyntax {
+        SyntaxFactory
+            .makeRightBraceToken()
+            .withLeadingTrivia(.zero)
+            .withTrailingTrivia(.newlines(1))
+    }
+}
+
+extension MemberDeclListSyntax {
+    static func makeFormattedMemberDeclList(_ decls: [[MemberDeclListItemSyntax]]) -> MemberDeclListSyntax {
+        SyntaxFactory
+            .makeMemberDeclList(decls.flatMap { $0 })
+            .withLeadingTrivia(.indent)
+            .withTrailingTrivia(.newlines(1))
+    }
+}
+
+extension MemberDeclListItemSyntax {
+    static func makeFormattedAssign(to identifier: String, from expr: ExprSyntax)  -> MemberDeclListItemSyntax {
+        SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(VariableDeclSyntax
+                    .makeDeclWithAssign(
+                        to: identifier,
+                        from: expr
+                    ))
+                .withTrailingTrivia(.newlines(1)),
+            semicolon: nil
+        )
+    }
+    
+    static func makeFormattedAssign(to identifier: String, typeAnnotation: TypeAnnotationSyntax)  -> MemberDeclListItemSyntax {
+        SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(VariableDeclSyntax
+                    .makeDeclWithAssign(
+                        to: identifier,
+                        typeAnnotation: typeAnnotation
+                    ))
+                .withTrailingTrivia(.newlines(1)),
+            semicolon: nil
+        )
+    }
+}
+
 extension SyntaxFactory {
-    static func makeTrueSubstitutionExpr(callIdentifier: String) -> CodeBlockItemSyntax {
+    static func makeCleanFormattedLeftBrance() -> TokenSyntax {
+        SyntaxFactory
+            .makeLeftBraceToken()
+            .withLeadingTrivia(.zero)
+            .withTrailingTrivia(.newlines(1))
+    }
+    
+    
+    static func makeCleanFormattedRightBrance() -> TokenSyntax {
+        SyntaxFactory
+            .makeRightBraceToken()
+            .withLeadingTrivia(.zero)
+            .withTrailingTrivia(.newlines(1))
+    }
+}
+
+extension CodeBlockItemSyntax {
+    static func makeFormattedExpr(expr: TokenSyntax, right: TokenSyntax) -> CodeBlockItemSyntax {
         SyntaxFactory.makeCodeBlockItem(
             item: Syntax(SyntaxFactory.makeSequenceExpr(
                 elements: SyntaxFactory
                     .makeExprList([
                         ExprSyntax(SyntaxFactory
                                     .makeIdentifierExpr(
-                                        identifier: SyntaxFactory
-                                            .makeIdentifier(callIdentifier),
+                                        identifier: expr,
                                         declNameArguments: nil
                                     )
                                     .withLeadingTrivia(.indent(2))
@@ -795,14 +732,7 @@ extension SyntaxFactory {
                         ),
                         ExprSyntax(SyntaxFactory
                                     .makeIdentifierExpr(
-                                        identifier: SyntaxFactory.makeEqualToken(),
-                                        declNameArguments: nil
-                                    )
-                                    .withTrailingTrivia(.spaces(1))
-                        ),
-                        ExprSyntax(SyntaxFactory
-                                    .makeIdentifierExpr(
-                                        identifier: SyntaxFactory.makeTrueKeyword(),
+                                        identifier: right,
                                         declNameArguments: nil
                                     )
                                     .withTrailingTrivia(.newlines(1))
@@ -812,44 +742,294 @@ extension SyntaxFactory {
             errorTokens: nil)
     }
     
-    static func makeCallSyntax(identifierText: String) -> VariableDeclSyntax {
+    static func makeFormattedExpr(left: TokenSyntax, expr: TokenSyntax, right: TokenSyntax) -> CodeBlockItemSyntax {
+        makeFormattedExpr(
+            left: ExprSyntax(SyntaxFactory
+                                .makeIdentifierExpr(
+                                    identifier: left,
+                                    declNameArguments: nil
+                                )
+                                .withLeadingTrivia(.indent(2))
+                                .withTrailingTrivia(.spaces(1))
+                    ),
+            expr: ExprSyntax(SyntaxFactory
+                                .makeIdentifierExpr(
+                                    identifier: expr,
+                                    declNameArguments: nil
+                                )
+                                .withTrailingTrivia(.spaces(1))
+                    ),
+            right: ExprSyntax(SyntaxFactory
+                                .makeIdentifierExpr(
+                                    identifier: right,
+                                    declNameArguments: nil
+                                )
+                                .withTrailingTrivia(.newlines(1))
+                    )
+        )
+    }
+    
+    static func makeFormattedExpr(left: TokenSyntax, expr: TokenSyntax, right: ExprSyntax) -> CodeBlockItemSyntax {
+        makeFormattedExpr(
+            left: ExprSyntax(SyntaxFactory
+                                .makeIdentifierExpr(
+                                    identifier: left,
+                                    declNameArguments: nil
+                                )
+                                .withLeadingTrivia(.indent(2))
+                                .withTrailingTrivia(.spaces(1))
+                    ),
+            expr: ExprSyntax(SyntaxFactory
+                                .makeIdentifierExpr(
+                                    identifier: expr,
+                                    declNameArguments: nil
+                                )
+                                .withTrailingTrivia(.spaces(1))
+                    ),
+            right: right
+        )
+    }
+    
+    static func makeFormattedExpr(left: ExprSyntax, expr: ExprSyntax, right: ExprSyntax) -> CodeBlockItemSyntax {
+        SyntaxFactory.makeCodeBlockItem(
+            item: Syntax(SyntaxFactory.makeSequenceExpr(
+                elements: SyntaxFactory
+                    .makeExprList([
+                        left,
+                        expr,
+                        right
+                    ]))),
+            semicolon: nil,
+            errorTokens: nil)
+    }
+    
+    static func makeTrueSubstitutionExpr(callIdentifier: String) -> CodeBlockItemSyntax {
+        makeFormattedExpr(
+            left: SyntaxFactory.makeIdentifier(callIdentifier),
+            expr: SyntaxFactory.makeEqualToken(),
+            right: SyntaxFactory.makeTrueKeyword()
+        )
+    }
+}
+
+extension VariableDeclSyntax {
+    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> VariableDeclSyntax {
         SyntaxFactory.makeVariableDecl(
             attributes: nil,
             modifiers: nil,
-            letOrVarKeyword: SyntaxFactory.makeVarKeyword(
-                leadingTrivia: .indent,
-                trailingTrivia: .spaces(1)),
+            letOrVarKeyword: .makeFormattedVarKeyword(),
+            bindings: .makeReturnedValForMock(identifier, typeSyntax)
+        ).withTrailingTrivia(.newlines(1))
+    }
+    
+    static func makeDeclWithAssign(to identifier: String, from expr: ExprSyntax) -> VariableDeclSyntax {
+        SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: .makeFormattedVarKeyword(),
             bindings: SyntaxFactory
                 .makePatternBindingList([
-                    SyntaxFactory.makePatternBinding(
-                        pattern: PatternSyntax(SyntaxFactory
-                            .makeIdentifierPattern(
-                                identifier: SyntaxFactory.makeIdentifier(
-                                    identifierText
-                                )
-                            )
-                        ),
-                        typeAnnotation: nil,
-                        initializer: SyntaxFactory.makeInitializerClause(
-                            equal: SyntaxFactory.makeEqualToken(
-                                leadingTrivia: .spaces(1),
-                                trailingTrivia: .spaces(1)
-                            ),
-                            value: ExprSyntax(SyntaxFactory
-                                .makeBooleanLiteralExpr(
-                                    booleanLiteral: SyntaxFactory
-                                        .makeFalseKeyword()
-                                ))
-                        ),
-                        accessor: nil,
-                        trailingComma: nil
+                    .makeAssign(to: identifier,
+                                from: expr
                     )
                 ]))
     }
     
-    static func makeReturnSyntax(identifier: String, typeSyntax: TypeSyntax) -> PatternBindingSyntax {
+    static func makeDeclWithAssign(to identifier: String,
+                                   typeAnnotation: TypeAnnotationSyntax) -> VariableDeclSyntax {
+        
+        SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: .makeFormattedVarKeyword(),
+            bindings: SyntaxFactory
+                .makePatternBindingList([
+                    .makeAssign(to: identifier,
+                                typeAnnotation: typeAnnotation
+                    )
+                ]))
+    }
+}
+
+extension PatternBindingSyntax {
+    static func makeAssign(to identifier: String,
+                           from expr: ExprSyntax? = nil,
+                           typeAnnotation: TypeAnnotationSyntax? = nil) -> PatternBindingSyntax {
+        SyntaxFactory.makePatternBinding(
+            pattern: PatternSyntax(SyntaxFactory
+                .makeIdentifierPattern(
+                    identifier: SyntaxFactory.makeIdentifier(
+                        identifier
+                    )
+                )
+            ),
+            typeAnnotation: typeAnnotation,
+            initializer: expr.flatMap { SyntaxFactory.makeInitializerClause(
+                equal: SyntaxFactory.makeEqualToken(
+                    leadingTrivia: .spaces(1),
+                    trailingTrivia: .spaces(1)
+                ),
+                value: $0
+            ) },
+            accessor: nil,
+            trailingComma: nil
+        )
+    }
+
+    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> PatternBindingSyntax {
+        let unwrappedTypeSyntax = TokenSyntax.makeUnwrapped(typeSyntax)
+        
+        let processedTypeSyntax: TypeSyntax
+        let valueExpr: ExprSyntax?
+        if let simpleType = unwrappedTypeSyntax.as(SimpleTypeIdentifierSyntax.self),
+            let literal = simpleType.tryToConvertToLiteralExpr() {
+            processedTypeSyntax = typeSyntax
+            valueExpr = literal
+        } else if unwrappedTypeSyntax.is(ArrayTypeSyntax.self) {
+            processedTypeSyntax = typeSyntax
+            valueExpr = ExprSyntax(ArrayExprSyntax.makeBlank())
+        } else if unwrappedTypeSyntax.is(DictionaryTypeSyntax.self) {
+            processedTypeSyntax = typeSyntax
+            valueExpr = ExprSyntax(DictionaryExprSyntax.makeBlank())
+        } else if let functionTypeSyntax = unwrappedTypeSyntax.as(FunctionTypeSyntax.self) {
+            processedTypeSyntax = TypeSyntax(
+                ImplicitlyUnwrappedOptionalTypeSyntax
+                    .make(TypeSyntax(
+                            TupleTypeSyntax.makeParen(with: functionTypeSyntax)
+                    ))
+            )
+            valueExpr = nil
+        } else {
+            processedTypeSyntax = TypeSyntax(
+                ImplicitlyUnwrappedOptionalTypeSyntax
+                    .make(unwrappedTypeSyntax)
+            )
+            valueExpr = nil
+        }
+        
+        return SyntaxFactory.makePatternBinding(
+            pattern: .makeIdentifierPatternSyntax(with: identifier),
+            typeAnnotation: .makeFormatted(processedTypeSyntax),
+            initializer: .makeFormatted(valueExpr),
+            accessor: nil,
+            trailingComma: nil
+        )
+    }
+}
+
+extension ImplicitlyUnwrappedOptionalTypeSyntax {
+    static func make(_ unwrappedTypeSyntax: TypeSyntax) -> ImplicitlyUnwrappedOptionalTypeSyntax {
+        SyntaxFactory
+            .makeImplicitlyUnwrappedOptionalType(
+                wrappedType: unwrappedTypeSyntax,
+                exclamationMark: SyntaxFactory
+                    .makeExclamationMarkToken()
+            )
+    }
+}
+
+extension ExprSyntax {
+    static func makeFalseKeyword() -> ExprSyntax {
+        ExprSyntax(SyntaxFactory
+                .makeBooleanLiteralExpr(
+                    booleanLiteral: SyntaxFactory
+                        .makeFalseKeyword()
+                )
+        )
+    }
+    
+    static func makeZeroKeyword() -> ExprSyntax {
+        ExprSyntax(SyntaxFactory
+                .makeBooleanLiteralExpr(
+                    booleanLiteral: SyntaxFactory.makeIntegerLiteral("0")
+                )
+        )
+    }
+}
+
+extension InitializerClauseSyntax {
+    static func makeFormatted(_ valueExpr: ExprSyntax?) -> InitializerClauseSyntax? {
+        valueExpr.flatMap {
+            SyntaxFactory.makeInitializerClause(
+                equal: .makeFormattedEqual(),
+                value: $0)
+        }
+    }
+}
+
+extension TupleTypeSyntax {
+    static func makeParen(with anonimousFunctionType: FunctionTypeSyntax) -> TupleTypeSyntax {
+        SyntaxFactory.makeTupleType(
+            leftParen: SyntaxFactory.makeLeftParenToken(),
+            elements: SyntaxFactory
+                .makeTupleTypeElementList(
+                    [
+                        SyntaxFactory.makeTupleTypeElement(
+                            type: TypeSyntax(anonimousFunctionType),
+                            trailingComma: nil)
+                    ]
+                ),
+            rightParen: SyntaxFactory.makeRightParenToken())
+    }
+}
+
+extension ArrayExprSyntax {
+    static func makeBlank() -> ArrayExprSyntax {
+        SyntaxFactory
+            .makeArrayExpr(
+                leftSquare: SyntaxFactory
+                    .makeLeftSquareBracketToken(),
+                elements: SyntaxFactory
+                    .makeBlankArrayElementList(),
+                rightSquare: SyntaxFactory
+                    .makeRightSquareBracketToken()
+            )
+    }
+}
+
+extension DictionaryExprSyntax {
+    static func makeBlank() -> DictionaryExprSyntax {
+        SyntaxFactory
+            .makeDictionaryExpr(
+                leftSquare: SyntaxFactory
+                    .makeLeftSquareBracketToken(),
+                content: Syntax(DictionaryElementListSyntax.makeBlank()),
+                rightSquare: SyntaxFactory
+                    .makeRightSquareBracketToken())
+    }
+}
+
+extension DictionaryElementListSyntax {
+    static func makeBlank() -> DictionaryElementListSyntax {
+        SyntaxFactory
+            .makeDictionaryElementList(
+                [.makeBlank()]
+            )
+    }
+}
+
+extension DictionaryElementSyntax {
+    static func makeBlank() -> DictionaryElementSyntax {
+        SyntaxFactory
+            .makeDictionaryElement(
+                keyExpression: ExprSyntax(
+                    SyntaxFactory
+                        .makeBlankUnknownExpr()
+                ),
+                colon: SyntaxFactory
+                    .makeColonToken(),
+                valueExpression: ExprSyntax(
+                    SyntaxFactory
+                        .makeBlankUnknownExpr()
+                ),
+                trailingComma: nil)
+    }
+}
+
+extension TokenSyntax {
+    static func makeUnwrapped(_ typeSyntax: TypeSyntax) -> TypeSyntax {
         let unwrappedTypeSyntax: TypeSyntax
-        // remove optional or iuo
+        
         if let optionalTypeSyntax = typeSyntax.as(OptionalTypeSyntax.self) {
             unwrappedTypeSyntax = optionalTypeSyntax.wrappedType
         } else if let iuoTypeSyntax = typeSyntax.as(ImplicitlyUnwrappedOptionalTypeSyntax.self) {
@@ -858,102 +1038,39 @@ extension SyntaxFactory {
             unwrappedTypeSyntax = typeSyntax
         }
         
-        var processedTypeSyntax = typeSyntax
-        var valueExpr: ExprSyntax?
-        if let simpleType = unwrappedTypeSyntax.as(SimpleTypeIdentifierSyntax.self),
-            let literal = simpleType.tryToConvertToLiteralExpr() {
-            valueExpr = literal
-        } else if unwrappedTypeSyntax.is(ArrayTypeSyntax.self) {
-            valueExpr = ExprSyntax(SyntaxFactory
-                                    .makeArrayExpr(
-                                        leftSquare: SyntaxFactory
-                                            .makeLeftSquareBracketToken(),
-                                        elements: SyntaxFactory
-                                            .makeBlankArrayElementList(),
-                                        rightSquare: SyntaxFactory
-                                            .makeRightSquareBracketToken()
-                                    )
-            )
-        } else if unwrappedTypeSyntax.is(DictionaryTypeSyntax.self) {
-            valueExpr = ExprSyntax(SyntaxFactory
-                .makeDictionaryExpr(
-                    leftSquare: SyntaxFactory
-                        .makeLeftSquareBracketToken(),
-                    content: Syntax(SyntaxFactory
-                                        .makeDictionaryElementList(
-                                            [SyntaxFactory
-                                                .makeDictionaryElement(
-                                                    keyExpression: ExprSyntax(
-                                                        SyntaxFactory
-                                                            .makeBlankUnknownExpr()
-                                                    ),
-                                                    colon: SyntaxFactory
-                                                        .makeColonToken(),
-                                                    valueExpression: ExprSyntax(
-                                                        SyntaxFactory
-                                                            .makeBlankUnknownExpr()
-                                                    ),
-                                                    trailingComma: nil)
-                                            ]
-                                        )
-                    ),
-                    rightSquare: SyntaxFactory
-                        .makeRightSquareBracketToken()))
-        } else {
-            
-            // add parentheses to anonymous function
-            if let functionTypeSyntax = unwrappedTypeSyntax.as(FunctionTypeSyntax.self) {
-                processedTypeSyntax = TypeSyntax(SyntaxFactory.makeTupleType(
-                    leftParen: SyntaxFactory.makeLeftParenToken(),
-                    elements: SyntaxFactory
-                        .makeTupleTypeElementList(
-                            [
-                                SyntaxFactory.makeTupleTypeElement(
-                                    type: TypeSyntax(functionTypeSyntax),
-                                    trailingComma: nil)
-                            ]
-                        ),
-                    rightParen: SyntaxFactory.makeRightParenToken()))
-            }
-            
-            // wrap in iuo
-            processedTypeSyntax = TypeSyntax(SyntaxFactory
-                .makeImplicitlyUnwrappedOptionalType(
-                    wrappedType: processedTypeSyntax,
-                    exclamationMark: SyntaxFactory
-                        .makeExclamationMarkToken()
+        return unwrappedTypeSyntax
+    }
+    
+    static func makeFormattedEqual() -> TokenSyntax {
+        SyntaxFactory
+            .makeEqualToken()
+            .withTrailingTrivia(.spaces(1))
+    }
+}
+
+extension PatternSyntax {
+    static func makeIdentifierPatternSyntax(with name: String) -> PatternSyntax {
+        PatternSyntax(SyntaxFactory
+            .makeIdentifierPattern(
+                identifier: SyntaxFactory.makeIdentifier(
+                    name
                 )
             )
-        }
-        
-        let initializerExpr = valueExpr.flatMap {
-            SyntaxFactory.makeInitializerClause(
-                equal: SyntaxFactory
-                    .makeEqualToken()
-                    .withTrailingTrivia(.spaces(1)),
-                value: $0)
-        }
-        
-        return SyntaxFactory.makePatternBinding(
-            pattern: PatternSyntax(SyntaxFactory
-                .makeIdentifierPattern(
-                    identifier: SyntaxFactory.makeIdentifier(
-                        identifier
-                    )
-                )
-            ),
-            typeAnnotation: SyntaxFactory
-                .makeTypeAnnotation(
-                    colon: SyntaxFactory
-                        .makeColonToken()
-                        .withTrailingTrivia(.spaces(1)),
-                    type: processedTypeSyntax
-                )
-                .withTrailingTrivia(.spaces(1)),
-            initializer: initializerExpr,
-            accessor: nil,
-            trailingComma: nil
         )
+    }
+}
+
+
+extension TypeAnnotationSyntax {
+    static func makeFormatted(_ typeSyntax: TypeSyntax) -> TypeAnnotationSyntax {
+        SyntaxFactory
+            .makeTypeAnnotation(
+                colon: SyntaxFactory
+                    .makeColonToken()
+                    .withTrailingTrivia(.spaces(1)),
+                type: typeSyntax
+            )
+            .withTrailingTrivia(.spaces(1))
     }
 }
 
