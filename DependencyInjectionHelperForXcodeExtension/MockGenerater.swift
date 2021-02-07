@@ -70,475 +70,45 @@ class ProtocolNameHandler {
     }
 }
 
+struct SpyPropertyForAccessor {
+    var members: [MemberDeclListItemSyntax] = []
+    var accessor: AccessorDeclSyntax
+    
+    mutating func appendCodeBlockItem(_ codeBlock: CodeBlockItemSyntax) {
+        var statements = accessor.body?.statements.map { $0 } ?? []
+        statements.append(codeBlock)
+        accessor = accessor.makeAccessorDeclForMock(statements)
+            .withLeadingTrivia(.indent(2))
+    }
+}
+
+
 class MockGenerater: SyntaxVisitor {
     internal init(mockType: MockType) {
         self.mockType = mockType
     }
     
     let mockType: MockType
-    var mockDecls = [ClassDeclSyntax]()
-
+    var mockClasses = [ClassDeclSyntax]()
     
     override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind {
-        let protocolNameHandler = ProtocolNameHandler(node)
-        let baseName = protocolNameHandler.getBaseName()
-        
-        let mockName = String(format: mockType.format, baseName)
-        let identifier = SyntaxFactory.makeIdentifier(mockName)
-        
-        let decls = node.members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
-            var codeBlockItems = [CodeBlockItemSyntax]()
-            var memberDeclListItems = [MemberDeclListItemSyntax]()
-            
-            if let funcDeclSyntax = item.decl.as(FunctionDeclSyntax.self) {
-                guard !Settings.shared.spySettings.getTarget(target: .function) else {
-                    return []
-                }
-                
-                let identifierBaseText = funcDeclSyntax.signatureAddedIdentifier
-                
-                // call properties
-                if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
-                    let (callVarDeclItem, callCodeBlockItem) = makeCallVal(
-                        identifierBaseText: identifierBaseText
-                    )
-                    codeBlockItems.append(callCodeBlockItem)
-                    memberDeclListItems.append(callVarDeclItem)
-                }
-                // count properties
-                if !Settings.shared.spySettings.getCapture(capture: .callCount) {
-                    let (countVarDeclItem, countCodeBlockItem) = makeCountVal(
-                        identifierBaseText: identifierBaseText
-                    )
-                    codeBlockItems.append(countCodeBlockItem)
-                    memberDeclListItems.append(countVarDeclItem)
-                }
-                // arg properties
-                if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
-                    let argsVal = makeArgsValIfNeeded(
-                        identifierBaseText: identifierBaseText,
-                        funcDecl: funcDeclSyntax
-                    )
-                    if let (argsVarDeclItem, argsCodeBlockItem) = argsVal {
-                        codeBlockItems.append(argsCodeBlockItem)
-                        memberDeclListItems.append(argsVarDeclItem)
-                    }
-                }
-                
-                // val properties
-                let returnVal = makeReturnValIfNeeded(
-                    identifierBaseText: identifierBaseText,
-                    funcDecl: funcDeclSyntax
-                )
-                if let (returnVarDeclItem, returnCodeBlockItem) = returnVal {
-                    codeBlockItems.append(returnCodeBlockItem)
-                    memberDeclListItems.append(returnVarDeclItem)
-                }
-                
-                // block
-                let block = SyntaxFactory.makeCodeBlock(
-                    leftBrace: SyntaxFactory.makeLeftBraceToken(
-                        leadingTrivia: .spaces(1),
-                        trailingTrivia: [.spaces(1), .newlines(1)]
+        mockClasses.append(
+            .makeForMock(
+                identifier: SyntaxFactory
+                    .makeIdentifier(
+                        .init(
+                            format: mockType.format,
+                            ProtocolNameHandler(node).getBaseName()
+                        )
                     ),
-                    statements: SyntaxFactory
-                        .makeCodeBlockItemList(codeBlockItems),
-                    rightBrace: SyntaxFactory.makeRightBraceToken(
-                        leadingTrivia: .indent,
-                        trailingTrivia: .newlines(1)
-                    )
-                )
-                
-                // function
-                let funcSyntax = DeclSyntax(
-                    funcDeclSyntax
-                        .withBody(block)
-                        .withLeadingTrivia(.indent)
-                        .withTrailingTrivia(.newlines(2))
-                )
-                let funcSyntaxItem = SyntaxFactory
-                    .makeMemberDeclListItem(
-                        decl: funcSyntax,
-                        semicolon: nil
-                    )
-                memberDeclListItems.append(funcSyntaxItem)
-                return memberDeclListItems
-            } else if let variableDecl = item.decl.as(VariableDeclSyntax.self) {
-                guard !Settings.shared.spySettings.getTarget(target: .property) else {
-                    return []
-                }
-                
-                // protocol always has the following pattern.
-                let binding = variableDecl.bindings.first!
-                let accessorBlock = binding.accessor!.as(AccessorBlockSyntax.self)
-                
-                let identifier = binding.pattern.as(IdentifierPatternSyntax.self)!.identifier
-                
-                let decls = accessorBlock?.accessors.map({ (accessor) -> (AccessorDeclSyntax, [MemberDeclListItemSyntax])in
-                    var memberDeclItems = [MemberDeclListItemSyntax]()
-                    var codeBlockItems = [CodeBlockItemSyntax]()
-                    let baseIdentifierText = "\(identifier.text)_\(accessor.accessorKind.text)"
-                    
-                    // wasCalled
-                    if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
-                        let (wasCalledDecl, wasCalledBlockExpr) = makeCallVal(
-                            identifierBaseText: baseIdentifierText
-                        )
-                        memberDeclItems.append(wasCalledDecl)
-                        codeBlockItems.append(
-                            wasCalledBlockExpr
-                                .withLeadingTrivia(.indent(3))
-                        )
-                    }
-                    
-                    // count
-                    if !Settings.shared.spySettings.getCapture(capture: .callCount) {
-                        let (countVarDecl, countBlockExpr) = makeCountVal(
-                            identifierBaseText: baseIdentifierText
-                        )
-                        memberDeclItems.append(countVarDecl)
-                        codeBlockItems.append(
-                            countBlockExpr
-                                .withLeadingTrivia(.indent(3))
-                        )
-                    }
-                    
-                    // args
-                    if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
-                        if accessor.accessorKind.text == "set", let type = binding.typeAnnotation?.type {
-                            let typeSyntax: TypeSyntax
-                            if let optionalType = type.as(OptionalTypeSyntax.self) {
-                                typeSyntax = optionalType
-                                    .wrappedType
-                                    .withTrailingTrivia(.zero)
-                            } else {
-                                typeSyntax = type
-                                    .withTrailingTrivia(.zero)
-                            }
-                            
-                            let (argsDecl, argsBlockExpr) = makeArgsVal(
-                                identifierBaseText: baseIdentifierText,
-                                typeSyntax: typeSyntax,
-                                substitutionExprSyntax: ExprSyntax(
-                                    SyntaxFactory
-                                        .makeVariableExpr("newValue")
-                                        .withTrailingTrivia(.newlines(1))
-                                )
-                            )
-                            memberDeclItems.append(argsDecl)
-                            codeBlockItems.append(
-                                argsBlockExpr
-                                    .withLeadingTrivia(.indent(3))
-                            )
-                        }
-                    }
-                    
-                    // return
-                    if accessor.accessorKind.text == "get", let type = binding.typeAnnotation?.type {
-                        let typeSyntax = type
-                            .withTrailingTrivia(.zero)
-                        
-                        let (returnDecl, returnBlockExpr) = makeReturnVal(
-                            identifierBaseText: baseIdentifierText,
-                            typeSyntax: typeSyntax
-                        )
-                        memberDeclItems.append(returnDecl)
-                        codeBlockItems.append(
-                            returnBlockExpr
-                                .withLeadingTrivia(.indent(3))
-                        )
-                    }
-                    
-                    let accessor = SyntaxFactory.makeAccessorDecl(
-                        attributes: accessor.attributes,
-                        modifier: accessor.modifier,
-                        accessorKind: accessor.accessorKind
-                            .withLeadingTrivia(.indent(3)),
-                        parameter: accessor.parameter,
-                        body: SyntaxFactory.makeCodeBlock(
-                            leftBrace: SyntaxFactory
-                                .makeLeftBraceToken()
-                                .withLeadingTrivia(.spaces(1))
-                                .withTrailingTrivia(.newlines(1)),
-                            statements: SyntaxFactory
-                                .makeCodeBlockItemList(codeBlockItems),
-                            rightBrace: SyntaxFactory
-                                .makeRightBraceToken()
-                                .withLeadingTrivia(.indent(2))
-                                .withTrailingTrivia([.newlines(1)])
-                        ))
-                    
-                    return (accessor, memberDeclItems)
-                })
-                
-                let patternList = SyntaxFactory.makePatternBindingList([
-                    SyntaxFactory.makePatternBinding(
-                        pattern: binding.pattern,
-                        typeAnnotation: binding.typeAnnotation,
-                        initializer: nil,
-                        accessor: Syntax(
-                            SyntaxFactory
-                                .makeAccessorBlock(
-                                    leftBrace: SyntaxFactory
-                                        .makeLeftBraceToken()
-                                        .withTrailingTrivia(.newlines(1)),
-                                    accessors: SyntaxFactory.makeAccessorList(
-                                        decls?.map { $0.0 } ?? []
-                                    ),
-                                    rightBrace: SyntaxFactory
-                                        .makeRightBraceToken()
-                                        .withLeadingTrivia(.indent)
-                                        .withTrailingTrivia(.newlines(1))
-                                )
-                        ),
-                        trailingComma: nil)
-                ])
-                
-                let propDeclListItems = decls?.map { $0.1 }.flatMap { $0 } ?? []
-                
-                let variable = SyntaxFactory.makeVariableDecl(
-                    attributes: nil,
-                    modifiers: nil,
-                    letOrVarKeyword: .makeFormattedVarKeyword(),
-                    bindings: patternList)
-                let declListItem = SyntaxFactory.makeMemberDeclListItem(
-                    decl: DeclSyntax(variable),
-                    semicolon: nil
-                )
-                return propDeclListItems + [declListItem]
-            } else {
-                return nil
-            }
-        }
-        
-        let mockClassDecl = SyntaxFactory.makeClassDecl(
-            attributes: nil,
-            modifiers: nil,//ModifierListSyntax?,
-            classKeyword: .makeFormattedClassKeyword(),
-            identifier: identifier,
-            genericParameterClause: nil,
-            inheritanceClause: .makeFormattedProtocol(protocolNameHandler),
-            genericWhereClause: nil,
-            members: .makeFormatted(with: decls)
+                protocolNameHandler: ProtocolNameHandler(node),
+                members: node.makeMemberDeclListItems()
+            )
         )
         
-        mockDecls.append(mockClassDecl)
         return .skipChildren
     }
-    
-    private func makeReturnValIfNeeded(identifierBaseText: String, funcDecl: FunctionDeclSyntax) -> (
-        MemberDeclListItemSyntax,
-        CodeBlockItemSyntax
-    )? {
-        let _output = funcDecl.signature.output
-        guard let output = _output else {
-            return nil
-        }
-        
-        return makeReturnVal(
-            identifierBaseText: identifierBaseText,
-            typeSyntax: output.returnType
-        )
-    }
-    
-    private func makeReturnVal(
-        identifierBaseText: String,
-        typeSyntax: TypeSyntax) -> (
-        MemberDeclListItemSyntax,
-        CodeBlockItemSyntax
-    ) {
-        let identifier = "\(identifierBaseText)_val"
-        return (SyntaxFactory
-                    .makeMemberDeclListItem(
-                        decl: DeclSyntax(
-                            VariableDeclSyntax
-                                .makeReturnedValForMock(identifier, typeSyntax)
-                        ),
-                        semicolon: nil
-                ),
-                .makeFormattedExpr(
-                    expr: SyntaxFactory.makeReturnKeyword(),
-                    right: SyntaxFactory.makeIdentifier(identifier)
-                )
-        )
-    }
-    
-    private func makeArgsValIfNeeded(
-        identifierBaseText: String,
-        funcDecl: FunctionDeclSyntax) -> (
-        MemberDeclListItemSyntax,
-        CodeBlockItemSyntax
-    )? {
-        let paramters = funcDecl.signature.input.parameterList
-        if paramters.isEmpty {
-            return nil
-        } else if paramters.count == 1,
-                  let parameter = paramters.first,
-                  let type = parameter.type {
-            
-            let tokenSyntax: TokenSyntax
-            if let secondName = parameter.secondName {
-                tokenSyntax = secondName
-            } else if let firstName = parameter.firstName {
-                tokenSyntax = firstName
-            } else {
-                tokenSyntax = SyntaxFactory.makeIdentifier("")
-            }
-            
-            let typeSyntax: TypeSyntax
-            if let optionalType = type.as(OptionalTypeSyntax.self) {
-                typeSyntax = optionalType
-                    .wrappedType
-                    .withTrailingTrivia(.zero)
-            } else {
-                typeSyntax = type
-                    .withTrailingTrivia(.zero)
-            }
-            
-            
-            return makeArgsVal(
-                identifierBaseText: identifierBaseText,
-                typeSyntax: typeSyntax,
-                substitutionExprSyntax: ExprSyntax(
-                    SyntaxFactory
-                        .makeVariableExpr(tokenSyntax.text)
-                        .withTrailingTrivia(.newlines(1))
-                )
-            )
-        } else {
-            let tupleElements = paramters
-                .compactMap { paramter -> TupleTypeElementSyntax? in
-                    let tokenSyntax: TokenSyntax
-                    if let secondName = paramter.secondName {
-                        tokenSyntax = secondName
-                    } else if let firstName = paramter.firstName {
-                        tokenSyntax = firstName
-                    } else {
-                        tokenSyntax = SyntaxFactory.makeIdentifier("")
-                    }
-                    
-                    let type: TypeSyntax = paramter.type ?? SyntaxFactory.makeTypeIdentifier("")
-                    
-                    
-                    return SyntaxFactory.makeTupleTypeElement(
-                        name: tokenSyntax,
-                        colon: paramter.colon,
-                        type: type,
-                        trailingComma: paramter.trailingComma)
-            }
-            
-            let bindingTupleElements = paramters
-                .compactMap { paramter -> TupleExprElementSyntax? in
-                    let tokenSyntax: TokenSyntax
-                    if let secondName = paramter.secondName {
-                        tokenSyntax = secondName
-                    } else if let firstName = paramter.firstName {
-                        tokenSyntax = firstName
-                    } else {
-                        tokenSyntax = SyntaxFactory.makeIdentifier("")
-                    }
-                    
-                    return SyntaxFactory.makeTupleExprElement(
-                        label: nil,
-                        colon: nil,
-                        expression: ExprSyntax(
-                            SyntaxFactory
-                                .makeVariableExpr(tokenSyntax.text)
-                        ),
-                        trailingComma: paramter.trailingComma)
-            }
-            
-            return makeArgsVal(
-                identifierBaseText: identifierBaseText,
-                typeSyntax: TypeSyntax(
-                    SyntaxFactory
-                        .makeTupleType(
-                            leftParen: SyntaxFactory.makeLeftParenToken(),
-                            elements:
-                                SyntaxFactory
-                                    .makeTupleTypeElementList(tupleElements),
-                            rightParen: SyntaxFactory.makeRightParenToken())
-                ).withLeadingTrivia(.spaces(1)),
-                substitutionExprSyntax: ExprSyntax(SyntaxFactory.makeTupleExpr(
-                                                    leftParen: SyntaxFactory.makeLeftParenToken(),
-                                                    elementList: SyntaxFactory
-                                                        .makeTupleExprElementList(
-                                                            bindingTupleElements
-                                                        ),
-                                                    rightParen: SyntaxFactory.makeRightParenToken())
-                                                    .withTrailingTrivia(.newlines(1))
-                                        )
-            )
-        }
 
-    }
-    
-    private func makeArgsVal(
-        identifierBaseText: String,
-        typeSyntax: TypeSyntax,
-        substitutionExprSyntax: ExprSyntax) -> (
-            MemberDeclListItemSyntax,
-            CodeBlockItemSyntax
-        ) {
-        
-        let identifier = "\(identifierBaseText)_args"
-        return (
-            .makeFormattedAssign(
-                to: identifier,
-                typeAnnotation: .makeFormatted(
-                    TypeSyntax(SyntaxFactory
-                        .makeOptionalType(
-                            wrappedType: typeSyntax,
-                            questionMark: SyntaxFactory.makePostfixQuestionMarkToken()
-                        )
-                    )
-                )
-            ),
-            .makeFormattedExpr(
-                left: SyntaxFactory.makeIdentifier(identifier),
-                expr: SyntaxFactory.makeEqualToken(),
-                right: substitutionExprSyntax
-            )
-        )
-
-    }
-    
-    private func makeCountVal(identifierBaseText: String) -> (
-        MemberDeclListItemSyntax,
-        CodeBlockItemSyntax
-    ) {
-        let identifier = "\(identifierBaseText)_callCount"
-        return (
-            .makeFormattedAssign(
-                to: identifier,
-                from: .makeZeroKeyword()
-            ),
-            .makeFormattedExpr(
-                left: SyntaxFactory
-                    .makeIdentifier(identifier),
-                expr: SyntaxFactory.makeIdentifier("+="),
-                right: SyntaxFactory.makeIntegerLiteral("1")
-            )
-        )
-    }
-    
-    private func makeCallVal(identifierBaseText: String) -> (
-        MemberDeclListItemSyntax,
-        CodeBlockItemSyntax
-    ) {
-        
-        let callIdentifier = "\(identifierBaseText)_wasCalled"
-        return (
-            .makeFormattedAssign(
-                to: callIdentifier,
-                from: .makeFalseKeyword()
-            ),
-            .makeTrueSubstitutionExpr(
-                callIdentifier: callIdentifier
-            )
-        )
-    }
-    
     override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
         dump(node)
         return .skipChildren
@@ -612,6 +182,17 @@ extension MemberDeclBlockSyntax {
     }
 }
 
+extension TypeSyntax {
+    var unwrapped: TypeSyntax {
+        if let optionalType = self.as(OptionalTypeSyntax.self) {
+            return optionalType
+                .wrappedType
+        } else {
+            return self
+        }
+    }
+}
+
 extension TypeInheritanceClauseSyntax {
     static func makeFormattedProtocol(_ handler: ProtocolNameHandler) -> TypeInheritanceClauseSyntax {
         SyntaxFactory.makeTypeInheritanceClause(
@@ -649,19 +230,20 @@ extension TokenSyntax {
             )
     }
     
-    static func makeCleanFormattedLeftBrance() -> TokenSyntax {
+    static func makeCleanFormattedLeftBrance(_ indentTrivia: Trivia = .zero) -> TokenSyntax {
         SyntaxFactory
             .makeLeftBraceToken()
-            .withLeadingTrivia(.zero)
+            .withLeadingTrivia(indentTrivia)
             .withTrailingTrivia(.newlines(1))
     }
     
-    static func makeCleanFormattedRightBrance() -> TokenSyntax {
+    static func makeCleanFormattedRightBrance(_ indentTrivia: Trivia = .zero) -> TokenSyntax {
         SyntaxFactory
             .makeRightBraceToken()
-            .withLeadingTrivia(.zero)
+            .withLeadingTrivia(indentTrivia)
             .withTrailingTrivia(.newlines(1))
     }
+    
 }
 
 extension MemberDeclListSyntax {
@@ -674,6 +256,64 @@ extension MemberDeclListSyntax {
 }
 
 extension MemberDeclListItemSyntax {
+    static func makeFunctionForMock(_ funcDecl:  FunctionDeclSyntax, _ codeBlockItems: [CodeBlockItemSyntax]) -> MemberDeclListItemSyntax {
+        let codeBlockAddedFuncDecl = DeclSyntax(
+            funcDecl
+                .withBody(.makeFormattedCodeBlock(codeBlockItems))
+                .withLeadingTrivia(.indent)
+                .withTrailingTrivia(.newlines(2))
+        )
+        return SyntaxFactory
+            .makeMemberDeclListItem(
+                decl: codeBlockAddedFuncDecl,
+                semicolon: nil
+            )
+    }
+    
+    static func makeArgsValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> MemberDeclListItemSyntax {
+        makeFormattedAssign(
+            to: identifier,
+            typeAnnotation: .makeFormatted(
+                TypeSyntax(SyntaxFactory
+                    .makeOptionalType(
+                        wrappedType: typeSyntax,
+                        questionMark: SyntaxFactory.makePostfixQuestionMarkToken()
+                    )
+                )
+            )
+        )
+    }
+    
+    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> MemberDeclListItemSyntax {
+        SyntaxFactory
+            .makeMemberDeclListItem(
+                decl: DeclSyntax(
+                    VariableDeclSyntax
+                        .makeReturnedValForMock(identifier, typeSyntax)
+                ),
+                semicolon: nil
+        )
+    }
+    
+    static func makeFormattedZeroAssign(to identifier: String)  -> MemberDeclListItemSyntax {
+        .makeFormattedAssign(
+            to: identifier,
+            from: .makeZeroKeyword()
+        )
+    }
+    
+    static func makeFormattedFalseAssign(to identifier: String)  -> MemberDeclListItemSyntax {
+        SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(VariableDeclSyntax
+                    .makeDeclWithAssign(
+                        to: identifier,
+                        from: .makeFalseKeyword()
+                    ))
+                .withTrailingTrivia(.newlines(1)),
+            semicolon: nil
+        )
+    }
+    
     static func makeFormattedAssign(to identifier: String, from expr: ExprSyntax)  -> MemberDeclListItemSyntax {
         SyntaxFactory.makeMemberDeclListItem(
             decl: DeclSyntax(VariableDeclSyntax
@@ -717,6 +357,39 @@ extension SyntaxFactory {
 }
 
 extension CodeBlockItemSyntax {
+    static func makeNewValueArgsExprForMock(_ identifier: String) -> CodeBlockItemSyntax {
+        CodeBlockItemSyntax
+            .makeArgsExprForMock(
+                identifier,
+                ExprSyntax(IdentifierExprSyntax.makeFormattedNewValueExpr())
+            )
+    }
+    
+    static func makeArgsExprForMock(_ identifier: String, _ exprSyntax: ExprSyntax) -> CodeBlockItemSyntax {
+        makeFormattedExpr(
+            left: SyntaxFactory.makeIdentifier(identifier),
+            expr: SyntaxFactory.makeEqualToken(),
+            right: exprSyntax
+        )
+    }
+    
+    static func makeReturnExpr(_ identifier: String, _ indent: Trivia) -> CodeBlockItemSyntax {
+        makeFormattedExpr(
+            expr: SyntaxFactory.makeReturnKeyword(),
+            right: SyntaxFactory.makeIdentifier(identifier)
+        )
+        .withLeadingTrivia(indent)
+    }
+    
+    static func makeIncrementExpr(to identifier: String) -> CodeBlockItemSyntax {
+        .makeFormattedExpr(
+            left: SyntaxFactory
+                .makeIdentifier(identifier),
+            expr: SyntaxFactory.makeIdentifier("+="),
+            right: SyntaxFactory.makeIntegerLiteral("1")
+        )
+    }
+    
     static func makeFormattedExpr(expr: TokenSyntax, right: TokenSyntax) -> CodeBlockItemSyntax {
         SyntaxFactory.makeCodeBlockItem(
             item: Syntax(SyntaxFactory.makeSequenceExpr(
@@ -803,7 +476,7 @@ extension CodeBlockItemSyntax {
             errorTokens: nil)
     }
     
-    static func makeTrueSubstitutionExpr(callIdentifier: String) -> CodeBlockItemSyntax {
+    static func makeTrueSubstitutionExpr(to callIdentifier: String) -> CodeBlockItemSyntax {
         makeFormattedExpr(
             left: SyntaxFactory.makeIdentifier(callIdentifier),
             expr: SyntaxFactory.makeEqualToken(),
@@ -813,6 +486,34 @@ extension CodeBlockItemSyntax {
 }
 
 extension VariableDeclSyntax {
+    func generateMemberDeclItemsForSpy() -> [MemberDeclListItemSyntax] {
+        // protocol always has the following pattern.
+        let binding = bindings.first!
+        let accessorBlock = binding.accessor!.as(AccessorBlockSyntax.self)
+        
+        let identifier = binding.pattern.as(IdentifierPatternSyntax.self)!.identifier
+        
+        let spyProperties = accessorBlock?.accessors.map { $0.makeSpyProperty(identifier, binding) }
+        
+        let accessors = spyProperties?.map { $0.accessor } ?? []
+        let patternList = SyntaxFactory.makePatternBindingList([
+            binding.makeAccessorForMock(accessors: accessors)
+        ])
+        
+        let propDeclListItems = spyProperties?.map { $0.members }.flatMap { $0 } ?? []
+        
+        let variable = SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: .makeFormattedVarKeyword(),
+            bindings: patternList)
+        let declListItem = SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(variable),
+            semicolon: nil
+        )
+        return propDeclListItems + [declListItem]
+    }
+    
     static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> VariableDeclSyntax {
         SyntaxFactory.makeVariableDecl(
             attributes: nil,
@@ -851,7 +552,75 @@ extension VariableDeclSyntax {
     }
 }
 
+extension AccessorDeclSyntax {
+    var isSet: Bool {
+        accessorKind.text == "set"
+    }
+    
+    var isGet: Bool {
+        accessorKind.text == "get"
+    }
+    
+    func makeSpyProperty(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax) -> SpyPropertyForAccessor {
+        let identifierByAccessor = "\(identifier.text)_\(accessorKind.text)"
+        var spyProperty = SpyPropertyForAccessor(accessor: self)
+        
+        if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
+            spyProperty.members.append(.makeFormattedFalseAssign(to: identifierByAccessor.wasCalled))
+            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeTrueSubstitutionExpr(to: identifierByAccessor.wasCalled).withLeadingTrivia(.indent(3)))
+        }
+        if !Settings.shared.spySettings.getCapture(capture: . callCount) {
+            spyProperty.members.append(.makeFormattedZeroAssign(to: identifierByAccessor.callCount))
+            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeIncrementExpr(to: identifierByAccessor.callCount).withLeadingTrivia(.indent(3)))
+        }
+        if isSet, !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
+            spyProperty.members.append(.makeArgsValForMock(identifierByAccessor.args, binding.typeAnnotation!.type.unwrapped.withTrailingTrivia(.zero)))
+            spyProperty.appendCodeBlockItem(.makeNewValueArgsExprForMock(identifierByAccessor.args))
+        }
+        if isGet {
+            let typeSyntax = binding.typeAnnotation!.type.withTrailingTrivia(.zero)
+            spyProperty.members.append(.makeReturnedValForMock(identifierByAccessor.val, typeSyntax))
+            spyProperty.appendCodeBlockItem(.makeReturnExpr(identifierByAccessor.val, .indent(3)))
+        }
+        return spyProperty
+    }
+    
+    func makeAccessorDeclForMock(_ codeBlockItems: [CodeBlockItemSyntax]) -> AccessorDeclSyntax {
+        SyntaxFactory.makeAccessorDecl(
+            attributes: attributes,
+            modifier: modifier,
+            accessorKind: accessorKind
+                .withLeadingTrivia(.indent(3))
+                .withTrailingTrivia(.zero),
+            parameter: parameter,
+            body: SyntaxFactory.makeCodeBlock(
+                leftBrace: .makeCleanFormattedLeftBrance(.spaces(1)),
+                statements: SyntaxFactory
+                    .makeCodeBlockItemList(codeBlockItems),
+                rightBrace: .makeCleanFormattedRightBrance(.indent(2))
+            ))
+    }
+}
+
 extension PatternBindingSyntax {
+    func makeAccessorForMock(accessors: [AccessorDeclSyntax]) -> PatternBindingSyntax {
+        SyntaxFactory.makePatternBinding(
+            pattern: pattern,
+            typeAnnotation: typeAnnotation,
+            initializer: nil,
+            accessor: Syntax(
+                SyntaxFactory
+                    .makeAccessorBlock(
+                        leftBrace: .makeCleanFormattedLeftBrance(),
+                        accessors: SyntaxFactory.makeAccessorList(
+                            accessors
+                        ),
+                        rightBrace: .makeCleanFormattedRightBrance(.indent)
+                    )
+            ),
+            trailingComma: nil)
+    }
+    
     static func makeAssign(to identifier: String,
                            from expr: ExprSyntax? = nil,
                            typeAnnotation: TypeAnnotationSyntax? = nil) -> PatternBindingSyntax {
@@ -1128,6 +897,56 @@ extension Trivia {
 }
 
 extension FunctionDeclSyntax {
+    func generateCodeBlockItemsForSpy() -> [CodeBlockItemSyntax] {
+        var codeBlockItems = [CodeBlockItemSyntax]()
+        if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
+            codeBlockItems.append(.makeTrueSubstitutionExpr(to: signatureAddedIdentifier.wasCalled))
+        }
+        if !Settings.shared.spySettings.getCapture(capture: .callCount) {
+            codeBlockItems.append(.makeIncrementExpr(to: signatureAddedIdentifier.callCount))
+        }
+        if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
+            switch signature.input.parameterList.mockParameter {
+            case .none:
+                break
+            case .singleType:
+                codeBlockItems.append(makeSingleTypeArgsExprForMock())
+            case .tuple:
+                codeBlockItems.append(makeTupleArgsExprForMock())
+            }
+        }
+        if let _ = signature.output {
+            codeBlockItems.append(.makeReturnExpr(signatureAddedIdentifier.val, .indent(2)))
+        }
+        return codeBlockItems
+    }
+    
+    func generateMemberDeclItemsForSpy() -> [MemberDeclListItemSyntax] {
+        var memberDeclListItems = [MemberDeclListItemSyntax]()
+        if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
+            memberDeclListItems.append(.makeFormattedFalseAssign(to: signatureAddedIdentifier.wasCalled))
+        }
+        if !Settings.shared.spySettings.getCapture(capture: .callCount) {
+            memberDeclListItems.append(.makeFormattedZeroAssign(to: signatureAddedIdentifier.callCount))
+        }
+        if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
+            switch signature.input.parameterList.mockParameter {
+            case .none:
+                break
+            case .singleType:
+                memberDeclListItems.append(makeSingleTypeArgsValForMock())
+            case .tuple:
+                memberDeclListItems.append(makeTupleArgsValForMock())
+            }
+        }
+        if let output = signature.output {
+            memberDeclListItems.append(.makeReturnedValForMock(signatureAddedIdentifier.val, output.returnType))
+        }
+        let codeBlockItems = generateCodeBlockItemsForSpy()
+        memberDeclListItems.append(.makeFunctionForMock(self, codeBlockItems))
+        return memberDeclListItems
+    }
+    
     var signatureAddedIdentifier: String {
         var identifierBaseText = identifier.text
         
@@ -1144,5 +963,197 @@ extension FunctionDeclSyntax {
         }
         
         return identifierBaseText
+    }
+    
+    func makeSingleTypeArgsValForMock() -> MemberDeclListItemSyntax {
+        .makeArgsValForMock(
+            signatureAddedIdentifier.args,
+            signature.input.parameterList.first!.type!.unwrapped.withTrailingTrivia(.zero)
+        )
+    }
+    
+    func makeSingleTypeArgsExprForMock() -> CodeBlockItemSyntax {
+        .makeArgsExprForMock(
+            signatureAddedIdentifier.args,
+            ExprSyntax(IdentifierExprSyntax
+                        .makeFormattedVariableExpr(
+                            signature.input.parameterList.first!.tokenForMockProperty
+                        )
+            )
+        )
+    }
+    
+    func makeTupleArgsValForMock() -> MemberDeclListItemSyntax {
+        .makeArgsValForMock(
+            signatureAddedIdentifier.args,
+            TypeSyntax(TupleTypeSyntax.make(with: signature.input.parameterList.makeTupleForMemberDecl()))
+        )
+    }
+    
+    func makeTupleArgsExprForMock() -> CodeBlockItemSyntax {
+        .makeArgsExprForMock(
+            signatureAddedIdentifier.args,
+            ExprSyntax(TupleExprSyntax.make(with: signature.input.parameterList.makeTupleForCodeBlockItem()))
+        )
+    }
+}
+
+extension ClassDeclSyntax {
+    static func makeForMock(identifier: TokenSyntax, protocolNameHandler: ProtocolNameHandler, members: [[MemberDeclListItemSyntax]]) -> ClassDeclSyntax  {
+        SyntaxFactory.makeClassDecl(
+            attributes: nil,
+            modifiers: nil,//ModifierListSyntax?,
+            classKeyword: .makeFormattedClassKeyword(),
+            identifier: identifier,
+            genericParameterClause: nil,
+            inheritanceClause: .makeFormattedProtocol(protocolNameHandler),
+            genericWhereClause: nil,
+            members: .makeFormatted(with: members)
+        )
+    }
+}
+
+extension FunctionParameterSyntax {
+    var tokenForMockProperty: TokenSyntax {
+        if let secondName = secondName {
+            return secondName
+        } else if let firstName = firstName {
+            return firstName
+        } else {
+            return SyntaxFactory.makeIdentifier("")
+        }
+    }
+}
+
+extension FunctionParameterListSyntax {
+    enum MockParameter {
+        case none
+        case singleType
+        case tuple
+    }
+    
+    var mockParameter: MockParameter {
+        if isEmpty {
+            return .none
+        } else if count == 1 {
+            return .singleType
+        } else {
+            return .tuple
+        }
+    }
+    
+    func makeTupleForMemberDecl() -> [TupleTypeElementSyntax] {
+        compactMap { paramter -> TupleTypeElementSyntax? in
+            return SyntaxFactory.makeTupleTypeElement(
+                name: paramter.tokenForMockProperty,
+                colon: paramter.colon,
+                type: paramter.type!,
+                trailingComma: paramter.trailingComma)
+        }
+    }
+    
+    func makeTupleForCodeBlockItem() -> [TupleExprElementSyntax] {
+        compactMap { paramter -> TupleExprElementSyntax? in
+            return SyntaxFactory.makeTupleExprElement(
+                label: nil,
+                colon: nil,
+                expression: ExprSyntax(
+                    SyntaxFactory
+                        .makeVariableExpr(paramter.tokenForMockProperty.text)
+                ),
+                trailingComma: paramter.trailingComma)
+        }
+    }
+}
+
+extension TupleTypeSyntax {
+    static func make(with elements: [TupleTypeElementSyntax]) -> TupleTypeSyntax {
+        SyntaxFactory
+            .makeTupleType(
+                leftParen: SyntaxFactory.makeLeftParenToken(),
+                elements:
+                    SyntaxFactory
+                        .makeTupleTypeElementList(elements),
+                rightParen: SyntaxFactory
+                    .makeRightParenToken()
+            ).withLeadingTrivia(.spaces(1))
+    }
+}
+
+extension TupleExprSyntax {
+    static func make(with elements: [TupleExprElementSyntax]) -> TupleExprSyntax {
+        SyntaxFactory.makeTupleExpr(
+            leftParen: SyntaxFactory.makeLeftParenToken(),
+            elementList: SyntaxFactory
+                .makeTupleExprElementList(elements),
+            rightParen: SyntaxFactory.makeRightParenToken()
+        )
+        .withTrailingTrivia(.newlines(1))
+    }
+}
+
+extension IdentifierExprSyntax {
+    static func makeFormattedVariableExpr(_ tokenSyntax: TokenSyntax) -> IdentifierExprSyntax {
+        SyntaxFactory
+            .makeVariableExpr(tokenSyntax.text)
+            .withTrailingTrivia(.newlines(1))
+    }
+    
+    static func makeFormattedNewValueExpr() -> IdentifierExprSyntax {
+        SyntaxFactory
+            .makeVariableExpr("newValue")
+            .withTrailingTrivia(.newlines(1))
+            .withLeadingTrivia(.indent(3))
+    }
+}
+
+extension CodeBlockSyntax {
+    static func makeFormattedCodeBlock(_ codeBlockItems: [CodeBlockItemSyntax]) -> CodeBlockSyntax {
+        SyntaxFactory.makeCodeBlock(
+            leftBrace: SyntaxFactory.makeLeftBraceToken(
+                leadingTrivia: .spaces(1),
+                trailingTrivia: [.spaces(1), .newlines(1)]
+            ),
+            statements: SyntaxFactory
+                .makeCodeBlockItemList(codeBlockItems),
+            rightBrace: SyntaxFactory.makeRightBraceToken(
+                leadingTrivia: .indent,
+                trailingTrivia: .newlines(1)
+            )
+        )
+    }
+}
+
+extension ProtocolDeclSyntax {
+    func makeMemberDeclListItems() -> [[MemberDeclListItemSyntax]] {
+        members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
+            if let funcDeclSyntax = item.decl.as(FunctionDeclSyntax.self),
+               !Settings.shared.spySettings.getTarget(target: .function) {
+                return funcDeclSyntax.generateMemberDeclItemsForSpy()
+            } else if let variableDecl = item.decl.as(VariableDeclSyntax.self),
+                      !Settings.shared.spySettings.getTarget(target: .property) {
+                return variableDecl.generateMemberDeclItemsForSpy()
+            } else {
+                return nil
+            }
+        }
+    }
+}
+
+extension String {
+    var wasCalled: String {
+        self + "_wasCalled"
+    }
+    
+    var callCount: String {
+        self + "_callCount"
+    }
+    
+    var args: String {
+        self + "_args"
+    }
+    
+    var val: String {
+        self + "_val"
     }
 }

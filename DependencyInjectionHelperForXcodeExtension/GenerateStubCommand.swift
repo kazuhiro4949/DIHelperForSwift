@@ -33,7 +33,7 @@ class GenerateStubCommand: NSObject, XCSourceEditorCommand {
                 let generater = MockGenerater(mockType: .spy)
                 generater.walk(sourceFile)
                 
-                let generatedLines: [String] = generater.mockDecls.map {
+                let generatedLines: [String] = generater.mockClasses.map {
                     let leadingTrivia = $0.leadingTrivia?.appending(.newlines(1)) ?? .newlines(1)
                     let newlineAppdingProtocolDecl = $0.withLeadingTrivia(leadingTrivia)
                     return newlineAppdingProtocolDecl.description
