@@ -141,15 +141,69 @@ extension VariableDeclSyntax {
     }
 }
 
-
-enum Either<First, Second> {
-    case first(First), second(Second)
-    
-    init(_ first: First) {
-        self = .first(first)
+extension VariableDeclSyntax {
+    func generateMemberDeclItemsForSpy() -> [MemberDeclListItemSyntax] {
+        // protocol always has the following pattern.
+        let binding = bindings.first!
+        let accessorBlock = binding.accessor!.as(AccessorBlockSyntax.self)
+        
+        let identifier = binding.pattern.as(IdentifierPatternSyntax.self)!.identifier
+        
+        let spyProperties = accessorBlock?.accessors.map { $0.makeSpyProperty(identifier, binding) }
+        
+        let accessors = spyProperties?.map { $0.accessor } ?? []
+        let patternList = SyntaxFactory.makePatternBindingList([
+            binding.makeAccessorForMock(accessors: accessors)
+        ])
+        
+        let propDeclListItems = spyProperties?.map { $0.members }.flatMap { $0 } ?? []
+        
+        let variable = SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: .makeFormattedVarKeyword(),
+            bindings: patternList)
+        let declListItem = SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(variable),
+            semicolon: nil
+        )
+        return propDeclListItems + [declListItem]
     }
     
-    init(_ second: Second) {
-        self = .second(second)
+    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> VariableDeclSyntax {
+        SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: .makeFormattedVarKeyword(),
+            bindings: .makeReturnedValForMock(identifier, typeSyntax)
+        ).withTrailingTrivia(.newlines(1))
+    }
+    
+    static func makeDeclWithAssign(to identifier: String, from expr: ExprSyntax) -> VariableDeclSyntax {
+        SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: .makeFormattedVarKeyword(),
+            bindings: SyntaxFactory
+                .makePatternBindingList([
+                    .makeAssign(to: identifier,
+                                from: expr
+                    )
+                ]))
+    }
+    
+    static func makeDeclWithAssign(to identifier: String,
+                                   typeAnnotation: TypeAnnotationSyntax) -> VariableDeclSyntax {
+        
+        SyntaxFactory.makeVariableDecl(
+            attributes: nil,
+            modifiers: nil,
+            letOrVarKeyword: .makeFormattedVarKeyword(),
+            bindings: SyntaxFactory
+                .makePatternBindingList([
+                    .makeAssign(to: identifier,
+                                typeAnnotation: typeAnnotation
+                    )
+                ]))
     }
 }

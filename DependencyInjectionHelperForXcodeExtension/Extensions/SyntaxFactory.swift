@@ -51,3 +51,27 @@ extension SyntaxFactory {
             members: makeProtocolMemberDeclBlock(members: members))
     }
 }
+
+extension SyntaxFactory {
+    func makeIdentifier(_ text: String) -> TokenSyntax {
+        SyntaxFactory
+            .makeToken(.identifier(text), presence: .present)
+    }
+}
+
+extension SyntaxFactory {
+    static func makeCleanFormattedLeftBrance() -> TokenSyntax {
+        SyntaxFactory
+            .makeLeftBraceToken()
+            .withLeadingTrivia(.zero)
+            .withTrailingTrivia(.newlines(1))
+    }
+    
+    
+    static func makeCleanFormattedRightBrance() -> TokenSyntax {
+        SyntaxFactory
+            .makeRightBraceToken()
+            .withLeadingTrivia(.zero)
+            .withTrailingTrivia(.newlines(1))
+    }
+}
