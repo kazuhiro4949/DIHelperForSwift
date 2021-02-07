@@ -15,7 +15,6 @@
 		3024213B25CFC95F00C0E53F /* TupleTypeSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024213A25CFC95F00C0E53F /* TupleTypeSyntax+Extension.swift */; };
 		3024213F25CFC97500C0E53F /* FunctionParameterListSyntax+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024213E25CFC97500C0E53F /* FunctionParameterListSyntax+Extensions.swift */; };
 		3024214325CFC98C00C0E53F /* FunctionParameterSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024214225CFC98C00C0E53F /* FunctionParameterSyntax+Extension.swift */; };
-		3024214725CFC99C00C0E53F /* ClassDeclSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024214625CFC99C00C0E53F /* ClassDeclSyntax+Extension.swift */; };
 		3024214B25CFC9CD00C0E53F /* Trivia+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024214A25CFC9CD00C0E53F /* Trivia+Extension.swift */; };
 		3024215125CFC9FD00C0E53F /* SimpleTypeIdentifierSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024215025CFC9FD00C0E53F /* SimpleTypeIdentifierSyntax+Extension.swift */; };
 		3024215525CFCA1100C0E53F /* TypeAnnotationSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024215425CFCA1100C0E53F /* TypeAnnotationSyntax+Extension.swift */; };
@@ -148,7 +147,6 @@
 		3024213A25CFC95F00C0E53F /* TupleTypeSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TupleTypeSyntax+Extension.swift"; sourceTree = "<group>"; };
 		3024213E25CFC97500C0E53F /* FunctionParameterListSyntax+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FunctionParameterListSyntax+Extensions.swift"; sourceTree = "<group>"; };
 		3024214225CFC98C00C0E53F /* FunctionParameterSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FunctionParameterSyntax+Extension.swift"; sourceTree = "<group>"; };
-		3024214625CFC99C00C0E53F /* ClassDeclSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClassDeclSyntax+Extension.swift"; sourceTree = "<group>"; };
 		3024214A25CFC9CD00C0E53F /* Trivia+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trivia+Extension.swift"; sourceTree = "<group>"; };
 		3024215025CFC9FD00C0E53F /* SimpleTypeIdentifierSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimpleTypeIdentifierSyntax+Extension.swift"; sourceTree = "<group>"; };
 		3024215425CFCA1100C0E53F /* TypeAnnotationSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TypeAnnotationSyntax+Extension.swift"; sourceTree = "<group>"; };
@@ -355,7 +353,6 @@
 				3024213A25CFC95F00C0E53F /* TupleTypeSyntax+Extension.swift */,
 				3024213E25CFC97500C0E53F /* FunctionParameterListSyntax+Extensions.swift */,
 				3024214225CFC98C00C0E53F /* FunctionParameterSyntax+Extension.swift */,
-				3024214625CFC99C00C0E53F /* ClassDeclSyntax+Extension.swift */,
 				3024214A25CFC9CD00C0E53F /* Trivia+Extension.swift */,
 				3024215025CFC9FD00C0E53F /* SimpleTypeIdentifierSyntax+Extension.swift */,
 				3024215425CFCA1100C0E53F /* TypeAnnotationSyntax+Extension.swift */,
@@ -652,7 +649,6 @@
 				3024219B25CFCBD700C0E53F /* MemberDeclListSyntax+Extension.swift in Sources */,
 				30B8A3FD25B47AC400F643CD /* InitializerDeclSyntax.swift in Sources */,
 				30B8A40125B47ADD00F643CD /* FunctionDeclSyntax.swift in Sources */,
-				3024214725CFC99C00C0E53F /* ClassDeclSyntax+Extension.swift in Sources */,
 				3024216525CFCA5B00C0E53F /* DictionaryElementListSyntax+Extension.swift in Sources */,
 				3024219325CFCB8E00C0E53F /* TypeSyntax+Extension.swift in Sources */,
 				30B8A40A25B47B2B00F643CD /* HasGenericParameter.swift in Sources */,

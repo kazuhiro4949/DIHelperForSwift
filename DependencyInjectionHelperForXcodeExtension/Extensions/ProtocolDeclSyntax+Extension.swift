@@ -24,3 +24,28 @@ extension ProtocolDeclSyntax {
         }
     }
 }
+
+extension ProtocolDeclSyntax {
+    func generateMockClass(_ mockType: MockType) -> ClassDeclSyntax {
+        SyntaxFactory.makeClassDecl(
+            attributes: self.attributes,
+            modifiers: self.modifiers,
+            classKeyword: .makeFormattedClassKeyword(),
+            identifier: mockIdentifier(mockType: mockType),
+            genericParameterClause: nil,
+            inheritanceClause: .makeFormattedProtocol(ProtocolNameHandler(self)),
+            genericWhereClause: nil,
+            members: .makeFormatted(with: makeMemberDeclListItems())
+        )
+    }
+    
+    func mockIdentifier(mockType: MockType) -> TokenSyntax {
+        SyntaxFactory
+            .makeIdentifier(
+                .init(
+                    format: mockType.format,
+                    ProtocolNameHandler(self).getBaseName()
+                )
+            )
+    }
+}

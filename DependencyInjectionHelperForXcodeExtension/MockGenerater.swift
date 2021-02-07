@@ -17,19 +17,7 @@ class MockGenerater: SyntaxVisitor {
     var mockClasses = [ClassDeclSyntax]()
     
     override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind {
-        mockClasses.append(
-            .makeForMock(
-                identifier: SyntaxFactory
-                    .makeIdentifier(
-                        .init(
-                            format: mockType.format,
-                            ProtocolNameHandler(node).getBaseName()
-                        )
-                    ),
-                protocolNameHandler: ProtocolNameHandler(node),
-                members: node.makeMemberDeclListItems()
-            )
-        )
+        mockClasses.append(node.generateMockClass(mockType))
         
         return .skipChildren
     }
