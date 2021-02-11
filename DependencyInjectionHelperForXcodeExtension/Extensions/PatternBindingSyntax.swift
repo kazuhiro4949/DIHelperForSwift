@@ -121,17 +121,10 @@ extension PatternBindingSyntax {
         let unwrappedTypeSyntax = TokenSyntax.makeUnwrapped(typeSyntax)
         
         let processedTypeSyntax: TypeSyntax
-        let valueExpr: ExprSyntax?
-        if let simpleType = unwrappedTypeSyntax.as(SimpleTypeIdentifierSyntax.self),
-            let literal = simpleType.tryToConvertToLiteralExpr() {
+        if unwrappedTypeSyntax.is(SimpleTypeIdentifierSyntax.self)
+            || unwrappedTypeSyntax.is(ArrayTypeSyntax.self)
+            || unwrappedTypeSyntax.is(DictionaryTypeSyntax.self) {
             processedTypeSyntax = typeSyntax
-            valueExpr = literal
-        } else if unwrappedTypeSyntax.is(ArrayTypeSyntax.self) {
-            processedTypeSyntax = typeSyntax
-            valueExpr = ExprSyntax(ArrayExprSyntax.makeBlank())
-        } else if unwrappedTypeSyntax.is(DictionaryTypeSyntax.self) {
-            processedTypeSyntax = typeSyntax
-            valueExpr = ExprSyntax(DictionaryExprSyntax.makeBlank())
         } else if let functionTypeSyntax = unwrappedTypeSyntax.as(FunctionTypeSyntax.self) {
             processedTypeSyntax = TypeSyntax(
                 ImplicitlyUnwrappedOptionalTypeSyntax
@@ -139,14 +132,14 @@ extension PatternBindingSyntax {
                             TupleTypeSyntax.makeParen(with: functionTypeSyntax)
                     ))
             )
-            valueExpr = nil
         } else {
             processedTypeSyntax = TypeSyntax(
                 ImplicitlyUnwrappedOptionalTypeSyntax
                     .make(unwrappedTypeSyntax)
             )
-            valueExpr = nil
         }
+        
+        let valueExpr = ExprSyntax.makeReturnedValForMock(identifier, typeSyntax)
         
         return SyntaxFactory.makePatternBinding(
             pattern: .makeIdentifierPatternSyntax(with: identifier),
@@ -155,5 +148,23 @@ extension PatternBindingSyntax {
             accessor: nil,
             trailingComma: nil
         )
+    }
+}
+
+extension ExprSyntax {
+    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> ExprSyntax {
+        let unwrappedTypeSyntax = TokenSyntax.makeUnwrapped(typeSyntax)
+        if let simpleType = unwrappedTypeSyntax.as(SimpleTypeIdentifierSyntax.self),
+            let literal = simpleType.tryToConvertToLiteralExpr() {
+            return literal
+        } else if unwrappedTypeSyntax.is(ArrayTypeSyntax.self) {
+            return ExprSyntax(ArrayExprSyntax.makeBlank())
+        } else if unwrappedTypeSyntax.is(DictionaryTypeSyntax.self) {
+            return ExprSyntax(DictionaryExprSyntax.makeBlank())
+        } else if unwrappedTypeSyntax.is(FunctionTypeSyntax.self) {
+            return ExprSyntax(SyntaxFactory.makeVariableExpr("<#T##\(typeSyntax.description)#>"))
+        } else {
+            return ExprSyntax(SyntaxFactory.makeVariableExpr("<#T##\(typeSyntax.description)#>"))
+        }
     }
 }

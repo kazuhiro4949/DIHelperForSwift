@@ -14,7 +14,7 @@ extension ProtocolDeclSyntax {
         members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
             if let funcDeclSyntax = item.decl.as(FunctionDeclSyntax.self),
                !Settings.shared.spySettings.getTarget(target: .function) {
-                return funcDeclSyntax.generateMemberDeclItemsForSpy()
+                return funcDeclSyntax.generateMemberDeclItemsForMock(mockType: mockType)
             } else if let variableDecl = item.decl.as(VariableDeclSyntax.self),
                       !Settings.shared.spySettings.getTarget(target: .property) {
                 return variableDecl.generateMemberDeclItemsForMock(mockType: mockType)

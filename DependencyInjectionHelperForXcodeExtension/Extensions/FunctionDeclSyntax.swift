@@ -59,7 +59,16 @@ extension FunctionDeclSyntax {
         return codeBlockItems
     }
     
-    func generateMemberDeclItemsForSpy() -> [MemberDeclListItemSyntax] {
+    func generateMemberDeclItemsForMock(mockType: MockType) -> [MemberDeclListItemSyntax] {
+        switch mockType {
+        case .spy:
+            return generateMemberDeclItemsFormSpy()
+        case .stub:
+            return generateMemberDeclItemsFormStub()
+        }
+    }
+    
+    func generateMemberDeclItemsFormSpy() -> [MemberDeclListItemSyntax] {
         var memberDeclListItems = [MemberDeclListItemSyntax]()
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
             memberDeclListItems.append(.makeFormattedFalseAssign(to: signatureAddedIdentifier.wasCalled))
@@ -83,6 +92,20 @@ extension FunctionDeclSyntax {
         let codeBlockItems = generateCodeBlockItemsForSpy()
         memberDeclListItems.append(.makeFunctionForMock(self, codeBlockItems))
         return memberDeclListItems
+    }
+    
+    func generateMemberDeclItemsFormStub() -> [MemberDeclListItemSyntax] {
+        if let output = signature.output {
+            return [.makeFunctionForMock(
+                        self,
+                        [CodeBlockItemSyntax.makeFormattedExpr(
+                            expr: SyntaxFactory.makeReturnKeyword(),
+                            right: .makeReturnedValForMock(signatureAddedIdentifier.val, output.returnType)
+                        )]
+            )]
+        } else {
+            return [.makeFunctionForMock(self, [])]
+        }
     }
     
     var signatureAddedIdentifier: String {

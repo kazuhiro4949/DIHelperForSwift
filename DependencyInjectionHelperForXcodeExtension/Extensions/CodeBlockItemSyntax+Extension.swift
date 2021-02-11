@@ -68,6 +68,25 @@ extension CodeBlockItemSyntax {
             errorTokens: nil)
     }
     
+    static func makeFormattedExpr(expr: TokenSyntax, right: ExprSyntax) -> CodeBlockItemSyntax {
+        SyntaxFactory.makeCodeBlockItem(
+            item: Syntax(SyntaxFactory.makeSequenceExpr(
+                elements: SyntaxFactory
+                    .makeExprList([
+                        ExprSyntax(SyntaxFactory
+                                    .makeIdentifierExpr(
+                                        identifier: expr,
+                                        declNameArguments: nil
+                                    )
+                                    .withLeadingTrivia(.indent(2))
+                                    .withTrailingTrivia(.spaces(1))
+                        ),
+                        right.withTrailingTrivia(.newlines(1))
+                    ]))),
+            semicolon: nil,
+            errorTokens: nil)
+    }
+    
     static func makeFormattedExpr(left: TokenSyntax, expr: TokenSyntax, right: TokenSyntax) -> CodeBlockItemSyntax {
         makeFormattedExpr(
             left: ExprSyntax(SyntaxFactory

@@ -47,9 +47,13 @@ extension AccessorDeclSyntax {
         var mockProperty = MockPropertyForAccessor(accessor: self)
 
         if isGet {
-            let typeSyntax = binding.typeAnnotation!.type.withTrailingTrivia(.zero)
-            mockProperty.members.append(.makeReturnedValForMock(identifierByAccessor.val, typeSyntax))
-            mockProperty.appendCodeBlockItem(.makeReturnExpr(identifierByAccessor.val, .indent(3)))
+            let typeSyntax = binding.typeAnnotation!.type.withTrailingTrivia(.zero)            
+            mockProperty.appendCodeBlockItem(CodeBlockItemSyntax
+                                                .makeFormattedExpr(
+                                                    expr: SyntaxFactory.makeReturnKeyword(),
+                                                    right: .makeReturnedValForMock(identifierByAccessor, typeSyntax)
+                                                ).withLeadingTrivia(.indent(3))
+            )
         }
         return mockProperty
     }
