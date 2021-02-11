@@ -10,14 +10,14 @@ import Foundation
 import SwiftSyntax
 
 extension ProtocolDeclSyntax {
-    func makeMemberDeclListItems() -> [[MemberDeclListItemSyntax]] {
+    func makeMemberDeclListItems(mockType: MockType) -> [[MemberDeclListItemSyntax]] {
         members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
             if let funcDeclSyntax = item.decl.as(FunctionDeclSyntax.self),
                !Settings.shared.spySettings.getTarget(target: .function) {
                 return funcDeclSyntax.generateMemberDeclItemsForSpy()
             } else if let variableDecl = item.decl.as(VariableDeclSyntax.self),
                       !Settings.shared.spySettings.getTarget(target: .property) {
-                return variableDecl.generateMemberDeclItemsForSpy()
+                return variableDecl.generateMemberDeclItemsForMock(mockType: mockType)
             } else {
                 return nil
             }
@@ -35,7 +35,7 @@ extension ProtocolDeclSyntax {
             genericParameterClause: nil,
             inheritanceClause: .makeFormattedProtocol(ProtocolNameHandler(self)),
             genericWhereClause: nil,
-            members: .makeFormatted(with: makeMemberDeclListItems())
+            members: .makeFormatted(with: makeMemberDeclListItems(mockType: mockType))
         )
     }
     

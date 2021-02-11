@@ -18,9 +18,9 @@ extension AccessorDeclSyntax {
         accessorKind.text == "get"
     }
     
-    func makeSpyProperty(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax) -> SpyPropertyForAccessor {
+    func makeSpyProperty(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax) -> MockPropertyForAccessor {
         let identifierByAccessor = "\(identifier.text)_\(accessorKind.text)"
-        var spyProperty = SpyPropertyForAccessor(accessor: self)
+        var spyProperty = MockPropertyForAccessor(accessor: self)
         
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
             spyProperty.members.append(.makeFormattedFalseAssign(to: identifierByAccessor.wasCalled))
@@ -32,7 +32,7 @@ extension AccessorDeclSyntax {
         }
         if isSet, !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
             spyProperty.members.append(.makeArgsValForMock(identifierByAccessor.args, binding.typeAnnotation!.type.unwrapped.withTrailingTrivia(.zero)))
-            spyProperty.appendCodeBlockItem(.makeNewValueArgsExprForMock(identifierByAccessor.args))
+            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeNewValueArgsExprForMock(identifierByAccessor.args).withLeadingTrivia(.indent(3)))
         }
         if isGet {
             let typeSyntax = binding.typeAnnotation!.type.withTrailingTrivia(.zero)
@@ -40,6 +40,18 @@ extension AccessorDeclSyntax {
             spyProperty.appendCodeBlockItem(.makeReturnExpr(identifierByAccessor.val, .indent(3)))
         }
         return spyProperty
+    }
+    
+    func makeStubPropery(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax)  -> MockPropertyForAccessor {
+        let identifierByAccessor = "\(identifier.text)_\(accessorKind.text)"
+        var mockProperty = MockPropertyForAccessor(accessor: self)
+
+        if isGet {
+            let typeSyntax = binding.typeAnnotation!.type.withTrailingTrivia(.zero)
+            mockProperty.members.append(.makeReturnedValForMock(identifierByAccessor.val, typeSyntax))
+            mockProperty.appendCodeBlockItem(.makeReturnExpr(identifierByAccessor.val, .indent(3)))
+        }
+        return mockProperty
     }
     
     func makeAccessorDeclForMock(_ codeBlockItems: [CodeBlockItemSyntax]) -> AccessorDeclSyntax {

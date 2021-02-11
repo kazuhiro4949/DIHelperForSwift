@@ -39,6 +39,7 @@
 		302421A725CFCC5200C0E53F /* ProtocolNameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421A625CFCC5200C0E53F /* ProtocolNameHandler.swift */; };
 		302421AB25CFCC6600C0E53F /* MockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AA25CFCC6600C0E53F /* MockType.swift */; };
 		302421AF25CFCC7B00C0E53F /* SpyPropertyForAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AE25CFCC7B00C0E53F /* SpyPropertyForAccessor.swift */; };
+		302421BB25D4F8FF00C0E53F /* GenerateStubCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421BA25D4F8FF00C0E53F /* GenerateStubCommand.swift */; };
 		303223F625AAFC41002BB110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303223F525AAFC41002BB110 /* AppDelegate.swift */; };
 		303223F825AAFC41002BB110 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303223F725AAFC41002BB110 /* ViewController.swift */; };
 		303223FA25AAFC42002BB110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 303223F925AAFC42002BB110 /* Assets.xcassets */; };
@@ -171,6 +172,7 @@
 		302421A625CFCC5200C0E53F /* ProtocolNameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolNameHandler.swift; sourceTree = "<group>"; };
 		302421AA25CFCC6600C0E53F /* MockType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockType.swift; sourceTree = "<group>"; };
 		302421AE25CFCC7B00C0E53F /* SpyPropertyForAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyPropertyForAccessor.swift; sourceTree = "<group>"; };
+		302421BA25D4F8FF00C0E53F /* GenerateStubCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateStubCommand.swift; sourceTree = "<group>"; };
 		303223F225AAFC41002BB110 /* DependencyInjectionHelperForXcode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DependencyInjectionHelperForXcode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		303223F525AAFC41002BB110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		303223F725AAFC41002BB110 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				30B8A3ED25B479BD00F643CD /* Extensions */,
 				3032243125AAFCEB002BB110 /* GenerateProtocolCommand.swift */,
 				309BB2E925C15FDB0067D991 /* GenerateSpyCommand.swift */,
+				302421BA25D4F8FF00C0E53F /* GenerateStubCommand.swift */,
 				30B8A41725B47B7D00F643CD /* ProtocolExtractor.swift */,
 				3032242F25AAFCEB002BB110 /* SourceEditorExtension.swift */,
 				3032243325AAFCEB002BB110 /* Info.plist */,
@@ -655,6 +658,7 @@
 				30B8A3EF25B479D800F643CD /* AccessorBlockSyntax.swift in Sources */,
 				3024216B25CFCA6F00C0E53F /* DictionaryExprSyntax+Extension.swift in Sources */,
 				3024217B25CFCAC800C0E53F /* ImplicitlyUnwrappedOptionalTypeSyntax+Extension.swift in Sources */,
+				302421BB25D4F8FF00C0E53F /* GenerateStubCommand.swift in Sources */,
 				3024215125CFC9FD00C0E53F /* SimpleTypeIdentifierSyntax+Extension.swift in Sources */,
 				309BB2F025C160A20067D991 /* MockGenerater.swift in Sources */,
 				3024212B25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift in Sources */,

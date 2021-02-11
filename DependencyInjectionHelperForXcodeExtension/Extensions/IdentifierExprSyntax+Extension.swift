@@ -21,7 +21,6 @@ extension IdentifierExprSyntax {
         SyntaxFactory
             .makeVariableExpr("newValue")
             .withTrailingTrivia(.newlines(1))
-            .withLeadingTrivia(.indent(3))
     }
 }
 

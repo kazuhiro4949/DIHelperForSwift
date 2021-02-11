@@ -142,21 +142,26 @@ extension VariableDeclSyntax {
 }
 
 extension VariableDeclSyntax {
-    func generateMemberDeclItemsForSpy() -> [MemberDeclListItemSyntax] {
+    func generateMemberDeclItemsForMock(mockType: MockType) -> [MemberDeclListItemSyntax] {
         // protocol always has the following pattern.
         let binding = bindings.first!
         let accessorBlock = binding.accessor!.as(AccessorBlockSyntax.self)
-        
         let identifier = binding.pattern.as(IdentifierPatternSyntax.self)!.identifier
         
-        let spyProperties = accessorBlock?.accessors.map { $0.makeSpyProperty(identifier, binding) }
+        let mockProperties: [MockPropertyForAccessor]?
+        switch mockType {
+        case .spy:
+            mockProperties = accessorBlock?.accessors.map { $0.makeSpyProperty(identifier, binding) }
+        case .stub:
+            mockProperties = accessorBlock?.accessors.map { $0.makeStubPropery(identifier, binding) }
+        }
         
-        let accessors = spyProperties?.map { $0.accessor } ?? []
+        let accessors = mockProperties?.map { $0.accessor } ?? []
         let patternList = SyntaxFactory.makePatternBindingList([
             binding.makeAccessorForMock(accessors: accessors)
         ])
         
-        let propDeclListItems = spyProperties?.map { $0.members }.flatMap { $0 } ?? []
+        let propDeclListItems = mockProperties?.map { $0.members }.flatMap { $0 } ?? []
         
         let variable = SyntaxFactory.makeVariableDecl(
             attributes: nil,
