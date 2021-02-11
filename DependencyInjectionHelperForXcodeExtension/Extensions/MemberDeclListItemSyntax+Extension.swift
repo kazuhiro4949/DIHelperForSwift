@@ -10,6 +10,22 @@ import Foundation
 import SwiftSyntax
 
 extension MemberDeclListItemSyntax {
+    static func makeInitForMock(_ initDecl:  InitializerDeclSyntax, _ codeBlockItems: [CodeBlockItemSyntax]) -> MemberDeclListItemSyntax {
+        let codeBlockAddedFuncDecl = DeclSyntax(
+            initDecl
+                .withLeadingTrivia(.spaces(1))
+                .withModifiers(SyntaxFactory.makeModifierList([SyntaxFactory.makeDeclModifier(name: SyntaxFactory.makeIdentifier("required"), detailLeftParen: nil, detail: nil, detailRightParen: nil)]))
+                .withBody(.makeFormattedCodeBlock(codeBlockItems))
+                .withLeadingTrivia(.indent)
+                .withTrailingTrivia(.newlines(2))
+        )
+        return SyntaxFactory
+            .makeMemberDeclListItem(
+                decl: codeBlockAddedFuncDecl,
+                semicolon: nil
+            )
+    }
+    
     static func makeFunctionForMock(_ funcDecl:  FunctionDeclSyntax, _ codeBlockItems: [CodeBlockItemSyntax]) -> MemberDeclListItemSyntax {
         let codeBlockAddedFuncDecl = DeclSyntax(
             funcDecl

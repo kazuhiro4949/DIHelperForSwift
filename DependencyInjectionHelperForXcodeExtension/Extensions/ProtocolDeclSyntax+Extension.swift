@@ -12,12 +12,15 @@ import SwiftSyntax
 extension ProtocolDeclSyntax {
     func makeMemberDeclListItems(mockType: MockType) -> [[MemberDeclListItemSyntax]] {
         members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
-            if let funcDeclSyntax = item.decl.as(FunctionDeclSyntax.self),
+            if let funcDecl = item.decl.as(FunctionDeclSyntax.self),
                !Settings.shared.target(from: mockType).getTarget(target: .function) {
-                return funcDeclSyntax.generateMemberDeclItemsForMock(mockType: mockType)
+                return funcDecl.generateMemberDeclItemsForMock(mockType: mockType)
             } else if let variableDecl = item.decl.as(VariableDeclSyntax.self),
                       !Settings.shared.target(from: mockType).getTarget(target: .property) {
                 return variableDecl.generateMemberDeclItemsForMock(mockType: mockType)
+            } else if let initDecl = item.decl.as(InitializerDeclSyntax.self),
+                      !Settings.shared.target(from: mockType).getTarget(target: .initilizer) {
+                return initDecl.generateMemberDeclItemsForMock(mockType: mockType)
             } else {
                 return nil
             }
