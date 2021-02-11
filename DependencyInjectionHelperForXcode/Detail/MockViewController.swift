@@ -71,7 +71,7 @@ class MockViewController: NSViewController {
     }
     
     @IBAction func targetButtonDidClick(_ sender: NSButton) {
-        guard let target = Settings.SpySetting.Target(rawValue: sender.tag) else {
+        guard let target = Settings.Target(rawValue: sender.tag) else {
             sender.state = sender.state.toggle()
             return
         }

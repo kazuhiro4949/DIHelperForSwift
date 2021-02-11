@@ -13,10 +13,10 @@ extension ProtocolDeclSyntax {
     func makeMemberDeclListItems(mockType: MockType) -> [[MemberDeclListItemSyntax]] {
         members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
             if let funcDeclSyntax = item.decl.as(FunctionDeclSyntax.self),
-               !Settings.shared.spySettings.getTarget(target: .function) {
+               !Settings.shared.target(from: mockType).getTarget(target: .function) {
                 return funcDeclSyntax.generateMemberDeclItemsForMock(mockType: mockType)
             } else if let variableDecl = item.decl.as(VariableDeclSyntax.self),
-                      !Settings.shared.spySettings.getTarget(target: .property) {
+                      !Settings.shared.target(from: mockType).getTarget(target: .property) {
                 return variableDecl.generateMemberDeclItemsForMock(mockType: mockType)
             } else {
                 return nil

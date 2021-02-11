@@ -9,6 +9,12 @@
 import Foundation
 
 class Settings {
+    enum Target: Int {
+        case property
+        case function
+        case initilizer
+    }
+    
     class ProtocolSetting {
         enum Ignorance: Int {
             case storedProperty
@@ -37,13 +43,8 @@ class Settings {
         }
     }
     
-    class SpySetting {
-        enum Target: Int {
-            case property
-            case function
-            case initilizer
-        }
-        
+    class SpySetting: TargetProvider {
+
         enum Capture: Int {
             case calledOrNot
             case callCount
@@ -76,10 +77,46 @@ class Settings {
         }
     }
     
+    class StubSetting: TargetProvider {
+        var nameFormat: String? {
+            get {
+                UserDefaults.group.string(forKey: "StubSettings.nameFormat")
+            }
+            set {
+                UserDefaults.group.set(newValue, forKey: "StubSettings.nameFormat")
+            }
+        }
+        
+        func setTarget(target: Target, value: Bool) {
+            UserDefaults.group.set(value, forKey: "StubSettings.target\(target.rawValue)")
+        }
+        
+        func getTarget(target: Target) -> Bool {
+            return UserDefaults.group.bool(forKey: "StubSettings.target\(target.rawValue)")
+        }
+    }
+    
     static let shared = Settings()
     let protocolSettings = ProtocolSetting()
     let spySettings = SpySetting()
+    let stubSettings = StubSetting()
+    
+    func target(from mockType: MockType) -> TargetProvider {
+        switch mockType {
+        case .spy:
+            return SpySetting()
+        case .stub:
+            return StubSetting()
+        }
+    }
+    
     var indentationValue: Int {
         4
     }
+}
+
+protocol TargetProvider {
+    var nameFormat: String? { get }
+    func setTarget(target: Settings.Target, value: Bool)
+    func getTarget(target: Settings.Target) -> Bool
 }

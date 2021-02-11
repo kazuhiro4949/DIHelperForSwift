@@ -40,6 +40,7 @@
 		302421AB25CFCC6600C0E53F /* MockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AA25CFCC6600C0E53F /* MockType.swift */; };
 		302421AF25CFCC7B00C0E53F /* SpyPropertyForAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AE25CFCC7B00C0E53F /* SpyPropertyForAccessor.swift */; };
 		302421BB25D4F8FF00C0E53F /* GenerateStubCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421BA25D4F8FF00C0E53F /* GenerateStubCommand.swift */; };
+		302421BE25D5266300C0E53F /* MockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AA25CFCC6600C0E53F /* MockType.swift */; };
 		303223F625AAFC41002BB110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303223F525AAFC41002BB110 /* AppDelegate.swift */; };
 		303223F825AAFC41002BB110 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303223F725AAFC41002BB110 /* ViewController.swift */; };
 		303223FA25AAFC42002BB110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 303223F925AAFC42002BB110 /* Assets.xcassets */; };
@@ -602,6 +603,7 @@
 				303223F825AAFC41002BB110 /* ViewController.swift in Sources */,
 				30E035DF25BC303B000D49EE /* ProtocolViewController.swift in Sources */,
 				3063F31F25BD3CF700B6038C /* Settings.swift in Sources */,
+				302421BE25D5266300C0E53F /* MockType.swift in Sources */,
 				30B8A42725BC27B500F643CD /* MenuViewController.swift in Sources */,
 				30B8A42B25BC2B8500F643CD /* MenuTableCellView.swift in Sources */,
 				303223F625AAFC41002BB110 /* AppDelegate.swift in Sources */,
