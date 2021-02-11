@@ -96,13 +96,15 @@ extension FunctionDeclSyntax {
     
     func generateMemberDeclItemsFormStub() -> [MemberDeclListItemSyntax] {
         if let output = signature.output {
-            return [.makeFunctionForMock(
-                        self,
-                        [CodeBlockItemSyntax.makeFormattedExpr(
-                            expr: SyntaxFactory.makeReturnKeyword(),
-                            right: .makeReturnedValForMock(signatureAddedIdentifier.val, output.returnType)
-                        )]
-            )]
+            return [
+                .makeFunctionForMock(
+                    self,
+                    [.makeReturnForStub(
+                        identifier: signatureAddedIdentifier.val,
+                        typeSyntax: output.returnType)
+                    ]
+                )
+            ]
         } else {
             return [.makeFunctionForMock(self, [])]
         }
