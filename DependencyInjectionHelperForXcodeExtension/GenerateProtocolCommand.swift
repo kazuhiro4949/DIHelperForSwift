@@ -1,5 +1,5 @@
 //
-//  SourceEditorCommand.swift
+//  GenerateProtocolCommand.swift
 //  DependencyInjectionHelperForXcodeExtension
 //
 //  Created by Kazuhiro Hayashi on 2021/01/10.
@@ -10,7 +10,7 @@ import XcodeKit
 import SwiftSyntax
 
 // https://docs.swift.org/swift-book/LanguageGuide/Protocols.html
-class SourceEditorCommand: NSObject, XCSourceEditorCommand {
+class GenerateProtocolCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
         do {

@@ -1,5 +1,5 @@
 //
-//  GenerateStubCommand.swift
+//  GenerateSpyCommand.swift
 //  DependencyInjectionHelperForXcode
 //
 //  Created by Kazuhiro Hayashi on 2021/01/27.
@@ -11,7 +11,7 @@ import XcodeKit
 import SwiftSyntax
 
 // https://docs.swift.org/swift-book/LanguageGuide/Protocols.html
-class GenerateStubCommand: NSObject, XCSourceEditorCommand {
+class GenerateSpyCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
         do {

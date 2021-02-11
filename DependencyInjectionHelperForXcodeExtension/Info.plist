@@ -30,19 +30,19 @@
 			<array>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).SourceEditorCommand</string>
+					<string>$(PRODUCT_MODULE_NAME).GenerateProtocolCommand</string>
 					<key>XCSourceEditorCommandIdentifier</key>
-					<string>$(PRODUCT_BUNDLE_IDENTIFIER).SourceEditorCommand</string>
+					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateProtocolCommand</string>
 					<key>XCSourceEditorCommandName</key>
-					<string>Source Editor Command</string>
+					<string>generate protocol from selected areas</string>
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).GenerateStubCommand</string>
+					<string>$(PRODUCT_MODULE_NAME).GenerateSpyCommand</string>
 					<key>XCSourceEditorCommandIdentifier</key>
-					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateStubCommand</string>
+					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateSpyCommand</string>
 					<key>XCSourceEditorCommandName</key>
-					<string>Generate Stub</string>
+					<string>generate spy from selected areas</string>
 				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>
