@@ -90,7 +90,12 @@ extension InitializerDeclSyntax {
     func makeSingleTypeArgsValForMock(counter: Counter?) -> MemberDeclListItemSyntax {
         .makeArgsValForMock(
             signatureAddedIdentifier(counter: counter).args,
-            parameters.parameterList.first!.type!.unwrapped.withTrailingTrivia(.zero)
+            parameters.parameterList.first!
+                .type!
+                .removingAttributes
+                .unwrapped
+                .tparenthesizedIfNeeded
+                .withTrailingTrivia(.zero)
         )
     }
     
