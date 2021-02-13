@@ -19,5 +19,15 @@ extension FunctionParameterSyntax {
             return SyntaxFactory.makeIdentifier("")
         }
     }
+
+    var signatureStringForMockProperty: TokenSyntax {
+        if let secondName = secondName, secondName.text != "_" {
+            return secondName
+        } else if let firstName = firstName, firstName.text != "_" {
+            return firstName
+        } else {
+            return SyntaxFactory.makeIdentifier("")
+        }
+    }
 }
 

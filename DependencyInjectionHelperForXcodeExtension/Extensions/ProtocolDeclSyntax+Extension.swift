@@ -9,9 +9,17 @@
 import Foundation
 import SwiftSyntax
 
+
+class FunctionSignatureDuplication {
+    static let shared = FunctionSignatureDuplication()
+    var list = [String]()
+}
+
 extension ProtocolDeclSyntax {
     func makeMemberDeclListItems(mockType: MockType) -> [[MemberDeclListItemSyntax]] {
-        members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
+        FunctionSignatureDuplication.shared.list = checkSignatureDuplication()
+        
+        return members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
             if let funcDecl = item.decl.as(FunctionDeclSyntax.self),
                !Settings.shared.target(from: mockType).getTarget(target: .function) {
                 return funcDecl.generateMemberDeclItemsForMock(mockType: mockType)
@@ -25,6 +33,19 @@ extension ProtocolDeclSyntax {
                 return nil
             }
         }
+    }
+    
+    func checkSignatureDuplication() -> [String] {
+        let counter = members.members.reduce(into: [String:Int]()) { (result, item) in
+            if let funcDecl = item.decl.as(FunctionDeclSyntax.self) {
+                let count = result[funcDecl.identifier.text] ?? 0
+                result[funcDecl.identifier.text] = count + 1
+            } else if let initDecl = item.decl.as(InitializerDeclSyntax.self) {
+                let count = result[initDecl.initKeyword.text] ?? 0
+                result[initDecl.initKeyword.text] = count + 1
+            }
+        }
+        return Array(counter.filter({ 1 < $0.value }).keys)
     }
 }
 

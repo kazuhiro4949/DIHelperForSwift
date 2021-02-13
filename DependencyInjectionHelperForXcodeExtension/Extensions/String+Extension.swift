@@ -32,43 +32,64 @@ extension String {
     }
     
     func replacingToVariableAllowedString() -> String {
-        let trivialsRemovedParamListText = replacingOccurrences(
+        var encodedString = replacingOccurrences(
                 of: "[\\n\\s\\t]",
                 with: "",
                 options: .regularExpression,
                 range: self.range(of: self)
             )
-        let encodedString = trivialsRemovedParamListText.replacingOccurrences(
+        encodedString = encodedString.replacingOccurrences(
             of: "[\\(\\)]",
             with: "$p",
             options: .regularExpression,
-            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
-        ).replacingOccurrences(
+            range: encodedString.range(of: encodedString)
+        )
+        encodedString = encodedString.replacingOccurrences(
             of: "[\\[\\]]",
             with: "$b",
             options: .regularExpression,
-            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
-        ).replacingOccurrences(
-            of: "[:]",
-            with: "$k",
-            options: .regularExpression,
-            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
-        ).replacingOccurrences(
-            of: "[,]",
-            with: "$c",
-            options: .regularExpression,
-            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
+            range: encodedString.range(of: encodedString)
         )
-        .replacingOccurrences(
-            of: "[_]",
+        encodedString = encodedString.replacingOccurrences(
+            of: ":",
+            with: "$k",
+            options: [],
+            range: encodedString.range(of: encodedString)
+        )
+        encodedString = encodedString.replacingOccurrences(
+            of: ",",
+            with: "$c",
+            options: [],
+            range: encodedString.range(of: encodedString)
+        )
+        encodedString = encodedString.replacingOccurrences(
+            of: "_",
             with: "$u",
-            options: .regularExpression,
-            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText))
-        .replacingOccurrences(
-            of: "[\\.]",
+            options: [],
+            range: encodedString.range(of: encodedString))
+        encodedString = encodedString.replacingOccurrences(
+            of: ".",
             with: "$d",
-            options: .regularExpression,
-            range: trivialsRemovedParamListText.range(of: trivialsRemovedParamListText)
+            options: [],
+            range: encodedString.range(of: encodedString)
+        )
+        encodedString = encodedString.replacingOccurrences(
+            of: "-",
+            with: "$h",
+            options: [],
+            range: encodedString.range(of: encodedString)
+        )
+        encodedString = encodedString.replacingOccurrences(
+            of: ">",
+            with: "$s",
+            options: [],
+            range: encodedString.range(of: encodedString)
+        )
+        encodedString = encodedString.replacingOccurrences(
+            of: "@",
+            with: "$a",
+            options: [],
+            range: encodedString.range(of: encodedString)
         )
         return encodedString
     }

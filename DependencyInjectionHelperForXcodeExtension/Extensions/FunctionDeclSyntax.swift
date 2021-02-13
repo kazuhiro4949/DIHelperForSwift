@@ -113,16 +113,8 @@ extension FunctionDeclSyntax {
     var signatureAddedIdentifier: String {
         var identifierBaseText = identifier.text
         
-        // TODO:- added ignorance and increment option
-        let paramListText = signature.input.parameterList.description
-        let returnText = signature.output?.returnType.description ?? ""
-        let encodedParamListText = paramListText.replacingToVariableAllowedString()
-        let encodedReturnText = returnText.replacingToVariableAllowedString()
-        if !encodedParamListText.isEmpty {
-            identifierBaseText = "\(identifierBaseText)_\(encodedParamListText)"
-        }
-        if !encodedReturnText.isEmpty {
-            identifierBaseText = "\(identifierBaseText)_\(encodedReturnText)"
+        if FunctionSignatureDuplication.shared.list.contains(identifierBaseText) {
+            identifierBaseText = "\(identifierBaseText)_<#T##name#>"
         }
         
         return identifierBaseText
