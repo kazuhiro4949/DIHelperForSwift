@@ -18,4 +18,31 @@ extension TypeSyntax {
             return self
         }
     }
+    
+    var removingAttributes: TypeSyntax {
+        if let attributedTypSyntax = self.as(AttributedTypeSyntax.self) {
+            return attributedTypSyntax.baseType
+        } else {
+            return self
+        }
+    }
+    
+    var tparenthesizedIfNeeded: TypeSyntax {
+        if self.is(FunctionTypeSyntax.self) {
+            return TypeSyntax(SyntaxFactory.makeTupleType(
+                leftParen: SyntaxFactory.makeLeftParenToken(),
+                elements: SyntaxFactory.makeTupleTypeElementList(
+                    [
+                        SyntaxFactory.makeTupleTypeElement(
+                            type: self,
+                            trailingComma: nil
+                        )
+                    ]
+                ),
+                rightParen: SyntaxFactory.makeRightParenToken()
+            ))
+        } else {
+            return self
+        }
+    }
 }

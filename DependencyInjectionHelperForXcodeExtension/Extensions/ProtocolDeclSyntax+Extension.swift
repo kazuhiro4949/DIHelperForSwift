@@ -10,9 +10,15 @@ import Foundation
 import SwiftSyntax
 
 
+struct Counter {
+    var count: Int
+    var max: Int
+}
+
 class FunctionSignatureDuplication {
     static let shared = FunctionSignatureDuplication()
-    var list = [String]()
+    var list = [String: Counter]()
+
 }
 
 extension ProtocolDeclSyntax {
@@ -35,17 +41,19 @@ extension ProtocolDeclSyntax {
         }
     }
     
-    func checkSignatureDuplication() -> [String] {
-        let counter = members.members.reduce(into: [String:Int]()) { (result, item) in
+    func checkSignatureDuplication() -> [String: Counter] {
+        let counter = members.members.reduce(into: [String: Counter]()) { (result, item) in
             if let funcDecl = item.decl.as(FunctionDeclSyntax.self) {
-                let count = result[funcDecl.identifier.text] ?? 0
-                result[funcDecl.identifier.text] = count + 1
+                var counter = result[funcDecl.identifier.text] ?? Counter(count: 0, max: 0)
+                counter.max += 1
+                result[funcDecl.identifier.text] = counter
             } else if let initDecl = item.decl.as(InitializerDeclSyntax.self) {
-                let count = result[initDecl.initKeyword.text] ?? 0
-                result[initDecl.initKeyword.text] = count + 1
+                var counter = result[initDecl.initKeyword.text] ?? Counter(count: 0, max: 0)
+                counter.max += 1
+                result[initDecl.initKeyword.text] = counter
             }
         }
-        return Array(counter.filter({ 1 < $0.value }).keys)
+        return counter.filter({ 1 < $0.value.max })
     }
 }
 
