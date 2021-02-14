@@ -82,9 +82,3 @@ protocol InitPatternProtocol {
     init?(arg2: (() -> Void, String))
     init?(arg3: String) throws
 }
-
-
-
-
-
-

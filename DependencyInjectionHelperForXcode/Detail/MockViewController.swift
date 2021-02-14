@@ -66,7 +66,7 @@ class MockViewController: NSViewController {
     }
     
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
-        let value = sender.stringValue.isEmpty ? "%@Protocol" : sender.stringValue
+        let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.spySettings.nameFormat = value
     }
     
