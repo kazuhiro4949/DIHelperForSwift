@@ -88,7 +88,7 @@ class Settings {
         }
         
         func getTarget(target: Settings.Target) -> Bool {
-            true
+            false
         }
         
         func setTarget(target: Settings.Target, value: Bool) {}

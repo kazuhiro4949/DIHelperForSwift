@@ -1560,7 +1560,7 @@ It has no function and is only used as an alternative component.</string>
                 </viewController>
                 <customObject id="xGN-Gf-IM0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1685" y="1750"/>
+            <point key="canvasLocation" x="1685" y="1749.5"/>
         </scene>
     </scenes>
 </document>

@@ -38,7 +38,7 @@
 		302421A325CFCC1D00C0E53F /* CodeBlockItemSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421A225CFCC1D00C0E53F /* CodeBlockItemSyntax+Extension.swift */; };
 		302421A725CFCC5200C0E53F /* ProtocolNameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421A625CFCC5200C0E53F /* ProtocolNameHandler.swift */; };
 		302421AB25CFCC6600C0E53F /* MockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AA25CFCC6600C0E53F /* MockType.swift */; };
-		302421AF25CFCC7B00C0E53F /* SpyPropertyForAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AE25CFCC7B00C0E53F /* SpyPropertyForAccessor.swift */; };
+		302421AF25CFCC7B00C0E53F /* MockPropertyForAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AE25CFCC7B00C0E53F /* MockPropertyForAccessor.swift */; };
 		302421BB25D4F8FF00C0E53F /* GenerateDummyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421BA25D4F8FF00C0E53F /* GenerateDummyCommand.swift */; };
 		302421BE25D5266300C0E53F /* MockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AA25CFCC6600C0E53F /* MockType.swift */; };
 		3024221025D911E800C0E53F /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024220F25D911E800C0E53F /* DummyViewController.swift */; };
@@ -173,7 +173,7 @@
 		302421A225CFCC1D00C0E53F /* CodeBlockItemSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeBlockItemSyntax+Extension.swift"; sourceTree = "<group>"; };
 		302421A625CFCC5200C0E53F /* ProtocolNameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolNameHandler.swift; sourceTree = "<group>"; };
 		302421AA25CFCC6600C0E53F /* MockType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockType.swift; sourceTree = "<group>"; };
-		302421AE25CFCC7B00C0E53F /* SpyPropertyForAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyPropertyForAccessor.swift; sourceTree = "<group>"; };
+		302421AE25CFCC7B00C0E53F /* MockPropertyForAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPropertyForAccessor.swift; sourceTree = "<group>"; };
 		302421BA25D4F8FF00C0E53F /* GenerateDummyCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateDummyCommand.swift; sourceTree = "<group>"; };
 		3024220F25D911E800C0E53F /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		303223F225AAFC41002BB110 /* DependencyInjectionHelperForXcode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DependencyInjectionHelperForXcode.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -261,7 +261,7 @@
 				309BB2EF25C160A20067D991 /* MockGenerater.swift */,
 				302421AA25CFCC6600C0E53F /* MockType.swift */,
 				302421A625CFCC5200C0E53F /* ProtocolNameHandler.swift */,
-				302421AE25CFCC7B00C0E53F /* SpyPropertyForAccessor.swift */,
+				302421AE25CFCC7B00C0E53F /* MockPropertyForAccessor.swift */,
 			);
 			path = MockGenerater;
 			sourceTree = "<group>";
@@ -662,7 +662,7 @@
 				3024218B25CFCB6D00C0E53F /* PatternBindingListSyntax+Extension.swift in Sources */,
 				302421AB25CFCC6600C0E53F /* MockType.swift in Sources */,
 				3024218125CFCB0D00C0E53F /* AccessorDeclSyntax+Extension.swift in Sources */,
-				302421AF25CFCC7B00C0E53F /* SpyPropertyForAccessor.swift in Sources */,
+				302421AF25CFCC7B00C0E53F /* MockPropertyForAccessor.swift in Sources */,
 				3032243025AAFCEB002BB110 /* SourceEditorExtension.swift in Sources */,
 				3063F32A25BD400300B6038C /* UserDefaults+Extension.swift in Sources */,
 				3024215D25CFCA3700C0E53F /* TokenSyntax+Extension.swift in Sources */,
