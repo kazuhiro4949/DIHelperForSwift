@@ -9,7 +9,7 @@
 import Foundation
 
 class PropClass1 {
-    var prop1: String?
+    public var prop1: String?
     let prop2 = ""
     var prop3: Int {
         get {

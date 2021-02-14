@@ -43,7 +43,7 @@ class Settings {
         }
     }
     
-    class SpySetting: TargetProvider {
+    class SpySetting: TargetProvider, NameProvider {
 
         enum Capture: Int {
             case calledOrNot
@@ -77,36 +77,36 @@ class Settings {
         }
     }
     
-    class StubSetting: TargetProvider {
+    class DummySetting: NameProvider, TargetProvider {
         var nameFormat: String? {
             get {
                 UserDefaults.group.string(forKey: "StubSettings.nameFormat")
             }
             set {
-                UserDefaults.group.set(newValue, forKey: "StubSettings.nameFormat")
+                UserDefaults.group.set(newValue, forKey: "DummySettings.nameFormat")
             }
         }
         
-        func setTarget(target: Target, value: Bool) {
-            UserDefaults.group.set(value, forKey: "StubSettings.target\(target.rawValue)")
+        func getTarget(target: Settings.Target) -> Bool {
+            true
         }
         
-        func getTarget(target: Target) -> Bool {
-            return UserDefaults.group.bool(forKey: "StubSettings.target\(target.rawValue)")
-        }
+        func setTarget(target: Settings.Target, value: Bool) {}
     }
     
     static let shared = Settings()
     let protocolSettings = ProtocolSetting()
     let spySettings = SpySetting()
-    let stubSettings = StubSetting()
+    let dummySettings = DummySetting()
     
     func target(from mockType: MockType) -> TargetProvider {
         switch mockType {
         case .spy:
             return SpySetting()
         case .stub:
-            return StubSetting()
+            return DummySetting()
+        case .dummy:
+            return DummySetting()
         }
     }
     
@@ -115,8 +115,11 @@ class Settings {
     }
 }
 
-protocol TargetProvider {
+protocol NameProvider {
     var nameFormat: String? { get }
+}
+
+protocol TargetProvider {
     func setTarget(target: Settings.Target, value: Bool)
     func getTarget(target: Settings.Target) -> Bool
 }

@@ -42,7 +42,7 @@ extension AccessorDeclSyntax {
         return spyProperty
     }
     
-    func makeStubPropery(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax)  -> MockPropertyForAccessor {
+    func makeDummyPropery(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax)  -> MockPropertyForAccessor {
         let identifierByAccessor = "\(identifier.text)_\(accessorKind.text)"
         var mockProperty = MockPropertyForAccessor(accessor: self)
 

@@ -42,8 +42,8 @@ extension InitializerDeclSyntax {
         case .spy:
             FunctionSignatureDuplication.shared.list[initKeyword.text]?.count += 1
             return generateMemberDeclItemsFormSpy(counter: FunctionSignatureDuplication.shared.list[initKeyword.text])
-        case .stub:
-            return generateMemberDeclItemsFormStub()
+        case .dummy, .stub:
+            return generateMemberDeclItemsFormDummy()
         }
     }
     
@@ -71,7 +71,7 @@ extension InitializerDeclSyntax {
         return memberDeclListItems
     }
     
-    func generateMemberDeclItemsFormStub() -> [MemberDeclListItemSyntax] {
+    func generateMemberDeclItemsFormDummy() -> [MemberDeclListItemSyntax] {
         return [.makeInitForMock(self, [])]
     }
     

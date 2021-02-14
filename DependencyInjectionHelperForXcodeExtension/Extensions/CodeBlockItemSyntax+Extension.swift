@@ -34,7 +34,7 @@ extension CodeBlockItemSyntax {
         .withLeadingTrivia(indent)
     }
     
-    static func makeReturnForStub(identifier: String, typeSyntax: TypeSyntax) -> CodeBlockItemSyntax {
+    static func makeReturnForDummy(identifier: String, typeSyntax: TypeSyntax) -> CodeBlockItemSyntax {
         .makeFormattedExpr(
             expr: SyntaxFactory.makeReturnKeyword(),
             right: .makeReturnedValForMock(identifier, typeSyntax)

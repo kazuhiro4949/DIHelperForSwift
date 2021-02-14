@@ -152,8 +152,8 @@ extension VariableDeclSyntax {
         switch mockType {
         case .spy:
             mockProperties = accessorBlock?.accessors.map { $0.makeSpyProperty(identifier, binding) }
-        case .stub:
-            mockProperties = accessorBlock?.accessors.map { $0.makeStubPropery(identifier, binding) }
+        case .dummy, .stub:
+            mockProperties = accessorBlock?.accessors.map { $0.makeDummyPropery(identifier, binding) }
         }
         
         let accessors = mockProperties?.map { $0.accessor } ?? []

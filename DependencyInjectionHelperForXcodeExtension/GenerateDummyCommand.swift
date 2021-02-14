@@ -1,5 +1,5 @@
 //
-//  GenerateStubCommand.swift
+//  GenerateDummyCommand.swift
 //  DependencyInjectionHelperForXcode
 //
 //  Created by Kazuhiro Hayashi on 2021/02/11.
@@ -11,7 +11,7 @@ import XcodeKit
 import SwiftSyntax
 
 // https://docs.swift.org/swift-book/LanguageGuide/Protocols.html
-class GenerateStubCommand: NSObject, XCSourceEditorCommand {
+class GenerateDummyCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
         do {
@@ -30,7 +30,7 @@ class GenerateStubCommand: NSObject, XCSourceEditorCommand {
                 let selectedLines = lines[selection.start.line..<selection.end.line]
                 let sourceFile = try SyntaxParser.parse(source: selectedLines.joined())
                 
-                let generater = MockGenerater(mockType: .stub)
+                let generater = MockGenerater(mockType: .dummy)
                 generater.walk(sourceFile)
                 
                 let generatedLines: [String] = generater.mockClasses.map { mockDecl in

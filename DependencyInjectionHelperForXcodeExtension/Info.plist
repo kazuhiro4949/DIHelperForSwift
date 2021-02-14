@@ -46,11 +46,11 @@
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).GenerateStubCommand</string>
+					<string>$(PRODUCT_MODULE_NAME).GenerateDummyCommand</string>
 					<key>XCSourceEditorCommandIdentifier</key>
-					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateStubCommand</string>
+					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateDummyCommand</string>
 					<key>XCSourceEditorCommandName</key>
-					<string>generate stub from selected areas</string>
+					<string>generate dummy from selected areas</string>
 				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>
