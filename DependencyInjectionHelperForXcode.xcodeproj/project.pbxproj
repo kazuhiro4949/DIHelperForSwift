@@ -272,6 +272,14 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		3024220625D8FF2000C0E53F /* ProtocolExtractor */ = {
+			isa = PBXGroup;
+			children = (
+				30B8A41725B47B7D00F643CD /* ProtocolExtractor.swift */,
+			);
+			path = ProtocolExtractor;
+			sourceTree = "<group>";
+		};
 		303223E925AAFC41002BB110 = {
 			isa = PBXGroup;
 			children = (
@@ -344,6 +352,7 @@
 		3032242E25AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension */ = {
 			isa = PBXGroup;
 			children = (
+				3024220625D8FF2000C0E53F /* ProtocolExtractor */,
 				302421B525D4F3E900C0E53F /* Utility */,
 				302421B425D4F3D300C0E53F /* MockGenerater */,
 				30B8A40825B47B1E00F643CD /* Protocols */,
@@ -351,7 +360,6 @@
 				3032243125AAFCEB002BB110 /* GenerateProtocolCommand.swift */,
 				309BB2E925C15FDB0067D991 /* GenerateSpyCommand.swift */,
 				302421BA25D4F8FF00C0E53F /* GenerateStubCommand.swift */,
-				30B8A41725B47B7D00F643CD /* ProtocolExtractor.swift */,
 				3032242F25AAFCEB002BB110 /* SourceEditorExtension.swift */,
 				3032243325AAFCEB002BB110 /* Info.plist */,
 				3032243425AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.entitlements */,

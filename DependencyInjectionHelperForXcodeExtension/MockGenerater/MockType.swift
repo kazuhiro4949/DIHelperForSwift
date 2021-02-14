@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MockType {
+enum MockType: String {
     case stub
     case spy
     

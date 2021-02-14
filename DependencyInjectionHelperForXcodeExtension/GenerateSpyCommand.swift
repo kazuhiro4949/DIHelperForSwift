@@ -33,10 +33,10 @@ class GenerateSpyCommand: NSObject, XCSourceEditorCommand {
                 let generater = MockGenerater(mockType: .spy)
                 generater.walk(sourceFile)
                 
-                let generatedLines: [String] = generater.mockClasses.map {
-                    let leadingTrivia = $0.leadingTrivia?.appending(.newlines(1)) ?? .newlines(1)
-                    let newlineAppdingProtocolDecl = $0.withLeadingTrivia(leadingTrivia)
-                    return newlineAppdingProtocolDecl.description
+                let generatedLines: [String] = generater.mockClasses.map { mockDecl in
+                    let leadingTrivia = mockDecl.classDeclSyntax.leadingTrivia?.appending(.newlines(1)) ?? .newlines(1)
+                    let newlineAppdingProtocolDecl = mockDecl.classDeclSyntax.withLeadingTrivia(leadingTrivia)
+                    return mockDecl.prefixComment + newlineAppdingProtocolDecl.description
                 }
                 
                 buffer.lines.addObjects(from: generatedLines)

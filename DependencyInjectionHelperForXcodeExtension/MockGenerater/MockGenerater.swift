@@ -8,13 +8,19 @@
 
 import Foundation
 import SwiftSyntax
+
+struct MockClassDeclSyntax {
+    let classDeclSyntax: ClassDeclSyntax
+    let prefixComment: String
+}
+
 class MockGenerater: SyntaxVisitor {
     internal init(mockType: MockType) {
         self.mockType = mockType
     }
     
     let mockType: MockType
-    var mockClasses = [ClassDeclSyntax]()
+    var mockClasses = [MockClassDeclSyntax]()
     
     override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind {
         mockClasses.append(node.generateMockClass(mockType))

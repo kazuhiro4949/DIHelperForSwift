@@ -31,9 +31,9 @@ class GenerateProtocolCommand: NSObject, XCSourceEditorCommand {
                 
                 let extracter = ProtocolExtractor()
                 extracter.walk(sourceFile)
-                let generatedLines: [String] = extracter.protocolDeclSyntaxList.map {
-                    let leadingTrivia = $0.leadingTrivia?.appending(.newlines(1)) ?? .newlines(1)
-                    let newlineAppdingProtocolDecl = $0.withLeadingTrivia(leadingTrivia)
+                let generatedLines: [String] = extracter.protocolDeclSyntaxList.map { generatedProtcolDeclSyntax in
+                    let leadingTrivia = generatedProtcolDeclSyntax.protocolDeclSyntax.leadingTrivia?.appending(.newlines(1)) ?? .newlines(1)
+                    let newlineAppdingProtocolDecl = generatedProtcolDeclSyntax.protocolDeclSyntax.withLeadingTrivia(leadingTrivia)
                     return newlineAppdingProtocolDecl.description
                 }
                 

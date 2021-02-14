@@ -1,5 +1,5 @@
 //
-//  Samples.swift
+//  ProtocolSamples.swift
 //  SampleCode
 //
 //  Created by Kazuhiro Hayashi on 2021/02/14.
