@@ -10,7 +10,7 @@ import Foundation
 import XcodeKit
 import SwiftSyntax
 
-// https://docs.swift.org/swift-book/LanguageGuide/Protocols.html
+// [Fake Object](http://xunitpatterns.com/Fake%20Object.html)
 class GenerateDummyCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {

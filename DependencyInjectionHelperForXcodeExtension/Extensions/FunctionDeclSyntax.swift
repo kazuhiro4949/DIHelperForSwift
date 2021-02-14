@@ -64,8 +64,10 @@ extension FunctionDeclSyntax {
         case .spy:
             FunctionSignatureDuplication.shared.list[identifier.text]?.count += 1
             return generateMemberDeclItemsFormSpy(counter: FunctionSignatureDuplication.shared.list[identifier.text])
-        case .dummy, .stub:
+        case .dummy:
             return generateMemberDeclItemsFormDummy()
+        case .stub:
+            return generateMemberDeclItemsFormStub(counter: FunctionSignatureDuplication.shared.list[identifier.text])
         }
     }
     
@@ -109,6 +111,16 @@ extension FunctionDeclSyntax {
         } else {
             return [.makeFunctionForMock(self, [])]
         }
+    }
+    
+    func generateMemberDeclItemsFormStub(counter: Counter?) -> [MemberDeclListItemSyntax] {
+        var memberDeclListItems = [MemberDeclListItemSyntax]()
+        if let output = signature.output {
+            memberDeclListItems.append(.makeReturnedValForMock(signatureAddedIdentifier(counter: counter).val, output.returnType))
+        }
+        let codeBlockItems = generateCodeBlockItemsForSpy(counter: counter)
+        memberDeclListItems.append(.makeFunctionForMock(self, codeBlockItems))
+        return memberDeclListItems
     }
     
     func signatureAddedIdentifier(counter: Counter? = nil) -> String {

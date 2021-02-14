@@ -52,6 +52,14 @@
 					<key>XCSourceEditorCommandName</key>
 					<string>generate dummy from selected areas</string>
 				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).GenerateStubCommand</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateStubCommand</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>generate Stub from selected areas</string>
+				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>
 			<string>$(PRODUCT_MODULE_NAME).SourceEditorExtension</string>

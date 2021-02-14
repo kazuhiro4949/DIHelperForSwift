@@ -1,8 +1,8 @@
 //
-//  GenerateSpyCommand.swift
+//  GenerateStubCommand.swift
 //  DependencyInjectionHelperForXcode
 //
-//  Created by Kazuhiro Hayashi on 2021/01/27.
+//  Created by Kazuhiro Hayashi on 2021/02/14.
 //  
 //
 
@@ -10,8 +10,8 @@ import Foundation
 import XcodeKit
 import SwiftSyntax
 
-// [Test Spy](http://xunitpatterns.com/Test%20Spy.html)
-class GenerateSpyCommand: NSObject, XCSourceEditorCommand {
+/// [Test Stub](http://xunitpatterns.com/Test%20Stub.html)
+class GenerateStubCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
         do {
@@ -30,7 +30,7 @@ class GenerateSpyCommand: NSObject, XCSourceEditorCommand {
                 let selectedLines = lines[selection.start.line..<selection.end.line]
                 let sourceFile = try SyntaxParser.parse(source: selectedLines.joined())
                 
-                let generater = MockGenerater(mockType: .spy)
+                let generater = MockGenerater(mockType: .stub)
                 generater.walk(sourceFile)
                 
                 let generatedLines: [String] = generater.mockClasses.map { mockDecl in

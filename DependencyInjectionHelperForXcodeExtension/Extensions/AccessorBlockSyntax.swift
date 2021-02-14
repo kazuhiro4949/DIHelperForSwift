@@ -25,4 +25,34 @@ extension AccessorBlockSyntax {
             }
         }
     }
+    
+    static func makeAccessorBlock(accessors: [AccessorDeclSyntax]?) -> AccessorBlockSyntax? {
+        guard let accessors = accessors else {
+            return nil
+        }
+        
+        return SyntaxFactory
+            .makeAccessorBlock(
+                leftBrace: .makeCleanFormattedLeftBrance(),
+                accessors: SyntaxFactory.makeAccessorList(
+                    accessors
+                ),
+                rightBrace: .makeCleanFormattedRightBrance(.indent)
+            )
+    }
+    
+    func makeMockPropertyForAccessors(
+        for mockType: MockType,
+        identifier: TokenSyntax,
+        binding: PatternBindingSyntax) -> [MockPropertyForAccessor]? {
+        
+        switch mockType {
+        case .spy:
+            return accessors.map { $0.makeSpyProperty(identifier, binding) }
+        case .dummy:
+            return accessors.map { $0.makeDummyPropery(identifier, binding) }
+        case .stub:
+            return nil
+        }
+    }
 }

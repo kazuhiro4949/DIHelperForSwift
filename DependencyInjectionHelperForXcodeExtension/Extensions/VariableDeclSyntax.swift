@@ -148,18 +148,24 @@ extension VariableDeclSyntax {
         let accessorBlock = binding.accessor!.as(AccessorBlockSyntax.self)
         let identifier = binding.pattern.as(IdentifierPatternSyntax.self)!.identifier
         
-        let mockProperties: [MockPropertyForAccessor]?
-        switch mockType {
-        case .spy:
-            mockProperties = accessorBlock?.accessors.map { $0.makeSpyProperty(identifier, binding) }
-        case .dummy, .stub:
-            mockProperties = accessorBlock?.accessors.map { $0.makeDummyPropery(identifier, binding) }
-        }
+        let mockProperties = accessorBlock?.makeMockPropertyForAccessors(
+            for: mockType,
+            identifier: identifier,
+            binding: binding
+        )
         
-        let accessors = mockProperties?.map { $0.accessor } ?? []
+        let accessors = mockProperties?.map { $0.accessor }
         let patternList = SyntaxFactory.makePatternBindingList([
-            binding.makeAccessorForMock(accessors: accessors)
+            binding.makeAccessorForMock(
+                accessors: accessors,
+                initializer: .makeInitialiizer(
+                    for: mockType,
+                    identifier: identifier,
+                    binding: binding
+                )
+            )
         ])
+        .withTrailingTrivia(.newlines(1))
         
         let propDeclListItems = mockProperties?.map { $0.members }.flatMap { $0 } ?? []
         

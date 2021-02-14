@@ -42,6 +42,7 @@
 		302421BB25D4F8FF00C0E53F /* GenerateDummyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421BA25D4F8FF00C0E53F /* GenerateDummyCommand.swift */; };
 		302421BE25D5266300C0E53F /* MockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AA25CFCC6600C0E53F /* MockType.swift */; };
 		3024221025D911E800C0E53F /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024220F25D911E800C0E53F /* DummyViewController.swift */; };
+		3024221A25D931E800C0E53F /* GenerateStubCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024221925D931E800C0E53F /* GenerateStubCommand.swift */; };
 		303223F625AAFC41002BB110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303223F525AAFC41002BB110 /* AppDelegate.swift */; };
 		303223F825AAFC41002BB110 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303223F725AAFC41002BB110 /* ViewController.swift */; };
 		303223FA25AAFC42002BB110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 303223F925AAFC42002BB110 /* Assets.xcassets */; };
@@ -176,6 +177,7 @@
 		302421AE25CFCC7B00C0E53F /* MockPropertyForAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPropertyForAccessor.swift; sourceTree = "<group>"; };
 		302421BA25D4F8FF00C0E53F /* GenerateDummyCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateDummyCommand.swift; sourceTree = "<group>"; };
 		3024220F25D911E800C0E53F /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
+		3024221925D931E800C0E53F /* GenerateStubCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateStubCommand.swift; sourceTree = "<group>"; };
 		303223F225AAFC41002BB110 /* DependencyInjectionHelperForXcode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DependencyInjectionHelperForXcode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		303223F525AAFC41002BB110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		303223F725AAFC41002BB110 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				3032243125AAFCEB002BB110 /* GenerateProtocolCommand.swift */,
 				309BB2E925C15FDB0067D991 /* GenerateSpyCommand.swift */,
 				302421BA25D4F8FF00C0E53F /* GenerateDummyCommand.swift */,
+				3024221925D931E800C0E53F /* GenerateStubCommand.swift */,
 				3032242F25AAFCEB002BB110 /* SourceEditorExtension.swift */,
 				3032243325AAFCEB002BB110 /* Info.plist */,
 				3032243425AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.entitlements */,
@@ -683,6 +686,7 @@
 				3024219B25CFCBD700C0E53F /* MemberDeclListSyntax+Extension.swift in Sources */,
 				30B8A3FD25B47AC400F643CD /* InitializerDeclSyntax.swift in Sources */,
 				30B8A40125B47ADD00F643CD /* FunctionDeclSyntax.swift in Sources */,
+				3024221A25D931E800C0E53F /* GenerateStubCommand.swift in Sources */,
 				3024216525CFCA5B00C0E53F /* DictionaryElementListSyntax+Extension.swift in Sources */,
 				3024219325CFCB8E00C0E53F /* TypeSyntax+Extension.swift in Sources */,
 				30B8A40A25B47B2B00F643CD /* HasGenericParameter.swift in Sources */,

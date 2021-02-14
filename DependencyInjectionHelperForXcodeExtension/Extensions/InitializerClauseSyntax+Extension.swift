@@ -17,4 +17,20 @@ extension InitializerClauseSyntax {
                 value: $0)
         }
     }
+
+    static func makeInitialiizer(
+        for mockType: MockType,
+        identifier: TokenSyntax,
+        binding: PatternBindingSyntax) -> InitializerClauseSyntax? {
+        switch mockType {
+        case .spy:
+            return nil
+        case .dummy:
+            return nil
+        case .stub:
+            return .makeFormatted(
+                ExprSyntax.makeReturnedValForMock(identifier.text, binding.typeAnnotation!.type)
+            )
+        }
+    }
 }

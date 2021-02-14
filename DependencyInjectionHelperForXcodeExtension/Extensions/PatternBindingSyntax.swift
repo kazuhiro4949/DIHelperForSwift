@@ -75,21 +75,12 @@ extension PatternBindingSyntax {
 }
 
 extension PatternBindingSyntax {
-    func makeAccessorForMock(accessors: [AccessorDeclSyntax]) -> PatternBindingSyntax {
+    func makeAccessorForMock(accessors: [AccessorDeclSyntax]?, initializer: InitializerClauseSyntax?) -> PatternBindingSyntax {
         SyntaxFactory.makePatternBinding(
             pattern: pattern,
             typeAnnotation: typeAnnotation,
-            initializer: nil,
-            accessor: Syntax(
-                SyntaxFactory
-                    .makeAccessorBlock(
-                        leftBrace: .makeCleanFormattedLeftBrance(),
-                        accessors: SyntaxFactory.makeAccessorList(
-                            accessors
-                        ),
-                        rightBrace: .makeCleanFormattedRightBrance(.indent)
-                    )
-            ),
+            initializer: initializer,
+            accessor: AccessorBlockSyntax.makeAccessorBlock(accessors: accessors).flatMap { Syntax($0) },
             trailingComma: nil)
     }
     
