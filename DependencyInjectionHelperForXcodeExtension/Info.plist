@@ -34,7 +34,7 @@
 					<key>XCSourceEditorCommandIdentifier</key>
 					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateProtocolCommand</string>
 					<key>XCSourceEditorCommandName</key>
-					<string>generate protocol from selected areas</string>
+					<string>generate Protocol from selected areas</string>
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
@@ -42,7 +42,7 @@
 					<key>XCSourceEditorCommandIdentifier</key>
 					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateSpyCommand</string>
 					<key>XCSourceEditorCommandName</key>
-					<string>generate spy from selected areas</string>
+					<string>generate Spy from selected areas</string>
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
@@ -50,7 +50,7 @@
 					<key>XCSourceEditorCommandIdentifier</key>
 					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateDummyCommand</string>
 					<key>XCSourceEditorCommandName</key>
-					<string>generate dummy from selected areas</string>
+					<string>generate Dummy from selected areas</string>
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>

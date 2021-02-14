@@ -53,7 +53,15 @@ extension FunctionDeclSyntax {
                 codeBlockItems.append(makeTupleArgsExprForMock(counter: counter))
             }
         }
-        if let _ = signature.output {
+        if !signature.isReturnedVoid {
+            codeBlockItems.append(.makeReturnExpr(signatureAddedIdentifier(counter: counter).val, .indent(2)))
+        }
+        return codeBlockItems
+    }
+    
+    func generateCodeBlockItemsForStub(counter: Counter?) -> [CodeBlockItemSyntax] {
+        var codeBlockItems = [CodeBlockItemSyntax]()
+        if !signature.isReturnedVoid {
             codeBlockItems.append(.makeReturnExpr(signatureAddedIdentifier(counter: counter).val, .indent(2)))
         }
         return codeBlockItems
@@ -67,6 +75,7 @@ extension FunctionDeclSyntax {
         case .dummy:
             return generateMemberDeclItemsFormDummy()
         case .stub:
+            FunctionSignatureDuplication.shared.list[identifier.text]?.count += 1
             return generateMemberDeclItemsFormStub(counter: FunctionSignatureDuplication.shared.list[identifier.text])
         }
     }
@@ -89,7 +98,7 @@ extension FunctionDeclSyntax {
                 memberDeclListItems.append(makeTupleArgsValForMock(counter: counter))
             }
         }
-        if let output = signature.output {
+        if let output = signature.output, !signature.isReturnedVoid {
             memberDeclListItems.append(.makeReturnedValForMock(signatureAddedIdentifier(counter: counter).val, output.returnType))
         }
         let codeBlockItems = generateCodeBlockItemsForSpy(counter: counter)
@@ -115,10 +124,10 @@ extension FunctionDeclSyntax {
     
     func generateMemberDeclItemsFormStub(counter: Counter?) -> [MemberDeclListItemSyntax] {
         var memberDeclListItems = [MemberDeclListItemSyntax]()
-        if let output = signature.output {
+        if let output = signature.output, !signature.isReturnedVoid {
             memberDeclListItems.append(.makeReturnedValForMock(signatureAddedIdentifier(counter: counter).val, output.returnType))
         }
-        let codeBlockItems = generateCodeBlockItemsForSpy(counter: counter)
+        let codeBlockItems = generateCodeBlockItemsForStub(counter: counter)
         memberDeclListItems.append(.makeFunctionForMock(self, codeBlockItems))
         return memberDeclListItems
     }

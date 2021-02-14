@@ -23,7 +23,7 @@ class FunctionSignatureDuplication {
 
 extension ProtocolDeclSyntax {
     func makeMemberDeclListItems(mockType: MockType) -> [[MemberDeclListItemSyntax]] {
-        FunctionSignatureDuplication.shared.list = checkSignatureDuplication()
+        FunctionSignatureDuplication.shared.list = checkSignatureDuplication(mockType: mockType)
         
         return members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
             if let funcDecl = item.decl.as(FunctionDeclSyntax.self),
@@ -41,7 +41,18 @@ extension ProtocolDeclSyntax {
         }
     }
     
-    func checkSignatureDuplication() -> [String: Counter] {
+    func checkSignatureDuplication(mockType: MockType) -> [String: Counter] {
+        switch mockType {
+        case .dummy:
+            return [:]
+        case .spy:
+            return checkSignatureDuplicationForSpy()
+        case .stub:
+            return checkSignatureDuplicationForStub()
+        }
+    }
+    
+    func checkSignatureDuplicationForSpy() -> [String: Counter] {
         let counter = members.members.reduce(into: [String: Counter]()) { (result, item) in
             if let funcDecl = item.decl.as(FunctionDeclSyntax.self) {
                 var counter = result[funcDecl.identifier.text] ?? Counter(count: 0, max: 0)
@@ -54,6 +65,33 @@ extension ProtocolDeclSyntax {
             }
         }
         return counter.filter({ 1 < $0.value.max })
+    }
+    
+    func checkSignatureDuplicationForStub() -> [String: Counter] {
+        let counter = members.members.reduce(into: [String: Counter]()) { (result, item) in
+            if let funcDecl = item.decl.as(FunctionDeclSyntax.self), !funcDecl.signature.isReturnedVoid {
+                var counter = result[funcDecl.identifier.text] ?? Counter(count: 0, max: 0)
+                counter.max += 1
+                result[funcDecl.identifier.text] = counter
+            }
+        }
+        return counter.filter({ 1 < $0.value.max })
+    }
+}
+
+extension FunctionSignatureSyntax {
+    var isReturnedVoid: Bool {
+        guard let output = output else {
+            return true // func f()
+        }
+        
+        if let simpleType = output.returnType.as(SimpleTypeIdentifierSyntax.self) {
+            return simpleType.name.text == "Void" // func f() -> Void
+        } else if let tupleType = output.returnType.as(TupleTypeSyntax.self) {
+            return tupleType.elements.count == 0 // func f() -> ()
+        } else {
+            return false
+        }
     }
 }
 

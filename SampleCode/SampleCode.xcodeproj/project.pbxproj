@@ -13,7 +13,17 @@
 		302421D725D8E05100C0E53F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 302421D525D8E05100C0E53F /* Main.storyboard */; };
 		302421E325D8E05100C0E53F /* SampleCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421E225D8E05100C0E53F /* SampleCodeTests.swift */; };
 		302421EE25D8E05100C0E53F /* SampleCodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421ED25D8E05100C0E53F /* SampleCodeUITests.swift */; };
-		3024220225D8E3BB00C0E53F /* ProtocolSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024220125D8E3BB00C0E53F /* ProtocolSamples.swift */; };
+		3024220225D8E3BB00C0E53F /* FunctionsPattern5Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024220125D8E3BB00C0E53F /* FunctionsPattern5Protocol.swift */; };
+		303C8FA325D948CF00C7A618 /* PropertyPatternProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C8FA225D948CE00C7A618 /* PropertyPatternProtocol.swift */; };
+		304A799D25D94E2600DE4913 /* FunctionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304A799C25D94E2600DE4913 /* FunctionClass.swift */; };
+		30A59CFC25D94CBC00827CED /* FunctionsPattern2Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A59CFB25D94CBC00827CED /* FunctionsPattern2Protocol.swift */; };
+		30A59D0125D94CCC00827CED /* FunctionsPattern3Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A59D0025D94CCC00827CED /* FunctionsPattern3Protocol.swift */; };
+		30A59D0625D94CDA00827CED /* FunctionsPattern4Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A59D0525D94CDA00827CED /* FunctionsPattern4Protocol.swift */; };
+		30A79F7C25D94DC3008A7F64 /* SomeClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A79F7B25D94DC3008A7F64 /* SomeClass.swift */; };
+		30A79F8125D94DEC008A7F64 /* PropClass1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A79F8025D94DEC008A7F64 /* PropClass1.swift */; };
+		30C443DA25D94C42000BDC0C /* FunctionsPattern1Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C443D925D94C42000BDC0C /* FunctionsPattern1Protocol.swift */; };
+		30C443DF25D94C50000BDC0C /* InitPatternProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C443DE25D94C50000BDC0C /* InitPatternProtocol.swift */; };
+		30C443E425D94C5E000BDC0C /* ClosurePattenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C443E325D94C5E000BDC0C /* ClosurePattenProtocol.swift */; };
 		30DB867625D9054800966720 /* ClassSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DB867525D9054800966720 /* ClassSamples.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +58,17 @@
 		302421E925D8E05100C0E53F /* SampleCodeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleCodeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		302421ED25D8E05100C0E53F /* SampleCodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCodeUITests.swift; sourceTree = "<group>"; };
 		302421EF25D8E05100C0E53F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3024220125D8E3BB00C0E53F /* ProtocolSamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolSamples.swift; sourceTree = "<group>"; };
+		3024220125D8E3BB00C0E53F /* FunctionsPattern5Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsPattern5Protocol.swift; sourceTree = "<group>"; };
+		303C8FA225D948CE00C7A618 /* PropertyPatternProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyPatternProtocol.swift; sourceTree = "<group>"; };
+		304A799C25D94E2600DE4913 /* FunctionClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionClass.swift; sourceTree = "<group>"; };
+		30A59CFB25D94CBC00827CED /* FunctionsPattern2Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsPattern2Protocol.swift; sourceTree = "<group>"; };
+		30A59D0025D94CCC00827CED /* FunctionsPattern3Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsPattern3Protocol.swift; sourceTree = "<group>"; };
+		30A59D0525D94CDA00827CED /* FunctionsPattern4Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsPattern4Protocol.swift; sourceTree = "<group>"; };
+		30A79F7B25D94DC3008A7F64 /* SomeClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeClass.swift; sourceTree = "<group>"; };
+		30A79F8025D94DEC008A7F64 /* PropClass1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropClass1.swift; sourceTree = "<group>"; };
+		30C443D925D94C42000BDC0C /* FunctionsPattern1Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsPattern1Protocol.swift; sourceTree = "<group>"; };
+		30C443DE25D94C50000BDC0C /* InitPatternProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPatternProtocol.swift; sourceTree = "<group>"; };
+		30C443E325D94C5E000BDC0C /* ClosurePattenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosurePattenProtocol.swift; sourceTree = "<group>"; };
 		30DB867525D9054800966720 /* ClassSamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassSamples.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,8 +126,18 @@
 				302421D525D8E05100C0E53F /* Main.storyboard */,
 				302421D825D8E05100C0E53F /* Info.plist */,
 				302421D925D8E05100C0E53F /* SampleCode.entitlements */,
-				3024220125D8E3BB00C0E53F /* ProtocolSamples.swift */,
+				3024220125D8E3BB00C0E53F /* FunctionsPattern5Protocol.swift */,
+				30C443D925D94C42000BDC0C /* FunctionsPattern1Protocol.swift */,
+				30A59CFB25D94CBC00827CED /* FunctionsPattern2Protocol.swift */,
+				30A59D0025D94CCC00827CED /* FunctionsPattern3Protocol.swift */,
+				30A59D0525D94CDA00827CED /* FunctionsPattern4Protocol.swift */,
+				303C8FA225D948CE00C7A618 /* PropertyPatternProtocol.swift */,
+				30C443E325D94C5E000BDC0C /* ClosurePattenProtocol.swift */,
+				30C443DE25D94C50000BDC0C /* InitPatternProtocol.swift */,
+				30A79F7B25D94DC3008A7F64 /* SomeClass.swift */,
 				30DB867525D9054800966720 /* ClassSamples.swift */,
+				30A79F8025D94DEC008A7F64 /* PropClass1.swift */,
+				304A799C25D94E2600DE4913 /* FunctionClass.swift */,
 			);
 			path = SampleCode;
 			sourceTree = "<group>";
@@ -260,9 +290,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				30DB867625D9054800966720 /* ClassSamples.swift in Sources */,
+				30A59CFC25D94CBC00827CED /* FunctionsPattern2Protocol.swift in Sources */,
+				30A59D0125D94CCC00827CED /* FunctionsPattern3Protocol.swift in Sources */,
+				30C443E425D94C5E000BDC0C /* ClosurePattenProtocol.swift in Sources */,
+				303C8FA325D948CF00C7A618 /* PropertyPatternProtocol.swift in Sources */,
 				302421D225D8E05000C0E53F /* ViewController.swift in Sources */,
+				30C443DF25D94C50000BDC0C /* InitPatternProtocol.swift in Sources */,
 				302421D025D8E05000C0E53F /* AppDelegate.swift in Sources */,
-				3024220225D8E3BB00C0E53F /* ProtocolSamples.swift in Sources */,
+				30A79F8125D94DEC008A7F64 /* PropClass1.swift in Sources */,
+				30A79F7C25D94DC3008A7F64 /* SomeClass.swift in Sources */,
+				3024220225D8E3BB00C0E53F /* FunctionsPattern5Protocol.swift in Sources */,
+				30A59D0625D94CDA00827CED /* FunctionsPattern4Protocol.swift in Sources */,
+				304A799D25D94E2600DE4913 /* FunctionClass.swift in Sources */,
+				30C443DA25D94C42000BDC0C /* FunctionsPattern1Protocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
