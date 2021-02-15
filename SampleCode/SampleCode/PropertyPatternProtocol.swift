@@ -29,4 +29,10 @@ protocol PropertyPatternProtocol {
 }
 
 
+protocol PropertyPattern2Protocol {
+    var prop1: SomeClass? { get }
+    var prop2: SomeClass! { get }
+    var prop3: [SomeClass]? { get set }
+    var prop4: [SomeClass]! { get set }
+}
 

@@ -14,6 +14,9 @@ extension TypeSyntax {
         if let optionalType = self.as(OptionalTypeSyntax.self) {
             return optionalType
                 .wrappedType
+        } else if let iuoType = self.as(ImplicitlyUnwrappedOptionalTypeSyntax.self) {
+            return iuoType
+                .wrappedType
         } else {
             return self
         }

@@ -154,6 +154,9 @@ extension ExprSyntax {
             return ExprSyntax(DictionaryExprSyntax.makeBlank())
         } else if unwrappedTypeSyntax.is(FunctionTypeSyntax.self) {
             return ExprSyntax(SyntaxFactory.makeVariableExpr("<#T##\(typeSyntax.description)#>"))
+        } else if typeSyntax.is(OptionalTypeSyntax.self) {
+            return ExprSyntax(SyntaxFactory
+                                .makeNilLiteralExpr(nilKeyword: SyntaxFactory.makeNilKeyword()))
         } else {
             return ExprSyntax(SyntaxFactory.makeVariableExpr("<#T##\(typeSyntax.description)#>"))
         }
