@@ -40,7 +40,6 @@
 		302421AB25CFCC6600C0E53F /* MockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AA25CFCC6600C0E53F /* MockType.swift */; };
 		302421AF25CFCC7B00C0E53F /* MockPropertyForAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AE25CFCC7B00C0E53F /* MockPropertyForAccessor.swift */; };
 		302421BB25D4F8FF00C0E53F /* GenerateDummyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421BA25D4F8FF00C0E53F /* GenerateDummyCommand.swift */; };
-		302421BE25D5266300C0E53F /* MockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AA25CFCC6600C0E53F /* MockType.swift */; };
 		3024221025D911E800C0E53F /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024220F25D911E800C0E53F /* DummyViewController.swift */; };
 		3024221A25D931E800C0E53F /* GenerateStubCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024221925D931E800C0E53F /* GenerateStubCommand.swift */; };
 		303223F625AAFC41002BB110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303223F525AAFC41002BB110 /* AppDelegate.swift */; };
@@ -57,6 +56,48 @@
 		3032244825AAFD3A002BB110 /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 3032244725AAFD3A002BB110 /* SwiftSyntax */; };
 		3032244925AAFD3D002BB110 /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3032242C25AAFCEB002BB110 /* XcodeKit.framework */; };
 		3032244A25AAFD3D002BB110 /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3032242C25AAFCEB002BB110 /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3044B11525E1341F00EC7A16 /* HasGenericParameterClause.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A40425B47B0000F643CD /* HasGenericParameterClause.swift */; };
+		3044B11625E1341F00EC7A16 /* MockPropertyForAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AE25CFCC7B00C0E53F /* MockPropertyForAccessor.swift */; };
+		3044B11725E1341F00EC7A16 /* MockGenerater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BB2EF25C160A20067D991 /* MockGenerater.swift */; };
+		3044B11825E1341F00EC7A16 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024218425CFCB3400C0E53F /* Either.swift */; };
+		3044B11925E1341F00EC7A16 /* MockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421AA25CFCC6600C0E53F /* MockType.swift */; };
+		3044B11A25E1341F00EC7A16 /* ProtocolNameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421A625CFCC5200C0E53F /* ProtocolNameHandler.swift */; };
+		3044B11B25E1341F00EC7A16 /* HasGenericParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A40925B47B2B00F643CD /* HasGenericParameter.swift */; };
+		3044B11C25E1341F00EC7A16 /* ProtocolExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A41725B47B7D00F643CD /* ProtocolExtractor.swift */; };
+		3044B11F25E1343A00EC7A16 /* FunctionParameterListSyntax+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024213E25CFC97500C0E53F /* FunctionParameterListSyntax+Extensions.swift */; };
+		3044B12025E1343A00EC7A16 /* MemberDeclListSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024219A25CFCBD700C0E53F /* MemberDeclListSyntax+Extension.swift */; };
+		3044B12125E1343A00EC7A16 /* Trivia+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024214A25CFC9CD00C0E53F /* Trivia+Extension.swift */; };
+		3044B12225E1343A00EC7A16 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212625CFC8EF00C0E53F /* String+Extension.swift */; };
+		3044B12325E1343A00EC7A16 /* TupleTypeSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024213A25CFC95F00C0E53F /* TupleTypeSyntax+Extension.swift */; };
+		3044B12425E1343A00EC7A16 /* DictionaryElementSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024216025CFCA4B00C0E53F /* DictionaryElementSyntax+Extension.swift */; };
+		3044B12525E1343A00EC7A16 /* VariableDeclSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3F425B47A9500F643CD /* VariableDeclSyntax.swift */; };
+		3044B12625E1343A00EC7A16 /* DictionaryElementListSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024216425CFCA5B00C0E53F /* DictionaryElementListSyntax+Extension.swift */; };
+		3044B12725E1343A00EC7A16 /* PatternBindingListSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024218A25CFCB6D00C0E53F /* PatternBindingListSyntax+Extension.swift */; };
+		3044B12825E1343A00EC7A16 /* ImplicitlyUnwrappedOptionalTypeSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024217A25CFCAC800C0E53F /* ImplicitlyUnwrappedOptionalTypeSyntax+Extension.swift */; };
+		3044B12925E1343A00EC7A16 /* FunctionParameterSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024214225CFC98C00C0E53F /* FunctionParameterSyntax+Extension.swift */; };
+		3044B12A25E1343A00EC7A16 /* IdentifierExprSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024213225CFC92D00C0E53F /* IdentifierExprSyntax+Extension.swift */; };
+		3044B12B25E1343A00EC7A16 /* InitializerDeclSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3FC25B47AC400F643CD /* InitializerDeclSyntax.swift */; };
+		3044B12C25E1343A00EC7A16 /* MemberDeclBlockSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024218E25CFCB7F00C0E53F /* MemberDeclBlockSyntax+Extension.swift */; };
+		3044B12D25E1343A00EC7A16 /* TupleExprSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024213625CFC94300C0E53F /* TupleExprSyntax+Extension.swift */; };
+		3044B12E25E1343A00EC7A16 /* PatternBindingSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A40F25B47B4200F643CD /* PatternBindingSyntax.swift */; };
+		3044B12F25E1343A00EC7A16 /* SyntaxFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A41325B47B5900F643CD /* SyntaxFactory.swift */; };
+		3044B13025E1343A00EC7A16 /* TypeSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024219225CFCB8E00C0E53F /* TypeSyntax+Extension.swift */; };
+		3044B13125E1343A00EC7A16 /* DictionaryExprSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024216A25CFCA6F00C0E53F /* DictionaryExprSyntax+Extension.swift */; };
+		3044B13225E1343A00EC7A16 /* FunctionDeclSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A40025B47ADD00F643CD /* FunctionDeclSyntax.swift */; };
+		3044B13325E1343A00EC7A16 /* SimpleTypeIdentifierSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024215025CFC9FD00C0E53F /* SimpleTypeIdentifierSyntax+Extension.swift */; };
+		3044B13425E1343A00EC7A16 /* ExprSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024217625CFCABC00C0E53F /* ExprSyntax+Extension.swift */; };
+		3044B13525E1343A00EC7A16 /* ArrayExprSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024216E25CFCA8100C0E53F /* ArrayExprSyntax+Extension.swift */; };
+		3044B13625E1343A00EC7A16 /* CodeBlockSyntax+Extensioin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212E25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift */; };
+		3044B13725E1343A00EC7A16 /* InitializerClauseSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024217225CFCAAC00C0E53F /* InitializerClauseSyntax+Extension.swift */; };
+		3044B13825E1343A00EC7A16 /* PatternSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024215825CFCA2600C0E53F /* PatternSyntax+Extension.swift */; };
+		3044B13925E1343A00EC7A16 /* TokenSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024215C25CFCA3700C0E53F /* TokenSyntax+Extension.swift */; };
+		3044B13A25E1343A00EC7A16 /* MemberDeclListItemSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024219E25CFCBF500C0E53F /* MemberDeclListItemSyntax+Extension.swift */; };
+		3044B13B25E1343A00EC7A16 /* AccessorBlockSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A3EE25B479D800F643CD /* AccessorBlockSyntax.swift */; };
+		3044B13C25E1343A00EC7A16 /* ProtocolDeclSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212A25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift */; };
+		3044B13D25E1343A00EC7A16 /* AccessorDeclSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024218025CFCB0D00C0E53F /* AccessorDeclSyntax+Extension.swift */; };
+		3044B13E25E1343A00EC7A16 /* TypeAnnotationSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024215425CFCA1100C0E53F /* TypeAnnotationSyntax+Extension.swift */; };
+		3044B13F25E1343A00EC7A16 /* TypeInheritanceClauseSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024219625CFCBB500C0E53F /* TypeInheritanceClauseSyntax+Extension.swift */; };
+		3044B14025E1343A00EC7A16 /* CodeBlockItemSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421A225CFCC1D00C0E53F /* CodeBlockItemSyntax+Extension.swift */; };
 		3063F31B25BD1B8300B6038C /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */; };
 		3063F31F25BD3CF700B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
 		3063F32725BD400000B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
@@ -613,17 +654,58 @@
 			buildActionMask = 2147483647;
 			files = (
 				3024221025D911E800C0E53F /* DummyViewController.swift in Sources */,
+				3044B12C25E1343A00EC7A16 /* MemberDeclBlockSyntax+Extension.swift in Sources */,
+				3044B13425E1343A00EC7A16 /* ExprSyntax+Extension.swift in Sources */,
+				3044B13525E1343A00EC7A16 /* ArrayExprSyntax+Extension.swift in Sources */,
 				30E035E525BC3059000D49EE /* MockViewController.swift in Sources */,
 				30E035E925BC310A000D49EE /* SplitViewController.swift in Sources */,
+				3044B11A25E1341F00EC7A16 /* ProtocolNameHandler.swift in Sources */,
 				303223F825AAFC41002BB110 /* ViewController.swift in Sources */,
+				3044B13C25E1343A00EC7A16 /* ProtocolDeclSyntax+Extension.swift in Sources */,
+				3044B13625E1343A00EC7A16 /* CodeBlockSyntax+Extensioin.swift in Sources */,
+				3044B11825E1341F00EC7A16 /* Either.swift in Sources */,
+				3044B13225E1343A00EC7A16 /* FunctionDeclSyntax.swift in Sources */,
+				3044B12A25E1343A00EC7A16 /* IdentifierExprSyntax+Extension.swift in Sources */,
+				3044B11925E1341F00EC7A16 /* MockType.swift in Sources */,
+				3044B12725E1343A00EC7A16 /* PatternBindingListSyntax+Extension.swift in Sources */,
 				30E035DF25BC303B000D49EE /* ProtocolViewController.swift in Sources */,
+				3044B11B25E1341F00EC7A16 /* HasGenericParameter.swift in Sources */,
+				3044B11625E1341F00EC7A16 /* MockPropertyForAccessor.swift in Sources */,
+				3044B11525E1341F00EC7A16 /* HasGenericParameterClause.swift in Sources */,
+				3044B13025E1343A00EC7A16 /* TypeSyntax+Extension.swift in Sources */,
+				3044B12025E1343A00EC7A16 /* MemberDeclListSyntax+Extension.swift in Sources */,
+				3044B13D25E1343A00EC7A16 /* AccessorDeclSyntax+Extension.swift in Sources */,
+				3044B12525E1343A00EC7A16 /* VariableDeclSyntax.swift in Sources */,
+				3044B12925E1343A00EC7A16 /* FunctionParameterSyntax+Extension.swift in Sources */,
+				3044B12825E1343A00EC7A16 /* ImplicitlyUnwrappedOptionalTypeSyntax+Extension.swift in Sources */,
+				3044B12225E1343A00EC7A16 /* String+Extension.swift in Sources */,
+				3044B12325E1343A00EC7A16 /* TupleTypeSyntax+Extension.swift in Sources */,
+				3044B13125E1343A00EC7A16 /* DictionaryExprSyntax+Extension.swift in Sources */,
+				3044B13825E1343A00EC7A16 /* PatternSyntax+Extension.swift in Sources */,
 				3063F31F25BD3CF700B6038C /* Settings.swift in Sources */,
-				302421BE25D5266300C0E53F /* MockType.swift in Sources */,
 				30B8A42725BC27B500F643CD /* MenuViewController.swift in Sources */,
+				3044B12D25E1343A00EC7A16 /* TupleExprSyntax+Extension.swift in Sources */,
 				30B8A42B25BC2B8500F643CD /* MenuTableCellView.swift in Sources */,
+				3044B12E25E1343A00EC7A16 /* PatternBindingSyntax.swift in Sources */,
+				3044B12F25E1343A00EC7A16 /* SyntaxFactory.swift in Sources */,
+				3044B12625E1343A00EC7A16 /* DictionaryElementListSyntax+Extension.swift in Sources */,
+				3044B13A25E1343A00EC7A16 /* MemberDeclListItemSyntax+Extension.swift in Sources */,
 				303223F625AAFC41002BB110 /* AppDelegate.swift in Sources */,
+				3044B13F25E1343A00EC7A16 /* TypeInheritanceClauseSyntax+Extension.swift in Sources */,
+				3044B13E25E1343A00EC7A16 /* TypeAnnotationSyntax+Extension.swift in Sources */,
+				3044B13725E1343A00EC7A16 /* InitializerClauseSyntax+Extension.swift in Sources */,
+				3044B13925E1343A00EC7A16 /* TokenSyntax+Extension.swift in Sources */,
+				3044B11C25E1341F00EC7A16 /* ProtocolExtractor.swift in Sources */,
+				3044B12B25E1343A00EC7A16 /* InitializerDeclSyntax.swift in Sources */,
+				3044B11F25E1343A00EC7A16 /* FunctionParameterListSyntax+Extensions.swift in Sources */,
+				3044B13B25E1343A00EC7A16 /* AccessorBlockSyntax.swift in Sources */,
+				3044B12125E1343A00EC7A16 /* Trivia+Extension.swift in Sources */,
+				3044B14025E1343A00EC7A16 /* CodeBlockItemSyntax+Extension.swift in Sources */,
+				3044B13325E1343A00EC7A16 /* SimpleTypeIdentifierSyntax+Extension.swift in Sources */,
+				3044B12425E1343A00EC7A16 /* DictionaryElementSyntax+Extension.swift in Sources */,
 				3063F31B25BD1B8300B6038C /* UserDefaults+Extension.swift in Sources */,
 				30E035ED25BC31A4000D49EE /* DetailViewController.swift in Sources */,
+				3044B11725E1341F00EC7A16 /* MockGenerater.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

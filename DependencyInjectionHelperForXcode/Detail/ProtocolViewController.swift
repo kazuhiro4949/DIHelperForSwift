@@ -7,6 +7,23 @@
 //
 
 import Cocoa
+import SwiftSyntax
+
+enum SampleParsedSource {
+    static let protocolTarget = """
+                class SomeClass {
+                    let arg1: String
+
+                    init() {
+                        arg1 = "arg1"
+                    }
+
+                    func func1() {
+                      print(arg1)
+                    }
+                }
+                """
+}
 
 class ProtocolViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
@@ -17,9 +34,32 @@ class ProtocolViewController: NSViewController {
     @IBOutlet weak var initializerIgnoranceButton: NSButton!
     @IBOutlet weak var internalMemberIgnoranceButton: NSButton!
     @IBOutlet weak var overrideMemberIgnoranceButton: NSButton!
+    @IBOutlet weak var sampleSourceTextView: NSTextView!
+    @IBOutlet weak var convertedSourceTextView: NSTextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sampleSourceTextView.textContainerInset = CGSize(
+            width: 8,
+            height: 8
+        )
+        convertedSourceTextView.textContainerInset = CGSize(
+            width: 8,
+            height: 8
+        )
+        
+        sampleSourceTextView.typingAttributes = [
+            .font: NSFont(name: "Monaco", size: 16),
+            .foregroundColor: NSColor.textColor
+        ]
+        convertedSourceTextView.typingAttributes = [
+            .font: NSFont(name: "Monaco", size: 16),
+            .foregroundColor: NSColor.textColor
+        ]
+        sampleSourceTextView.string = SampleParsedSource.protocolTarget
+        updateConvertedText(sampleSourceTextView.string)
+        
         nameTextField.stringValue = Settings
             .shared
             .protocolSettings
@@ -73,9 +113,28 @@ class ProtocolViewController: NSViewController {
         )
     }
     
+    func updateConvertedText(_ text: String) {
+        do {
+            
+            let sourceFile = try SyntaxParser.parse(
+                source: text
+            )
+            
+            let extracter = ProtocolExtractor()
+            extracter.walk(sourceFile)
+            
+            convertedSourceTextView.string = extracter.protocolDeclSyntaxList.first?.protocolDeclSyntax.description ?? ""
+            
+            
+        } catch _ {}
+
+    }
+    
+    
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.protocolSettings.nameFormat = value
+        updateConvertedText(sampleSourceTextView.string)
     }
     
     @IBAction func ignoranceButtonDidClick(_ sender: NSButton) {
@@ -88,6 +147,8 @@ class ProtocolViewController: NSViewController {
             ignorance: ignorance,
             value: sender.state == .on
         )
+        
+        updateConvertedText(sampleSourceTextView.string)
     }
 }
 
@@ -111,5 +172,11 @@ extension NSControl.StateValue {
         } else {
             self = .off
         }
+    }
+}
+
+extension ProtocolViewController: NSTextViewDelegate {
+    func textDidChange(_ notification: Notification) {
+        updateConvertedText(sampleSourceTextView.string)
     }
 }
