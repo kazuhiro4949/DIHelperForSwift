@@ -9,22 +9,6 @@
 import Cocoa
 import SwiftSyntax
 
-enum SampleParsedSource {
-    static let protocolTarget = """
-                class SomeClass {
-                    let arg1: String
-
-                    init() {
-                        arg1 = "arg1"
-                    }
-
-                    func func1() {
-                      print(arg1)
-                    }
-                }
-                """
-}
-
 class ProtocolViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
     
@@ -40,6 +24,19 @@ class ProtocolViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupTextView()
+        sampleSourceTextView.string = SampleParsedSource.classSample
+        updateConvertedText(sampleSourceTextView.string)
+        
+        nameTextField.stringValue = Settings
+            .shared
+            .protocolSettings
+            .nameFormat ?? ""
+        
+        setupButtons()
+    }
+    
+    private func setupTextView() {
         sampleSourceTextView.textContainerInset = CGSize(
             width: 8,
             height: 8
@@ -57,15 +54,16 @@ class ProtocolViewController: NSViewController {
             .font: NSFont(name: "Monaco", size: 16),
             .foregroundColor: NSColor.textColor
         ]
-        sampleSourceTextView.string = SampleParsedSource.protocolTarget
-        updateConvertedText(sampleSourceTextView.string)
         
-        nameTextField.stringValue = Settings
-            .shared
-            .protocolSettings
-            .nameFormat ?? ""
+        sampleSourceTextView.maxSize = NSSize(width: .max, height: .max)
+        sampleSourceTextView.isHorizontallyResizable = true
+        sampleSourceTextView.textContainer?.widthTracksTextView = false
+        sampleSourceTextView.textContainer?.containerSize = NSSize(width: .max, height: .max)
         
-        setupButtons()
+        convertedSourceTextView.maxSize = NSSize(width: .max, height: .max)
+        convertedSourceTextView.isHorizontallyResizable = true
+        convertedSourceTextView.textContainer?.widthTracksTextView = false
+        convertedSourceTextView.textContainer?.containerSize = NSSize(width: .max, height: .max)
     }
     
     private func setupButtons() {
