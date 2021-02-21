@@ -1,15 +1,15 @@
 //
-//  DummyViewController.swift
+//  StubViewController.swift
 //  DependencyInjectionHelperForXcode
 //
-//  Created by Kazuhiro Hayashi on 2021/02/14.
+//  Created by Kazuhiro Hayashi on 2021/02/21.
 //  
 //
 
 import Cocoa
 import SwiftSyntax
 
-class DummyViewController: NSViewController {
+class StubViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
     @IBOutlet weak var sampleSourceTextView: NSTextView!
     @IBOutlet weak var convertedSourceTextView: NSTextView!
@@ -64,7 +64,7 @@ class DummyViewController: NSViewController {
                 source: text
             )
             
-            let generater = MockGenerater(mockType: .dummy)
+            let generater = MockGenerater(mockType: .stub)
             generater.walk(sourceFile)
             
             convertedSourceTextView.string = generater
@@ -83,7 +83,7 @@ class DummyViewController: NSViewController {
     }
 }
 
-extension DummyViewController: NSTextViewDelegate {
+extension StubViewController: NSTextViewDelegate {
     func textDidChange(_ notification: Notification) {
         updateConvertedText(sampleSourceTextView.string)
     }

@@ -26,7 +26,7 @@ enum SampleParsedSource {
     static let protocolSample = """
     protocol SampleProtocol {
         var prop1: String { get }
-        func func1(arg1: String)
+        func func1(arg1: String) -> Int
         init()
     }
     """
