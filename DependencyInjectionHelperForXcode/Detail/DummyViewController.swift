@@ -38,11 +38,11 @@ class DummyViewController: NSViewController {
         )
         
         sampleSourceTextView.typingAttributes = [
-            .font: NSFont(name: "Monaco", size: 16),
+            .font: NSFont(name: "Monaco", size: 16)!,
             .foregroundColor: NSColor.textColor
         ]
         convertedSourceTextView.typingAttributes = [
-            .font: NSFont(name: "Monaco", size: 16),
+            .font: NSFont(name: "Monaco", size: 16)!,
             .foregroundColor: NSColor.textColor
         ]
         

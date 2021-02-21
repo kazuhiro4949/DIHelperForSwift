@@ -99,6 +99,7 @@
 		3044B13F25E1343A00EC7A16 /* TypeInheritanceClauseSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024219625CFCBB500C0E53F /* TypeInheritanceClauseSyntax+Extension.swift */; };
 		3044B14025E1343A00EC7A16 /* CodeBlockItemSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421A225CFCC1D00C0E53F /* CodeBlockItemSyntax+Extension.swift */; };
 		3044B14525E14ADF00EC7A16 /* SampleParsedSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3044B14425E14ADF00EC7A16 /* SampleParsedSource.swift */; };
+		3044B14A25E210F600EC7A16 /* NSTextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3044B14925E210F600EC7A16 /* NSTextView+Extension.swift */; };
 		3063F31B25BD1B8300B6038C /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */; };
 		3063F31F25BD3CF700B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
 		3063F32725BD400000B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
@@ -241,6 +242,7 @@
 		3032243325AAFCEB002BB110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3032243425AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DependencyInjectionHelperForXcodeExtension.entitlements; sourceTree = "<group>"; };
 		3044B14425E14ADF00EC7A16 /* SampleParsedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleParsedSource.swift; sourceTree = "<group>"; };
+		3044B14925E210F600EC7A16 /* NSTextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextView+Extension.swift"; sourceTree = "<group>"; };
 		3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		3063F31E25BD3CF700B6038C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		309BB2E925C15FDB0067D991 /* GenerateSpyCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSpyCommand.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 		303223F425AAFC41002BB110 /* DependencyInjectionHelperForXcode */ = {
 			isa = PBXGroup;
 			children = (
+				3044B14825E210E400EC7A16 /* Utility */,
 				3044B14325E14AD000EC7A16 /* Model */,
 				30E035E325BC3049000D49EE /* Detail */,
 				30B8A41F25BC278600F643CD /* Menu */,
@@ -422,6 +425,14 @@
 				3044B14425E14ADF00EC7A16 /* SampleParsedSource.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3044B14825E210E400EC7A16 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				3044B14925E210F600EC7A16 /* NSTextView+Extension.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		30B8A3ED25B479BD00F643CD /* Extensions */ = {
@@ -694,6 +705,7 @@
 				3044B13125E1343A00EC7A16 /* DictionaryExprSyntax+Extension.swift in Sources */,
 				3044B13825E1343A00EC7A16 /* PatternSyntax+Extension.swift in Sources */,
 				3063F31F25BD3CF700B6038C /* Settings.swift in Sources */,
+				3044B14A25E210F600EC7A16 /* NSTextView+Extension.swift in Sources */,
 				30B8A42725BC27B500F643CD /* MenuViewController.swift in Sources */,
 				3044B14525E14ADF00EC7A16 /* SampleParsedSource.swift in Sources */,
 				3044B12D25E1343A00EC7A16 /* TupleExprSyntax+Extension.swift in Sources */,
