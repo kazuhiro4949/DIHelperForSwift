@@ -8,6 +8,7 @@
 
 import Cocoa
 import SwiftSyntax
+import Sourceful
 
 class MockViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
@@ -25,14 +26,15 @@ class MockViewController: NSViewController {
     @IBOutlet weak var callCountCaptureButton: NSButton!
     @IBOutlet weak var passedArgumentCaptureButton: NSButton!
     
-    @IBOutlet weak var sampleSourceTextView: NSTextView!
-    @IBOutlet weak var convertedSourceTextView: NSTextView!
+    @IBOutlet weak var sampleSourceTextView: SyntaxTextView!
+    @IBOutlet weak var convertedSourceTextView: SyntaxTextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupTextView()
-        sampleSourceTextView.string = SampleParsedSource.protocolSample
-        updateConvertedText(sampleSourceTextView.string)
+        sampleSourceTextView.text = SampleParsedSource.protocolSample
+        updateConvertedText(sampleSourceTextView.text)
         
         wasCalledTextField.stringValue = Settings
             .shared
@@ -57,33 +59,12 @@ class MockViewController: NSViewController {
     }
     
     private func setupTextView() {
-        sampleSourceTextView.textContainerInset = CGSize(
-            width: 8,
-            height: 8
-        )
-        convertedSourceTextView.textContainerInset = CGSize(
-            width: 8,
-            height: 8
-        )
+        sampleSourceTextView.delegate = self
+        sampleSourceTextView.theme = DefaultSourceCodeTheme()
         
-        sampleSourceTextView.typingAttributes = [
-            .font: NSFont(name: "Monaco", size: 16)!,
-            .foregroundColor: NSColor.textColor
-        ]
-        convertedSourceTextView.typingAttributes = [
-            .font: NSFont(name: "Monaco", size: 16)!,
-            .foregroundColor: NSColor.textColor
-        ]
-        
-        sampleSourceTextView.maxSize = NSSize(width: .max, height: .max)
-        sampleSourceTextView.isHorizontallyResizable = true
-        sampleSourceTextView.textContainer?.widthTracksTextView = false
-        sampleSourceTextView.textContainer?.containerSize = NSSize(width: .max, height: .max)
-        
-        convertedSourceTextView.maxSize = NSSize(width: .max, height: .max)
-        convertedSourceTextView.isHorizontallyResizable = true
-        convertedSourceTextView.textContainer?.widthTracksTextView = false
-        convertedSourceTextView.textContainer?.containerSize = NSSize(width: .max, height: .max)
+        convertedSourceTextView.delegate = self
+        convertedSourceTextView.contentTextView.isEditable = false
+        convertedSourceTextView.theme = DefaultSourceCodeTheme()
     }
     
     private func setupButtons() {
@@ -132,7 +113,7 @@ class MockViewController: NSViewController {
             let generater = MockGenerater(mockType: .spy)
             generater.walk(sourceFile)
             
-            convertedSourceTextView.string = generater
+            convertedSourceTextView.text = generater
                 .mockClasses
                 .first?
                 .classDeclSyntax
@@ -145,31 +126,31 @@ class MockViewController: NSViewController {
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.spySettings.nameFormat = value
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func wasCalledTextFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.spySettings.wasCalledFormat = value
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func callCountTextFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.spySettings.callCountFormat = value
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func passedArgumentTextFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.spySettings.passedArgumentFormat = value
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func returnValueTextFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.spySettings.returnValueFormat = value
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func targetButtonDidClick(_ sender: NSButton) {
@@ -182,7 +163,7 @@ class MockViewController: NSViewController {
             target: target,
             value: sender.state != .on
         )
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func captureButtonDidClick(_ sender: NSButton) {
@@ -195,14 +176,20 @@ class MockViewController: NSViewController {
             capture: capture,
             value: sender.state != .on
         )
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
     
 }
 
 
-extension MockViewController: NSTextViewDelegate {
-    func textDidChange(_ notification: Notification) {
-        updateConvertedText(sampleSourceTextView.string)
+extension MockViewController: SyntaxTextViewDelegate {
+    func lexerForSource(_ source: String) -> Lexer {
+        SwiftLexer()
+    }
+    
+    func didChangeText(_ syntaxTextView: SyntaxTextView) {
+        if syntaxTextView == sampleSourceTextView {
+           updateConvertedText(sampleSourceTextView.text)
+        }
     }
 }

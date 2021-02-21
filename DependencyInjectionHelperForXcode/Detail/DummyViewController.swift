@@ -8,17 +8,19 @@
 
 import Cocoa
 import SwiftSyntax
+import Sourceful
 
 class DummyViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
-    @IBOutlet weak var sampleSourceTextView: NSTextView!
-    @IBOutlet weak var convertedSourceTextView: NSTextView!
+    @IBOutlet weak var sampleSourceTextView: SyntaxTextView!
+    @IBOutlet weak var convertedSourceTextView: SyntaxTextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTextView()
-        sampleSourceTextView.string = SampleParsedSource.protocolSample
-        updateConvertedText(sampleSourceTextView.string)
+        sampleSourceTextView.text = SampleParsedSource.protocolSample
+        updateConvertedText(sampleSourceTextView.text)
+        
         
         nameTextField.stringValue = Settings
             .shared
@@ -28,33 +30,12 @@ class DummyViewController: NSViewController {
     }
     
     private func setupTextView() {
-        sampleSourceTextView.textContainerInset = CGSize(
-            width: 8,
-            height: 8
-        )
-        convertedSourceTextView.textContainerInset = CGSize(
-            width: 8,
-            height: 8
-        )
+        sampleSourceTextView.delegate = self
+        sampleSourceTextView.theme = DefaultSourceCodeTheme()
         
-        sampleSourceTextView.typingAttributes = [
-            .font: NSFont(name: "Monaco", size: 16)!,
-            .foregroundColor: NSColor.textColor
-        ]
-        convertedSourceTextView.typingAttributes = [
-            .font: NSFont(name: "Monaco", size: 16)!,
-            .foregroundColor: NSColor.textColor
-        ]
-        
-        sampleSourceTextView.maxSize = NSSize(width: .max, height: .max)
-        sampleSourceTextView.isHorizontallyResizable = true
-        sampleSourceTextView.textContainer?.widthTracksTextView = false
-        sampleSourceTextView.textContainer?.containerSize = NSSize(width: .max, height: .max)
-        
-        convertedSourceTextView.maxSize = NSSize(width: .max, height: .max)
-        convertedSourceTextView.isHorizontallyResizable = true
-        convertedSourceTextView.textContainer?.widthTracksTextView = false
-        convertedSourceTextView.textContainer?.containerSize = NSSize(width: .max, height: .max)
+        convertedSourceTextView.delegate = self
+        convertedSourceTextView.contentTextView.isEditable = false
+        convertedSourceTextView.theme = DefaultSourceCodeTheme()
     }
     
     private func updateConvertedText(_ text: String) {
@@ -67,7 +48,7 @@ class DummyViewController: NSViewController {
             let generater = MockGenerater(mockType: .dummy)
             generater.walk(sourceFile)
             
-            convertedSourceTextView.string = generater
+            convertedSourceTextView.text = generater
                 .mockClasses
                 .first?
                 .classDeclSyntax
@@ -79,12 +60,18 @@ class DummyViewController: NSViewController {
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.dummySettings.nameFormat = value
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
 }
 
-extension DummyViewController: NSTextViewDelegate {
-    func textDidChange(_ notification: Notification) {
-        updateConvertedText(sampleSourceTextView.string)
+extension DummyViewController: SyntaxTextViewDelegate {
+    func lexerForSource(_ source: String) -> Lexer {
+        SwiftLexer()
+    }
+    
+    func didChangeText(_ syntaxTextView: SyntaxTextView) {
+        if syntaxTextView == sampleSourceTextView {
+           updateConvertedText(sampleSourceTextView.text)
+        }
     }
 }

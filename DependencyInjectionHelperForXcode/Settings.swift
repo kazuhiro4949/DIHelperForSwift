@@ -156,14 +156,24 @@ class Settings {
         case .spy:
             return SpySetting()
         case .stub:
-            return nil
+            return DefaultFalseTarget()
         case .dummy:
-            return nil
+            return DefaultFalseTarget()
         }
     }
     
     var indentationValue: Int {
         4
+    }
+}
+
+struct DefaultFalseTarget: TargetProvider {
+    func setTarget(target: Settings.Target, value: Bool) {
+        
+    }
+    
+    func getTarget(target: Settings.Target) -> Bool {
+        false
     }
 }
 

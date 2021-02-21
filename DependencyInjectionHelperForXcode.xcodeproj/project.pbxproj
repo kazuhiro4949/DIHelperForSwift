@@ -101,6 +101,7 @@
 		3044B14525E14ADF00EC7A16 /* SampleParsedSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3044B14425E14ADF00EC7A16 /* SampleParsedSource.swift */; };
 		3044B14A25E210F600EC7A16 /* NSTextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3044B14925E210F600EC7A16 /* NSTextView+Extension.swift */; };
 		3044B15725E2173C00EC7A16 /* StubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3044B15525E2173C00EC7A16 /* StubViewController.swift */; };
+		3044B16825E2486400EC7A16 /* Sourceful in Frameworks */ = {isa = PBXBuildFile; productRef = 3044B16725E2486400EC7A16 /* Sourceful */; };
 		3063F31B25BD1B8300B6038C /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */; };
 		3063F31F25BD3CF700B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
 		3063F32725BD400000B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
@@ -274,6 +275,7 @@
 			files = (
 				3032244225AAFD2D002BB110 /* SwiftSyntax in Frameworks */,
 				30B8A3DD25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */,
+				3044B16825E2486400EC7A16 /* Sourceful in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +531,7 @@
 			name = DependencyInjectionHelperForXcode;
 			packageProductDependencies = (
 				3032244125AAFD2D002BB110 /* SwiftSyntax */,
+				3044B16725E2486400EC7A16 /* Sourceful */,
 			);
 			productName = DependencyInjectionHelperForXcode;
 			productReference = 303223F225AAFC41002BB110 /* DependencyInjectionHelperForXcode.app */;
@@ -627,6 +630,7 @@
 			mainGroup = 303223E925AAFC41002BB110;
 			packageReferences = (
 				3032244025AAFD2D002BB110 /* XCRemoteSwiftPackageReference "swift-syntax" */,
+				3044B16625E2486400EC7A16 /* XCRemoteSwiftPackageReference "Sourceful" */,
 			);
 			productRefGroup = 303223F325AAFC41002BB110 /* Products */;
 			projectDirPath = "";
@@ -1185,6 +1189,14 @@
 				kind = branch;
 			};
 		};
+		3044B16625E2486400EC7A16 /* XCRemoteSwiftPackageReference "Sourceful" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/Sourceful";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1197,6 +1209,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3032244025AAFD2D002BB110 /* XCRemoteSwiftPackageReference "swift-syntax" */;
 			productName = SwiftSyntax;
+		};
+		3044B16725E2486400EC7A16 /* Sourceful */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3044B16625E2486400EC7A16 /* XCRemoteSwiftPackageReference "Sourceful" */;
+			productName = Sourceful;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

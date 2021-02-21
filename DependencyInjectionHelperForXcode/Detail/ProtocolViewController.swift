@@ -8,6 +8,7 @@
 
 import Cocoa
 import SwiftSyntax
+import Sourceful
 
 class ProtocolViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
@@ -18,16 +19,16 @@ class ProtocolViewController: NSViewController {
     @IBOutlet weak var initializerIgnoranceButton: NSButton!
     @IBOutlet weak var internalMemberIgnoranceButton: NSButton!
     @IBOutlet weak var overrideMemberIgnoranceButton: NSButton!
-    @IBOutlet weak var sampleSourceTextView: NSTextView!
-    @IBOutlet weak var convertedSourceTextView: NSTextView!
+    @IBOutlet weak var sampleSourceTextView: SyntaxTextView!
+    @IBOutlet weak var convertedSourceTextView: SyntaxTextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         setupTextView()
-        sampleSourceTextView.string = SampleParsedSource.classSample
-        updateConvertedText(sampleSourceTextView.string)
+        sampleSourceTextView.text = SampleParsedSource.classSample
+        updateConvertedText(sampleSourceTextView.text)
         
         nameTextField.stringValue = Settings
             .shared
@@ -38,34 +39,12 @@ class ProtocolViewController: NSViewController {
     }
     
     private func setupTextView() {
-        sampleSourceTextView.makePlaceText()
-        sampleSourceTextView.textContainerInset = CGSize(
-            width: 8,
-            height: 8
-        )
-        convertedSourceTextView.textContainerInset = CGSize(
-            width: 8,
-            height: 8
-        )
+        sampleSourceTextView.delegate = self
+        sampleSourceTextView.theme = DefaultSourceCodeTheme()
         
-        sampleSourceTextView.typingAttributes = [
-            .font: NSFont.userFixedPitchFont(ofSize: 16)!,
-            .foregroundColor: NSColor.textColor
-        ]
-        convertedSourceTextView.typingAttributes = [
-            .font: NSFont.userFixedPitchFont(ofSize: 16)!,
-            .foregroundColor: NSColor.textColor
-        ]
-        
-        sampleSourceTextView.maxSize = NSSize(width: .max, height: .max)
-        sampleSourceTextView.isHorizontallyResizable = true
-        sampleSourceTextView.textContainer?.widthTracksTextView = false
-        sampleSourceTextView.textContainer?.containerSize = NSSize(width: .max, height: .max)
-        
-        convertedSourceTextView.maxSize = NSSize(width: .max, height: .max)
-        convertedSourceTextView.isHorizontallyResizable = true
-        convertedSourceTextView.textContainer?.widthTracksTextView = false
-        convertedSourceTextView.textContainer?.containerSize = NSSize(width: .max, height: .max)
+        convertedSourceTextView.delegate = self
+        convertedSourceTextView.contentTextView.isEditable = false
+        convertedSourceTextView.theme = DefaultSourceCodeTheme()
     }
     
     private func setupButtons() {
@@ -122,8 +101,7 @@ class ProtocolViewController: NSViewController {
             
             let extracter = ProtocolExtractor()
             extracter.walk(sourceFile)
-            
-            convertedSourceTextView.string = extracter.protocolDeclSyntaxList.first?.protocolDeclSyntax.description ?? ""
+            convertedSourceTextView.text = extracter.protocolDeclSyntaxList.first?.protocolDeclSyntax.description ?? ""
             
             
         } catch _ {}
@@ -134,7 +112,7 @@ class ProtocolViewController: NSViewController {
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.protocolSettings.nameFormat = value
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func ignoranceButtonDidClick(_ sender: NSButton) {
@@ -148,7 +126,7 @@ class ProtocolViewController: NSViewController {
             value: sender.state == .on
         )
         
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
 }
 
@@ -175,8 +153,14 @@ extension NSControl.StateValue {
     }
 }
 
-extension ProtocolViewController: NSTextViewDelegate {
-    func textDidChange(_ notification: Notification) {
-        updateConvertedText(sampleSourceTextView.string)
+extension ProtocolViewController: SyntaxTextViewDelegate {
+    func lexerForSource(_ source: String) -> Lexer {
+        SwiftLexer()
+    }
+    
+    func didChangeText(_ syntaxTextView: SyntaxTextView) {
+        if syntaxTextView == sampleSourceTextView {
+           updateConvertedText(sampleSourceTextView.text)
+        }
     }
 }

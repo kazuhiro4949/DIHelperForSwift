@@ -8,19 +8,23 @@
 
 import Cocoa
 import SwiftSyntax
+import Sourceful
 
 class StubViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
     @IBOutlet weak var valTextField: NSTextField!
     
-    @IBOutlet weak var sampleSourceTextView: NSTextView!
-    @IBOutlet weak var convertedSourceTextView: NSTextView!
+    @IBOutlet weak var sampleSourceTextView: SyntaxTextView!
+    @IBOutlet weak var convertedSourceTextView: SyntaxTextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTextView()
-        sampleSourceTextView.string = SampleParsedSource.protocolSample
-        updateConvertedText(sampleSourceTextView.string)
+        
+        super.viewDidLoad()
+        setupTextView()
+        sampleSourceTextView.text = SampleParsedSource.protocolSample
+        updateConvertedText(sampleSourceTextView.text)
         
         nameTextField.stringValue = Settings
             .shared
@@ -33,33 +37,12 @@ class StubViewController: NSViewController {
     }
     
     private func setupTextView() {
-        sampleSourceTextView.textContainerInset = CGSize(
-            width: 8,
-            height: 8
-        )
-        convertedSourceTextView.textContainerInset = CGSize(
-            width: 8,
-            height: 8
-        )
+        sampleSourceTextView.delegate = self
+        sampleSourceTextView.theme = DefaultSourceCodeTheme()
         
-        sampleSourceTextView.typingAttributes = [
-            .font: NSFont(name: "Monaco", size: 16)!,
-            .foregroundColor: NSColor.textColor
-        ]
-        convertedSourceTextView.typingAttributes = [
-            .font: NSFont(name: "Monaco", size: 16)!,
-            .foregroundColor: NSColor.textColor
-        ]
-        
-        sampleSourceTextView.maxSize = NSSize(width: .max, height: .max)
-        sampleSourceTextView.isHorizontallyResizable = true
-        sampleSourceTextView.textContainer?.widthTracksTextView = false
-        sampleSourceTextView.textContainer?.containerSize = NSSize(width: .max, height: .max)
-        
-        convertedSourceTextView.maxSize = NSSize(width: .max, height: .max)
-        convertedSourceTextView.isHorizontallyResizable = true
-        convertedSourceTextView.textContainer?.widthTracksTextView = false
-        convertedSourceTextView.textContainer?.containerSize = NSSize(width: .max, height: .max)
+        convertedSourceTextView.delegate = self
+        convertedSourceTextView.contentTextView.isEditable = false
+        convertedSourceTextView.theme = DefaultSourceCodeTheme()
     }
     
     private func updateConvertedText(_ text: String) {
@@ -72,7 +55,7 @@ class StubViewController: NSViewController {
             let generater = MockGenerater(mockType: .stub)
             generater.walk(sourceFile)
             
-            convertedSourceTextView.string = generater
+            convertedSourceTextView.text = generater
                 .mockClasses
                 .first?
                 .classDeclSyntax
@@ -84,18 +67,30 @@ class StubViewController: NSViewController {
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.spySettings.nameFormat = value
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func returnValueTextFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.spySettings.returnValueFormat = value
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
     }
 }
 
 extension StubViewController: NSTextViewDelegate {
     func textDidChange(_ notification: Notification) {
-        updateConvertedText(sampleSourceTextView.string)
+        updateConvertedText(sampleSourceTextView.text)
+    }
+}
+
+extension StubViewController: SyntaxTextViewDelegate {
+    func lexerForSource(_ source: String) -> Lexer {
+        SwiftLexer()
+    }
+    
+    func didChangeText(_ syntaxTextView: SyntaxTextView) {
+        if syntaxTextView == sampleSourceTextView {
+           updateConvertedText(sampleSourceTextView.text)
+        }
     }
 }
