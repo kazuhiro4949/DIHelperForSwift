@@ -15,3 +15,4 @@ protocol FunctionsPattern2Protocol {
     func func4(_ arg: Int) -> String
     func func5(for arg1: String, arg2: Int) -> Int
 }
+

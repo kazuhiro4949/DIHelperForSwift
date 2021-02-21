@@ -24,6 +24,7 @@ class ProtocolViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         setupTextView()
         sampleSourceTextView.string = SampleParsedSource.classSample
         updateConvertedText(sampleSourceTextView.string)
@@ -37,6 +38,7 @@ class ProtocolViewController: NSViewController {
     }
     
     private func setupTextView() {
+        sampleSourceTextView.makePlaceText()
         sampleSourceTextView.textContainerInset = CGSize(
             width: 8,
             height: 8
@@ -47,11 +49,11 @@ class ProtocolViewController: NSViewController {
         )
         
         sampleSourceTextView.typingAttributes = [
-            .font: NSFont(name: "Monaco", size: 16),
+            .font: NSFont.userFixedPitchFont(ofSize: 16),
             .foregroundColor: NSColor.textColor
         ]
         convertedSourceTextView.typingAttributes = [
-            .font: NSFont(name: "Monaco", size: 16),
+            .font: NSFont.userFixedPitchFont(ofSize: 16),
             .foregroundColor: NSColor.textColor
         ]
         
@@ -176,5 +178,25 @@ extension NSControl.StateValue {
 extension ProtocolViewController: NSTextViewDelegate {
     func textDidChange(_ notification: Notification) {
         updateConvertedText(sampleSourceTextView.string)
+    }
+}
+
+
+extension NSTextView {
+    func makePlaceText() {
+        font = NSFont.userFixedPitchFont(ofSize: 16)
+        isRulerVisible = false
+        isFieldEditor = false
+        isRichText = false
+        isAutomaticQuoteSubstitutionEnabled = false
+        isAutomaticLinkDetectionEnabled = false
+        isContinuousSpellCheckingEnabled = false
+        isGrammarCheckingEnabled = false
+        isAutomaticDashSubstitutionEnabled = false
+        isAutomaticDataDetectionEnabled = false
+        isAutomaticSpellingCorrectionEnabled = false
+        isAutomaticTextReplacementEnabled = false
+        isIncrementalSearchingEnabled = false
+        isAutomaticTextCompletionEnabled = false
     }
 }
