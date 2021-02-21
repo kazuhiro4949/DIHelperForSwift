@@ -9,20 +9,20 @@
 import Foundation
 
 extension String {
-    var wasCalled: String {
-        self + "_wasCalled"
+    func wasCalled(_ mockType: MockType) -> String {
+        String(format: (mockType.wasCalledFormat ?? "%@_wasCalled"), self)
     }
     
-    var callCount: String {
-        self + "_callCount"
+    func callCount(_ mockType: MockType) -> String {
+        String(format: (mockType.callCountFormat ?? "%@_callCount"), self)
     }
     
-    var args: String {
-        self + "_args"
+    func args(_ mockType: MockType) -> String {
+        String(format: (mockType.argsFormat ??  "%@_args"), self)
     }
     
-    var val: String {
-        self + "_val"
+    func val(_ mockType: MockType) -> String {
+        String(format: (mockType.returnValueFormat ??  "%@_val"), self)
     }
 }
 

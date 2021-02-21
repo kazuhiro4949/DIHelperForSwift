@@ -60,6 +60,42 @@ class Settings {
             }
         }
         
+        var wasCalledFormat: String? {
+            get {
+                UserDefaults.group.string(forKey: "SpySettings.wasCalledFormat")
+            }
+            set {
+                UserDefaults.group.set(newValue, forKey: "SpySettings.wasCalledFormat")
+            }
+        }
+        
+        var callCountFormat: String? {
+            get {
+                UserDefaults.group.string(forKey: "SpySettings.callCountFormat")
+            }
+            set {
+                UserDefaults.group.set(newValue, forKey: "SpySettings.callCountFormat")
+            }
+        }
+        
+        var passedArgumentFormat: String? {
+            get {
+                UserDefaults.group.string(forKey: "SpySettings.passedArgumentFormat")
+            }
+            set {
+                UserDefaults.group.set(newValue, forKey: "SpySettings.passedArgumentFormat")
+            }
+        }
+        
+        var returnValueFormat: String? {
+            get {
+                UserDefaults.group.string(forKey: "SpySettings.returnValueFormat")
+            }
+            set {
+                UserDefaults.group.set(newValue, forKey: "SpySettings.returnValueFormat")
+            }
+        }
+        
         func setTarget(target: Target, value: Bool) {
             UserDefaults.group.set(value, forKey: "SpySettings.target\(target.rawValue)")
         }
@@ -77,36 +113,52 @@ class Settings {
         }
     }
     
-    class DummySetting: NameProvider, TargetProvider {
+    class DummySetting: NameProvider {
         var nameFormat: String? {
             get {
-                UserDefaults.group.string(forKey: "StubSettings.nameFormat")
+                UserDefaults.group.string(forKey: "DummySettings.nameFormat")
             }
             set {
                 UserDefaults.group.set(newValue, forKey: "DummySettings.nameFormat")
             }
         }
-        
-        func getTarget(target: Settings.Target) -> Bool {
-            false
+    }
+    
+    class StubSetting: NameProvider {
+        var nameFormat: String? {
+            get {
+                UserDefaults.group.string(forKey: "StubSettings.nameFormat")
+            }
+            set {
+                UserDefaults.group.set(newValue, forKey: "StubSettings.nameFormat")
+            }
         }
         
-        func setTarget(target: Settings.Target, value: Bool) {}
+        
+        var returnValueFormat: String? {
+            get {
+                UserDefaults.group.string(forKey: "StubSettings.returnValueFormat")
+            }
+            set {
+                UserDefaults.group.set(newValue, forKey: "StubSettings.returnValueFormat")
+            }
+        }
     }
     
     static let shared = Settings()
     let protocolSettings = ProtocolSetting()
     let spySettings = SpySetting()
     let dummySettings = DummySetting()
+    let stubSettings = StubSetting()
     
-    func target(from mockType: MockType) -> TargetProvider {
+    func target(from mockType: MockType) -> TargetProvider? {
         switch mockType {
         case .spy:
             return SpySetting()
         case .stub:
-            return DummySetting()
+            return nil
         case .dummy:
-            return DummySetting()
+            return nil
         }
     }
     

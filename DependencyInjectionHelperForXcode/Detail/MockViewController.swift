@@ -12,6 +12,11 @@ import SwiftSyntax
 class MockViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
     
+    @IBOutlet weak var wasCalledTextField: NSTextField!
+    @IBOutlet weak var callCountTextField: NSTextField!
+    @IBOutlet weak var argsTextField: NSTextField!
+    @IBOutlet weak var valTextField: NSTextField!
+    
     @IBOutlet weak var propertyTargetButton: NSButton!
     @IBOutlet weak var functionTargetButton: NSButton!
     @IBOutlet weak var initializerTargetButton: NSButton!
@@ -19,6 +24,7 @@ class MockViewController: NSViewController {
     @IBOutlet weak var calledOrNotCaptureButton: NSButton!
     @IBOutlet weak var callCountCaptureButton: NSButton!
     @IBOutlet weak var passedArgumentCaptureButton: NSButton!
+    
     @IBOutlet weak var sampleSourceTextView: NSTextView!
     @IBOutlet weak var convertedSourceTextView: NSTextView!
 
@@ -28,10 +34,24 @@ class MockViewController: NSViewController {
         sampleSourceTextView.string = SampleParsedSource.protocolSample
         updateConvertedText(sampleSourceTextView.string)
         
-        nameTextField.stringValue = Settings
+        wasCalledTextField.stringValue = Settings
             .shared
             .spySettings
-            .nameFormat ?? ""
+            .wasCalledFormat ?? ""
+        
+        callCountTextField.stringValue = Settings
+            .shared
+            .spySettings
+            .callCountFormat ?? ""
+        
+        argsTextField.stringValue = Settings
+            .shared
+            .spySettings
+            .passedArgumentFormat ?? ""
+        valTextField.stringValue = Settings
+            .shared
+            .spySettings
+            .returnValueFormat ?? ""
         
         setupButtons()
     }
@@ -125,6 +145,30 @@ class MockViewController: NSViewController {
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.spySettings.nameFormat = value
+        updateConvertedText(sampleSourceTextView.string)
+    }
+    
+    @IBAction func wasCalledTextFieldDidChangeValue(_ sender: NSTextField) {
+        let value = sender.stringValue.isEmpty ? nil : sender.stringValue
+        Settings.shared.spySettings.wasCalledFormat = value
+        updateConvertedText(sampleSourceTextView.string)
+    }
+    
+    @IBAction func callCountTextFieldDidChangeValue(_ sender: NSTextField) {
+        let value = sender.stringValue.isEmpty ? nil : sender.stringValue
+        Settings.shared.spySettings.callCountFormat = value
+        updateConvertedText(sampleSourceTextView.string)
+    }
+    
+    @IBAction func passedArgumentTextFieldDidChangeValue(_ sender: NSTextField) {
+        let value = sender.stringValue.isEmpty ? nil : sender.stringValue
+        Settings.shared.spySettings.passedArgumentFormat = value
+        updateConvertedText(sampleSourceTextView.string)
+    }
+    
+    @IBAction func returnValueTextFieldDidChangeValue(_ sender: NSTextField) {
+        let value = sender.stringValue.isEmpty ? nil : sender.stringValue
+        Settings.shared.spySettings.returnValueFormat = value
         updateConvertedText(sampleSourceTextView.string)
     }
     

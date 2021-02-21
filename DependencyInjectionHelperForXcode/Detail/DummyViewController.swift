@@ -78,7 +78,7 @@ class DummyViewController: NSViewController {
     
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
-        Settings.shared.spySettings.nameFormat = value
+        Settings.shared.dummySettings.nameFormat = value
         updateConvertedText(sampleSourceTextView.string)
     }
 }

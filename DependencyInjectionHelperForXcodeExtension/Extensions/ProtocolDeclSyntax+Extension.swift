@@ -27,13 +27,13 @@ extension ProtocolDeclSyntax {
         
         return members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
             if let funcDecl = item.decl.as(FunctionDeclSyntax.self),
-               !Settings.shared.target(from: mockType).getTarget(target: .function) {
+               Settings.shared.target(from: mockType)?.getTarget(target: .function) == false {
                 return funcDecl.generateMemberDeclItemsForMock(mockType: mockType)
             } else if let variableDecl = item.decl.as(VariableDeclSyntax.self),
-                      !Settings.shared.target(from: mockType).getTarget(target: .property) {
+                      Settings.shared.target(from: mockType)?.getTarget(target: .property) == false {
                 return variableDecl.generateMemberDeclItemsForMock(mockType: mockType)
             } else if let initDecl = item.decl.as(InitializerDeclSyntax.self),
-                      !Settings.shared.target(from: mockType).getTarget(target: .initilizer) {
+                      Settings.shared.target(from: mockType)?.getTarget(target: .initilizer) == false {
                 return initDecl.generateMemberDeclItemsForMock(mockType: mockType)
             } else {
                 return nil

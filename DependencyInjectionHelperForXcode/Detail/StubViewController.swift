@@ -11,6 +11,8 @@ import SwiftSyntax
 
 class StubViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
+    @IBOutlet weak var valTextField: NSTextField!
+    
     @IBOutlet weak var sampleSourceTextView: NSTextView!
     @IBOutlet weak var convertedSourceTextView: NSTextView!
     
@@ -22,9 +24,12 @@ class StubViewController: NSViewController {
         
         nameTextField.stringValue = Settings
             .shared
-            .dummySettings
+            .stubSettings
             .nameFormat ?? ""
-        
+        valTextField.stringValue = Settings
+            .shared
+            .stubSettings
+            .returnValueFormat ?? ""
     }
     
     private func setupTextView() {
@@ -79,6 +84,12 @@ class StubViewController: NSViewController {
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.spySettings.nameFormat = value
+        updateConvertedText(sampleSourceTextView.string)
+    }
+    
+    @IBAction func returnValueTextFieldDidChangeValue(_ sender: NSTextField) {
+        let value = sender.stringValue.isEmpty ? nil : sender.stringValue
+        Settings.shared.spySettings.returnValueFormat = value
         updateConvertedText(sampleSourceTextView.string)
     }
 }

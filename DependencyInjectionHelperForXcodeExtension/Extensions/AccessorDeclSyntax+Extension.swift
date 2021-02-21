@@ -23,21 +23,21 @@ extension AccessorDeclSyntax {
         var spyProperty = MockPropertyForAccessor(accessor: self)
         
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
-            spyProperty.members.append(.makeFormattedFalseAssign(to: identifierByAccessor.wasCalled))
-            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeTrueSubstitutionExpr(to: identifierByAccessor.wasCalled).withLeadingTrivia(.indent(3)))
+            spyProperty.members.append(.makeFormattedFalseAssign(to: identifierByAccessor.wasCalled(.spy)))
+            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeTrueSubstitutionExpr(to: identifierByAccessor.wasCalled(.spy)).withLeadingTrivia(.indent(3)))
         }
         if !Settings.shared.spySettings.getCapture(capture: . callCount) {
-            spyProperty.members.append(.makeFormattedZeroAssign(to: identifierByAccessor.callCount))
-            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeIncrementExpr(to: identifierByAccessor.callCount).withLeadingTrivia(.indent(3)))
+            spyProperty.members.append(.makeFormattedZeroAssign(to: identifierByAccessor.callCount(.spy)))
+            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeIncrementExpr(to: identifierByAccessor.callCount(.spy)).withLeadingTrivia(.indent(3)))
         }
         if isSet, !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
-            spyProperty.members.append(.makeArgsValForMock(identifierByAccessor.args, binding.typeAnnotation!.type.unwrapped.withTrailingTrivia(.zero)))
-            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeNewValueArgsExprForMock(identifierByAccessor.args).withLeadingTrivia(.indent(3)))
+            spyProperty.members.append(.makeArgsValForMock(identifierByAccessor.args(.spy), binding.typeAnnotation!.type.unwrapped.withTrailingTrivia(.zero)))
+            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeNewValueArgsExprForMock(identifierByAccessor.args(.spy)).withLeadingTrivia(.indent(3)))
         }
         if isGet {
             let typeSyntax = binding.typeAnnotation!.type.withTrailingTrivia(.zero)
-            spyProperty.members.append(.makeReturnedValForMock(identifierByAccessor.val, typeSyntax))
-            spyProperty.appendCodeBlockItem(.makeReturnExpr(identifierByAccessor.val, .indent(3)))
+            spyProperty.members.append(.makeReturnedValForMock(identifierByAccessor.val(.spy), typeSyntax))
+            spyProperty.appendCodeBlockItem(.makeReturnExpr(identifierByAccessor.val(.spy), .indent(3)))
         }
         return spyProperty
     }

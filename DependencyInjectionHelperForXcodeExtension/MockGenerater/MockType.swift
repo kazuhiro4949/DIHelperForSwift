@@ -16,14 +16,79 @@ enum MockType: String {
     var format: String {
         switch self {
         case .dummy:
-            return "%@Dummy"
+            return Settings
+                .shared
+                .stubSettings
+                .nameFormat ?? "%@Dummy"
         case .stub:
-            return "%@Stub"
+            return Settings
+                .shared
+                .stubSettings
+                .nameFormat ?? "%@Stub"
         case .spy:
             return Settings
                 .shared
                 .spySettings
                 .nameFormat ?? "%@Spy"
+        }
+    }
+    
+    var wasCalledFormat: String? {
+        switch self {
+        case .dummy:
+            return nil
+        case .stub:
+            return nil
+        case .spy:
+            return Settings
+                .shared
+                .spySettings
+                .wasCalledFormat
+        }
+    }
+    
+    var callCountFormat: String? {
+        switch self {
+        case .dummy:
+            return nil
+        case .stub:
+            return nil
+        case .spy:
+            return Settings
+                .shared
+                .spySettings
+                .callCountFormat
+        }
+    }
+    
+    var argsFormat: String? {
+        switch self {
+        case .dummy:
+            return nil
+        case .stub:
+            return nil
+        case .spy:
+            return Settings
+                .shared
+                .spySettings
+                .passedArgumentFormat
+        }
+    }
+    
+    var returnValueFormat: String? {
+        switch self {
+        case .dummy:
+            return nil
+        case .stub:
+            return Settings
+                .shared
+                .stubSettings
+                .returnValueFormat
+        case .spy:
+            return Settings
+                .shared
+                .spySettings
+                .returnValueFormat
         }
     }
 }

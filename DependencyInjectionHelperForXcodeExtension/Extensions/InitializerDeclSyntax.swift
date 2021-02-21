@@ -50,10 +50,10 @@ extension InitializerDeclSyntax {
     func generateMemberDeclItemsFormSpy(counter: Counter?) -> [MemberDeclListItemSyntax] {
         var memberDeclListItems = [MemberDeclListItemSyntax]()
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
-            memberDeclListItems.append(.makeFormattedFalseAssign(to: signatureAddedIdentifier(counter: counter).wasCalled))
+            memberDeclListItems.append(.makeFormattedFalseAssign(to: signatureAddedIdentifier(counter: counter).wasCalled(.spy)))
         }
         if !Settings.shared.spySettings.getCapture(capture: .callCount) {
-            memberDeclListItems.append(.makeFormattedZeroAssign(to: signatureAddedIdentifier(counter: counter).callCount))
+            memberDeclListItems.append(.makeFormattedZeroAssign(to: signatureAddedIdentifier(counter: counter).callCount(.spy)))
         }
         if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
             switch parameters.parameterList.mockParameter {
@@ -89,7 +89,7 @@ extension InitializerDeclSyntax {
     
     func makeSingleTypeArgsValForMock(counter: Counter?) -> MemberDeclListItemSyntax {
         .makeArgsValForMock(
-            signatureAddedIdentifier(counter: counter).args,
+            signatureAddedIdentifier(counter: counter).args(.spy),
             parameters.parameterList.first!
                 .type!
                 .removingAttributes
@@ -101,7 +101,7 @@ extension InitializerDeclSyntax {
     
     func makeTupleArgsValForMock(counter: Counter?) -> MemberDeclListItemSyntax {
         .makeArgsValForMock(
-            signatureAddedIdentifier(counter: counter).args,
+            signatureAddedIdentifier(counter: counter).args(.spy),
             TypeSyntax(TupleTypeSyntax.make(with: parameters.parameterList.makeTupleForMemberDecl()))
         )
     }
@@ -109,10 +109,10 @@ extension InitializerDeclSyntax {
     func generateCodeBlockItemsForSpy(counter: Counter?) -> [CodeBlockItemSyntax] {
         var codeBlockItems = [CodeBlockItemSyntax]()
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
-            codeBlockItems.append(.makeTrueSubstitutionExpr(to: signatureAddedIdentifier(counter: counter).wasCalled))
+            codeBlockItems.append(.makeTrueSubstitutionExpr(to: signatureAddedIdentifier(counter: counter).wasCalled(.spy)))
         }
         if !Settings.shared.spySettings.getCapture(capture: .callCount) {
-            codeBlockItems.append(.makeIncrementExpr(to: signatureAddedIdentifier(counter: counter).callCount))
+            codeBlockItems.append(.makeIncrementExpr(to: signatureAddedIdentifier(counter: counter).callCount(.spy)))
         }
         if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
             switch parameters.parameterList.mockParameter {
@@ -121,7 +121,7 @@ extension InitializerDeclSyntax {
             case .singleType:
                 codeBlockItems.append(makeSingleTypeArgsExprForMock(counter: counter))
             case .tuple:
-                codeBlockItems.append(makeTupleArgsExprForMock(counter: counter))
+                codeBlockItems.append(makeTupleArgsExprForSpy(counter: counter))
             }
         }
         return codeBlockItems
@@ -129,7 +129,7 @@ extension InitializerDeclSyntax {
     
     func makeSingleTypeArgsExprForMock(counter: Counter?) -> CodeBlockItemSyntax {
         .makeArgsExprForMock(
-            signatureAddedIdentifier(counter: counter).args,
+            signatureAddedIdentifier(counter: counter).args(.spy),
             ExprSyntax(IdentifierExprSyntax
                         .makeFormattedVariableExpr(
                             parameters.parameterList.first!.tokenForMockProperty
@@ -138,9 +138,9 @@ extension InitializerDeclSyntax {
         )
     }
     
-    func makeTupleArgsExprForMock(counter: Counter?) -> CodeBlockItemSyntax {
+    func makeTupleArgsExprForSpy(counter: Counter?) -> CodeBlockItemSyntax {
         .makeArgsExprForMock(
-            signatureAddedIdentifier(counter: counter).args,
+            signatureAddedIdentifier(counter: counter).args(.spy),
             ExprSyntax(TupleExprSyntax.make(with: parameters.parameterList.makeTupleForCodeBlockItem()))
         )
     }
