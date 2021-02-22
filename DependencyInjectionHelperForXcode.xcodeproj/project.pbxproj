@@ -102,6 +102,12 @@
 		3044B14A25E210F600EC7A16 /* NSTextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3044B14925E210F600EC7A16 /* NSTextView+Extension.swift */; };
 		3044B15725E2173C00EC7A16 /* StubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3044B15525E2173C00EC7A16 /* StubViewController.swift */; };
 		3044B16825E2486400EC7A16 /* Sourceful in Frameworks */ = {isa = PBXBuildFile; productRef = 3044B16725E2486400EC7A16 /* Sourceful */; };
+		30559D9125E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
+		30559D9225E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
+		30559D9C25E3B03A003F5A2A /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */; };
+		30559D9D25E3B03A003F5A2A /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */; };
+		30559DA925E3B2DB003F5A2A /* OnboardingStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559DA725E3B2DB003F5A2A /* OnboardingStartViewController.swift */; };
+		30559DAA25E3B2DB003F5A2A /* OnboardingStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559DA725E3B2DB003F5A2A /* OnboardingStartViewController.swift */; };
 		3063F31B25BD1B8300B6038C /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */; };
 		3063F31F25BD3CF700B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
 		3063F32725BD400000B6038C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
@@ -246,6 +252,9 @@
 		3044B14425E14ADF00EC7A16 /* SampleParsedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleParsedSource.swift; sourceTree = "<group>"; };
 		3044B14925E210F600EC7A16 /* NSTextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextView+Extension.swift"; sourceTree = "<group>"; };
 		3044B15525E2173C00EC7A16 /* StubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubViewController.swift; sourceTree = "<group>"; };
+		30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingButton.swift; sourceTree = "<group>"; };
+		30559DA725E3B2DB003F5A2A /* OnboardingStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStartViewController.swift; sourceTree = "<group>"; };
 		3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		3063F31E25BD3CF700B6038C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		309BB2E925C15FDB0067D991 /* GenerateSpyCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSpyCommand.swift; sourceTree = "<group>"; };
@@ -360,6 +369,7 @@
 		303223F425AAFC41002BB110 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */,
 				3044B14825E210E400EC7A16 /* Utility */,
 				3044B14325E14AD000EC7A16 /* Model */,
 				30E035E325BC3049000D49EE /* Detail */,
@@ -369,6 +379,7 @@
 				30E035E825BC310A000D49EE /* SplitViewController.swift */,
 				303223F925AAFC42002BB110 /* Assets.xcassets */,
 				303223FB25AAFC42002BB110 /* Main.storyboard */,
+				30559DA725E3B2DB003F5A2A /* OnboardingStartViewController.swift */,
 				303223FE25AAFC42002BB110 /* Info.plist */,
 				303223FF25AAFC42002BB110 /* DependencyInjectionHelperForXcode.entitlements */,
 				3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */,
@@ -431,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				3044B14925E210F600EC7A16 /* NSTextView+Extension.swift */,
+				30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -694,6 +706,7 @@
 				3044B12C25E1343A00EC7A16 /* MemberDeclBlockSyntax+Extension.swift in Sources */,
 				3044B13425E1343A00EC7A16 /* ExprSyntax+Extension.swift in Sources */,
 				3044B13525E1343A00EC7A16 /* ArrayExprSyntax+Extension.swift in Sources */,
+				30559D9125E380A4003F5A2A /* OnboardingViewController.swift in Sources */,
 				30E035E525BC3059000D49EE /* MockViewController.swift in Sources */,
 				30E035E925BC310A000D49EE /* SplitViewController.swift in Sources */,
 				3044B11A25E1341F00EC7A16 /* ProtocolNameHandler.swift in Sources */,
@@ -736,7 +749,9 @@
 				3044B13725E1343A00EC7A16 /* InitializerClauseSyntax+Extension.swift in Sources */,
 				3044B13925E1343A00EC7A16 /* TokenSyntax+Extension.swift in Sources */,
 				3044B11C25E1341F00EC7A16 /* ProtocolExtractor.swift in Sources */,
+				30559DA925E3B2DB003F5A2A /* OnboardingStartViewController.swift in Sources */,
 				3044B12B25E1343A00EC7A16 /* InitializerDeclSyntax.swift in Sources */,
+				30559D9C25E3B03A003F5A2A /* OnboardingButton.swift in Sources */,
 				3044B11F25E1343A00EC7A16 /* FunctionParameterListSyntax+Extensions.swift in Sources */,
 				3044B13B25E1343A00EC7A16 /* AccessorBlockSyntax.swift in Sources */,
 				3044B12125E1343A00EC7A16 /* Trivia+Extension.swift in Sources */,
@@ -803,12 +818,15 @@
 				3024212B25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift in Sources */,
 				3024213F25CFC97500C0E53F /* FunctionParameterListSyntax+Extensions.swift in Sources */,
 				3024213B25CFC95F00C0E53F /* TupleTypeSyntax+Extension.swift in Sources */,
+				30559D9D25E3B03A003F5A2A /* OnboardingButton.swift in Sources */,
 				3024218525CFCB3400C0E53F /* Either.swift in Sources */,
 				302421A325CFCC1D00C0E53F /* CodeBlockItemSyntax+Extension.swift in Sources */,
 				3024219B25CFCBD700C0E53F /* MemberDeclListSyntax+Extension.swift in Sources */,
+				30559D9225E380A4003F5A2A /* OnboardingViewController.swift in Sources */,
 				30B8A3FD25B47AC400F643CD /* InitializerDeclSyntax.swift in Sources */,
 				30B8A40125B47ADD00F643CD /* FunctionDeclSyntax.swift in Sources */,
 				3024221A25D931E800C0E53F /* GenerateStubCommand.swift in Sources */,
+				30559DAA25E3B2DB003F5A2A /* OnboardingStartViewController.swift in Sources */,
 				3024216525CFCA5B00C0E53F /* DictionaryElementListSyntax+Extension.swift in Sources */,
 				3024219325CFCB8E00C0E53F /* TypeSyntax+Extension.swift in Sources */,
 				30B8A40A25B47B2B00F643CD /* HasGenericParameter.swift in Sources */,

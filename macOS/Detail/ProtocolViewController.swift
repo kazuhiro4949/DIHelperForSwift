@@ -142,6 +142,15 @@ class ProtocolViewController: NSViewController {
         
         updateConvertedText(sampleSourceTextView.text)
     }
+    
+    @IBAction func helpButtonDidClick(_ sender: Any) {
+        let vc = storyboard?.instantiateController(
+            withIdentifier: NSStoryboard.SceneIdentifier("OnboardingViewController")
+        ) as! OnboardingViewController
+        
+        self.presentAsSheet(vc)
+    }
+    
 }
 
 extension NSControl.StateValue {
