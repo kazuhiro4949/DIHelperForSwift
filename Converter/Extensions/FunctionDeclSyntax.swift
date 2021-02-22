@@ -11,7 +11,19 @@ import SwiftSyntax
 
 extension FunctionDeclSyntax {
     var interface: FunctionDeclSyntax {
-        SyntaxFactory.makeFunctionDecl(
+        let withoutDefaultArgs = signature.input.withParameterList(
+            SyntaxFactory
+                .makeFunctionParameterList(
+                    signature
+                        .input
+                        .parameterList
+                        .map { (paramSyntax) in
+                            paramSyntax.withDefaultArgument(nil)
+                        }
+                )
+        )
+
+        return SyntaxFactory.makeFunctionDecl(
             attributes: nil,
             modifiers: nil,
             funcKeyword: funcKeyword
@@ -19,7 +31,7 @@ extension FunctionDeclSyntax {
                 .withTrailingTrivia(.spaces(1)),
             identifier: identifier,
             genericParameterClause: nil,
-            signature: signature,
+            signature: signature.withInput(withoutDefaultArgs),
             genericWhereClause: nil,
             body: nil)
     }

@@ -18,7 +18,7 @@ enum MockType: String {
         case .dummy:
             return Settings
                 .shared
-                .stubSettings
+                .dummySettings
                 .nameFormat ?? "%@Dummy"
         case .stub:
             return Settings

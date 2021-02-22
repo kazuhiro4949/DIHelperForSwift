@@ -11,7 +11,18 @@ import SwiftSyntax
 
 extension InitializerDeclSyntax {
     var interface: InitializerDeclSyntax {
-        SyntaxFactory.makeInitializerDecl(
+        let withoutDefaultArgs = parameters.withParameterList(
+            SyntaxFactory
+                .makeFunctionParameterList(
+                    parameters
+                        .parameterList
+                        .map { (paramSyntax) in
+                            paramSyntax.withDefaultArgument(nil)
+                        }
+                )
+        )
+        
+        return SyntaxFactory.makeInitializerDecl(
             attributes: nil,
             modifiers: nil,
             initKeyword: SyntaxFactory.makeInitKeyword(
@@ -19,7 +30,7 @@ extension InitializerDeclSyntax {
             ),
             optionalMark: optionalMark,
             genericParameterClause: nil,
-            parameters: parameters,
+            parameters: withoutDefaultArgs,
             throwsOrRethrowsKeyword: throwsOrRethrowsKeyword,
             genericWhereClause: nil,
             body: nil

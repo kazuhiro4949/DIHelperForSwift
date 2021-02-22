@@ -336,10 +336,11 @@
 		303223E925AAFC41002BB110 = {
 			isa = PBXGroup;
 			children = (
-				303223F425AAFC41002BB110 /* DependencyInjectionHelperForXcode */,
+				303223F425AAFC41002BB110 /* macOS */,
 				3032240725AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests */,
 				3032241225AAFC43002BB110 /* DependencyInjectionHelperForXcodeUITests */,
-				3032242E25AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension */,
+				3032242E25AAFCEB002BB110 /* Xcode Extension */,
+				3044B16B25E2842100EC7A16 /* Converter */,
 				3032242925AAFCEB002BB110 /* Frameworks */,
 				303223F325AAFC41002BB110 /* Products */,
 			);
@@ -356,7 +357,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		303223F425AAFC41002BB110 /* DependencyInjectionHelperForXcode */ = {
+		303223F425AAFC41002BB110 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
 				3044B14825E210E400EC7A16 /* Utility */,
@@ -373,7 +374,7 @@
 				3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */,
 				3063F31E25BD3CF700B6038C /* Settings.swift */,
 			);
-			path = DependencyInjectionHelperForXcode;
+			path = macOS;
 			sourceTree = "<group>";
 		};
 		3032240725AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests */ = {
@@ -404,14 +405,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3032242E25AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension */ = {
+		3032242E25AAFCEB002BB110 /* Xcode Extension */ = {
 			isa = PBXGroup;
 			children = (
-				3024220625D8FF2000C0E53F /* ProtocolExtractor */,
-				302421B525D4F3E900C0E53F /* Utility */,
-				302421B425D4F3D300C0E53F /* MockGenerater */,
-				30B8A40825B47B1E00F643CD /* Protocols */,
-				30B8A3ED25B479BD00F643CD /* Extensions */,
 				3032243125AAFCEB002BB110 /* GenerateProtocolCommand.swift */,
 				309BB2E925C15FDB0067D991 /* GenerateSpyCommand.swift */,
 				302421BA25D4F8FF00C0E53F /* GenerateDummyCommand.swift */,
@@ -420,7 +416,7 @@
 				3032243325AAFCEB002BB110 /* Info.plist */,
 				3032243425AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension.entitlements */,
 			);
-			path = DependencyInjectionHelperForXcodeExtension;
+			path = "Xcode Extension";
 			sourceTree = "<group>";
 		};
 		3044B14325E14AD000EC7A16 /* Model */ = {
@@ -437,6 +433,18 @@
 				3044B14925E210F600EC7A16 /* NSTextView+Extension.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		3044B16B25E2842100EC7A16 /* Converter */ = {
+			isa = PBXGroup;
+			children = (
+				3024220625D8FF2000C0E53F /* ProtocolExtractor */,
+				302421B525D4F3E900C0E53F /* Utility */,
+				302421B425D4F3D300C0E53F /* MockGenerater */,
+				30B8A40825B47B1E00F643CD /* Protocols */,
+				30B8A3ED25B479BD00F643CD /* Extensions */,
+			);
+			path = Converter;
 			sourceTree = "<group>";
 		};
 		30B8A3ED25B479BD00F643CD /* Extensions */ = {
@@ -966,12 +974,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = DependencyInjectionHelperForXcode/DependencyInjectionHelperForXcode.entitlements;
+				CODE_SIGN_ENTITLEMENTS = macOS/DependencyInjectionHelperForXcode.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = DependencyInjectionHelperForXcode/Info.plist;
+				INFOPLIST_FILE = macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -988,12 +996,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = DependencyInjectionHelperForXcode/DependencyInjectionHelperForXcode.entitlements;
+				CODE_SIGN_ENTITLEMENTS = macOS/DependencyInjectionHelperForXcode.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = DependencyInjectionHelperForXcode/Info.plist;
+				INFOPLIST_FILE = macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1091,12 +1099,12 @@
 		3032243925AAFCEB002BB110 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = DependencyInjectionHelperForXcodeExtension/DependencyInjectionHelperForXcodeExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Xcode Extension/DependencyInjectionHelperForXcodeExtension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = DependencyInjectionHelperForXcodeExtension/Info.plist;
+				INFOPLIST_FILE = "Xcode Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1112,12 +1120,12 @@
 		3032243A25AAFCEB002BB110 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = DependencyInjectionHelperForXcodeExtension/DependencyInjectionHelperForXcodeExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Xcode Extension/DependencyInjectionHelperForXcodeExtension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = DependencyInjectionHelperForXcodeExtension/Info.plist;
+				INFOPLIST_FILE = "Xcode Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

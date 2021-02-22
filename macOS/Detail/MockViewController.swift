@@ -28,6 +28,7 @@ class MockViewController: NSViewController {
     
     @IBOutlet weak var sampleSourceTextView: SyntaxTextView!
     @IBOutlet weak var convertedSourceTextView: SyntaxTextView!
+    @IBOutlet weak var documentationTextField: NSTextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +57,19 @@ class MockViewController: NSViewController {
             .returnValueFormat ?? ""
         
         setupButtons()
+        setupLink()
+    }
+    
+    private func setupLink() {
+        let linkAttrValue = NSAttributedString(
+            string: "https://bit.ly/3buxrp4",
+            attributes: [
+                .link: URL(string: "https://bit.ly/3buxrp4")!,
+                .font: NSFont.systemFont(ofSize: 12)
+                
+        ])
+        documentationTextField.attributedStringValue = linkAttrValue
+        documentationTextField.isSelectable = true
     }
     
     private func setupTextView() {

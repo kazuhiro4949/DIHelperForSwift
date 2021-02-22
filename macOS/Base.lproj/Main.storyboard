@@ -987,7 +987,7 @@ Test doubles for Unit Test are made from Protocol.</string>
                                                 </constraints>
                                             </customView>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s2M-eL-fpl">
-                                                <rect key="frame" x="0.0" y="0.0" width="262" height="16"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="194" height="16"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="43B-Rq-1HM">
                                                         <rect key="frame" x="-2" y="0.0" width="134" height="16"/>
@@ -1000,9 +1000,9 @@ Test doubles for Unit Test are made from Protocol.</string>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Pay-aA-1g6">
-                                                        <rect key="frame" x="128" y="0.0" width="136" height="16"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="https://bit.ly/3ka9Tdm" id="WXW-Lt-eIr">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Etf-uY-mzd">
+                                                        <rect key="frame" x="128" y="0.0" width="68" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="http://xxxx" allowsEditingTextAttributes="YES" id="N2h-M0-pZk">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1141,6 +1141,7 @@ Test doubles for Unit Test are made from Protocol.</string>
                     <connections>
                         <outlet property="computedGetterSetterPropertyButton" destination="aIk-lV-5pv" id="Rjh-AG-Quu"/>
                         <outlet property="convertedSourceTextView" destination="MxY-uO-U9A" id="ypN-nX-6Fq"/>
+                        <outlet property="documentationTextField" destination="Etf-uY-mzd" id="CWD-HO-UeS"/>
                         <outlet property="functionIgnoranceButton" destination="o06-wa-XcN" id="PrJ-aa-b21"/>
                         <outlet property="initializerIgnoranceButton" destination="298-4g-dwV" id="r7W-tE-jcQ"/>
                         <outlet property="internalMemberIgnoranceButton" destination="Q6U-6r-otQ" id="8LT-Mc-r0P"/>
@@ -1603,7 +1604,7 @@ It memorizes method calls.</string>
                                                             </constraints>
                                                         </customView>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CgO-0h-4BE">
-                                                            <rect key="frame" x="0.0" y="32" width="259" height="16"/>
+                                                            <rect key="frame" x="0.0" y="32" width="194" height="16"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="17M-5D-opZ">
                                                                     <rect key="frame" x="-2" y="0.0" width="134" height="16"/>
@@ -1616,9 +1617,9 @@ It memorizes method calls.</string>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="clV-oi-Yx2">
-                                                                    <rect key="frame" x="128" y="0.0" width="133" height="16"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="https://bit.ly/3aBivGG" id="TBo-4l-gBd">
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u7c-0S-87R">
+                                                                    <rect key="frame" x="128" y="0.0" width="68" height="16"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="http://xxxx" allowsEditingTextAttributes="YES" id="BjE-DP-PC4">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1802,6 +1803,7 @@ It memorizes method calls.</string>
                         <outlet property="callCountTextField" destination="Yrr-OI-g3S" id="Kub-tQ-hkD"/>
                         <outlet property="calledOrNotCaptureButton" destination="FB9-G9-gIN" id="f3l-Qv-PPj"/>
                         <outlet property="convertedSourceTextView" destination="uav-zu-Wox" id="z85-ja-Hup"/>
+                        <outlet property="documentationTextField" destination="u7c-0S-87R" id="Uc2-rK-hQI"/>
                         <outlet property="functionTargetButton" destination="fda-iu-FEw" id="MCA-31-HTH"/>
                         <outlet property="initializerTargetButton" destination="k7Y-tC-zco" id="Z3N-4A-sAe"/>
                         <outlet property="nameTextField" destination="dQm-2K-dHC" id="ASB-TJ-kDa"/>
@@ -1919,7 +1921,7 @@ It has no function and is only used as an alternative component.</string>
                                                 </constraints>
                                             </customView>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gnn-rd-jrX">
-                                                <rect key="frame" x="0.0" y="50" width="269" height="16"/>
+                                                <rect key="frame" x="0.0" y="50" width="202" height="16"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="00T-DM-6Zy">
                                                         <rect key="frame" x="-2" y="0.0" width="134" height="16"/>
@@ -1932,9 +1934,9 @@ It has no function and is only used as an alternative component.</string>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="73m-eK-F4P">
-                                                        <rect key="frame" x="136" y="0.0" width="135" height="16"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="https://bit.ly/37ybXq6" id="jvN-n4-QlT">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X24-20-Kp5">
+                                                        <rect key="frame" x="136" y="0.0" width="68" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="http://xxxx" allowsEditingTextAttributes="YES" id="c2w-8y-FDR">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2065,6 +2067,7 @@ It has no function and is only used as an alternative component.</string>
                     </view>
                     <connections>
                         <outlet property="convertedSourceTextView" destination="bqI-1k-jfq" id="tNW-d4-5JI"/>
+                        <outlet property="documentationTextField" destination="X24-20-Kp5" id="9t6-8q-xch"/>
                         <outlet property="nameTextField" destination="8uk-rL-sd5" id="vLl-pC-EGj"/>
                         <outlet property="sampleSourceTextView" destination="ouF-HY-YBF" id="qEb-Km-43M"/>
                     </connections>
@@ -2220,7 +2223,7 @@ It can controls a return value to affect a test target.</string>
                                                 </constraints>
                                             </customView>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kUS-f5-aRl">
-                                                <rect key="frame" x="0.0" y="50" width="269" height="16"/>
+                                                <rect key="frame" x="0.0" y="50" width="202" height="16"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="82f-cJ-svf">
                                                         <rect key="frame" x="-2" y="0.0" width="134" height="16"/>
@@ -2233,9 +2236,9 @@ It can controls a return value to affect a test target.</string>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8t0-aB-Bgs">
-                                                        <rect key="frame" x="136" y="0.0" width="135" height="16"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="https://bit.ly/37ybXq6" id="HNU-cu-HIA">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="11D-Kd-MzE">
+                                                        <rect key="frame" x="136" y="0.0" width="68" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="http://xxxx" allowsEditingTextAttributes="YES" id="3Lu-w2-Ozy">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2370,6 +2373,7 @@ It can controls a return value to affect a test target.</string>
                     </view>
                     <connections>
                         <outlet property="convertedSourceTextView" destination="Hme-Qw-WwX" id="avf-Y3-MIu"/>
+                        <outlet property="documentationTextField" destination="11D-Kd-MzE" id="VBc-Bi-ihy"/>
                         <outlet property="nameTextField" destination="qIL-lH-Io7" id="4s6-hp-Clj"/>
                         <outlet property="sampleSourceTextView" destination="evm-XO-FSq" id="mqe-YL-rCr"/>
                         <outlet property="valTextField" destination="h71-q2-Yih" id="qj0-EC-ccs"/>
