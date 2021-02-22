@@ -396,24 +396,24 @@
                 </viewController>
                 <customObject id="juX-tD-fdi" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="319" y="1405"/>
+            <point key="canvasLocation" x="319" y="1297"/>
         </scene>
         <!--Onboarding Start View Controller-->
         <scene sceneID="1Bb-IS-6ll">
             <objects>
                 <viewController id="7jf-rh-vir" customClass="OnboardingStartViewController" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="ZRX-me-ZnU">
-                        <rect key="frame" x="0.0" y="0.0" width="643" height="523"/>
+                        <rect key="frame" x="0.0" y="0.0" width="643" height="568"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="44" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bhP-es-Z54">
-                                <rect key="frame" x="80" y="80" width="483" height="363"/>
+                                <rect key="frame" x="44" y="161" width="555" height="363"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rg9-nL-4Nn">
-                                        <rect key="frame" x="64" y="76" width="356" height="287"/>
+                                        <rect key="frame" x="105" y="76" width="345" height="287"/>
                                         <subviews>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GaG-q5-61i">
-                                                <rect key="frame" x="114" y="159" width="128" height="128"/>
+                                                <rect key="frame" x="109" y="159" width="128" height="128"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="128" id="FUR-hp-H9e"/>
                                                     <constraint firstAttribute="height" constant="128" id="wD7-Rm-FjV"/>
@@ -421,7 +421,7 @@
                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="App" id="Fhe-ek-FUZ"/>
                                             </imageView>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fDY-8r-0oi">
-                                                <rect key="frame" x="3" y="112" width="349" height="31"/>
+                                                <rect key="frame" x="-2" y="112" width="349" height="31"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Welcome to DI Helper for Swift" id="bO4-9I-xCB">
                                                     <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -429,14 +429,14 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mTX-pk-4i1">
-                                                <rect key="frame" x="-2" y="0.0" width="360" height="96"/>
+                                                <rect key="frame" x="2" y="0.0" width="341" height="96"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" id="AJN-hK-AGw">
                                                     <font key="font" metaFont="system"/>
                                                     <string key="title">making a class testable has some tedeous steps.
- 1.  define protocols to the depeding classes.
-2.  make test doubles from the protocols.
+ 1.  define protocols for the depeding classes.
+2.  make test doubles based on the protocols.
 
-This app automate the steps with Xcode Source Extension.</string>
+This app automates them with Xcode Source Extension.</string>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -454,7 +454,7 @@ This app automate the steps with Xcode Source Extension.</string>
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vX9-LT-Ac9">
-                                        <rect key="frame" x="84" y="0.0" width="316" height="32"/>
+                                        <rect key="frame" x="120" y="0.0" width="316" height="32"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yey-1x-Y6Q" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="32"/>
@@ -518,16 +518,132 @@ This app automate the steps with Xcode Source Extension.</string>
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="bhP-es-Z54" firstAttribute="leading" secondItem="ZRX-me-ZnU" secondAttribute="leading" constant="80" id="PjI-yl-Lgz"/>
-                            <constraint firstAttribute="bottom" secondItem="bhP-es-Z54" secondAttribute="bottom" constant="80" id="YDR-rA-wwR"/>
-                            <constraint firstAttribute="trailing" secondItem="bhP-es-Z54" secondAttribute="trailing" constant="80" id="dPq-10-TUR"/>
-                            <constraint firstItem="bhP-es-Z54" firstAttribute="top" secondItem="ZRX-me-ZnU" secondAttribute="top" constant="80" id="leS-dL-Ufp"/>
+                            <constraint firstItem="bhP-es-Z54" firstAttribute="leading" secondItem="ZRX-me-ZnU" secondAttribute="leading" constant="44" id="PjI-yl-Lgz"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="bhP-es-Z54" secondAttribute="bottom" constant="44" id="YDR-rA-wwR"/>
+                            <constraint firstAttribute="trailing" secondItem="bhP-es-Z54" secondAttribute="trailing" constant="44" id="dPq-10-TUR"/>
+                            <constraint firstItem="bhP-es-Z54" firstAttribute="top" secondItem="ZRX-me-ZnU" secondAttribute="top" constant="44" id="leS-dL-Ufp"/>
                         </constraints>
                     </view>
                 </viewController>
                 <customObject id="YhF-vq-Jmb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="369" y="1819.5"/>
+        </scene>
+        <!--Onboarding Ext1 View Controller-->
+        <scene sceneID="bgZ-yS-qlX">
+            <objects>
+                <viewController storyboardIdentifier="OnboardingExt1ViewController" id="pS0-0c-FC1" customClass="OnboardingExt1ViewController" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="EbD-Gv-CYZ">
+                        <rect key="frame" x="0.0" y="0.0" width="802" height="620"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="44" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydB-Ps-tLm">
+                                <rect key="frame" x="44" y="44" width="714" height="532"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXf-ah-siz">
+                                        <rect key="frame" x="104" y="185" width="507" height="347"/>
+                                        <subviews>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cE9-r3-RN7">
+                                                <rect key="frame" x="53" y="47" width="400" height="300"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="400" id="b2Y-7m-YF8"/>
+                                                    <constraint firstAttribute="height" constant="300" id="slx-ES-rjy"/>
+                                                </constraints>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="step1" id="H3m-o8-wOr"/>
+                                            </imageView>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yOT-mN-iSg">
+                                                <rect key="frame" x="-2" y="0.0" width="511" height="31"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="1. Open &quot;System Preferences&quot; -&gt; &quot;Extension&quot;" id="inR-zH-wfP">
+                                                    <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YVH-SP-ft8">
+                                        <rect key="frame" x="199" y="0.0" width="316" height="141"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="901-Vd-8XI" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="109" width="150" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="DJh-lQ-PRY"/>
+                                                    <constraint firstAttribute="width" constant="150" id="Iy9-6F-GP7"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" title="Back" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="icu-Af-k1G">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="backButtonDidClick:" target="pS0-0c-FC1" id="Xjg-oZ-fzD"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JO7-lR-u0d" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
+                                                <rect key="frame" x="166" y="109" width="150" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="9Uc-Fv-N8f"/>
+                                                    <constraint firstAttribute="width" constant="150" id="p7e-7d-Yvg"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" title="Next" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="fU5-Ah-vnI">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="nextButtonDidClick:" target="pS0-0c-FC1" id="PAV-ax-H1c"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ydB-Ps-tLm" secondAttribute="trailing" constant="44" id="F85-9c-VKo"/>
+                            <constraint firstItem="ydB-Ps-tLm" firstAttribute="leading" secondItem="EbD-Gv-CYZ" secondAttribute="leading" constant="44" id="IQx-AJ-UwE"/>
+                            <constraint firstAttribute="bottom" secondItem="ydB-Ps-tLm" secondAttribute="bottom" constant="44" id="VFo-RK-1ng"/>
+                            <constraint firstItem="ydB-Ps-tLm" firstAttribute="top" secondItem="EbD-Gv-CYZ" secondAttribute="top" constant="44" id="ZEI-CU-iLm"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="hrm-ph-nad" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="429" y="2497"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="jnE-1X-IX0">
@@ -2214,5 +2330,6 @@ It can controls a return value to affect a test target.</string>
     </scenes>
     <resources>
         <image name="App" width="1024" height="1024"/>
+        <image name="step1" width="1006" height="590"/>
     </resources>
 </document>

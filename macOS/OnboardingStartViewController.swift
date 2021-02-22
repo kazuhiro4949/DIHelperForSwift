@@ -10,6 +10,7 @@ import Cocoa
 
 protocol OnboardingStartViewControllerDelegate: AnyObject {
     func onboardingStartViewControllerDidTapCloseButton(_ vc: OnboardingStartViewController)
+    func onboardingStartViewControllerDidTapNextButton(_ vc: OnboardingStartViewController)
 }
 
 class OnboardingStartViewController: NSViewController {
@@ -27,5 +28,6 @@ class OnboardingStartViewController: NSViewController {
     
     
     @IBAction func nextButtonDidClick(_ sender: OnboardingButton) {
+        delegate?.onboardingStartViewControllerDidTapNextButton(self)
     }
 }
