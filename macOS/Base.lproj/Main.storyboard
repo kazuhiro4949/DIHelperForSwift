@@ -567,8 +567,8 @@ This app automates them with Xcode Source Extension.</string>
                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="step1" id="H3m-o8-wOr"/>
                                             </imageView>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yOT-mN-iSg">
-                                                <rect key="frame" x="-2" y="0.0" width="504" height="84"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="1. Open &quot;System Preferences&quot; -&gt; &quot;Extension&quot;" id="inR-zH-wfP">
+                                                <rect key="frame" x="1" y="0.0" width="499" height="84"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="1. Open &quot;System Preferences&quot; &gt; &quot;Extension&quot;" id="inR-zH-wfP">
                                                     <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -663,6 +663,246 @@ This app automates them with Xcode Source Extension.</string>
                 <customObject id="hrm-ph-nad" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="429" y="2497"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="pWn-N3-NMR">
+            <objects>
+                <viewController id="1CP-fY-hwl" sceneMemberID="viewController">
+                    <view key="view" id="DdH-qR-R9t">
+                        <rect key="frame" x="0.0" y="0.0" width="766" height="580"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="44" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bMi-EJ-Xwy">
+                                <rect key="frame" x="44" y="44" width="678" height="492"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kGr-HL-UJ3">
+                                        <rect key="frame" x="89" y="92" width="500" height="400"/>
+                                        <subviews>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CiZ-1e-Raw">
+                                                <rect key="frame" x="50" y="100" width="400" height="300"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="300" id="GUI-ur-Xjn"/>
+                                                    <constraint firstAttribute="width" constant="400" id="wze-ga-tcK"/>
+                                                </constraints>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="step1" id="V4A-fp-vPj"/>
+                                            </imageView>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z9y-o4-K8L">
+                                                <rect key="frame" x="-2" y="0.0" width="504" height="84"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="2. Select a checkmark of “DI Helper for Swift”" id="0z8-3M-4tH">
+                                                    <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="400" id="712-vh-bsA"/>
+                                            <constraint firstAttribute="width" constant="500" id="uTU-iU-fJD"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="32" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bq-mO-Rrf">
+                                        <rect key="frame" x="173" y="0.0" width="332" height="48"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BrT-un-WqD" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="16" width="150" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="PQc-md-LFl"/>
+                                                    <constraint firstAttribute="width" constant="150" id="QXT-pq-F1Z"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" title="Back" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Umt-JB-KZg">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="backButtonDidClick:" target="pS0-0c-FC1" id="dGn-PP-ERv"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="um0-jV-kso" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
+                                                <rect key="frame" x="182" y="16" width="150" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="150" id="CUk-pe-we1"/>
+                                                    <constraint firstAttribute="height" constant="32" id="cf6-lH-4am"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" title="Next" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="dT9-gy-gpP">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="nextButtonDidClick:" target="pS0-0c-FC1" id="DuM-vD-vn2"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="bMi-EJ-Xwy" secondAttribute="bottom" constant="44" id="RuP-OY-imh"/>
+                            <constraint firstItem="bMi-EJ-Xwy" firstAttribute="leading" secondItem="DdH-qR-R9t" secondAttribute="leading" constant="44" id="bgN-te-AIs"/>
+                            <constraint firstAttribute="trailing" secondItem="bMi-EJ-Xwy" secondAttribute="trailing" constant="44" id="niS-4i-uhO"/>
+                            <constraint firstItem="bMi-EJ-Xwy" firstAttribute="top" secondItem="DdH-qR-R9t" secondAttribute="top" constant="44" id="wco-pb-7B1"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="8PH-4r-NnK" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="427" y="3228"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="0Wk-yb-TJg">
+            <objects>
+                <viewController id="d6t-d1-mHH" sceneMemberID="viewController">
+                    <view key="view" id="4B5-EI-IgT">
+                        <rect key="frame" x="0.0" y="0.0" width="762" height="564"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="44" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6LA-HQ-GpK">
+                                <rect key="frame" x="44" y="44" width="674" height="476"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uYa-To-8Gh">
+                                        <rect key="frame" x="87" y="76" width="500" height="400"/>
+                                        <subviews>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PTK-cn-kVk">
+                                                <rect key="frame" x="50" y="100" width="400" height="300"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="400" id="jvr-9g-lMQ"/>
+                                                    <constraint firstAttribute="height" constant="300" id="vWL-V1-Gue"/>
+                                                </constraints>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="step1" id="Em1-sX-nrU"/>
+                                            </imageView>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yaJ-sd-FBY">
+                                                <rect key="frame" x="39" y="0.0" width="422" height="84"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title=" 3. Select a range in your source code" id="5DY-Pb-XpI">
+                                                    <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="400" id="25L-sJ-47A"/>
+                                            <constraint firstAttribute="width" constant="500" id="fo9-tR-tI6"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="32" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bQy-IG-2tM">
+                                        <rect key="frame" x="171" y="0.0" width="332" height="32"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="O0e-vG-l0P" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="YNJ-FX-WJc"/>
+                                                    <constraint firstAttribute="width" constant="150" id="qiP-yC-Tg5"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" title="Back" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="bDD-fF-FIR">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="backButtonDidClick:" target="pS0-0c-FC1" id="Ami-et-IRM"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VL3-Bm-PWA" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
+                                                <rect key="frame" x="182" y="0.0" width="150" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="H4l-sI-uRb"/>
+                                                    <constraint firstAttribute="width" constant="150" id="sPc-PD-QbN"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" title="Next" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="2u4-Sc-MdF">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="nextButtonDidClick:" target="pS0-0c-FC1" id="BNG-CW-DC4"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="6LA-HQ-GpK" secondAttribute="bottom" constant="44" id="2EF-9p-REE"/>
+                            <constraint firstAttribute="trailing" secondItem="6LA-HQ-GpK" secondAttribute="trailing" constant="44" id="cCN-hl-uRM"/>
+                            <constraint firstItem="6LA-HQ-GpK" firstAttribute="leading" secondItem="4B5-EI-IgT" secondAttribute="leading" constant="44" id="hWz-Js-YDi"/>
+                            <constraint firstItem="6LA-HQ-GpK" firstAttribute="top" secondItem="4B5-EI-IgT" secondAttribute="top" constant="44" id="jRu-Uz-W1z"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="iOI-Ts-o9b" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="429" y="3898.5"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="jnE-1X-IX0">
@@ -2345,6 +2585,246 @@ It can controls a return value to affect a test target.</string>
                 <customObject id="O18-qA-519" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1731" y="2388"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="j0L-t9-myL">
+            <objects>
+                <viewController id="hM2-9a-i8q" sceneMemberID="viewController">
+                    <view key="view" id="INm-TA-VmT">
+                        <rect key="frame" x="0.0" y="0.0" width="762" height="564"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="44" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q8a-mY-Qvx">
+                                <rect key="frame" x="44" y="44" width="674" height="476"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fYK-ju-OTw">
+                                        <rect key="frame" x="87" y="76" width="500" height="400"/>
+                                        <subviews>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="l3a-Yg-iHQ">
+                                                <rect key="frame" x="50" y="100" width="400" height="300"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="300" id="NIL-tE-LCE"/>
+                                                    <constraint firstAttribute="width" constant="400" id="fQP-Le-wFS"/>
+                                                </constraints>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="step1" id="EkA-ys-hcl"/>
+                                            </imageView>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ph4-dK-vGb">
+                                                <rect key="frame" x="13" y="0.0" width="475" height="84"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="4. Click the &quot;Editor&quot; &gt; “DI Helper for Swift”" id="mOr-z4-wds">
+                                                    <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="400" id="9zZ-s5-VWZ"/>
+                                            <constraint firstAttribute="width" constant="500" id="t01-Pz-EnB"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="32" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AZV-Eh-jSd">
+                                        <rect key="frame" x="171" y="0.0" width="332" height="32"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BQX-mi-d0F" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="150" id="0gj-sc-pJ4"/>
+                                                    <constraint firstAttribute="height" constant="32" id="rGk-2D-sFa"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" title="Back" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="FHa-Bj-m5P">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="backButtonDidClick:" target="pS0-0c-FC1" id="s6D-ZT-usF"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kLd-9D-gn3" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
+                                                <rect key="frame" x="182" y="0.0" width="150" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="B8e-ys-RUL"/>
+                                                    <constraint firstAttribute="width" constant="150" id="pRg-Yo-bHq"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" title="Next" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="BHb-F1-fo5">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="nextButtonDidClick:" target="pS0-0c-FC1" id="5WY-kD-862"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="q8a-mY-Qvx" firstAttribute="top" secondItem="INm-TA-VmT" secondAttribute="top" constant="44" id="UY0-5x-28d"/>
+                            <constraint firstAttribute="trailing" secondItem="q8a-mY-Qvx" secondAttribute="trailing" constant="44" id="are-J8-x4x"/>
+                            <constraint firstItem="q8a-mY-Qvx" firstAttribute="leading" secondItem="INm-TA-VmT" secondAttribute="leading" constant="44" id="kop-sY-maX"/>
+                            <constraint firstAttribute="bottom" secondItem="q8a-mY-Qvx" secondAttribute="bottom" constant="44" id="wdA-fb-Rtx"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="ldj-2t-LZQ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="425" y="4569"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ia7-bq-Lex">
+            <objects>
+                <viewController id="q77-0v-zN0" sceneMemberID="viewController">
+                    <view key="view" id="xlr-h1-HVL">
+                        <rect key="frame" x="0.0" y="0.0" width="766" height="564"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="44" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="coi-qA-weh">
+                                <rect key="frame" x="44" y="44" width="678" height="476"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GkK-yY-H4C">
+                                        <rect key="frame" x="89" y="76" width="500" height="400"/>
+                                        <subviews>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DoK-2l-LxG">
+                                                <rect key="frame" x="50" y="100" width="400" height="300"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="300" id="5tj-hw-Rwe"/>
+                                                    <constraint firstAttribute="width" constant="400" id="l2e-YN-gWF"/>
+                                                </constraints>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="step1" id="4GN-WG-yQ2"/>
+                                            </imageView>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eAG-iB-J6u">
+                                                <rect key="frame" x="39" y="0.0" width="422" height="84"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title=" 3. Select a range in your source code" id="5mW-7X-z05">
+                                                    <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="400" id="eYU-EB-GMt"/>
+                                            <constraint firstAttribute="width" constant="500" id="y00-Bl-rOz"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="32" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5P-3M-axc">
+                                        <rect key="frame" x="173" y="0.0" width="332" height="32"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Hd-Oo-PZv" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="8UT-Vj-vTM"/>
+                                                    <constraint firstAttribute="width" constant="150" id="Kqb-Y1-ZCD"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" title="Back" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Qmq-8L-oV4">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="backButtonDidClick:" target="pS0-0c-FC1" id="If6-sP-KpS"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PaF-6N-idX" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
+                                                <rect key="frame" x="182" y="0.0" width="150" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="2Mh-B4-N0P"/>
+                                                    <constraint firstAttribute="width" constant="150" id="IDH-mp-92d"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" title="Next" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="qG6-Ei-Jam">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="nextButtonDidClick:" target="pS0-0c-FC1" id="CmD-lM-hX7"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="coi-qA-weh" secondAttribute="bottom" constant="44" id="QpW-cp-NXX"/>
+                            <constraint firstItem="coi-qA-weh" firstAttribute="top" secondItem="xlr-h1-HVL" secondAttribute="top" constant="44" id="ZOb-A0-P4W"/>
+                            <constraint firstItem="coi-qA-weh" firstAttribute="leading" secondItem="xlr-h1-HVL" secondAttribute="leading" constant="44" id="jv0-sY-yqE"/>
+                            <constraint firstAttribute="trailing" secondItem="coi-qA-weh" secondAttribute="trailing" constant="44" id="vMo-Cz-1Dy"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="6ei-MT-Ytd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="427" y="5199"/>
         </scene>
     </scenes>
     <resources>
