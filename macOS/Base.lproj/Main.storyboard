@@ -402,7 +402,7 @@
         <scene sceneID="1Bb-IS-6ll">
             <objects>
                 <viewController id="7jf-rh-vir" customClass="OnboardingStartViewController" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="ZRX-me-ZnU">
+                    <view key="view" id="ZRX-me-ZnU">
                         <rect key="frame" x="0.0" y="0.0" width="643" height="523"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -468,10 +468,13 @@ This app automate the steps with Xcode Source Extension.</string>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="closeButtonDidClick:" target="7jf-rh-vir" id="WDc-Pz-S9L"/>
+                                                </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b08-zX-IO0" customClass="OnboardingButton" customModule="DependencyInjectionHelperForXcode" customModuleProvider="target">
                                                 <rect key="frame" x="166" y="0.0" width="150" height="32"/>
@@ -485,10 +488,13 @@ This app automate the steps with Xcode Source Extension.</string>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="nextButtonDidClick:" target="7jf-rh-vir" id="AuC-de-9fJ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <visibilityPriorities>

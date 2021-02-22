@@ -147,7 +147,7 @@ class ProtocolViewController: NSViewController {
         let vc = storyboard?.instantiateController(
             withIdentifier: NSStoryboard.SceneIdentifier("OnboardingViewController")
         ) as! OnboardingViewController
-        
+        vc.delegate = self
         self.presentAsSheet(vc)
     }
     
@@ -185,5 +185,11 @@ extension ProtocolViewController: SyntaxTextViewDelegate {
         if syntaxTextView == sampleSourceTextView {
            updateConvertedText(sampleSourceTextView.text)
         }
+    }
+}
+
+extension ProtocolViewController: OnboardingViewControllerDelegate {
+    func onboardingViewControllerCloseButtonDidTap(_ vc: OnboardingViewController) {
+        dismiss(vc)
     }
 }
