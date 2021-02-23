@@ -12,6 +12,8 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        view.window?.setFrame(.init(x: 0, y: 0, width: 600, height: 500), display: true)
         // Do any additional setup after loading the view.
     }
 

@@ -90,6 +90,14 @@ class StubViewController: NSViewController {
         Settings.shared.spySettings.returnValueFormat = value
         updateConvertedText(sampleSourceTextView.text)
     }
+    
+    @IBAction func helpButtonDidClick(_ sender: Any) {
+        let vc = storyboard?.instantiateController(
+            withIdentifier: NSStoryboard.SceneIdentifier("OnboardingViewController")
+        ) as! OnboardingViewController
+        vc.delegate = self
+        self.presentAsSheet(vc)
+    }
 }
 
 extension StubViewController: NSTextViewDelegate {
@@ -107,5 +115,11 @@ extension StubViewController: SyntaxTextViewDelegate {
         if syntaxTextView == sampleSourceTextView {
            updateConvertedText(sampleSourceTextView.text)
         }
+    }
+}
+
+extension StubViewController: OnboardingViewControllerDelegate {
+    func onboardingViewControllerCloseButtonDidTap(_ vc: OnboardingViewController) {
+        dismiss(vc)
     }
 }
