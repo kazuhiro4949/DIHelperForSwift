@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension FunctionDeclSyntax {
-    var interface: FunctionDeclSyntax {
+    var interface: FunctionDeclSyntax? {
         let withoutDefaultArgs = signature.input.withParameterList(
             SyntaxFactory
                 .makeFunctionParameterList(

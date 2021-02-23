@@ -107,14 +107,32 @@ extension VariableDeclSyntax {
     
     var hasPrivateGetterSetter: Bool {
         modifiers?.contains(where: { (modifier) -> Bool in
-            modifier.name.text == "private" && modifier.detail == nil
+            (modifier.name.text == "private" || modifier.name.text == "fileprivate")
+                && modifier.detail == nil
         }) ?? false
     }
     
     var hasPrivateSetter: Bool {
         modifiers?.contains(where: { (modifier) -> Bool in
-            modifier.name.text == "private" && modifier.detail?.text == "set"
+            (modifier.name.text == "private" || modifier.name.text == "fileprivate")
+                && modifier.detail?.text == "set"
         }) ?? false
+    }
+    
+    var hasOverrdie: Bool {
+        modifiers?.contains(where: { (modifier) -> Bool in
+            modifier.name.text == "override"
+        }) ?? false
+    }
+    
+    var hasPublic: Bool {
+        modifiers?.contains(where: { (modifier) -> Bool in
+            modifier.name.text == "public"
+        }) ?? false
+    }
+    
+    var notHasOverrdie: Bool {
+        !hasOverrdie
     }
     
     var notHasPrivateGetterSetter: Bool {

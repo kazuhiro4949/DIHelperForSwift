@@ -32,11 +32,27 @@ class ProtocolExtractor: SyntaxVisitor {
                 return nil
             }
             
-            let hasPrivate = functionDecl.modifiers?.contains(where: {
-                $0.name.text == "private"
+            let modifiers = functionDecl.modifiers
+            
+            let hasPrivate = modifiers?.contains(where: {
+                $0.name.text == "private" || $0.name.text == "fileprivate"
             }) ?? false
             
             if hasPrivate {
+                return nil
+            }
+            
+            let hasOverride = modifiers?
+                .contains { $0.name.text == "override" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .override),
+               hasOverride {
+                return nil
+            }
+            
+            let isPublic = modifiers?
+                .contains { $0.name.text == "public" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .internalMember),
+               !isPublic {
                 return nil
             }
             
@@ -45,6 +61,8 @@ class ProtocolExtractor: SyntaxVisitor {
         let variables = node.members.members.compactMap { (member) -> VariableDeclSyntax? in
             member.decl.as(VariableDeclSyntax.self)
         }
+        
+        
         let initilizers = node.members.members.compactMap { (member) -> InitializerDeclSyntax? in
             guard let initializerDecl = member.decl.as(InitializerDeclSyntax.self) else {
                 return nil
@@ -53,12 +71,27 @@ class ProtocolExtractor: SyntaxVisitor {
             if initializerDecl.genericParameterClause != nil {
                 return nil
             }
+
+            let modifiers = initializerDecl.modifiers
             
-            let hasPrivate = initializerDecl.modifiers?.contains(where: {
-                $0.name.text == "private"
+            let hasPrivate = modifiers?.contains(where: {
+                $0.name.text == "private" || $0.name.text == "fileprivate"
             }) ?? false
-            
             if hasPrivate {
+                return nil
+            }
+            
+            let hasOverride = modifiers?
+                .contains { $0.name.text == "override" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .override),
+               hasOverride {
+                return nil
+            }
+            
+            let isPublic = modifiers?
+                .contains { $0.name.text == "public" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .internalMember),
+               !isPublic {
                 return nil
             }
             
@@ -100,11 +133,27 @@ class ProtocolExtractor: SyntaxVisitor {
                 return nil
             }
             
-            let hasPrivate = functionDecl.modifiers?.contains(where: {
-                $0.name.text == "private"
+            let modifiers = functionDecl.modifiers
+            
+            let hasPrivate = modifiers?.contains(where: {
+                $0.name.text == "private" || $0.name.text == "fileprivate"
             }) ?? false
             
             if hasPrivate {
+                return nil
+            }
+            
+            let hasOverride = modifiers?
+                .contains { $0.name.text == "override" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .override),
+               hasOverride {
+                return nil
+            }
+            
+            let isPublic = modifiers?
+                .contains { $0.name.text == "public" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .internalMember),
+               !isPublic {
                 return nil
             }
             
@@ -122,11 +171,27 @@ class ProtocolExtractor: SyntaxVisitor {
                 return nil
             }
             
-            let hasPrivate = initializerDecl.modifiers?.contains(where: {
-                $0.name.text == "private"
+            let modifiers = initializerDecl.modifiers
+            
+            let hasPrivate = modifiers?.contains(where: {
+                $0.name.text == "private" || $0.name.text == "fileprivate"
             }) ?? false
             
             if hasPrivate {
+                return nil
+            }
+            
+            let hasOverride = modifiers?
+                .contains { $0.name.text == "override" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .override),
+               hasOverride {
+                return nil
+            }
+            
+            let isPublic = modifiers?
+                .contains { $0.name.text == "public" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .internalMember),
+               !isPublic {
                 return nil
             }
             
@@ -168,11 +233,27 @@ class ProtocolExtractor: SyntaxVisitor {
                 return nil
             }
             
-            let hasPrivate = functionDecl.modifiers?.contains(where: {
-                $0.name.text == "private"
+            let modifiers = functionDecl.modifiers
+            
+            let hasPrivate = modifiers?.contains(where: {
+                $0.name.text == "private" || $0.name.text == "fileprivate"
             }) ?? false
             
             if hasPrivate {
+                return nil
+            }
+            
+            let hasOverride = modifiers?
+                .contains { $0.name.text == "override" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .override),
+               hasOverride {
+                return nil
+            }
+            
+            let isPublic = modifiers?
+                .contains { $0.name.text == "public" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .internalMember),
+               !isPublic {
                 return nil
             }
             
@@ -190,11 +271,27 @@ class ProtocolExtractor: SyntaxVisitor {
                 return nil
             }
             
-            let hasPrivate = initializerDecl.modifiers?.contains(where: {
-                $0.name.text == "private"
+            let modifiers = initializerDecl.modifiers
+            
+            let hasPrivate = modifiers?.contains(where: {
+                $0.name.text == "private" || $0.name.text == "fileprivate"
             }) ?? false
             
             if hasPrivate {
+                return nil
+            }
+            
+            let hasOverride = modifiers?
+                .contains { $0.name.text == "override" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .override),
+               hasOverride {
+                return nil
+            }
+            
+            let isPublic = modifiers?
+                .contains { $0.name.text == "public" } ?? false
+            if Settings.shared.protocolSettings.getIgnorance(ignorance: .internalMember),
+               !isPublic {
                 return nil
             }
             
@@ -228,15 +325,28 @@ class ProtocolExtractor: SyntaxVisitor {
         initDecls: [InitializerDeclSyntax],
         isClass: Bool) -> ProtocolDeclSyntax {
         
-        let varInterfaces = Array(varDecls
-                .filter(\.notHasPrivateGetterSetter)
+        var filterdVarDecls = varDecls
+            .filter(\.notHasPrivateGetterSetter)
+        
+        if Settings.shared.protocolSettings.getIgnorance(ignorance: .internalMember) {
+            filterdVarDecls = varDecls
+                .filter(\.hasPublic)
+        }
+
+        if Settings.shared.protocolSettings.getIgnorance(ignorance: .override) {
+            filterdVarDecls = varDecls
+                .filter(\.notHasOverrdie)
+        }
+        
+        let varInterfaces = Array(
+            filterdVarDecls
                 .map { $0.makeInterfaces() }
                 .joined()
         )
         .map(\.toMemberDeclListItem)
         
         let initInterfaces = initDecls.map(\.interface).map(\.toMemberDeclListItem)
-        let funcInterfaces = funcDelcs.map(\.interface).map(\.toMemberDeclListItem)
+        let funcInterfaces = funcDelcs.compactMap(\.interface).map(\.toMemberDeclListItem)
         
         var memberInterfaces = [MemberDeclListItemSyntax]()
         if !Settings.shared.protocolSettings.getIgnorance(ignorance: .function) {
