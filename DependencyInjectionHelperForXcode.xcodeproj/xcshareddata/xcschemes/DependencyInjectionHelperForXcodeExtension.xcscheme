@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3032242725AAFCEB002BB110"
-               BuildableName = "DependencyInjectionHelperForXcodeExtension.appex"
+               BuildableName = "DI Helper for Xcode.appex"
                BlueprintName = "DependencyInjectionHelperForXcodeExtension"
                ReferencedContainer = "container:DependencyInjectionHelperForXcode.xcodeproj">
             </BuildableReference>
@@ -30,7 +30,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "303223F125AAFC41002BB110"
-               BuildableName = "DependencyInjectionHelperForXcode.app"
+               BuildableName = "DI Helper for Swift.app"
                BlueprintName = "DependencyInjectionHelperForXcode"
                ReferencedContainer = "container:DependencyInjectionHelperForXcode.xcodeproj">
             </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "303223F125AAFC41002BB110"
-            BuildableName = "DependencyInjectionHelperForXcode.app"
+            BuildableName = "DI Helper for Swift.app"
             BlueprintName = "DependencyInjectionHelperForXcode"
             ReferencedContainer = "container:DependencyInjectionHelperForXcode.xcodeproj">
          </BuildableReference>
@@ -81,7 +81,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "303223F125AAFC41002BB110"
-            BuildableName = "DependencyInjectionHelperForXcode.app"
+            BuildableName = "DI Helper for Swift.app"
             BlueprintName = "DependencyInjectionHelperForXcode"
             ReferencedContainer = "container:DependencyInjectionHelperForXcode.xcodeproj">
          </BuildableReference>
