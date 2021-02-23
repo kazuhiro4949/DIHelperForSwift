@@ -10,11 +10,21 @@ import Cocoa
 class ViewController: NSViewController {
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-
+        super.viewDidLoad()        
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
         
-        view.window?.setFrame(.init(x: 0, y: 0, width: 600, height: 500), display: true)
-        // Do any additional setup after loading the view.
+//        if !UserDefaults.standard.isAlreadyLaunched {
+//            let vc = storyboard?.instantiateController(
+//                withIdentifier: NSStoryboard.SceneIdentifier("OnboardingViewController")
+//            ) as! OnboardingViewController
+//            vc.delegate = self
+//            self.presentAsSheet(vc)
+//        }
+//
+//        UserDefaults.standard.isAlreadyLaunched = true
     }
 
     override var representedObject: Any? {
@@ -24,3 +34,19 @@ class ViewController: NSViewController {
     }
 }
 
+extension UserDefaults {
+    var isAlreadyLaunched: Bool {
+        set {
+            set(newValue, forKey: "isAlreadyLaunched")
+        }
+        get {
+            bool(forKey: "isAlreadyLaunched")
+        }
+    }
+}
+
+extension ViewController: OnboardingViewControllerDelegate {
+    func onboardingViewControllerCloseButtonDidTap(_ vc: OnboardingViewController) {
+        dismiss(vc)
+    }
+}
