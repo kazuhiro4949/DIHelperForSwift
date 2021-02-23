@@ -436,7 +436,7 @@
                                                 <rect key="frame" x="67" y="57" width="367" height="96"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="AJN-hK-AGw">
                                                     <font key="font" metaFont="system"/>
-                                                    <string key="title">making a class testable has some tedeous steps.
+                                                    <string key="title">Making a class testable has some tedious steps.
  1.  defining protocols for the depending classes to separate.
 2.  implementing test doubles based on the protocols.
 

@@ -23,3 +23,8 @@ class ViewController: NSViewController {
     }
 }
 
+
+protocol ViewControllerProtocol {
+    func viewDidLoad()
+    var representedObject: Any? { get set }
+}
