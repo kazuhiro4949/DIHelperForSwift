@@ -16,15 +16,15 @@ class ViewController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         
-//        if !UserDefaults.standard.isAlreadyLaunched {
-//            let vc = storyboard?.instantiateController(
-//                withIdentifier: NSStoryboard.SceneIdentifier("OnboardingViewController")
-//            ) as! OnboardingViewController
-//            vc.delegate = self
-//            self.presentAsSheet(vc)
-//        }
-//
-//        UserDefaults.standard.isAlreadyLaunched = true
+        if !UserDefaults.standard.isAlreadyLaunched {
+            let vc = storyboard?.instantiateController(
+                withIdentifier: NSStoryboard.SceneIdentifier("OnboardingViewController")
+            ) as! OnboardingViewController
+            vc.delegate = self
+            self.presentAsSheet(vc)
+        }
+
+        UserDefaults.standard.isAlreadyLaunched = true
     }
 
     override var representedObject: Any? {

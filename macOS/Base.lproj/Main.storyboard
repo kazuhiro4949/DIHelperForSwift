@@ -896,7 +896,7 @@ This app automates them with Xcode Source Extension.</string>
         <!--Tab View Controller-->
         <scene sceneID="jnE-1X-IX0">
             <objects>
-                <tabViewController selectedTabViewItemIndex="3" tabStyle="unspecified" id="stu-7R-Ivy" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="0" tabStyle="unspecified" id="stu-7R-Ivy" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem id="9sB-m8-nes"/>
                         <tabViewItem id="cQX-p5-nOg"/>
