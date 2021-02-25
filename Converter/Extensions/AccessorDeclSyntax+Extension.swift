@@ -30,12 +30,31 @@ extension AccessorDeclSyntax {
             spyProperty.members.append(.makeFormattedZeroAssign(to: identifierByAccessor.callCount(.spy)))
             spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeIncrementExpr(to: identifierByAccessor.callCount(.spy)).withLeadingTrivia(.indent(3)))
         }
-        if isSet, !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
-            spyProperty.members.append(.makeArgsValForMock(identifierByAccessor.args(.spy), binding.typeAnnotation!.type.unwrapped.withTrailingTrivia(.zero)))
+        if isSet,
+           let unwrappedType = binding
+            .typeAnnotation?
+            .type
+            .unwrapped
+            .withTrailingTrivia(.zero),
+           !Settings
+            .shared
+            .spySettings
+            .getCapture(capture: .passedArgument) {
+            
+            spyProperty.members.append(
+                .makeArgsValForMock(
+                    identifierByAccessor.args(.spy),
+                    unwrappedType
+                )
+            )
             spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeNewValueArgsExprForMock(identifierByAccessor.args(.spy)).withLeadingTrivia(.indent(3)))
         }
-        if isGet {
-            let typeSyntax = binding.typeAnnotation!.type.withTrailingTrivia(.zero)
+        if isGet,
+           let typeSyntax = binding
+            .typeAnnotation?
+            .type
+            .withTrailingTrivia(.zero) {
+            
             spyProperty.members.append(.makeReturnedValForMock(identifierByAccessor.val(.spy), typeSyntax))
             spyProperty.appendCodeBlockItem(.makeReturnExpr(identifierByAccessor.val(.spy), .indent(3)))
         }
@@ -46,8 +65,12 @@ extension AccessorDeclSyntax {
         let identifierByAccessor = "\(identifier.text)_\(accessorKind.text)"
         var mockProperty = MockPropertyForAccessor(accessor: self)
 
-        if isGet {
-            let typeSyntax = binding.typeAnnotation!.type.withTrailingTrivia(.zero)            
+        if isGet,
+           let typeSyntax = binding
+            .typeAnnotation?
+            .type
+            .withTrailingTrivia(.zero) {
+                        
             mockProperty.appendCodeBlockItem(CodeBlockItemSyntax
                                                 .makeFormattedExpr(
                                                     expr: SyntaxFactory.makeReturnKeyword(),

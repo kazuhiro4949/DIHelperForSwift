@@ -60,7 +60,9 @@ extension FunctionDeclSyntax {
             case .none:
                 break
             case .singleType:
-                codeBlockItems.append(makeSingleTypeArgsExprForSpy(counter: counter))
+                if let codeBlock = makeSingleTypeArgsExprForSpy(counter: counter) {
+                    codeBlockItems.append(codeBlock)
+                }
             case .tuple:
                 codeBlockItems.append(makeTupleArgsExprForSpy(counter: counter))
             }
@@ -105,7 +107,9 @@ extension FunctionDeclSyntax {
             case .none:
                 break
             case .singleType:
-                memberDeclListItems.append(makeSingleTypeArgsValForSpy(counter: counter))
+                if let singleTypeArgs = makeSingleTypeArgsValForSpy(counter: counter) {
+                    memberDeclListItems.append(singleTypeArgs)
+                }
             case .tuple:
                 memberDeclListItems.append(makeTupleArgsValForSpy(counter: counter))
             }
@@ -156,24 +160,31 @@ extension FunctionDeclSyntax {
         return identifierBaseText
     }
     
-    func makeSingleTypeArgsValForSpy(counter: Counter?) -> MemberDeclListItemSyntax {
-        .makeArgsValForMock(
+    func makeSingleTypeArgsValForSpy(counter: Counter?) -> MemberDeclListItemSyntax? {
+        guard let type = signature.input.parameterList.first?
+            .type else {
+            return nil
+        }
+        
+        return .makeArgsValForMock(
             signatureAddedIdentifier(counter: counter).args(.spy),
-            signature.input.parameterList.first!
-                .type!
-                .removingAttributes
+            type.removingAttributes
                 .unwrapped
                 .tparenthesizedIfNeeded
                 .withTrailingTrivia(.zero)
         )
     }
     
-    func makeSingleTypeArgsExprForSpy(counter: Counter?) -> CodeBlockItemSyntax {
-        .makeArgsExprForMock(
+    func makeSingleTypeArgsExprForSpy(counter: Counter?) -> CodeBlockItemSyntax? {
+        guard let parameter = signature.input.parameterList.first else {
+            return nil
+        }
+        
+        return .makeArgsExprForMock(
             signatureAddedIdentifier(counter: counter).args(.spy),
             ExprSyntax(IdentifierExprSyntax
                         .makeFormattedVariableExpr(
-                            signature.input.parameterList.first!.tokenForMockProperty
+                            parameter.tokenForMockProperty
                         )
             )
         )

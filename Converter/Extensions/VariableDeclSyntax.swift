@@ -161,12 +161,13 @@ extension VariableDeclSyntax {
 
 extension VariableDeclSyntax {
     func generateMemberDeclItemsForMock(mockType: MockType) -> [MemberDeclListItemSyntax] {
-        // protocol always has the following pattern.
-        let binding = bindings.first!
-        let accessorBlock = binding.accessor!.as(AccessorBlockSyntax.self)
-        let identifier = binding.pattern.as(IdentifierPatternSyntax.self)!.identifier
+        guard let binding = bindings.first,
+              let accessorBlock = binding.accessor?.as(AccessorBlockSyntax.self),
+              let identifier =  binding.pattern.as(IdentifierPatternSyntax.self)?.identifier else {
+            return []
+        }
         
-        let mockProperties = accessorBlock?.makeMockPropertyForAccessors(
+        let mockProperties = accessorBlock.makeMockPropertyForAccessors(
             for: mockType,
             identifier: identifier,
             binding: binding

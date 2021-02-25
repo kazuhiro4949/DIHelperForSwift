@@ -71,7 +71,9 @@ extension InitializerDeclSyntax {
             case .none:
                 break
             case .singleType:
-                memberDeclListItems.append(makeSingleTypeArgsValForMock(counter: counter))
+                if let memberDeclListItem = makeSingleTypeArgsValForMock(counter: counter) {
+                    memberDeclListItems.append(memberDeclListItem)
+                }
             case .tuple:
                 memberDeclListItems.append(makeTupleArgsValForMock(counter: counter))
             }
@@ -98,12 +100,13 @@ extension InitializerDeclSyntax {
         return _initKeyword
     }
     
-    func makeSingleTypeArgsValForMock(counter: Counter?) -> MemberDeclListItemSyntax {
-        .makeArgsValForMock(
+    func makeSingleTypeArgsValForMock(counter: Counter?) -> MemberDeclListItemSyntax? {
+        guard let type = parameters.parameterList.first?
+                .type else { return nil }
+        
+        return .makeArgsValForMock(
             signatureAddedIdentifier(counter: counter).args(.spy),
-            parameters.parameterList.first!
-                .type!
-                .removingAttributes
+            type.removingAttributes
                 .unwrapped
                 .tparenthesizedIfNeeded
                 .withTrailingTrivia(.zero)
@@ -130,7 +133,9 @@ extension InitializerDeclSyntax {
             case .none:
                 break
             case .singleType:
-                codeBlockItems.append(makeSingleTypeArgsExprForMock(counter: counter))
+                if let singleTypeArgsExpr = makeSingleTypeArgsExprForMock(counter: counter) {
+                    codeBlockItems.append(singleTypeArgsExpr)
+                }
             case .tuple:
                 codeBlockItems.append(makeTupleArgsExprForSpy(counter: counter))
             }
@@ -138,12 +143,16 @@ extension InitializerDeclSyntax {
         return codeBlockItems
     }
     
-    func makeSingleTypeArgsExprForMock(counter: Counter?) -> CodeBlockItemSyntax {
-        .makeArgsExprForMock(
+    func makeSingleTypeArgsExprForMock(counter: Counter?) -> CodeBlockItemSyntax? {
+        guard let tokenForMockProperty = parameters.parameterList.first?.tokenForMockProperty else {
+            return nil
+        }
+        
+        return .makeArgsExprForMock(
             signatureAddedIdentifier(counter: counter).args(.spy),
             ExprSyntax(IdentifierExprSyntax
                         .makeFormattedVariableExpr(
-                            parameters.parameterList.first!.tokenForMockProperty
+                            tokenForMockProperty
                         )
             )
         )

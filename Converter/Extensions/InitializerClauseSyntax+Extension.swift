@@ -28,8 +28,10 @@ extension InitializerClauseSyntax {
         case .dummy:
             return nil
         case .stub:
+            guard let typeAnnotation = binding.typeAnnotation else { return nil }
+            
             return .makeFormatted(
-                ExprSyntax.makeReturnedValForMock(identifier.text, binding.typeAnnotation!.type)
+                ExprSyntax.makeReturnedValForMock(identifier.text, typeAnnotation.type)
             )
         }
     }

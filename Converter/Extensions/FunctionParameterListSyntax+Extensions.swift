@@ -28,10 +28,12 @@ extension FunctionParameterListSyntax {
     
     func makeTupleForMemberDecl() -> [TupleTypeElementSyntax] {
         compactMap { paramter -> TupleTypeElementSyntax? in
+            guard let type = paramter.type else { return nil }
+            
             return SyntaxFactory.makeTupleTypeElement(
                 name: paramter.tokenForMockProperty,
                 colon: paramter.colon,
-                type: paramter.type!,
+                type: type,
                 trailingComma: paramter.trailingComma)
         }
     }
