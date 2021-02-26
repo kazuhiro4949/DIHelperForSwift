@@ -17,7 +17,7 @@ extension PatternBindingSyntax {
         static let set   = ContextualKeyword(rawValue: 1 << 1)
     }
     
-    func convertForProtocol(with contextualKeyword: ContextualKeyword) -> VariableDeclSyntax {
+    func convertForProtocol(with contextualKeyword: ContextualKeyword, modifiers: ModifierListSyntax?) -> VariableDeclSyntax {
         let accessorDeclSyntaxes: [AccessorDeclSyntax]
         if contextualKeyword == [.get, .set] {
             accessorDeclSyntaxes = [
@@ -59,7 +59,7 @@ extension PatternBindingSyntax {
         
         let variableDecl = SyntaxFactory.makeVariableDecl(
             attributes: nil,
-            modifiers: nil,
+            modifiers: modifiers,
             letOrVarKeyword: SyntaxFactory.makeToken(
                 .varKeyword,
                 presence: .present
