@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3014C49025E93596000B08B3 /* ModifierListSyntax+Exntension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3014C48F25E93596000B08B3 /* ModifierListSyntax+Exntension.swift */; };
+		3014C49125E93596000B08B3 /* ModifierListSyntax+Exntension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3014C48F25E93596000B08B3 /* ModifierListSyntax+Exntension.swift */; };
 		3024212725CFC8EF00C0E53F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212625CFC8EF00C0E53F /* String+Extension.swift */; };
 		3024212B25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212A25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift */; };
 		3024212F25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212E25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift */; };
@@ -202,6 +204,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3014C48F25E93596000B08B3 /* ModifierListSyntax+Exntension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModifierListSyntax+Exntension.swift"; sourceTree = "<group>"; };
 		3024212625CFC8EF00C0E53F /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		3024212A25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProtocolDeclSyntax+Extension.swift"; sourceTree = "<group>"; };
 		3024212E25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeBlockSyntax+Extensioin.swift"; sourceTree = "<group>"; };
@@ -520,6 +523,7 @@
 				302421A225CFCC1D00C0E53F /* CodeBlockItemSyntax+Extension.swift */,
 				3024218E25CFCB7F00C0E53F /* MemberDeclBlockSyntax+Extension.swift */,
 				3024219225CFCB8E00C0E53F /* TypeSyntax+Extension.swift */,
+				3014C48F25E93596000B08B3 /* ModifierListSyntax+Exntension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -748,6 +752,7 @@
 				3044B11B25E1341F00EC7A16 /* HasGenericParameter.swift in Sources */,
 				3044B11625E1341F00EC7A16 /* MockPropertyForAccessor.swift in Sources */,
 				3044B11525E1341F00EC7A16 /* HasGenericParameterClause.swift in Sources */,
+				3014C49025E93596000B08B3 /* ModifierListSyntax+Exntension.swift in Sources */,
 				3044B13025E1343A00EC7A16 /* TypeSyntax+Extension.swift in Sources */,
 				3044B12025E1343A00EC7A16 /* MemberDeclListSyntax+Extension.swift in Sources */,
 				3044B13D25E1343A00EC7A16 /* AccessorDeclSyntax+Extension.swift in Sources */,
@@ -868,6 +873,7 @@
 				3024214B25CFC9CD00C0E53F /* Trivia+Extension.swift in Sources */,
 				3024217725CFCABC00C0E53F /* ExprSyntax+Extension.swift in Sources */,
 				306FF6B425E49FDF0075F43F /* OnboardingExt4ViewControllerDelegate.swift in Sources */,
+				3014C49125E93596000B08B3 /* ModifierListSyntax+Exntension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

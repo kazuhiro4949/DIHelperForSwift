@@ -21,10 +21,9 @@ extension InitializerDeclSyntax {
                         }
                 )
         )
-        
         return SyntaxFactory.makeInitializerDecl(
             attributes: nil,
-            modifiers: nil,
+            modifiers: modifiers?.protocolEnabled,
             initKeyword: SyntaxFactory.makeInitKeyword(
                 leadingTrivia: .zero
             ),
