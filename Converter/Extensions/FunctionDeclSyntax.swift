@@ -22,10 +22,17 @@ extension FunctionDeclSyntax {
                         }
                 )
         )
+        
+        let protocolEnabledModifiers = modifiers?.filter({ (declModifier) in
+            declModifier.name.text == "static"
+        })
+        let protocolEnabledModifierList = protocolEnabledModifiers.flatMap {
+            SyntaxFactory.makeModifierList($0)
+        }
 
         return SyntaxFactory.makeFunctionDecl(
             attributes: nil,
-            modifiers: nil,
+            modifiers: protocolEnabledModifierList,
             funcKeyword: funcKeyword
                 .withLeadingTrivia(.zero)
                 .withTrailingTrivia(.spaces(1)),
