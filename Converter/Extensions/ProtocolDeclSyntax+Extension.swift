@@ -34,7 +34,7 @@ extension ProtocolDeclSyntax {
                 return variableDecl.generateMemberDeclItemsForMock(mockType: mockType)
             } else if let initDecl = item.decl.as(InitializerDeclSyntax.self),
                       Settings.shared.target(from: mockType)?.getTarget(target: .initilizer) == false {
-                return initDecl.generateMemberDeclItemsForMock(mockType: mockType)
+                return initDecl.generateMemberDeclItemsForMock(mockType: mockType, modifiers: modifiers)
             } else {
                 return nil
             }

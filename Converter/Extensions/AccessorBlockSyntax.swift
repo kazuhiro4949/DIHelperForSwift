@@ -44,11 +44,12 @@ extension AccessorBlockSyntax {
     func makeMockPropertyForAccessors(
         for mockType: MockType,
         identifier: TokenSyntax,
-        binding: PatternBindingSyntax) -> [MockPropertyForAccessor]? {
+        binding: PatternBindingSyntax,
+        modifiers: ModifierListSyntax?) -> [MockPropertyForAccessor]? {
         
         switch mockType {
         case .spy:
-            return accessors.map { $0.makeSpyProperty(identifier, binding) }
+            return accessors.map { $0.makeSpyProperty(identifier, binding, modifiers: modifiers) }
         case .dummy:
             return accessors.map { $0.makeDummyPropery(identifier, binding) }
         case .stub:

@@ -40,7 +40,7 @@ extension MemberDeclListItemSyntax {
             )
     }
     
-    static func makeArgsValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> MemberDeclListItemSyntax {
+    static func makeArgsValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax {
         makeFormattedAssign(
             to: identifier,
             typeAnnotation: .makeFormatted(
@@ -50,58 +50,65 @@ extension MemberDeclListItemSyntax {
                         questionMark: SyntaxFactory.makePostfixQuestionMarkToken()
                     )
                 )
-            )
+            ),
+            modifiers: modifiers
         )
     }
     
-    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> MemberDeclListItemSyntax {
+    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax {
         SyntaxFactory
             .makeMemberDeclListItem(
                 decl: DeclSyntax(
                     VariableDeclSyntax
-                        .makeReturnedValForMock(identifier, typeSyntax)
+                        .makeReturnedValForMock(identifier, typeSyntax, modifiers: modifiers)
                 ),
                 semicolon: nil
         )
     }
     
-    static func makeFormattedZeroAssign(to identifier: String)  -> MemberDeclListItemSyntax {
+    static func makeFormattedZeroAssign(
+        to identifier: String,
+        modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
         .makeFormattedAssign(
             to: identifier,
-            from: .makeZeroKeyword()
+            from: .makeZeroKeyword(),
+            modifiers: modifiers
         )
     }
     
-    static func makeFormattedFalseAssign(to identifier: String)  -> MemberDeclListItemSyntax {
+    static func makeFormattedFalseAssign(to identifier: String, modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
         SyntaxFactory.makeMemberDeclListItem(
             decl: DeclSyntax(VariableDeclSyntax
                     .makeDeclWithAssign(
                         to: identifier,
-                        from: .makeFalseKeyword()
+                        from: .makeFalseKeyword(),
+                        modifiers: modifiers
                     ))
                 .withTrailingTrivia(.newlines(1)),
             semicolon: nil
         )
     }
     
-    static func makeFormattedAssign(to identifier: String, from expr: ExprSyntax)  -> MemberDeclListItemSyntax {
+    static func makeFormattedAssign(to identifier: String, from expr: ExprSyntax, modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
         SyntaxFactory.makeMemberDeclListItem(
             decl: DeclSyntax(VariableDeclSyntax
                     .makeDeclWithAssign(
                         to: identifier,
-                        from: expr
+                        from: expr,
+                        modifiers: modifiers
                     ))
                 .withTrailingTrivia(.newlines(1)),
             semicolon: nil
         )
     }
     
-    static func makeFormattedAssign(to identifier: String, typeAnnotation: TypeAnnotationSyntax)  -> MemberDeclListItemSyntax {
+    static func makeFormattedAssign(to identifier: String, typeAnnotation: TypeAnnotationSyntax, modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
         SyntaxFactory.makeMemberDeclListItem(
             decl: DeclSyntax(VariableDeclSyntax
                     .makeDeclWithAssign(
                         to: identifier,
-                        typeAnnotation: typeAnnotation
+                        typeAnnotation: typeAnnotation,
+                        modifiers: modifiers
                     ))
                 .withTrailingTrivia(.newlines(1)),
             semicolon: nil

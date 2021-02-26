@@ -36,7 +36,6 @@ extension TokenSyntax {
     static func makeFormattedVarKeyword() -> TokenSyntax {
         SyntaxFactory
             .makeVarKeyword()
-            .withLeadingTrivia(.indent)
             .withTrailingTrivia(.spaces(1))
     }
     

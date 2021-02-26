@@ -47,34 +47,55 @@ extension InitializerDeclSyntax {
 }
 
 extension InitializerDeclSyntax {
-    func generateMemberDeclItemsForMock(mockType: MockType) -> [MemberDeclListItemSyntax] {
+    func generateMemberDeclItemsForMock(
+        mockType: MockType,
+        modifiers: ModifierListSyntax?) -> [MemberDeclListItemSyntax] {
         switch mockType {
         case .spy:
             FunctionSignatureDuplication.shared.list[initKeyword.text]?.count += 1
-            return generateMemberDeclItemsFormSpy(counter: FunctionSignatureDuplication.shared.list[initKeyword.text])
+            return generateMemberDeclItemsFormSpy(
+                counter: FunctionSignatureDuplication
+                    .shared
+                    .list[initKeyword.text],
+                modifiers: modifiers)
         case .dummy, .stub:
             return generateMemberDeclItemsFormDummy()
         }
     }
     
-    func generateMemberDeclItemsFormSpy(counter: Counter?) -> [MemberDeclListItemSyntax] {
+    func generateMemberDeclItemsFormSpy(
+        counter: Counter?,
+        modifiers: ModifierListSyntax?) -> [MemberDeclListItemSyntax] {
         var memberDeclListItems = [MemberDeclListItemSyntax]()
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
-            memberDeclListItems.append(.makeFormattedFalseAssign(to: signatureAddedIdentifier(counter: counter).wasCalled(.spy)))
+            memberDeclListItems.append(.makeFormattedFalseAssign(to: signatureAddedIdentifier(counter: counter).wasCalled(.spy), modifiers: modifiers))
         }
         if !Settings.shared.spySettings.getCapture(capture: .callCount) {
-            memberDeclListItems.append(.makeFormattedZeroAssign(to: signatureAddedIdentifier(counter: counter).callCount(.spy)))
+            memberDeclListItems.append(
+                .makeFormattedZeroAssign(
+                    to: signatureAddedIdentifier(
+                        counter: counter
+                    )
+                    .callCount(.spy),
+                    modifiers: modifiers
+                )
+            )
         }
         if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
             switch parameters.parameterList.mockParameter {
             case .none:
                 break
             case .singleType:
-                if let memberDeclListItem = makeSingleTypeArgsValForMock(counter: counter) {
+                if let memberDeclListItem = makeSingleTypeArgsValForMock(
+                    counter: counter,
+                    modifiers: modifiers) {
                     memberDeclListItems.append(memberDeclListItem)
                 }
             case .tuple:
-                memberDeclListItems.append(makeTupleArgsValForMock(counter: counter))
+                memberDeclListItems.append(makeTupleArgsValForMock(
+                                            counter: counter,
+                                            modifiers: modifiers)
+                )
             }
         }
         
@@ -99,7 +120,7 @@ extension InitializerDeclSyntax {
         return _initKeyword
     }
     
-    func makeSingleTypeArgsValForMock(counter: Counter?) -> MemberDeclListItemSyntax? {
+    func makeSingleTypeArgsValForMock(counter: Counter?, modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax? {
         guard let type = parameters.parameterList.first?
                 .type else { return nil }
         
@@ -108,14 +129,16 @@ extension InitializerDeclSyntax {
             type.removingAttributes
                 .unwrapped
                 .tparenthesizedIfNeeded
-                .withTrailingTrivia(.zero)
+                .withTrailingTrivia(.zero),
+            modifiers: modifiers
         )
     }
     
-    func makeTupleArgsValForMock(counter: Counter?) -> MemberDeclListItemSyntax {
+    func makeTupleArgsValForMock(counter: Counter?, modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax {
         .makeArgsValForMock(
             signatureAddedIdentifier(counter: counter).args(.spy),
-            TypeSyntax(TupleTypeSyntax.make(with: parameters.parameterList.makeTupleForMemberDecl()))
+            TypeSyntax(TupleTypeSyntax.make(with: parameters.parameterList.makeTupleForMemberDecl())),
+            modifiers: modifiers
         )
     }
     

@@ -170,7 +170,8 @@ extension VariableDeclSyntax {
         let mockProperties = accessorBlock.makeMockPropertyForAccessors(
             for: mockType,
             identifier: identifier,
-            binding: binding
+            binding: binding,
+            modifiers: modifiers
         )
         
         let accessors = mockProperties?.map { $0.accessor }
@@ -190,9 +191,10 @@ extension VariableDeclSyntax {
         
         let variable = SyntaxFactory.makeVariableDecl(
             attributes: nil,
-            modifiers: nil,
+            modifiers: modifiers,
             letOrVarKeyword: .makeFormattedVarKeyword(),
             bindings: patternList)
+            .withLeadingTrivia(.indent)
         let declListItem = SyntaxFactory.makeMemberDeclListItem(
             decl: DeclSyntax(variable),
             semicolon: nil
@@ -200,19 +202,20 @@ extension VariableDeclSyntax {
         return propDeclListItems + [declListItem]
     }
     
-    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> VariableDeclSyntax {
+    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?) -> VariableDeclSyntax {
         SyntaxFactory.makeVariableDecl(
             attributes: nil,
-            modifiers: nil,
+            modifiers: modifiers,
             letOrVarKeyword: .makeFormattedVarKeyword(),
             bindings: .makeReturnedValForMock(identifier, typeSyntax)
         ).withTrailingTrivia(.newlines(1))
+        .withLeadingTrivia(.indent)
     }
     
-    static func makeDeclWithAssign(to identifier: String, from expr: ExprSyntax) -> VariableDeclSyntax {
+    static func makeDeclWithAssign(to identifier: String, from expr: ExprSyntax, modifiers: ModifierListSyntax?) -> VariableDeclSyntax {
         SyntaxFactory.makeVariableDecl(
             attributes: nil,
-            modifiers: nil,
+            modifiers: modifiers,
             letOrVarKeyword: .makeFormattedVarKeyword(),
             bindings: SyntaxFactory
                 .makePatternBindingList([
@@ -220,14 +223,17 @@ extension VariableDeclSyntax {
                                 from: expr
                     )
                 ]))
+            
+            .withLeadingTrivia(.indent)
     }
     
     static func makeDeclWithAssign(to identifier: String,
-                                   typeAnnotation: TypeAnnotationSyntax) -> VariableDeclSyntax {
+                                   typeAnnotation: TypeAnnotationSyntax,
+                                   modifiers: ModifierListSyntax?) -> VariableDeclSyntax {
         
         SyntaxFactory.makeVariableDecl(
             attributes: nil,
-            modifiers: nil,
+            modifiers: modifiers,
             letOrVarKeyword: .makeFormattedVarKeyword(),
             bindings: SyntaxFactory
                 .makePatternBindingList([
@@ -235,5 +241,7 @@ extension VariableDeclSyntax {
                                 typeAnnotation: typeAnnotation
                     )
                 ]))
+            
+            .withLeadingTrivia(.indent)
     }
 }
