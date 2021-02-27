@@ -12,6 +12,13 @@ import SwiftSyntax
 extension SimpleTypeIdentifierSyntax {
     func tryToConvertToLiteralExpr() -> ExprSyntax? {
         switch name.text {
+        case "Bool":
+            return ExprSyntax(SyntaxFactory
+                    .makeBooleanLiteralExpr(
+                        booleanLiteral: SyntaxFactory
+                            .makeFalseKeyword()
+                    )
+            )
         case "String":
             return ExprSyntax(SyntaxFactory
                 .makeStringLiteralExpr(""))
