@@ -35,10 +35,10 @@ class ProtocolExtractorTests: XCTestCase {
             """),
             """
             protocol ViewControllerProtocol {
-            func viewDidLoad()
+                func viewDidLoad()
                 func buttonDidClick(_ sender: NSButton)
                 var label: NSTextField! { get set }
-            var representedObject: Any? { get set }
+                var representedObject: Any? { get set }
             }
             """
         )
@@ -103,7 +103,7 @@ class ProtocolExtractorTests: XCTestCase {
             """),
             """
             protocol PropClass1Protocol {
-            var prop1: String? { get set }
+                var prop1: String? { get set }
                 var prop2 : String { get }
                 var prop3: Int { get set }
                 var prop4: Double { get }
