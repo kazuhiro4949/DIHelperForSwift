@@ -15,7 +15,7 @@ extension CodeBlockSyntax {
         SyntaxFactory.makeCodeBlock(
             leftBrace: SyntaxFactory.makeLeftBraceToken(
                 leadingTrivia: .spaces(1),
-                trailingTrivia: [.spaces(1), .newlines(1)]
+                trailingTrivia: [.newlines(1)]
             ),
             statements: SyntaxFactory
                 .makeCodeBlockItemList(codeBlockItems),

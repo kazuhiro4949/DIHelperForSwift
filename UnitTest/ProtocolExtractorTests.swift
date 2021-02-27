@@ -183,26 +183,13 @@ class ProtocolExtractorTests: XCTestCase {
 }
 
 extension ProtocolExtractor {
-    static func expect(_ txt: String) throws -> String {
+    static func expect(_ txt: String) throws -> String? {
         let sourceFile = try SyntaxParser.parse(source: txt)
         let extractor = ProtocolExtractor()
         extractor.walk(sourceFile)
         return extractor
             .protocolDeclSyntaxList
-            .first!
-            .protocolDeclSyntax.description
-    }
-}
-
-extension ProtocolExtractor {
-    static func expect(for resource: String) throws -> String {
-        let sourceFile = try SyntaxParser
-            .parse(forResource: resource)
-        let extractor = ProtocolExtractor()
-        extractor.walk(sourceFile)
-        return extractor
-            .protocolDeclSyntaxList
-            .first!
+            .first?
             .protocolDeclSyntax.description
     }
 }
