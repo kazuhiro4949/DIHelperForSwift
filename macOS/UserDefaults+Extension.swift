@@ -9,7 +9,14 @@
 import Foundation
 
 extension UserDefaults {
-    static var group = UserDefaults(
-        suiteName: "R33Y42SDDR.kazuhiro.hayashi.DependencyInjectionHelperForXcode"
-    )!
+    static var group: UserDefaults {
+        if ProcessInfo.processInfo.environment["UNIT_TEST"] == "YES" {
+            return UserDefaults.standard
+        } else {
+            return UserDefaults(
+            suiteName: "R33Y42SDDR.kazuhiro.hayashi.DependencyInjectionHelperForXcode"
+            )!
+        }
+    }
+
 }
