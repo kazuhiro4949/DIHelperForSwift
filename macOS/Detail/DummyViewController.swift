@@ -75,14 +75,6 @@ class DummyViewController: NSViewController {
         Settings.shared.dummySettings.nameFormat = value
         updateConvertedText(sampleSourceTextView.text)
     }
-    
-    @IBAction func helpButtonDidClick(_ sender: Any) {
-        let vc = storyboard?.instantiateController(
-            withIdentifier: NSStoryboard.SceneIdentifier("OnboardingViewController")
-        ) as! OnboardingViewController
-        vc.delegate = self
-        self.presentAsSheet(vc)
-    }
 }
 
 extension DummyViewController: SyntaxTextViewDelegate {
@@ -94,11 +86,5 @@ extension DummyViewController: SyntaxTextViewDelegate {
         if syntaxTextView == sampleSourceTextView {
            updateConvertedText(sampleSourceTextView.text)
         }
-    }
-}
-
-extension DummyViewController: OnboardingViewControllerDelegate {
-    func onboardingViewControllerCloseButtonDidTap(_ vc: OnboardingViewController) {
-        dismiss(vc)
     }
 }

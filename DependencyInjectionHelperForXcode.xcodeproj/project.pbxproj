@@ -57,6 +57,7 @@
 		3014C66D25EA0870000B08B3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31E25BD3CF700B6038C /* Settings.swift */; };
 		3014C67025EA0875000B08B3 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */; };
 		3014C67425EA0B22000B08B3 /* MockGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3014C67325EA0B22000B08B3 /* MockGeneratorTests.swift */; };
+		3014C67825EA2AB8000B08B3 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3014C67725EA2AB8000B08B3 /* WindowController.swift */; };
 		3024212725CFC8EF00C0E53F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212625CFC8EF00C0E53F /* String+Extension.swift */; };
 		3024212B25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212A25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift */; };
 		3024212F25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212E25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift */; };
@@ -255,6 +256,7 @@
 		3014C63325EA07F9000B08B3 /* ProtocolExtractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolExtractorTests.swift; sourceTree = "<group>"; };
 		3014C66425EA0843000B08B3 /* BundleToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleToken.swift; sourceTree = "<group>"; };
 		3014C67325EA0B22000B08B3 /* MockGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGeneratorTests.swift; sourceTree = "<group>"; };
+		3014C67725EA2AB8000B08B3 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		3024212625CFC8EF00C0E53F /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		3024212A25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProtocolDeclSyntax+Extension.swift"; sourceTree = "<group>"; };
 		3024212E25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeBlockSyntax+Extensioin.swift"; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				30B8A41F25BC278600F643CD /* Menu */,
 				303223F525AAFC41002BB110 /* AppDelegate.swift */,
 				303223F725AAFC41002BB110 /* ViewController.swift */,
+				3014C67725EA2AB8000B08B3 /* WindowController.swift */,
 				303223F925AAFC42002BB110 /* Assets.xcassets */,
 				303223FB25AAFC42002BB110 /* Main.storyboard */,
 				303223FE25AAFC42002BB110 /* Info.plist */,
@@ -794,6 +797,7 @@
 				3044B13625E1343A00EC7A16 /* CodeBlockSyntax+Extensioin.swift in Sources */,
 				3044B11825E1341F00EC7A16 /* Either.swift in Sources */,
 				3044B13225E1343A00EC7A16 /* FunctionDeclSyntax.swift in Sources */,
+				3014C67825EA2AB8000B08B3 /* WindowController.swift in Sources */,
 				30559DB225E3BEFC003F5A2A /* OnboardingExt1ViewController.swift in Sources */,
 				3044B12A25E1343A00EC7A16 /* IdentifierExprSyntax+Extension.swift in Sources */,
 				3044B11925E1341F00EC7A16 /* MockType.swift in Sources */,

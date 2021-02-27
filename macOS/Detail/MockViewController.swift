@@ -192,14 +192,6 @@ class MockViewController: NSViewController {
         )
         updateConvertedText(sampleSourceTextView.text)
     }
-    
-    @IBAction func helpButtonDidClick(_ sender: Any) {
-        let vc = storyboard?.instantiateController(
-            withIdentifier: NSStoryboard.SceneIdentifier("OnboardingViewController")
-        ) as! OnboardingViewController
-        vc.delegate = self
-        self.presentAsSheet(vc)
-    }
 }
 
 
@@ -215,8 +207,3 @@ extension MockViewController: SyntaxTextViewDelegate {
     }
 }
 
-extension MockViewController: OnboardingViewControllerDelegate {
-    func onboardingViewControllerCloseButtonDidTap(_ vc: OnboardingViewController) {
-        dismiss(vc)
-    }
-}
