@@ -139,7 +139,6 @@
 		30B8A42B25BC2B8500F643CD /* MenuTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B8A42A25BC2B8500F643CD /* MenuTableCellView.swift */; };
 		30E035DF25BC303B000D49EE /* ProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E035DE25BC303B000D49EE /* ProtocolViewController.swift */; };
 		30E035E525BC3059000D49EE /* MockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E035E425BC3059000D49EE /* MockViewController.swift */; };
-		30E035E925BC310A000D49EE /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E035E825BC310A000D49EE /* SplitViewController.swift */; };
 		30E035ED25BC31A4000D49EE /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E035EC25BC31A4000D49EE /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -288,7 +287,6 @@
 		30B8A42A25BC2B8500F643CD /* MenuTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableCellView.swift; sourceTree = "<group>"; };
 		30E035DE25BC303B000D49EE /* ProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolViewController.swift; sourceTree = "<group>"; };
 		30E035E425BC3059000D49EE /* MockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockViewController.swift; sourceTree = "<group>"; };
-		30E035E825BC310A000D49EE /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		30E035EC25BC31A4000D49EE /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -391,7 +389,6 @@
 				30B8A41F25BC278600F643CD /* Menu */,
 				303223F525AAFC41002BB110 /* AppDelegate.swift */,
 				303223F725AAFC41002BB110 /* ViewController.swift */,
-				30E035E825BC310A000D49EE /* SplitViewController.swift */,
 				303223F925AAFC42002BB110 /* Assets.xcassets */,
 				303223FB25AAFC42002BB110 /* Main.storyboard */,
 				303223FE25AAFC42002BB110 /* Info.plist */,
@@ -737,7 +734,6 @@
 				3044B13525E1343A00EC7A16 /* ArrayExprSyntax+Extension.swift in Sources */,
 				30559D9125E380A4003F5A2A /* OnboardingViewController.swift in Sources */,
 				30E035E525BC3059000D49EE /* MockViewController.swift in Sources */,
-				30E035E925BC310A000D49EE /* SplitViewController.swift in Sources */,
 				3044B11A25E1341F00EC7A16 /* ProtocolNameHandler.swift in Sources */,
 				303223F825AAFC41002BB110 /* ViewController.swift in Sources */,
 				3044B13C25E1343A00EC7A16 /* ProtocolDeclSyntax+Extension.swift in Sources */,
