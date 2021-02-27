@@ -240,7 +240,7 @@
 		302421BA25D4F8FF00C0E53F /* GenerateDummyCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateDummyCommand.swift; sourceTree = "<group>"; };
 		3024220F25D911E800C0E53F /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		3024221925D931E800C0E53F /* GenerateStubCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateStubCommand.swift; sourceTree = "<group>"; };
-		303223F225AAFC41002BB110 /* DI Helper for Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DI Helper for Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		303223F225AAFC41002BB110 /* DependencyInjectionHelperForXcode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DependencyInjectionHelperForXcode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		303223F525AAFC41002BB110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		303223F725AAFC41002BB110 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		303223F925AAFC42002BB110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -361,8 +361,8 @@
 			isa = PBXGroup;
 			children = (
 				303223F425AAFC41002BB110 /* macOS */,
-				3032240725AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests */,
-				3032241225AAFC43002BB110 /* DependencyInjectionHelperForXcodeUITests */,
+				3032240725AAFC43002BB110 /* UnitTest */,
+				3032241225AAFC43002BB110 /* UITest */,
 				3032242E25AAFCEB002BB110 /* Xcode Extension */,
 				3044B16B25E2842100EC7A16 /* Converter */,
 				3032242925AAFCEB002BB110 /* Frameworks */,
@@ -373,7 +373,7 @@
 		303223F325AAFC41002BB110 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				303223F225AAFC41002BB110 /* DI Helper for Swift.app */,
+				303223F225AAFC41002BB110 /* DependencyInjectionHelperForXcode.app */,
 				3032240425AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests.xctest */,
 				3032240F25AAFC43002BB110 /* DependencyInjectionHelperForXcodeUITests.xctest */,
 				3032242825AAFCEB002BB110 /* DI Helper for Xcode.appex */,
@@ -402,22 +402,22 @@
 			path = macOS;
 			sourceTree = "<group>";
 		};
-		3032240725AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests */ = {
+		3032240725AAFC43002BB110 /* UnitTest */ = {
 			isa = PBXGroup;
 			children = (
 				3032240825AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests.swift */,
 				3032240A25AAFC43002BB110 /* Info.plist */,
 			);
-			path = DependencyInjectionHelperForXcodeTests;
+			path = UnitTest;
 			sourceTree = "<group>";
 		};
-		3032241225AAFC43002BB110 /* DependencyInjectionHelperForXcodeUITests */ = {
+		3032241225AAFC43002BB110 /* UITest */ = {
 			isa = PBXGroup;
 			children = (
 				3032241325AAFC43002BB110 /* DependencyInjectionHelperForXcodeUITests.swift */,
 				3032241525AAFC43002BB110 /* Info.plist */,
 			);
-			path = DependencyInjectionHelperForXcodeUITests;
+			path = UITest;
 			sourceTree = "<group>";
 		};
 		3032242925AAFCEB002BB110 /* Frameworks */ = {
@@ -582,7 +582,7 @@
 				3044B16725E2486400EC7A16 /* Sourceful */,
 			);
 			productName = DependencyInjectionHelperForXcode;
-			productReference = 303223F225AAFC41002BB110 /* DI Helper for Swift.app */;
+			productReference = 303223F225AAFC41002BB110 /* DependencyInjectionHelperForXcode.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3032240325AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests */ = {
@@ -1034,7 +1034,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
@@ -1042,9 +1042,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = kazuhiro.hayashi.DependencyInjectionHelperForXcode;
-				PRODUCT_NAME = "DI Helper for Swift";
+				PRODUCT_NAME = DependencyInjectionHelperForXcode;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1060,7 +1060,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
@@ -1068,9 +1068,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = kazuhiro.hayashi.DependencyInjectionHelperForXcode;
-				PRODUCT_NAME = "DI Helper for Swift";
+				PRODUCT_NAME = DependencyInjectionHelperForXcode;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1081,10 +1081,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
-				INFOPLIST_FILE = DependencyInjectionHelperForXcodeTests/Info.plist;
+				INFOPLIST_FILE = UnitTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1093,6 +1094,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				PRODUCT_BUNDLE_IDENTIFIER = kazuhiro.hayashi.DependencyInjectionHelperForXcodeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DependencyInjectionHelperForXcode.app/Contents/MacOS/DependencyInjectionHelperForXcode";
 			};
@@ -1103,10 +1105,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
-				INFOPLIST_FILE = DependencyInjectionHelperForXcodeTests/Info.plist;
+				INFOPLIST_FILE = UnitTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1115,6 +1118,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				PRODUCT_BUNDLE_IDENTIFIER = kazuhiro.hayashi.DependencyInjectionHelperForXcodeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DependencyInjectionHelperForXcode.app/Contents/MacOS/DependencyInjectionHelperForXcode";
 			};
@@ -1127,7 +1131,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
-				INFOPLIST_FILE = DependencyInjectionHelperForXcodeUITests/Info.plist;
+				INFOPLIST_FILE = UITest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1147,7 +1151,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
-				INFOPLIST_FILE = DependencyInjectionHelperForXcodeUITests/Info.plist;
+				INFOPLIST_FILE = UITest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
