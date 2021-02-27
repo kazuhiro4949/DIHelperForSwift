@@ -10,10 +10,16 @@ import Foundation
 import SwiftSyntax
 
 extension ModifierListSyntax {
-    var protocolEnabled: ModifierListSyntax {
+    var protocolEnabled: ModifierListSyntax? {
         let protocolEnabledModifiers = filter({ (declModifier) in
             declModifier.name.text == "static"
         })
-        return SyntaxFactory.makeModifierList(protocolEnabledModifiers)
+        
+        if protocolEnabledModifiers.isEmpty {
+            return nil
+        } else {
+            return SyntaxFactory.makeModifierList(protocolEnabledModifiers)
+        }
+        
     }
 }
