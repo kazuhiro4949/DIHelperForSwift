@@ -15,13 +15,20 @@ class DummyViewController: NSViewController {
     @IBOutlet weak var sampleSourceTextView: SyntaxTextView!
     @IBOutlet weak var convertedSourceTextView: SyntaxTextView!
     @IBOutlet weak var documentationTextField: NSTextField!
-    
+    @IBOutlet weak var shareToolbarButton: NSButton!
+    @IBOutlet weak var copyButton: NSButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTextView()
         sampleSourceTextView.text = SampleParsedSource.protocolSample
         updateConvertedText(sampleSourceTextView.text)
         
+        shareToolbarButton.bezelStyle = .recessed
+        shareToolbarButton.showsBorderOnlyWhileMouseInside = true
+        
+        copyButton.bezelStyle = .recessed
+        copyButton.showsBorderOnlyWhileMouseInside = true
         
         nameTextField.stringValue = Settings
             .shared
@@ -74,6 +81,19 @@ class DummyViewController: NSViewController {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.dummySettings.nameFormat = value
         updateConvertedText(sampleSourceTextView.text)
+    }
+    
+    @IBAction func shareButtonDidTap(_ sender: NSButton) {
+        let picker = NSSharingServicePicker(items: [convertedSourceTextView.text])
+        picker.show(relativeTo: shareToolbarButton.bounds, of: shareToolbarButton, preferredEdge: .minY)
+    }
+    
+    @IBAction func copyDidClick(_ sender: NSButton) {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(
+            convertedSourceTextView.text,
+            forType: .string
+        )
     }
 }
 

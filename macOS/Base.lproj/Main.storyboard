@@ -351,26 +351,11 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="3F6C7F5F-8C2A-4EE5-8EE7-4279555F7CCD" label="Share" paletteLabel="Share" image="NSShareTemplate" sizingBehavior="auto" id="ioD-fx-0kw">
-                                    <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="ZIV-h9-fyV">
-                                        <rect key="frame" x="0.0" y="14" width="73" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSShareTemplate" imagePosition="only" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="paA-wn-yOI">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="shareButtonDidTap:" target="B8D-0N-5wS" id="BKd-NM-J8z"/>
-                                        </connections>
-                                    </button>
-                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Teg-5g-AcQ"/>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="f55-S9-6iy"/>
                                 <toolbarItem reference="NYx-j6-LSZ"/>
-                                <toolbarItem reference="ioD-fx-0kw"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
@@ -379,7 +364,6 @@
                     </window>
                     <connections>
                         <outlet property="helpToolbarButton" destination="ofT-cS-MGf" id="ERa-CF-Bxp"/>
-                        <outlet property="shareToolbarButton" destination="ZIV-h9-fyV" id="cf8-pk-cqy"/>
                         <outlet property="toolbar" destination="ofT-cS-MGf" id="jPI-IL-qoa"/>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="5Dm-WT-7Rn"/>
                     </connections>
@@ -978,16 +962,43 @@ This app automates them with Xcode Source Extension.</string>
                                 <rect key="frame" x="20" y="20" width="1108" height="469"/>
                                 <subviews>
                                     <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ax3-Vo-QSj">
-                                        <rect key="frame" x="0.0" y="77" width="387" height="392"/>
+                                        <rect key="frame" x="0.0" y="76" width="387" height="393"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fbs-Nb-t3k">
-                                                <rect key="frame" x="-2" y="361" width="97" height="31"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Protocol" id="yYy-na-5aG">
-                                                    <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
+                                            <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MgE-0y-EFF">
+                                                <rect key="frame" x="0.0" y="361" width="387" height="32"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fbs-Nb-t3k">
+                                                        <rect key="frame" x="-2" y="1" width="359" height="31"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Protocol" id="yYy-na-5aG">
+                                                            <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AFX-FQ-7bV">
+                                                        <rect key="frame" x="349" y="-6" width="44" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="32" id="9UY-s1-zwR"/>
+                                                            <constraint firstAttribute="width" constant="32" id="g6D-8r-RZl"/>
+                                                        </constraints>
+                                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSShareTemplate" imagePosition="only" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fOs-sI-6D2">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="shareButtonDidTap:" target="asd-Ik-LFz" id="nmx-p0-bf1"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="MpR-se-Dt0">
                                                 <rect key="frame" x="0.0" y="353" width="163" height="8"/>
                                                 <constraints>
@@ -1227,6 +1238,10 @@ Test doubles for Unit Test are made from Protocol.</string>
                                                 </customSpacing>
                                             </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="MgE-0y-EFF" secondAttribute="trailing" id="CXd-sm-5dL"/>
+                                            <constraint firstItem="MgE-0y-EFF" firstAttribute="leading" secondItem="ax3-Vo-QSj" secondAttribute="leading" id="w7F-Nc-spz"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -1262,19 +1277,30 @@ Test doubles for Unit Test are made from Protocol.</string>
                                         <rect key="frame" x="401" y="0.0" width="5" height="469"/>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gDo-ew-8UX">
-                                        <rect key="frame" x="420" y="350" width="688" height="119"/>
+                                        <rect key="frame" x="420" y="349" width="688" height="120"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yf7-kq-eGe">
-                                                <rect key="frame" x="0.0" y="0.0" width="342" height="119"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="342" height="120"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kA9-OY-JIE">
-                                                        <rect key="frame" x="-2" y="104" width="41" height="15"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="INPUT" id="zd4-Z2-ZPT">
-                                                            <font key="font" textStyle="callout" name=".SFNS-Regular"/>
-                                                            <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bwf-jz-HYT">
+                                                        <rect key="frame" x="0.0" y="104" width="37" height="16"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kA9-OY-JIE">
+                                                                <rect key="frame" x="-2" y="1" width="41" height="15"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="INPUT" id="zd4-Z2-ZPT">
+                                                                    <font key="font" textStyle="callout" name=".SFNS-Regular"/>
+                                                                    <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="t8F-vJ-Vtu" customClass="SyntaxTextView" customModule="Sourceful">
                                                         <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
                                                     </customView>
@@ -1289,20 +1315,51 @@ Test doubles for Unit Test are made from Protocol.</string>
                                                 </customSpacing>
                                             </stackView>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FQ2-hu-xoo">
-                                                <rect key="frame" x="346" y="0.0" width="342" height="119"/>
+                                                <rect key="frame" x="346" y="0.0" width="342" height="120"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yGE-ej-ooi">
-                                                        <rect key="frame" x="-2" y="104" width="54" height="15"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="OUTPUT" id="8bS-vq-ZEh">
-                                                            <font key="font" textStyle="callout" name=".SFNS-Regular"/>
-                                                            <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="bottom" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eOu-9q-LTd">
+                                                        <rect key="frame" x="0.0" y="104" width="342" height="16"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yGE-ej-ooi">
+                                                                <rect key="frame" x="-2" y="0.0" width="302" height="15"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="OUTPUT" id="8bS-vq-ZEh">
+                                                                    <font key="font" textStyle="callout" name=".SFNS-Regular"/>
+                                                                    <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AmE-Ce-C4L">
+                                                                <rect key="frame" x="298" y="0.0" width="44" height="16"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="44" id="zvJ-AA-ivM"/>
+                                                                </constraints>
+                                                                <buttonCell key="cell" type="bevel" title="copy" bezelStyle="regularSquare" alignment="right" imageScaling="proportionallyDown" inset="2" id="dlr-ck-V99">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                                <connections>
+                                                                    <action selector="copyDidClick:" target="asd-Ik-LFz" id="0tS-9z-g4Y"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="MxY-uO-U9A" customClass="SyntaxTextView" customModule="Sourceful">
                                                         <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
                                                     </customView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="eOu-9q-LTd" secondAttribute="trailing" id="7pk-OS-Ifa"/>
+                                                    <constraint firstItem="eOu-9q-LTd" firstAttribute="leading" secondItem="FQ2-hu-xoo" secondAttribute="leading" id="QRt-dQ-Ka4"/>
+                                                </constraints>
                                                 <visibilityPriorities>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
@@ -1349,6 +1406,7 @@ Test doubles for Unit Test are made from Protocol.</string>
                     <connections>
                         <outlet property="computedGetterSetterPropertyButton" destination="aIk-lV-5pv" id="Rjh-AG-Quu"/>
                         <outlet property="convertedSourceTextView" destination="MxY-uO-U9A" id="ypN-nX-6Fq"/>
+                        <outlet property="copyButton" destination="AmE-Ce-C4L" id="CNh-Vq-shi"/>
                         <outlet property="documentationTextField" destination="Etf-uY-mzd" id="CWD-HO-UeS"/>
                         <outlet property="functionIgnoranceButton" destination="o06-wa-XcN" id="PrJ-aa-b21"/>
                         <outlet property="initializerIgnoranceButton" destination="298-4g-dwV" id="r7W-tE-jcQ"/>
@@ -1356,6 +1414,7 @@ Test doubles for Unit Test are made from Protocol.</string>
                         <outlet property="nameTextField" destination="nqM-ta-ude" id="cfm-uA-g5y"/>
                         <outlet property="overrideMemberIgnoranceButton" destination="hWI-wM-Rcn" id="i2X-Ww-o9P"/>
                         <outlet property="sampleSourceTextView" destination="t8F-vJ-Vtu" id="GvU-4i-dI5"/>
+                        <outlet property="shareToolbarButton" destination="AFX-FQ-7bV" id="JWh-gV-Kyr"/>
                         <outlet property="storedPropertyIgnoranceButton" destination="weD-oJ-5yM" id="R6G-A3-91G"/>
                     </connections>
                 </viewController>
@@ -1383,22 +1442,49 @@ Test doubles for Unit Test are made from Protocol.</string>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWV-Q7-dlu">
                                                     <rect key="frame" x="0.0" y="0.0" width="347" height="601"/>
                                                     <subviews>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Ef-jV-OOJ">
-                                                            <rect key="frame" x="-2" y="570" width="47" height="31"/>
-                                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Spy" id="UBT-jH-SdU">
-                                                                <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
-                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
+                                                        <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yhS-qM-ukd">
+                                                            <rect key="frame" x="0.0" y="519" width="347" height="82"/>
+                                                            <subviews>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Ef-jV-OOJ">
+                                                                    <rect key="frame" x="-2" y="26" width="319" height="31"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Spy" id="UBT-jH-SdU">
+                                                                        <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
+                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CBj-L4-YPO">
+                                                                    <rect key="frame" x="309" y="19" width="44" height="44"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="32" id="R2Q-nQ-UbQ"/>
+                                                                        <constraint firstAttribute="width" constant="32" id="UVI-hc-oTz"/>
+                                                                    </constraints>
+                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSShareTemplate" imagePosition="only" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="egZ-kb-ZeS">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="shareButtonDidTap:" target="Ewn-fR-1gh" id="RcL-7z-kdz"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="HzF-Sy-gOU">
-                                                            <rect key="frame" x="0.0" y="562" width="163" height="8"/>
+                                                            <rect key="frame" x="0.0" y="511" width="163" height="8"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="8" id="IS2-lS-d5k"/>
                                                             </constraints>
                                                         </customView>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-oV-2e9">
-                                                            <rect key="frame" x="-2" y="534" width="157" height="28"/>
+                                                            <rect key="frame" x="-2" y="483" width="157" height="28"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" id="hiq-mT-MRC">
                                                                 <font key="font" textStyle="subheadline" name=".SFNS-Regular"/>
                                                                 <string key="title">is generated from a protocol.
@@ -1408,13 +1494,13 @@ It memorizes method calls.</string>
                                                             </textFieldCell>
                                                         </textField>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fk1-TL-i9U">
-                                                            <rect key="frame" x="0.0" y="490" width="163" height="44"/>
+                                                            <rect key="frame" x="0.0" y="439" width="163" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="NTu-TW-Ynl"/>
                                                             </constraints>
                                                         </customView>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QAW-Ax-3Gd">
-                                                            <rect key="frame" x="-2" y="469" width="108" height="21"/>
+                                                            <rect key="frame" x="-2" y="418" width="108" height="21"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Name Format" id="kbR-dc-Pow">
                                                                 <font key="font" textStyle="title2" name=".SFNS-Regular"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1422,16 +1508,16 @@ It memorizes method calls.</string>
                                                             </textFieldCell>
                                                         </textField>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="klr-Sj-ALO">
-                                                            <rect key="frame" x="0.0" y="461" width="163" height="8"/>
+                                                            <rect key="frame" x="0.0" y="410" width="163" height="8"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="8" id="Llv-2A-6e5"/>
                                                             </constraints>
                                                         </customView>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JfX-kY-kBq">
-                                                            <rect key="frame" x="0.0" y="389" width="338" height="72"/>
+                                                            <rect key="frame" x="0.0" y="389" width="338" height="21"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iat-qB-4bL">
-                                                                    <rect key="frame" x="-2" y="56" width="134" height="16"/>
+                                                                    <rect key="frame" x="-2" y="5" width="134" height="16"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="130" id="KXZ-62-rvv"/>
                                                                     </constraints>
@@ -1442,7 +1528,7 @@ It memorizes method calls.</string>
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dQm-2K-dHC">
-                                                                    <rect key="frame" x="138" y="51" width="200" height="21"/>
+                                                                    <rect key="frame" x="138" y="0.0" width="200" height="21"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="200" id="skv-LS-9Ao"/>
                                                                     </constraints>
@@ -1850,6 +1936,10 @@ It memorizes method calls.</string>
                                                             </constraints>
                                                         </customView>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="yhS-qM-ukd" secondAttribute="trailing" id="3ik-Dr-oZ5"/>
+                                                        <constraint firstItem="yhS-qM-ukd" firstAttribute="leading" secondItem="BWV-Q7-dlu" secondAttribute="leading" id="xyw-YX-qtb"/>
+                                                    </constraints>
                                                     <visibilityPriorities>
                                                         <integer value="1000"/>
                                                         <integer value="1000"/>
@@ -1925,10 +2015,10 @@ It memorizes method calls.</string>
                                         <rect key="frame" x="361" y="161" width="5" height="469"/>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="2" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vSQ-eY-Rni">
-                                        <rect key="frame" x="380" y="511" width="708" height="119"/>
+                                        <rect key="frame" x="380" y="510" width="708" height="120"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yND-DS-g6y">
-                                                <rect key="frame" x="0.0" y="0.0" width="353" height="119"/>
+                                                <rect key="frame" x="0.0" y="1" width="353" height="119"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HO4-cl-QUk">
                                                         <rect key="frame" x="-2" y="104" width="41" height="15"/>
@@ -1952,20 +2042,51 @@ It memorizes method calls.</string>
                                                 </customSpacing>
                                             </stackView>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cGV-Pw-tu8">
-                                                <rect key="frame" x="355" y="0.0" width="353" height="119"/>
+                                                <rect key="frame" x="355" y="0.0" width="353" height="120"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EcZ-KD-qCT">
-                                                        <rect key="frame" x="-2" y="104" width="54" height="15"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="OUTPUT" id="pC0-Hd-ph0">
-                                                            <font key="font" textStyle="callout" name=".SFNS-Regular"/>
-                                                            <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LX1-Ab-gvD">
+                                                        <rect key="frame" x="0.0" y="104" width="353" height="16"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EcZ-KD-qCT">
+                                                                <rect key="frame" x="-2" y="1" width="313" height="15"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="OUTPUT" id="pC0-Hd-ph0">
+                                                                    <font key="font" textStyle="callout" name=".SFNS-Regular"/>
+                                                                    <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QWh-N4-qCu">
+                                                                <rect key="frame" x="309" y="0.0" width="44" height="16"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="44" id="zJs-dR-Ktm"/>
+                                                                </constraints>
+                                                                <buttonCell key="cell" type="bevel" title="copy" bezelStyle="regularSquare" alignment="right" imageScaling="proportionallyDown" inset="2" id="6wZ-yq-B3f">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                                <connections>
+                                                                    <action selector="copyDidClick:" target="asd-Ik-LFz" id="MJ5-9f-sj1"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="uav-zu-Wox" customClass="SyntaxTextView" customModule="Sourceful">
                                                         <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
                                                     </customView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="LX1-Ab-gvD" firstAttribute="leading" secondItem="cGV-Pw-tu8" secondAttribute="leading" id="pJf-Kr-Tso"/>
+                                                    <constraint firstAttribute="trailing" secondItem="LX1-Ab-gvD" secondAttribute="trailing" id="t4M-mI-RP0"/>
+                                                </constraints>
                                                 <visibilityPriorities>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
@@ -2011,6 +2132,7 @@ It memorizes method calls.</string>
                         <outlet property="callCountTextField" destination="Yrr-OI-g3S" id="Kub-tQ-hkD"/>
                         <outlet property="calledOrNotCaptureButton" destination="FB9-G9-gIN" id="f3l-Qv-PPj"/>
                         <outlet property="convertedSourceTextView" destination="uav-zu-Wox" id="z85-ja-Hup"/>
+                        <outlet property="copyButton" destination="QWh-N4-qCu" id="eg6-Op-JGl"/>
                         <outlet property="documentationTextField" destination="u7c-0S-87R" id="Uc2-rK-hQI"/>
                         <outlet property="functionTargetButton" destination="fda-iu-FEw" id="MCA-31-HTH"/>
                         <outlet property="initializerTargetButton" destination="k7Y-tC-zco" id="Z3N-4A-sAe"/>
@@ -2018,6 +2140,7 @@ It memorizes method calls.</string>
                         <outlet property="passedArgumentCaptureButton" destination="F2p-cL-wIa" id="VEp-Sc-ut9"/>
                         <outlet property="propertyTargetButton" destination="tf1-t6-o9Q" id="DFD-Ee-g6a"/>
                         <outlet property="sampleSourceTextView" destination="KnP-oH-4Ch" id="qD5-hM-j2E"/>
+                        <outlet property="shareToolbarButton" destination="CBj-L4-YPO" id="Uir-T3-ru2"/>
                         <outlet property="valTextField" destination="nXn-5d-bsM" id="Tjd-Td-b99"/>
                         <outlet property="wasCalledTextField" destination="1zV-VD-fYg" id="ewy-ux-KFY"/>
                     </connections>
@@ -2038,16 +2161,43 @@ It memorizes method calls.</string>
                                 <rect key="frame" x="20" y="20" width="873" height="504"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HvS-v6-ma4">
-                                        <rect key="frame" x="0.0" y="245" width="338" height="259"/>
+                                        <rect key="frame" x="0.0" y="244" width="338" height="260"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t0f-h1-ucb">
-                                                <rect key="frame" x="-2" y="228" width="92" height="31"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Dummy" id="SJW-6s-YR8">
-                                                    <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
+                                            <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EQD-Hc-0jy">
+                                                <rect key="frame" x="0.0" y="228" width="338" height="32"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t0f-h1-ucb">
+                                                        <rect key="frame" x="-2" y="1" width="310" height="31"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Dummy" id="SJW-6s-YR8">
+                                                            <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Be-Dp-vaw">
+                                                        <rect key="frame" x="300" y="-6" width="44" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="32" id="NKA-PE-HSr"/>
+                                                            <constraint firstAttribute="width" constant="32" id="UFP-o9-S5H"/>
+                                                        </constraints>
+                                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSShareTemplate" imagePosition="only" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HdK-mv-MMy">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="shareButtonDidTap:" target="Zlq-Cz-neO" id="gse-ev-blz"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="vO1-3y-T9M">
                                                 <rect key="frame" x="0.0" y="220" width="163" height="8"/>
                                                 <constraints>
@@ -2164,6 +2314,10 @@ It has no function and is only used as an alternative component.</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="163" height="50"/>
                                             </customView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="EQD-Hc-0jy" firstAttribute="leading" secondItem="HvS-v6-ma4" secondAttribute="leading" id="6jz-ym-Grh"/>
+                                            <constraint firstAttribute="trailing" secondItem="EQD-Hc-0jy" secondAttribute="trailing" id="Xos-kO-gRd"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -2193,10 +2347,10 @@ It has no function and is only used as an alternative component.</string>
                                         <rect key="frame" x="352" y="35" width="5" height="469"/>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="2" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5re-ag-vBt">
-                                        <rect key="frame" x="371" y="385" width="502" height="119"/>
+                                        <rect key="frame" x="371" y="384" width="502" height="120"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="shx-21-dEg">
-                                                <rect key="frame" x="0.0" y="0.0" width="250" height="119"/>
+                                                <rect key="frame" x="0.0" y="1" width="250" height="119"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aDG-4Y-6AB">
                                                         <rect key="frame" x="-2" y="104" width="41" height="15"/>
@@ -2220,20 +2374,51 @@ It has no function and is only used as an alternative component.</string>
                                                 </customSpacing>
                                             </stackView>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0To-Xc-M5r">
-                                                <rect key="frame" x="252" y="0.0" width="250" height="119"/>
+                                                <rect key="frame" x="252" y="0.0" width="250" height="120"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lHK-nZ-XnR">
-                                                        <rect key="frame" x="-2" y="104" width="54" height="15"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="OUTPUT" id="fsD-HC-xGA">
-                                                            <font key="font" textStyle="callout" name=".SFNS-Regular"/>
-                                                            <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="bottom" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7h-CX-J22">
+                                                        <rect key="frame" x="0.0" y="104" width="250" height="16"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lHK-nZ-XnR">
+                                                                <rect key="frame" x="-2" y="0.0" width="210" height="15"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="OUTPUT" id="fsD-HC-xGA">
+                                                                    <font key="font" textStyle="callout" name=".SFNS-Regular"/>
+                                                                    <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iHL-UB-WYf">
+                                                                <rect key="frame" x="206" y="0.0" width="44" height="16"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="44" id="AUH-vi-YZa"/>
+                                                                </constraints>
+                                                                <buttonCell key="cell" type="bevel" title="copy" bezelStyle="regularSquare" alignment="right" imageScaling="proportionallyDown" inset="2" id="ijJ-uP-Zf9">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                                <connections>
+                                                                    <action selector="copyDidClick:" target="Zlq-Cz-neO" id="8vx-hL-m2f"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="bqI-1k-jfq" customClass="SyntaxTextView" customModule="Sourceful">
                                                         <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
                                                     </customView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="R7h-CX-J22" secondAttribute="trailing" id="2yr-ev-ZfF"/>
+                                                    <constraint firstItem="R7h-CX-J22" firstAttribute="leading" secondItem="0To-Xc-M5r" secondAttribute="leading" id="MgE-dH-8kr"/>
+                                                </constraints>
                                                 <visibilityPriorities>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
@@ -2275,9 +2460,11 @@ It has no function and is only used as an alternative component.</string>
                     </view>
                     <connections>
                         <outlet property="convertedSourceTextView" destination="bqI-1k-jfq" id="tNW-d4-5JI"/>
+                        <outlet property="copyButton" destination="iHL-UB-WYf" id="sLN-nu-BKq"/>
                         <outlet property="documentationTextField" destination="X24-20-Kp5" id="9t6-8q-xch"/>
                         <outlet property="nameTextField" destination="8uk-rL-sd5" id="vLl-pC-EGj"/>
                         <outlet property="sampleSourceTextView" destination="ouF-HY-YBF" id="qEb-Km-43M"/>
+                        <outlet property="shareToolbarButton" destination="6Be-Dp-vaw" id="z3q-2L-5Ag"/>
                     </connections>
                 </viewController>
                 <customObject id="xGN-Gf-IM0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -2296,16 +2483,43 @@ It has no function and is only used as an alternative component.</string>
                                 <rect key="frame" x="20" y="20" width="944" height="476"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bw3-Jz-ycF">
-                                        <rect key="frame" x="0.0" y="188" width="338" height="288"/>
+                                        <rect key="frame" x="0.0" y="187" width="338" height="289"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nOo-cE-NHO">
-                                                <rect key="frame" x="-2" y="257" width="57" height="31"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Stub" id="cYh-oa-7vx">
-                                                    <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
+                                            <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kq7-7Y-iYr">
+                                                <rect key="frame" x="0.0" y="257" width="338" height="32"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nOo-cE-NHO">
+                                                        <rect key="frame" x="-2" y="1" width="310" height="31"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Stub" id="cYh-oa-7vx">
+                                                            <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HZY-Fc-SAj">
+                                                        <rect key="frame" x="300" y="-6" width="44" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="32" id="2MH-6R-N3n"/>
+                                                            <constraint firstAttribute="width" constant="32" id="a8l-Fy-mHP"/>
+                                                        </constraints>
+                                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSShareTemplate" imagePosition="only" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6Az-Ms-las">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="shareButtonDidTap:" target="92Z-g4-5xG" id="OZh-Np-QTZ"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="lKT-QL-33p">
                                                 <rect key="frame" x="0.0" y="249" width="163" height="8"/>
                                                 <constraints>
@@ -2466,6 +2680,10 @@ It can controls a return value to affect a test target.</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="163" height="50"/>
                                             </customView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Kq7-7Y-iYr" firstAttribute="leading" secondItem="Bw3-Jz-ycF" secondAttribute="leading" id="GoI-NO-yXR"/>
+                                            <constraint firstAttribute="trailing" secondItem="Kq7-7Y-iYr" secondAttribute="trailing" id="R3R-Ij-bVA"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -2499,10 +2717,10 @@ It can controls a return value to affect a test target.</string>
                                         <rect key="frame" x="352" y="7" width="5" height="469"/>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="2" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F2X-Js-AEz">
-                                        <rect key="frame" x="371" y="357" width="573" height="119"/>
+                                        <rect key="frame" x="371" y="356" width="573" height="120"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iy9-bE-E47">
-                                                <rect key="frame" x="0.0" y="0.0" width="286" height="119"/>
+                                                <rect key="frame" x="0.0" y="1" width="286" height="119"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tYk-hw-WlZ">
                                                         <rect key="frame" x="-2" y="104" width="41" height="15"/>
@@ -2526,20 +2744,51 @@ It can controls a return value to affect a test target.</string>
                                                 </customSpacing>
                                             </stackView>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SkG-Bv-8hC">
-                                                <rect key="frame" x="288" y="0.0" width="285" height="119"/>
+                                                <rect key="frame" x="288" y="0.0" width="285" height="120"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yi6-tY-Iu8">
-                                                        <rect key="frame" x="-2" y="104" width="54" height="15"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="OUTPUT" id="zcb-oi-GGg">
-                                                            <font key="font" textStyle="callout" name=".SFNS-Regular"/>
-                                                            <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZ7-ff-sE3">
+                                                        <rect key="frame" x="0.0" y="104" width="285" height="16"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yi6-tY-Iu8">
+                                                                <rect key="frame" x="-2" y="1" width="245" height="15"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="OUTPUT" id="zcb-oi-GGg">
+                                                                    <font key="font" textStyle="callout" name=".SFNS-Regular"/>
+                                                                    <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4kW-3N-L51">
+                                                                <rect key="frame" x="241" y="0.0" width="44" height="16"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="44" id="TDb-Ze-iz4"/>
+                                                                </constraints>
+                                                                <buttonCell key="cell" type="bevel" title="copy" bezelStyle="regularSquare" alignment="right" imageScaling="proportionallyDown" inset="2" id="Q6l-6k-akk">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                                                <connections>
+                                                                    <action selector="copyDidClick:" target="92Z-g4-5xG" id="0nR-C8-wR3"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hme-Qw-WwX" customClass="SyntaxTextView" customModule="Sourceful">
                                                         <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
                                                     </customView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="EZ7-ff-sE3" firstAttribute="leading" secondItem="SkG-Bv-8hC" secondAttribute="leading" id="SAn-24-jve"/>
+                                                    <constraint firstAttribute="trailing" secondItem="EZ7-ff-sE3" secondAttribute="trailing" id="fu7-db-3tv"/>
+                                                </constraints>
                                                 <visibilityPriorities>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
@@ -2581,9 +2830,11 @@ It can controls a return value to affect a test target.</string>
                     </view>
                     <connections>
                         <outlet property="convertedSourceTextView" destination="Hme-Qw-WwX" id="avf-Y3-MIu"/>
+                        <outlet property="copyButton" destination="4kW-3N-L51" id="RHh-b0-UqV"/>
                         <outlet property="documentationTextField" destination="11D-Kd-MzE" id="VBc-Bi-ihy"/>
                         <outlet property="nameTextField" destination="qIL-lH-Io7" id="4s6-hp-Clj"/>
                         <outlet property="sampleSourceTextView" destination="evm-XO-FSq" id="mqe-YL-rCr"/>
+                        <outlet property="shareToolbarButton" destination="HZY-Fc-SAj" id="MQS-Ip-c80"/>
                         <outlet property="valTextField" destination="h71-q2-Yih" id="qj0-EC-ccs"/>
                     </connections>
                 </viewController>

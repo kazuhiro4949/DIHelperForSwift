@@ -13,7 +13,9 @@ import Sourceful
 class StubViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
     @IBOutlet weak var valTextField: NSTextField!
-    
+    @IBOutlet weak var shareToolbarButton: NSButton!
+    @IBOutlet weak var copyButton: NSButton!
+
     @IBOutlet weak var sampleSourceTextView: SyntaxTextView!
     @IBOutlet weak var convertedSourceTextView: SyntaxTextView!
     @IBOutlet weak var documentationTextField: NSTextField!
@@ -21,6 +23,12 @@ class StubViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTextView()
+        
+        shareToolbarButton.bezelStyle = .recessed
+        shareToolbarButton.showsBorderOnlyWhileMouseInside = true
+        
+        copyButton.bezelStyle = .recessed
+        copyButton.showsBorderOnlyWhileMouseInside = true
         
         super.viewDidLoad()
         setupTextView()
@@ -89,6 +97,19 @@ class StubViewController: NSViewController {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
         Settings.shared.spySettings.returnValueFormat = value
         updateConvertedText(sampleSourceTextView.text)
+    }
+    
+    @IBAction func shareButtonDidTap(_ sender: NSButton) {
+        let picker = NSSharingServicePicker(items: [convertedSourceTextView.text])
+        picker.show(relativeTo: shareToolbarButton.bounds, of: shareToolbarButton, preferredEdge: .minY)
+    }
+    
+    @IBAction func copyDidClick(_ sender: NSButton) {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(
+            convertedSourceTextView.text,
+            forType: .string
+        )
     }
 }
 

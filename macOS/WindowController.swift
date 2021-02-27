@@ -8,13 +8,10 @@
 
 import Cocoa
 
-class WindowPickerView: NSView {}
-
 class WindowController: NSWindowController {
     @IBOutlet weak var toolbar: NSToolbar!
-   
-    @IBOutlet weak var shareToolbarButton: NSButton!
     
+    private var observers = [NSObjectProtocol]()
     
     @IBAction func helpButtonDidTap(_ sender: NSButton) {
         let vc = storyboard?.instantiateController(
@@ -23,16 +20,9 @@ class WindowController: NSWindowController {
         vc.delegate = self
         contentViewController?.presentAsSheet(vc)
     }
-    
-    @IBAction func shareButtonDidTap(_ sender: NSButton) {
-        let picker = NSSharingServicePicker(items: [NSURL(string: "https://saa.com")])
-        picker.show(relativeTo: shareToolbarButton.bounds, of: shareToolbarButton, preferredEdge: .minY)
-    }
+
     override func windowDidLoad() {
         super.windowDidLoad()
-
-        shareToolbarButton.bezelStyle = .recessed
-        shareToolbarButton.showsBorderOnlyWhileMouseInside = true
     }
 
 }
@@ -43,3 +33,6 @@ extension WindowController: OnboardingViewControllerDelegate {
     }
 }
 
+extension WindowController: NSSharingServicePickerDelegate {
+
+}

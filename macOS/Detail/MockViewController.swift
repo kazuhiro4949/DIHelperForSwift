@@ -12,6 +12,7 @@ import Sourceful
 
 class MockViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
+    @IBOutlet weak var shareToolbarButton: NSButton!
     
     @IBOutlet weak var wasCalledTextField: NSTextField!
     @IBOutlet weak var callCountTextField: NSTextField!
@@ -29,9 +30,16 @@ class MockViewController: NSViewController {
     @IBOutlet weak var sampleSourceTextView: SyntaxTextView!
     @IBOutlet weak var convertedSourceTextView: SyntaxTextView!
     @IBOutlet weak var documentationTextField: NSTextField!
+    @IBOutlet weak var copyButton: NSButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        shareToolbarButton.bezelStyle = .recessed
+        shareToolbarButton.showsBorderOnlyWhileMouseInside = true
+        
+        copyButton.bezelStyle = .recessed
+        copyButton.showsBorderOnlyWhileMouseInside = true
         
         setupTextView()
         sampleSourceTextView.text = SampleParsedSource.protocolSample
@@ -191,6 +199,19 @@ class MockViewController: NSViewController {
             value: sender.state != .on
         )
         updateConvertedText(sampleSourceTextView.text)
+    }
+    
+    @IBAction func shareButtonDidTap(_ sender: NSButton) {
+        let picker = NSSharingServicePicker(items: [convertedSourceTextView.text])
+        picker.show(relativeTo: shareToolbarButton.bounds, of: shareToolbarButton, preferredEdge: .minY)
+    }
+    
+    @IBAction func copyDidClick(_ sender: NSButton) {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(
+            convertedSourceTextView.text,
+            forType: .string
+        )
     }
 }
 
