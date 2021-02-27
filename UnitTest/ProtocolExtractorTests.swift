@@ -12,13 +12,33 @@ import SwiftSyntax
 class ProtocolExtractorTests: XCTestCase {
     func test_ViewController() throws {
         XCTAssertEqual(
-            try ProtocolExtractor.expect(for: "ViewController"),
+            try ProtocolExtractor.expect(
+            """
+            class ViewController: NSViewController {
+                @IBOutlet var label: NSTextField!
+                
+                override func viewDidLoad() {
+                    super.viewDidLoad()
+
+                    // Do any additional setup after loading the view.
+                }
+
+                override var representedObject: Any? {
+                    didSet {
+                    // Update the view, if already loaded.
+                    }
+                }
+                
+                @IBAction func buttonDidClick(_ sender: NSButton) {
+                }
+            }
+            """),
             """
             protocol ViewControllerProtocol {
-                func viewDidLoad()
-                func buttonDidClick(_ sender)
-                var titleLabel: UILabel! { get set }
-                var representedObject: Any? { get set }
+            func viewDidLoad()
+                func buttonDidClick(_ sender: NSButton)
+                var label: NSTextField! { get set }
+            var representedObject: Any? { get set }
             }
             """
         )
@@ -59,10 +79,31 @@ class ProtocolExtractorTests: XCTestCase {
     
     func test_PropClass1() throws {
         XCTAssertEqual(
-            try ProtocolExtractor.expect(for: "PropClass1"),
+            try ProtocolExtractor.expect("""
+            class PropClass1 {
+                public var prop1: String?
+                let prop2 = ""
+                var prop3: Int {
+                    get {
+                        return 1
+                    }
+                    set {
+                        
+                    }
+                }
+                var prop4: Double {
+                    return 1
+                }
+                var prop5: Float = 1 {
+                    didSet {
+                        
+                    }
+                }
+            }
+            """),
             """
             protocol PropClass1Protocol {
-                var prop1: String? { get set }
+            var prop1: String? { get set }
                 var prop2 : String { get }
                 var prop3: Int { get set }
                 var prop4: Double { get }
@@ -74,7 +115,33 @@ class ProtocolExtractorTests: XCTestCase {
     
     func test_FunctionClass() throws {
         XCTAssertEqual(
-            try ProtocolExtractor.expect(for: "FunctionClass"),
+            try ProtocolExtractor.expect(
+            """
+            class FunctionClass {
+                func func1() {
+                    
+                }
+                
+                func func2(arg: Int) {
+                    
+                }
+                
+                
+                func func3(arg: Int, arg2: String, arg3: () -> Void, arg4: (String, String)) {
+                    
+                }
+                
+                
+                func func4() -> String {
+                    ""
+                }
+                
+                
+                func func5() throws -> String {
+                    ""
+                }
+            }
+            """),
             """
             protocol FunctionClassProtocol {
                 func func1()
@@ -89,11 +156,18 @@ class ProtocolExtractorTests: XCTestCase {
     
     func test_SomeManager() throws {
         XCTAssertEqual(
-            try ProtocolExtractor.expect(for: "SomeManager"),
+            try ProtocolExtractor.expect("""
+            class SomeManager {
+                static let shared = SomeManager()
+                func exec() -> String {
+                    "str"
+                }
+            }
+            """),
             """
             protocol SomeManagerProtocol {
                 func exec() -> String
-                static var shared: SomeManager { get }
+                static var shared : <#T##Any#> { get }
             }
             """
         )
@@ -101,7 +175,14 @@ class ProtocolExtractorTests: XCTestCase {
     
     func test_SomeFactory() throws {
         XCTAssertEqual(
-            try ProtocolExtractor.expect(for: "SomeFactory"),
+            try ProtocolExtractor.expect(
+            """
+            class SomeFactory {
+                static func make() -> SomeClass {
+                    SomeClass()
+                }
+            }
+            """),
             """
             protocol SomeFactoryProtocol {
                 static func make() -> SomeClass
