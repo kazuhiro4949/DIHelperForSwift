@@ -12,6 +12,101 @@ import SwiftSyntax
 class MockGeneratorTests: XCTestCase {
     
     // MARK:- SPY
+    func test_ViewControllerPattern() throws {
+        XCTAssertEqual(
+            try MockGenerater.expect(
+            .spy,
+            """
+            protocol ViewControllerProtocol {
+                var textField: NSTextField { get set }
+                func buttonDidClick(_ sender: NSButton)
+            }
+            """),
+            """
+            class ViewControllerSpy: ViewControllerProtocol {
+                var textField_get_wasCalled = false
+                var textField_get_callCount = 0
+                var textField_get_val: NSTextField = <#T##NSTextField#>
+                var textField_set_wasCalled = false
+                var textField_set_callCount = 0
+                var textField_set_args: NSTextField?
+                var textField: NSTextField {
+                    get {
+                        textField_get_wasCalled = true
+                        textField_get_callCount += 1
+                        return textField_get_val
+                    }
+                    set {
+                        textField_set_wasCalled = true
+                        textField_set_callCount += 1
+                        textField_set_args = newValue
+                    }
+                }
+                var buttonDidClick_wasCalled = false
+                var buttonDidClick_callCount = 0
+                var buttonDidClick_args: NSButton?
+                func buttonDidClick(_ sender: NSButton) {
+                    buttonDidClick_wasCalled = true
+                    buttonDidClick_callCount += 1
+                    buttonDidClick_args = sender
+                }
+            }
+
+            """
+        )
+    }
+    
+    func test_FactoryPattern() throws {
+        XCTAssertEqual(
+            try MockGenerater.expect(
+            .spy,
+            """
+            protocol SomeFactoryProtocol {
+                static func make() -> SomeClassProtocol
+            }
+            """),
+            """
+            class SomeFactorySpy: SomeFactoryProtocol {
+                static var make_wasCalled = false
+                static var make_callCount = 0
+                static var make_val: SomeClassProtocol = <#T##SomeClassProtocol#>
+                static func make() -> SomeClassProtocol {
+                    make_wasCalled = true
+                    make_callCount += 1
+                    return make_val
+                }
+            }
+
+            """
+        )
+    }
+
+    func test_ManagerPattern() throws {
+        XCTAssertEqual(
+            try MockGenerater.expect(
+            .spy,
+            """
+            protocol SomeManagerProtocol {
+                static var shared: SomeManagerProtocol { get }
+            }
+            """),
+            """
+            class SomeManagerSpy: SomeManagerProtocol {
+                static var shared_get_wasCalled = false
+                static var shared_get_callCount = 0
+                static var shared_get_val: SomeManagerProtocol = <#T##SomeManagerProtocol#>
+                static var shared: SomeManagerProtocol {
+                    get {
+                        shared_get_wasCalled = true
+                        shared_get_callCount += 1
+                        return shared_get_val
+                    }
+                }
+            }
+
+            """
+        )
+    }
     
     func test_FunctionsPattern5Protocol() throws {
         XCTAssertEqual(
