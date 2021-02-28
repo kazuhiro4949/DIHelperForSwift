@@ -20,5 +20,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         true
     }
+    
+    @IBAction func showHelp(_ sender: NSMenuItem) {
+        if let delegate = NSApplication.shared.keyWindow?.contentViewController as? (NSViewController & OnboardingViewControllerDelegate) {
+            let vc = NSStoryboard(name: "Main", bundle: nil).instantiateController(
+                withIdentifier: NSStoryboard.SceneIdentifier("OnboardingViewController")
+            ) as! OnboardingViewController
+
+            vc.delegate = delegate
+            delegate.presentAsSheet(vc)
+        }
+    }
+    
+    
 }
 

@@ -26,9 +26,3 @@ class ViewController: NSViewController {
     @IBAction func buttonDidClick(_ sender: NSButton) {
     }
 }
-
-
-protocol ViewControllerProtocol {
-    func viewDidLoad()
-    var representedObject: Any? { get set }
-}

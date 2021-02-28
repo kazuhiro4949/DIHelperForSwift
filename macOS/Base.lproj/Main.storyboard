@@ -306,7 +306,7 @@
                                     <items>
                                         <menuItem title="DI Helper for Swift Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
+                                                <action selector="showHelp:" target="Voe-Tx-rLC" id="gia-1B-3Z6"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -341,7 +341,7 @@
                                     <nil key="toolTip"/>
                                     <button key="view" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="Hds-Se-oW1">
                                         <rect key="frame" x="0.0" y="14" width="45" height="51"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="questionmark.circle" catalog="system" imagePosition="only" alignment="center" inset="2" id="9gE-yb-FZi">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1081,8 +1081,8 @@ Test doubles for Unit Test are made from Protocol.</string>
                                                 </constraints>
                                             </customView>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="umE-IM-IjP">
-                                                <rect key="frame" x="-2" y="192" width="182" height="21"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Member Custumization" id="McY-Ns-afl">
+                                                <rect key="frame" x="-2" y="192" width="76" height="21"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Members" id="McY-Ns-afl">
                                                     <font key="font" textStyle="title2" name=".SFNS-Regular"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1734,8 +1734,8 @@ It memorizes method calls.</string>
                                                             </constraints>
                                                         </customView>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qG6-U2-41n">
-                                                            <rect key="frame" x="-2" y="232" width="182" height="21"/>
-                                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Member Custumization" id="oqP-gW-lxY">
+                                                            <rect key="frame" x="-2" y="232" width="76" height="21"/>
+                                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Members" id="oqP-gW-lxY">
                                                                 <font key="font" textStyle="title2" name=".SFNS-Regular"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
