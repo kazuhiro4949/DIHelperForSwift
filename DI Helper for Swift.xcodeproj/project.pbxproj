@@ -292,17 +292,17 @@
 		302421BA25D4F8FF00C0E53F /* GenerateDummyCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateDummyCommand.swift; sourceTree = "<group>"; };
 		3024220F25D911E800C0E53F /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		3024221925D931E800C0E53F /* GenerateStubCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateStubCommand.swift; sourceTree = "<group>"; };
-		303223F225AAFC41002BB110 /* DependencyInjectionHelperForXcode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DependencyInjectionHelperForXcode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		303223F225AAFC41002BB110 /* DI Helper for Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DI Helper for Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		303223F525AAFC41002BB110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		303223F725AAFC41002BB110 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		303223F925AAFC42002BB110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		303223FC25AAFC42002BB110 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		303223FE25AAFC42002BB110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		303223FF25AAFC42002BB110 /* DependencyInjectionHelperForXcode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DependencyInjectionHelperForXcode.entitlements; sourceTree = "<group>"; };
-		3032240425AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DependencyInjectionHelperForXcodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3032240425AAFC43002BB110 /* DI Helper for SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DI Helper for SwiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3032240825AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjectionHelperForXcodeTests.swift; sourceTree = "<group>"; };
 		3032240A25AAFC43002BB110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3032240F25AAFC43002BB110 /* DependencyInjectionHelperForXcodeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DependencyInjectionHelperForXcodeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3032240F25AAFC43002BB110 /* DI Helper for SwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DI Helper for SwiftUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3032241325AAFC43002BB110 /* DependencyInjectionHelperForXcodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjectionHelperForXcodeUITests.swift; sourceTree = "<group>"; };
 		3032241525AAFC43002BB110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3032242825AAFCEB002BB110 /* DI Helper for Xcode.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DI Helper for Xcode.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -424,9 +424,9 @@
 		303223F325AAFC41002BB110 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				303223F225AAFC41002BB110 /* DependencyInjectionHelperForXcode.app */,
-				3032240425AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests.xctest */,
-				3032240F25AAFC43002BB110 /* DependencyInjectionHelperForXcodeUITests.xctest */,
+				303223F225AAFC41002BB110 /* DI Helper for Swift.app */,
+				3032240425AAFC43002BB110 /* DI Helper for SwiftTests.xctest */,
+				3032240F25AAFC43002BB110 /* DI Helper for SwiftUITests.xctest */,
 				3032242825AAFCEB002BB110 /* DI Helper for Xcode.appex */,
 			);
 			name = Products;
@@ -615,9 +615,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		303223F125AAFC41002BB110 /* DependencyInjectionHelperForXcode */ = {
+		303223F125AAFC41002BB110 /* DI Helper for Swift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3032241825AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DependencyInjectionHelperForXcode" */;
+			buildConfigurationList = 3032241825AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DI Helper for Swift" */;
 			buildPhases = (
 				303223EE25AAFC41002BB110 /* Sources */,
 				303223EF25AAFC41002BB110 /* Frameworks */,
@@ -630,18 +630,18 @@
 			dependencies = (
 				3032243625AAFCEB002BB110 /* PBXTargetDependency */,
 			);
-			name = DependencyInjectionHelperForXcode;
+			name = "DI Helper for Swift";
 			packageProductDependencies = (
 				3032244125AAFD2D002BB110 /* SwiftSyntax */,
 				3044B16725E2486400EC7A16 /* Sourceful */,
 			);
 			productName = DependencyInjectionHelperForXcode;
-			productReference = 303223F225AAFC41002BB110 /* DependencyInjectionHelperForXcode.app */;
+			productReference = 303223F225AAFC41002BB110 /* DI Helper for Swift.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3032240325AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests */ = {
+		3032240325AAFC43002BB110 /* DI Helper for SwiftTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3032241B25AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DependencyInjectionHelperForXcodeTests" */;
+			buildConfigurationList = 3032241B25AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DI Helper for SwiftTests" */;
 			buildPhases = (
 				3032240025AAFC43002BB110 /* Sources */,
 				3032240125AAFC43002BB110 /* Frameworks */,
@@ -652,14 +652,14 @@
 			dependencies = (
 				3032240625AAFC43002BB110 /* PBXTargetDependency */,
 			);
-			name = DependencyInjectionHelperForXcodeTests;
+			name = "DI Helper for SwiftTests";
 			productName = DependencyInjectionHelperForXcodeTests;
-			productReference = 3032240425AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests.xctest */;
+			productReference = 3032240425AAFC43002BB110 /* DI Helper for SwiftTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3032240E25AAFC43002BB110 /* DependencyInjectionHelperForXcodeUITests */ = {
+		3032240E25AAFC43002BB110 /* DI Helper for SwiftUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3032241E25AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DependencyInjectionHelperForXcodeUITests" */;
+			buildConfigurationList = 3032241E25AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DI Helper for SwiftUITests" */;
 			buildPhases = (
 				3032240B25AAFC43002BB110 /* Sources */,
 				3032240C25AAFC43002BB110 /* Frameworks */,
@@ -670,14 +670,14 @@
 			dependencies = (
 				3032241125AAFC43002BB110 /* PBXTargetDependency */,
 			);
-			name = DependencyInjectionHelperForXcodeUITests;
+			name = "DI Helper for SwiftUITests";
 			productName = DependencyInjectionHelperForXcodeUITests;
-			productReference = 3032240F25AAFC43002BB110 /* DependencyInjectionHelperForXcodeUITests.xctest */;
+			productReference = 3032240F25AAFC43002BB110 /* DI Helper for SwiftUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		3032242725AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension */ = {
+		3032242725AAFCEB002BB110 /* DI Helper for SwiftExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3032243825AAFCEB002BB110 /* Build configuration list for PBXNativeTarget "DependencyInjectionHelperForXcodeExtension" */;
+			buildConfigurationList = 3032243825AAFCEB002BB110 /* Build configuration list for PBXNativeTarget "DI Helper for SwiftExtension" */;
 			buildPhases = (
 				3032242425AAFCEB002BB110 /* Sources */,
 				3032242525AAFCEB002BB110 /* Frameworks */,
@@ -688,7 +688,7 @@
 			);
 			dependencies = (
 			);
-			name = DependencyInjectionHelperForXcodeExtension;
+			name = "DI Helper for SwiftExtension";
 			packageProductDependencies = (
 				3032244725AAFD3A002BB110 /* SwiftSyntax */,
 			);
@@ -721,7 +721,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 303223ED25AAFC41002BB110 /* Build configuration list for PBXProject "DependencyInjectionHelperForXcode" */;
+			buildConfigurationList = 303223ED25AAFC41002BB110 /* Build configuration list for PBXProject "DI Helper for Swift" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -738,10 +738,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				303223F125AAFC41002BB110 /* DependencyInjectionHelperForXcode */,
-				3032240325AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests */,
-				3032240E25AAFC43002BB110 /* DependencyInjectionHelperForXcodeUITests */,
-				3032242725AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension */,
+				303223F125AAFC41002BB110 /* DI Helper for Swift */,
+				3032240325AAFC43002BB110 /* DI Helper for SwiftTests */,
+				3032240E25AAFC43002BB110 /* DI Helper for SwiftUITests */,
+				3032242725AAFCEB002BB110 /* DI Helper for SwiftExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -984,17 +984,17 @@
 /* Begin PBXTargetDependency section */
 		3032240625AAFC43002BB110 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 303223F125AAFC41002BB110 /* DependencyInjectionHelperForXcode */;
+			target = 303223F125AAFC41002BB110 /* DI Helper for Swift */;
 			targetProxy = 3032240525AAFC43002BB110 /* PBXContainerItemProxy */;
 		};
 		3032241125AAFC43002BB110 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 303223F125AAFC41002BB110 /* DependencyInjectionHelperForXcode */;
+			target = 303223F125AAFC41002BB110 /* DI Helper for Swift */;
 			targetProxy = 3032241025AAFC43002BB110 /* PBXContainerItemProxy */;
 		};
 		3032243625AAFCEB002BB110 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3032242725AAFCEB002BB110 /* DependencyInjectionHelperForXcodeExtension */;
+			target = 3032242725AAFCEB002BB110 /* DI Helper for SwiftExtension */;
 			targetProxy = 3032243525AAFCEB002BB110 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1136,7 +1136,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
@@ -1144,9 +1144,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = kazuhiro.hayashi.DependencyInjectionHelperForXcode;
-				PRODUCT_NAME = DependencyInjectionHelperForXcode;
+				PRODUCT_NAME = "DI Helper for Swift";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1162,7 +1162,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
@@ -1170,9 +1170,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = kazuhiro.hayashi.DependencyInjectionHelperForXcode;
-				PRODUCT_NAME = DependencyInjectionHelperForXcode;
+				PRODUCT_NAME = "DI Helper for Swift";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1198,7 +1198,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DependencyInjectionHelperForXcode.app/Contents/MacOS/DependencyInjectionHelperForXcode";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DI Helper for Swift.app/Contents/MacOS/DI Helper for Swift";
 			};
 			name = Debug;
 		};
@@ -1222,7 +1222,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DependencyInjectionHelperForXcode.app/Contents/MacOS/DependencyInjectionHelperForXcode";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DI Helper for Swift.app/Contents/MacOS/DI Helper for Swift";
 			};
 			name = Release;
 		};
@@ -1311,7 +1311,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		303223ED25AAFC41002BB110 /* Build configuration list for PBXProject "DependencyInjectionHelperForXcode" */ = {
+		303223ED25AAFC41002BB110 /* Build configuration list for PBXProject "DI Helper for Swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3032241625AAFC43002BB110 /* Debug */,
@@ -1320,7 +1320,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3032241825AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DependencyInjectionHelperForXcode" */ = {
+		3032241825AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DI Helper for Swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3032241925AAFC43002BB110 /* Debug */,
@@ -1329,7 +1329,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3032241B25AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DependencyInjectionHelperForXcodeTests" */ = {
+		3032241B25AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DI Helper for SwiftTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3032241C25AAFC43002BB110 /* Debug */,
@@ -1338,7 +1338,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3032241E25AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DependencyInjectionHelperForXcodeUITests" */ = {
+		3032241E25AAFC43002BB110 /* Build configuration list for PBXNativeTarget "DI Helper for SwiftUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3032241F25AAFC43002BB110 /* Debug */,
@@ -1347,7 +1347,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3032243825AAFCEB002BB110 /* Build configuration list for PBXNativeTarget "DependencyInjectionHelperForXcodeExtension" */ = {
+		3032243825AAFCEB002BB110 /* Build configuration list for PBXNativeTarget "DI Helper for SwiftExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3032243925AAFCEB002BB110 /* Debug */,
