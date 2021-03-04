@@ -180,6 +180,24 @@ class ProtocolExtractorTests: XCTestCase {
             """
         )
     }
+    
+    func test_ClassMethod() throws {
+        XCTAssertEqual(
+            try ProtocolExtractor.expect(
+            """
+            class Hoge: NSObject {
+                class func hoge() -> SomeClass {
+                    SomeClass()
+                }
+            }
+            """),
+            """
+            protocol HogeProtocol {
+                static func hoge() -> SomeClass
+            }
+            """
+        )
+    }
 }
 
 extension ProtocolExtractor {
