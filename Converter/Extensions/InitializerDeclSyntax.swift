@@ -48,8 +48,7 @@ extension InitializerDeclSyntax {
 
 extension InitializerDeclSyntax {
     func generateMemberDeclItemsForMock(
-        mockType: MockType,
-        modifiers: ModifierListSyntax?) -> [MemberDeclListItemSyntax] {
+        mockType: MockType) -> [MemberDeclListItemSyntax] {
         switch mockType {
         case .spy:
             FunctionSignatureDuplication.shared.list[initKeyword.text]?.count += 1

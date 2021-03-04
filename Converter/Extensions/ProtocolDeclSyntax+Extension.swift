@@ -34,7 +34,7 @@ extension ProtocolDeclSyntax {
                 return variableDecl.generateMemberDeclItemsForMock(mockType: mockType)
             } else if let initDecl = item.decl.as(InitializerDeclSyntax.self),
                       Settings.shared.target(from: mockType)?.getTarget(target: .initilizer) == false {
-                return initDecl.generateMemberDeclItemsForMock(mockType: mockType, modifiers: modifiers)
+                return initDecl.generateMemberDeclItemsForMock(mockType: mockType)
             } else {
                 return nil
             }
@@ -98,8 +98,8 @@ extension FunctionSignatureSyntax {
 extension ProtocolDeclSyntax {
     func generateMockClass(_ mockType: MockType) -> MockClassDeclSyntax {
         let classDecl = SyntaxFactory.makeClassDecl(
-            attributes: self.attributes,
-            modifiers: self.modifiers,
+            attributes: nil,
+            modifiers: nil,
             classKeyword: .makeFormattedClassKeyword(),
             identifier: mockIdentifier(mockType: mockType),
             genericParameterClause: nil,

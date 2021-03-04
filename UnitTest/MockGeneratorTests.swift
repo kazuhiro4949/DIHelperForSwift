@@ -1042,6 +1042,42 @@ class MockGeneratorTests: XCTestCase {
             """
         )
     }
+    
+    func test_PublicProtocolPattern() throws {
+        XCTAssertEqual(
+            try MockGenerater.expect(
+            .spy,
+            """
+            public protocol ViewControllerProtocol {
+                var textField: NSTextField { get set }
+                func buttonDidClick(_ sender: NSButton)
+            }
+            """),
+            """
+            class ViewControllerSpy: ViewControllerProtocol {
+                var textField_get_wasCalled = false
+                var textField_get_callCount = 0
+                var textField_get_val: NSTextField = <#T##NSTextField#>
+                var textField_set_wasCalled = false
+                var textField_set_callCount = 0
+                var textField_set_args: NSTextField?
+                var textField: NSTextField {
+                    get {
+                        textField_get_wasCalled = true
+                        textField_get_callCount += 1
+                        return textField_get_val
+                    }
+                    set {
+                        textField_set_wasCalled = true
+                        textField_set_callCount += 1
+                        textField_set_args = newValue
+                    }
+                }
+            }
+
+            """
+        )
+    }
 }
 
 extension MockGenerater {
