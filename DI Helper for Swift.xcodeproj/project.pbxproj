@@ -153,6 +153,9 @@
 		3044B14A25E210F600EC7A16 /* NSTextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3044B14925E210F600EC7A16 /* NSTextView+Extension.swift */; };
 		3044B15725E2173C00EC7A16 /* StubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3044B15525E2173C00EC7A16 /* StubViewController.swift */; };
 		3044B16825E2486400EC7A16 /* Sourceful in Frameworks */ = {isa = PBXBuildFile; productRef = 3044B16725E2486400EC7A16 /* Sourceful */; };
+		3051B88325F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */; };
+		3051B88425F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */; };
+		3051B88525F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */; };
 		30559D9125E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
 		30559D9225E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
 		30559D9C25E3B03A003F5A2A /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */; };
@@ -315,6 +318,7 @@
 		3044B14425E14ADF00EC7A16 /* SampleParsedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleParsedSource.swift; sourceTree = "<group>"; };
 		3044B14925E210F600EC7A16 /* NSTextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextView+Extension.swift"; sourceTree = "<group>"; };
 		3044B15525E2173C00EC7A16 /* StubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubViewController.swift; sourceTree = "<group>"; };
+		3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeclModifierSyntax+Extension.swift"; sourceTree = "<group>"; };
 		30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingButton.swift; sourceTree = "<group>"; };
 		30559DA725E3B2DB003F5A2A /* OnboardingStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStartViewController.swift; sourceTree = "<group>"; };
@@ -578,6 +582,7 @@
 				3024218E25CFCB7F00C0E53F /* MemberDeclBlockSyntax+Extension.swift */,
 				3024219225CFCB8E00C0E53F /* TypeSyntax+Extension.swift */,
 				3014C48F25E93596000B08B3 /* ModifierListSyntax+Exntension.swift */,
+				3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -821,6 +826,7 @@
 				3044B14A25E210F600EC7A16 /* NSTextView+Extension.swift in Sources */,
 				30B8A42725BC27B500F643CD /* MenuViewController.swift in Sources */,
 				3044B15725E2173C00EC7A16 /* StubViewController.swift in Sources */,
+				3051B88325F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */,
 				3044B14525E14ADF00EC7A16 /* SampleParsedSource.swift in Sources */,
 				3044B12D25E1343A00EC7A16 /* TupleExprSyntax+Extension.swift in Sources */,
 				30B8A42B25BC2B8500F643CD /* MenuTableCellView.swift in Sources */,
@@ -892,6 +898,7 @@
 				3014C65625EA082E000B08B3 /* IdentifierExprSyntax+Extension.swift in Sources */,
 				3014C64825EA082E000B08B3 /* ProtocolNameHandler.swift in Sources */,
 				3014C65425EA082E000B08B3 /* TupleTypeSyntax+Extension.swift in Sources */,
+				3051B88425F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */,
 				3014C63425EA07F9000B08B3 /* ProtocolExtractorTests.swift in Sources */,
 				3014C65825EA082E000B08B3 /* MockGenerater.swift in Sources */,
 				3014C64D25EA082E000B08B3 /* TypeSyntax+Extension.swift in Sources */,
@@ -928,6 +935,7 @@
 				30B8A3F525B47A9500F643CD /* VariableDeclSyntax.swift in Sources */,
 				306FF6AD25E49FBC0075F43F /* OnboardingExt3ViewController.swift in Sources */,
 				3063F32725BD400000B6038C /* Settings.swift in Sources */,
+				3051B88525F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */,
 				302421A725CFCC5200C0E53F /* ProtocolNameHandler.swift in Sources */,
 				3024212F25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift in Sources */,
 				30B8A41425B47B5900F643CD /* SyntaxFactory.swift in Sources */,

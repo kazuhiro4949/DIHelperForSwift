@@ -11,7 +11,11 @@ import SwiftSyntax
 
 extension ModifierListSyntax {
     var protocolEnabled: ModifierListSyntax? {
-        let protocolEnabledModifiers = filter({ (declModifier) in
+        let classToStaicModifiers = map {
+            $0.replaceClassModifierToStaticIfNeeded()
+        }
+        
+        let protocolEnabledModifiers = classToStaicModifiers.filter({ (declModifier) in
             declModifier.name.text == "static"
         })
         
@@ -20,6 +24,8 @@ extension ModifierListSyntax {
         } else {
             return SyntaxFactory.makeModifierList(protocolEnabledModifiers)
         }
-        
     }
+    
+    
 }
+
