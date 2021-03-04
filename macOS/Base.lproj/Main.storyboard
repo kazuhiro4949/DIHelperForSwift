@@ -337,12 +337,12 @@
                         <toolbar key="toolbar" implicitIdentifier="13F97B25-1A26-4CC7-AD62-19C33BAC5C9E" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="ofT-cS-MGf">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="f55-S9-6iy"/>
-                                <toolbarItem implicitItemIdentifier="09396E71-3338-4AC2-AB17-5C040385237D" label="Help" paletteLabel="Help" image="questionmark.circle" catalog="system" sizingBehavior="auto" id="NYx-j6-LSZ">
+                                <toolbarItem implicitItemIdentifier="09396E71-3338-4AC2-AB17-5C040385237D" label="Help" paletteLabel="Help" image="question" sizingBehavior="auto" id="NYx-j6-LSZ">
                                     <nil key="toolTip"/>
                                     <button key="view" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="Hds-Se-oW1">
-                                        <rect key="frame" x="0.0" y="14" width="45" height="51"/>
+                                        <rect key="frame" x="8" y="14" width="16" height="16"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="questionmark.circle" catalog="system" imagePosition="only" alignment="center" inset="2" id="9gE-yb-FZi">
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="question" imagePosition="only" alignment="center" inset="2" id="9gE-yb-FZi">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -2962,7 +2962,7 @@ It can controls a return value to affect a test target.</string>
     <resources>
         <image name="App" width="1024" height="1024"/>
         <image name="NSShareTemplate" width="15" height="17"/>
-        <image name="questionmark.circle" catalog="system" width="15" height="15"/>
+        <image name="question" width="16" height="16"/>
         <image name="step1" width="1006" height="590"/>
         <image name="step2" width="1560" height="1268"/>
         <image name="step3" width="1102" height="938"/>
