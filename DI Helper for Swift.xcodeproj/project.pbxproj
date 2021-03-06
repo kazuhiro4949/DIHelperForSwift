@@ -156,6 +156,8 @@
 		3051B88325F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */; };
 		3051B88425F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */; };
 		3051B88525F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */; };
+		3051B89C25F38B6D0014D3E9 /* InitSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B89B25F38B6D0014D3E9 /* InitSplitViewController.swift */; };
+		3051B8A225F3C2290014D3E9 /* InitOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */; };
 		30559D9125E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
 		30559D9225E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
 		30559D9C25E3B03A003F5A2A /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */; };
@@ -319,6 +321,8 @@
 		3044B14925E210F600EC7A16 /* NSTextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextView+Extension.swift"; sourceTree = "<group>"; };
 		3044B15525E2173C00EC7A16 /* StubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubViewController.swift; sourceTree = "<group>"; };
 		3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeclModifierSyntax+Extension.swift"; sourceTree = "<group>"; };
+		3051B89B25F38B6D0014D3E9 /* InitSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitSplitViewController.swift; sourceTree = "<group>"; };
+		3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitOutlineViewController.swift; sourceTree = "<group>"; };
 		30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingButton.swift; sourceTree = "<group>"; };
 		30559DA725E3B2DB003F5A2A /* OnboardingStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStartViewController.swift; sourceTree = "<group>"; };
@@ -439,6 +443,7 @@
 		303223F425AAFC41002BB110 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				3051B88A25F389480014D3E9 /* Init */,
 				306FF6A225E49E990075F43F /* Onboarding */,
 				3044B14825E210E400EC7A16 /* Utility */,
 				3044B14325E14AD000EC7A16 /* Model */,
@@ -528,6 +533,15 @@
 				30B8A3ED25B479BD00F643CD /* Extensions */,
 			);
 			path = Converter;
+			sourceTree = "<group>";
+		};
+		3051B88A25F389480014D3E9 /* Init */ = {
+			isa = PBXGroup;
+			children = (
+				3051B89B25F38B6D0014D3E9 /* InitSplitViewController.swift */,
+				3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */,
+			);
+			path = Init;
 			sourceTree = "<group>";
 		};
 		306FF6A225E49E990075F43F /* Onboarding */ = {
@@ -798,6 +812,7 @@
 				30E035E525BC3059000D49EE /* MockViewController.swift in Sources */,
 				3044B11A25E1341F00EC7A16 /* ProtocolNameHandler.swift in Sources */,
 				303223F825AAFC41002BB110 /* ViewController.swift in Sources */,
+				3051B8A225F3C2290014D3E9 /* InitOutlineViewController.swift in Sources */,
 				3044B13C25E1343A00EC7A16 /* ProtocolDeclSyntax+Extension.swift in Sources */,
 				3044B13625E1343A00EC7A16 /* CodeBlockSyntax+Extensioin.swift in Sources */,
 				3044B11825E1341F00EC7A16 /* Either.swift in Sources */,
@@ -806,6 +821,7 @@
 				30559DB225E3BEFC003F5A2A /* OnboardingExt1ViewController.swift in Sources */,
 				3044B12A25E1343A00EC7A16 /* IdentifierExprSyntax+Extension.swift in Sources */,
 				3044B11925E1341F00EC7A16 /* MockType.swift in Sources */,
+				3051B89C25F38B6D0014D3E9 /* InitSplitViewController.swift in Sources */,
 				3044B12725E1343A00EC7A16 /* PatternBindingListSyntax+Extension.swift in Sources */,
 				30E035DF25BC303B000D49EE /* ProtocolViewController.swift in Sources */,
 				3044B11B25E1341F00EC7A16 /* HasGenericParameter.swift in Sources */,

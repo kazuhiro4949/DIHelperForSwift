@@ -15,9 +15,9 @@ class WindowController: NSWindowController {
     
     @IBAction func helpButtonDidTap(_ sender: NSButton) {
         let vc = storyboard?.instantiateController(
-            withIdentifier: NSStoryboard.SceneIdentifier("OnboardingViewController")
-        ) as! OnboardingViewController
-        vc.delegate = self
+            withIdentifier: NSStoryboard.SceneIdentifier("InitSplitViewController")
+        ) as! InitSplitViewController
+//        vc.delegate = self
         contentViewController?.presentAsSheet(vc)
     }
 
