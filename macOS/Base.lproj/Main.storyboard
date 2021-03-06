@@ -1280,13 +1280,13 @@ Test doubles for Unit Test are made from Protocol.</string>
                                         <rect key="frame" x="420" y="349" width="688" height="120"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yf7-kq-eGe">
-                                                <rect key="frame" x="0.0" y="0.0" width="342" height="120"/>
+                                                <rect key="frame" x="0.0" y="1" width="342" height="119"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bwf-jz-HYT">
-                                                        <rect key="frame" x="0.0" y="104" width="37" height="16"/>
+                                                        <rect key="frame" x="0.0" y="104" width="37" height="15"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kA9-OY-JIE">
-                                                                <rect key="frame" x="-2" y="1" width="41" height="15"/>
+                                                                <rect key="frame" x="-2" y="0.0" width="41" height="15"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="INPUT" id="zd4-Z2-ZPT">
                                                                     <font key="font" textStyle="callout" name=".SFNS-Regular"/>
                                                                     <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
