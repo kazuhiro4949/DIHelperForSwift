@@ -11,6 +11,8 @@ import Cocoa
 class WindowController: NSWindowController {
     @IBOutlet weak var toolbar: NSToolbar!
     
+    var initWindowController: InitWIndowController?
+    
     private var observers = [NSObjectProtocol]()
     
     @IBAction func helpButtonDidTap(_ sender: NSButton) {
@@ -22,26 +24,29 @@ class WindowController: NSWindowController {
     }
     
     @IBAction func addInitListDidClick(_ sender: NSToolbarItem) {
-        
-        if let window = NSApplication.shared.windows.first(where: {
-            $0.contentViewController is InitSplitViewController
-        }) {
-            window.orderFrontRegardless()
+        if let initWindowController = initWindowController {
+            initWindowController.window?.orderFrontRegardless()
             return
         }
-        
         
         let windowController = storyboard?.instantiateController(
             withIdentifier: NSStoryboard.SceneIdentifier("InitWIndowController")
         ) as! InitWIndowController
         windowController.showWindow(windowController.window)
+        windowController.window?.delegate = self
+        self.initWindowController = windowController
     }
     
 
     override func windowDidLoad() {
         super.windowDidLoad()
     }
+}
 
+extension WindowController: NSWindowDelegate {
+    func windowWillClose(_ notification: Notification) {
+        initWindowController = nil
+    }
 }
 
 extension WindowController: OnboardingViewControllerDelegate {

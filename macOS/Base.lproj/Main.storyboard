@@ -2876,7 +2876,7 @@ It can controls a return value to affect a test target.</string>
         <scene sceneID="Irt-9e-ejg">
             <objects>
                 <windowController storyboardIdentifier="InitWIndowController" id="j6k-R9-QVZ" customClass="InitWIndowController" customModule="DI_Helper_for_Swift" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="RZK-OG-21t">
+                    <window key="window" title="Initializer List" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="RZK-OG-21t">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="239" width="480" height="270"/>
@@ -2885,6 +2885,23 @@ It can controls a return value to affect a test target.</string>
                             <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </view>
+                        <toolbar key="toolbar" implicitIdentifier="29EF196C-F979-4724-B464-68864A8E77DA" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="rPa-D9-EQU">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="SXv-Ot-vWY"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="s5H-c8-vmc"/>
+                                <toolbarItem implicitItemIdentifier="E96EE72B-A293-42B5-93B3-0C90B4671A58" label="Add init" paletteLabel="Add init" tag="-1" image="add" id="vWw-JJ-qkv">
+                                    <size key="minSize" width="34" height="22"/>
+                                    <size key="maxSize" width="34" height="22"/>
+                                    <connections>
+                                        <action selector="addInitDidClick:" target="j6k-R9-QVZ" id="FcV-0l-CLR"/>
+                                    </connections>
+                                </toolbarItem>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="s5H-c8-vmc"/>
+                                <toolbarItem reference="vWw-JJ-qkv"/>
+                            </defaultToolbarItems>
+                        </toolbar>
                         <connections>
                             <outlet property="delegate" destination="j6k-R9-QVZ" id="oOr-12-D70"/>
                         </connections>
