@@ -161,6 +161,7 @@
 		3051B8A625F3C7F30014D3E9 /* InitTableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8A525F3C7F30014D3E9 /* InitTableColumn.swift */; };
 		3051B8AB25F460ED0014D3E9 /* InitWIndowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8AA25F460ED0014D3E9 /* InitWIndowController.swift */; };
 		3051B8B325F48BD90014D3E9 /* InitDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8B225F48BD90014D3E9 /* InitDetailViewController.swift */; };
+		3051B8C025F493C80014D3E9 /* InitOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */; };
 		30559D9125E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
 		30559D9225E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
 		30559D9C25E3B03A003F5A2A /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */; };
@@ -963,6 +964,7 @@
 				30B8A3F525B47A9500F643CD /* VariableDeclSyntax.swift in Sources */,
 				306FF6AD25E49FBC0075F43F /* OnboardingExt3ViewController.swift in Sources */,
 				3063F32725BD400000B6038C /* Settings.swift in Sources */,
+				3051B8C025F493C80014D3E9 /* InitOutlineViewController.swift in Sources */,
 				3051B88525F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */,
 				302421A725CFCC5200C0E53F /* ProtocolNameHandler.swift in Sources */,
 				3024212F25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift in Sources */,

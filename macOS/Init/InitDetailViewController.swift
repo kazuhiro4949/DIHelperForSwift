@@ -21,6 +21,8 @@ class InitDetailViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        textView.theme = DefaultSourceCodeTheme()
     }
     
     func bindData(_ snippet: InitSnippet?) {

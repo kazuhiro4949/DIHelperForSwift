@@ -10,6 +10,10 @@ import Cocoa
 
 class InitWIndowController: NSWindowController {
 
+    var splitViewController: InitSplitViewController {
+        contentViewController as! InitSplitViewController
+    }
+    
     override func windowDidLoad() {
         super.windowDidLoad()
     
@@ -17,7 +21,14 @@ class InitWIndowController: NSWindowController {
     }
 
     @IBAction func addInitDidClick(_ sender: NSToolbarItem) {
+        let snippet = InitSnippet(
+            name: "NewClass",
+            body: "NewClass()")
         
-        
+        var snippets = UserDefaults.group.snippets
+        snippets.insert(snippet, at: 0)
+        UserDefaults.group.snippets = snippets
+        splitViewController.initOutlineViewController.create(snippet)
+//        splitViewController.initDetailViewController.create()
     }
 }

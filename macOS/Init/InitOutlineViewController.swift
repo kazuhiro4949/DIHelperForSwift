@@ -8,9 +8,9 @@
 
 import Cocoa
 
-struct InitSnippet {
-    let name: String
-    let body: String
+struct InitSnippet: Codable {
+    var name: String
+    var body: String
 }
 
 protocol InitOutlineViewControllerDelegate: AnyObject {
@@ -22,17 +22,25 @@ class InitOutlineViewController: NSViewController {
     
     weak var delegate: InitOutlineViewControllerDelegate?
     
-    var dataSource = Array(repeating: InitSnippet(name: "SomeClass", body: "SameClas()"), count: 100)
-
+    var dataSource = [InitSnippet]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dataSource = UserDefaults.group.snippets
+        tableView.registerForDraggedTypes([.string])
     }
 
     @IBAction func didClickCell(_ sender: NSTableView) {
         let snippet = dataSource[sender.selectedRow]
         delegate?.initOutlineViewController(self, didSelect: snippet)
+    }
+    
+    func create(_ snippet: InitSnippet) {
+        dataSource.insert(snippet, at: 0)
+        tableView.reloadData()
+        let view = tableView.view(atColumn: 0, row: 0, makeIfNecessary: true) as? NSTableCellView
+        view?.textField?.becomeFirstResponder()
     }
 }
 
@@ -47,8 +55,73 @@ extension InitOutlineViewController: NSTableViewDataSource, NSTableViewDelegate 
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("InitTableViewCell"), owner: self) as? NSTableCellView
+        cell?.textField?.isEditable = true
+        cell?.textField?.delegate = self
         cell?.textField?.stringValue = dataSource[row].name
         return cell
     }
 }
 
+extension InitOutlineViewController: NSTextFieldDelegate {
+    func controlTextDidEndEditing(_ obj: Notification) {
+        if let textField = obj.object as? NSTextField,
+           let view = textField.superview as? NSTableCellView {
+            
+            let row = tableView.row(for: view)
+            let name = textField.stringValue
+            
+            var snippets = UserDefaults.group.snippets
+            snippets[row].name = name
+            UserDefaults.group.snippets = snippets
+        }
+    }
+}
+
+extension InitOutlineViewController {
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        if dropOperation == .above {
+            return .move
+        } else {
+            return []
+        }
+    }
+    
+    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
+        let data = try? NSKeyedArchiver.archivedData(
+            withRootObject: rowIndexes,
+            requiringSecureCoding: false
+        )
+        pboard.declareTypes([.string], owner: self)
+        pboard.setData(data, forType: .string)
+        
+        
+        return true
+    }
+    
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+        let pboard = info.draggingPasteboard
+        guard let data = pboard.data(forType: .string),
+              let rowIndexes = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? IndexSet,
+              let sourceRow = rowIndexes.first else {
+            return false
+        }
+        
+        var newRow = row
+        if sourceRow < row {
+            newRow = row - 1
+            
+        }
+        
+        let snippet = dataSource.remove(at: sourceRow)
+        dataSource.insert(snippet, at: newRow)
+
+        
+        UserDefaults.group.snippets = dataSource
+        
+        tableView.beginUpdates()
+        tableView.moveRow(at: sourceRow, to: newRow)
+        tableView.endUpdates()
+        
+        return true
+    }
+}

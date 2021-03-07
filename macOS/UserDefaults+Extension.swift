@@ -18,5 +18,19 @@ extension UserDefaults {
             )!
         }
     }
+}
 
+extension UserDefaults {
+    var snippets: [InitSnippet] {
+        get {
+            let snippetData = data(forKey: "snippet") ?? Data()
+            let decoder = JSONDecoder()
+            return (try? decoder.decode([InitSnippet].self, from: snippetData)) ?? []
+        }
+        set {
+            let encoder = JSONEncoder()
+            let encoded = try! encoder.encode(newValue)
+            set(encoded, forKey: "snippet")
+        }
+    }
 }
