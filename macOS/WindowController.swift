@@ -15,11 +15,28 @@ class WindowController: NSWindowController {
     
     @IBAction func helpButtonDidTap(_ sender: NSButton) {
         let vc = storyboard?.instantiateController(
-            withIdentifier: NSStoryboard.SceneIdentifier("InitSplitViewController")
-        ) as! InitSplitViewController
-//        vc.delegate = self
+            withIdentifier: NSStoryboard.SceneIdentifier("OnboardingViewController")
+        ) as! OnboardingViewController
+        vc.delegate = self
         contentViewController?.presentAsSheet(vc)
     }
+    
+    @IBAction func addInitListDidClick(_ sender: NSToolbarItem) {
+        
+        if let window = NSApplication.shared.windows.first(where: {
+            $0.contentViewController is InitSplitViewController
+        }) {
+            window.orderFrontRegardless()
+            return
+        }
+        
+        
+        let windowController = storyboard?.instantiateController(
+            withIdentifier: NSStoryboard.SceneIdentifier("InitWIndowController")
+        ) as! InitWIndowController
+        windowController.showWindow(windowController.window)
+    }
+    
 
     override func windowDidLoad() {
         super.windowDidLoad()

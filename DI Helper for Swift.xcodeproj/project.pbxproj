@@ -159,6 +159,7 @@
 		3051B89C25F38B6D0014D3E9 /* InitSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B89B25F38B6D0014D3E9 /* InitSplitViewController.swift */; };
 		3051B8A225F3C2290014D3E9 /* InitOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */; };
 		3051B8A625F3C7F30014D3E9 /* InitTableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8A525F3C7F30014D3E9 /* InitTableColumn.swift */; };
+		3051B8AB25F460ED0014D3E9 /* InitWIndowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8AA25F460ED0014D3E9 /* InitWIndowController.swift */; };
 		30559D9125E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
 		30559D9225E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
 		30559D9C25E3B03A003F5A2A /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */; };
@@ -325,6 +326,7 @@
 		3051B89B25F38B6D0014D3E9 /* InitSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitSplitViewController.swift; sourceTree = "<group>"; };
 		3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitOutlineViewController.swift; sourceTree = "<group>"; };
 		3051B8A525F3C7F30014D3E9 /* InitTableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitTableColumn.swift; sourceTree = "<group>"; };
+		3051B8AA25F460ED0014D3E9 /* InitWIndowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitWIndowController.swift; sourceTree = "<group>"; };
 		30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingButton.swift; sourceTree = "<group>"; };
 		30559DA725E3B2DB003F5A2A /* OnboardingStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStartViewController.swift; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				3051B89B25F38B6D0014D3E9 /* InitSplitViewController.swift */,
 				3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */,
 				3051B8A525F3C7F30014D3E9 /* InitTableColumn.swift */,
+				3051B8AA25F460ED0014D3E9 /* InitWIndowController.swift */,
 			);
 			path = Init;
 			sourceTree = "<group>";
@@ -826,6 +829,7 @@
 				3044B11925E1341F00EC7A16 /* MockType.swift in Sources */,
 				3051B89C25F38B6D0014D3E9 /* InitSplitViewController.swift in Sources */,
 				3044B12725E1343A00EC7A16 /* PatternBindingListSyntax+Extension.swift in Sources */,
+				3051B8AB25F460ED0014D3E9 /* InitWIndowController.swift in Sources */,
 				30E035DF25BC303B000D49EE /* ProtocolViewController.swift in Sources */,
 				3044B11B25E1341F00EC7A16 /* HasGenericParameter.swift in Sources */,
 				3044B11625E1341F00EC7A16 /* MockPropertyForAccessor.swift in Sources */,
