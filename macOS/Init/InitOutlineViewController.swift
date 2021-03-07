@@ -14,7 +14,6 @@ struct InitSnippet: Codable {
 }
 
 protocol InitOutlineViewControllerDelegate: AnyObject {
-    func initOutlineViewController(_ vc: InitOutlineViewController, didInvalidate rows: IndexSet)
     func initOutlineViewController(_ vc: InitOutlineViewController, didSelect snippet: InitSnippet)
     func initOutlineViewController(_ vc: InitOutlineViewController, didChange snippet: InitSnippet)
 }
