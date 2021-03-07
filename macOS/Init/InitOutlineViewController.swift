@@ -14,6 +14,7 @@ struct InitSnippet: Codable {
 }
 
 protocol InitOutlineViewControllerDelegate: AnyObject {
+    func initOutlineViewController(_ vc: InitOutlineViewController, didInvalidate rows: IndexSet)
     func initOutlineViewController(_ vc: InitOutlineViewController, didSelect snippet: InitSnippet)
     func initOutlineViewController(_ vc: InitOutlineViewController, didChange snippet: InitSnippet)
 }
@@ -96,6 +97,7 @@ extension InitOutlineViewController: NSTextFieldDelegate {
             
             
             let row = tableView.row(for: view)
+            
             guard 0 <= row else {
                 return
             }

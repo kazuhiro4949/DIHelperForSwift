@@ -70,6 +70,10 @@ class InitSplitViewController: NSSplitViewController {
 }
 
 extension InitSplitViewController: InitOutlineViewControllerDelegate {
+    func initOutlineViewController(_ vc: InitOutlineViewController, didInvalidate rows: IndexSet) {
+
+    }
+    
     func initOutlineViewController(_ vc: InitOutlineViewController, didSelect snippet: InitSnippet) {
         initDetailViewController.create(snippet)
     }
