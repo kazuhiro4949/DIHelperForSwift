@@ -40,6 +40,9 @@ class InitSplitViewController: NSSplitViewController {
     
     func removeSelectedItem() {
         let selectedRow = initOutlineViewController.tableView.selectedRow
+        guard 0 <= selectedRow else {
+            return
+        }
         var snippets = UserDefaults.group.snippets
         snippets.remove(at: selectedRow)
         UserDefaults.group.snippets = snippets
@@ -58,8 +61,8 @@ class InitSplitViewController: NSSplitViewController {
     
     func addItem() {
         let snippet = InitSnippet(
-            name: "NewClass",
-            body: "NewClass()")
+            name: "UIViewController",
+            body: "UIViewController()")
         
         var snippets = UserDefaults.group.snippets
         snippets.insert(snippet, at: 0)

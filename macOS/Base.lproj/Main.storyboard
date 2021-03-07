@@ -340,7 +340,7 @@
                                 <toolbarItem implicitItemIdentifier="09396E71-3338-4AC2-AB17-5C040385237D" label="Help" paletteLabel="Help" image="question" sizingBehavior="auto" id="NYx-j6-LSZ">
                                     <nil key="toolTip"/>
                                     <button key="view" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="Hds-Se-oW1">
-                                        <rect key="frame" x="4" y="14" width="25" height="17"/>
+                                        <rect key="frame" x="1" y="14" width="30" height="20"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="question" imagePosition="only" alignment="center" inset="2" id="9gE-yb-FZi">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -352,9 +352,9 @@
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Teg-5g-AcQ"/>
-                                <toolbarItem implicitItemIdentifier="9204EAF1-554F-42E3-9394-448A784A3062" label="Add init list" paletteLabel="Add init list" tag="-1" image="add" id="k0s-Ye-Mg4">
-                                    <size key="minSize" width="34" height="22"/>
-                                    <size key="maxSize" width="34" height="22"/>
+                                <toolbarItem implicitItemIdentifier="9204EAF1-554F-42E3-9394-448A784A3062" label="Initializers" paletteLabel="Initializers" tag="-1" image="list" id="k0s-Ye-Mg4">
+                                    <size key="minSize" width="36" height="22"/>
+                                    <size key="maxSize" width="36" height="22"/>
                                     <connections>
                                         <action selector="addInitListDidClick:" target="B8D-0N-5wS" id="x9n-sn-q3g"/>
                                     </connections>
@@ -2876,7 +2876,7 @@ It can controls a return value to affect a test target.</string>
         <scene sceneID="Irt-9e-ejg">
             <objects>
                 <windowController storyboardIdentifier="InitWIndowController" id="j6k-R9-QVZ" customClass="InitWIndowController" customModule="DI_Helper_for_Swift" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Initializer List" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="RZK-OG-21t">
+                    <window key="window" title="Initializers" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="RZK-OG-21t">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="239" width="480" height="270"/>
@@ -3185,6 +3185,7 @@ It can controls a return value to affect a test target.</string>
         <image name="App" width="1024" height="1024"/>
         <image name="NSShareTemplate" width="15" height="17"/>
         <image name="add" width="25" height="16"/>
+        <image name="list" width="26" height="16"/>
         <image name="minus" width="25" height="16"/>
         <image name="question" width="30" height="20"/>
         <image name="step1" width="1006" height="590"/>
