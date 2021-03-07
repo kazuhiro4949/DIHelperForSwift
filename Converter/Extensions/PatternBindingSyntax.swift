@@ -157,6 +157,8 @@ extension ExprSyntax {
         } else if typeSyntax.is(OptionalTypeSyntax.self) {
             return ExprSyntax(SyntaxFactory
                                 .makeNilLiteralExpr(nilKeyword: SyntaxFactory.makeNilKeyword()))
+        } else if let snippet = UserDefaults.group.snippets.first(where: { $0.name == unwrappedTypeSyntax.description }) {
+            return ExprSyntax(SyntaxFactory.makeVariableExpr(snippet.body))
         } else {
             return ExprSyntax(SyntaxFactory.makeVariableExpr("<#T##\(typeSyntax.description)#>"))
         }

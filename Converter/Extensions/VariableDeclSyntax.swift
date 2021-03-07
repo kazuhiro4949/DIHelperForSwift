@@ -63,6 +63,8 @@ extension VariableDeclSyntax {
                 bindingWithTypeAnnotation = binding.withTypeAnnotation(typeAnnotation)
             case .second(let value):
                 
+                
+                
                 let typeString: String
                 if value.is(StringLiteralExprSyntax.self) {
                     typeString = "String"
