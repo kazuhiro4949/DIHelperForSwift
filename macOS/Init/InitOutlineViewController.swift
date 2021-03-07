@@ -24,10 +24,10 @@ class InitOutlineViewController: NSViewController {
 
 extension InitOutlineViewController: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
-        if item is InitSnippet {
-            return 0
-        } else {
+        if item == nil {
             return dataSource.count
+        } else {
+            return 0
         }
     }
     
@@ -39,5 +39,28 @@ extension InitOutlineViewController: NSOutlineViewDataSource {
         false
     }
     
+    func outlineView(_ outlineView: NSOutlineView, objectValueFor tableColumn: NSTableColumn?, byItem item: Any?) -> Any? {
+        if let snippet = item as? InitSnippet {
+            return snippet.name
+        } else {
+            return nil
+        }
+    }
     
+    
+}
+
+extension InitOutlineViewController: NSOutlineViewDelegate {
+
+    
+    func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
+        if let snippet = item as? InitSnippet {
+            let tableCellView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "InitTableColumn"), owner: self) as? NSTableCellView
+
+            tableCellView?.textField?.stringValue = snippet.name
+            return tableCellView
+        } else {
+            return nil
+        }
+    }
 }

@@ -158,6 +158,7 @@
 		3051B88525F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */; };
 		3051B89C25F38B6D0014D3E9 /* InitSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B89B25F38B6D0014D3E9 /* InitSplitViewController.swift */; };
 		3051B8A225F3C2290014D3E9 /* InitOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */; };
+		3051B8A625F3C7F30014D3E9 /* InitTableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8A525F3C7F30014D3E9 /* InitTableColumn.swift */; };
 		30559D9125E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
 		30559D9225E380A4003F5A2A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */; };
 		30559D9C25E3B03A003F5A2A /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */; };
@@ -323,6 +324,7 @@
 		3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeclModifierSyntax+Extension.swift"; sourceTree = "<group>"; };
 		3051B89B25F38B6D0014D3E9 /* InitSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitSplitViewController.swift; sourceTree = "<group>"; };
 		3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitOutlineViewController.swift; sourceTree = "<group>"; };
+		3051B8A525F3C7F30014D3E9 /* InitTableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitTableColumn.swift; sourceTree = "<group>"; };
 		30559D8F25E380A4003F5A2A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		30559D9B25E3B03A003F5A2A /* OnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingButton.swift; sourceTree = "<group>"; };
 		30559DA725E3B2DB003F5A2A /* OnboardingStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStartViewController.swift; sourceTree = "<group>"; };
@@ -540,6 +542,7 @@
 			children = (
 				3051B89B25F38B6D0014D3E9 /* InitSplitViewController.swift */,
 				3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */,
+				3051B8A525F3C7F30014D3E9 /* InitTableColumn.swift */,
 			);
 			path = Init;
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 				3044B11525E1341F00EC7A16 /* HasGenericParameterClause.swift in Sources */,
 				3014C49025E93596000B08B3 /* ModifierListSyntax+Exntension.swift in Sources */,
 				3044B13025E1343A00EC7A16 /* TypeSyntax+Extension.swift in Sources */,
+				3051B8A625F3C7F30014D3E9 /* InitTableColumn.swift in Sources */,
 				3044B12025E1343A00EC7A16 /* MemberDeclListSyntax+Extension.swift in Sources */,
 				3044B13D25E1343A00EC7A16 /* AccessorDeclSyntax+Extension.swift in Sources */,
 				3044B12525E1343A00EC7A16 /* VariableDeclSyntax.swift in Sources */,
