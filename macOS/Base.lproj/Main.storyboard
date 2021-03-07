@@ -2889,17 +2889,25 @@ It can controls a return value to affect a test target.</string>
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="SXv-Ot-vWY"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="s5H-c8-vmc"/>
-                                <toolbarItem implicitItemIdentifier="E96EE72B-A293-42B5-93B3-0C90B4671A58" label="Add init" paletteLabel="Add init" tag="-1" image="add" id="vWw-JJ-qkv">
+                                <toolbarItem implicitItemIdentifier="E96EE72B-A293-42B5-93B3-0C90B4671A58" label="Add item" paletteLabel="Add item" tag="-1" image="add" id="vWw-JJ-qkv">
                                     <size key="minSize" width="34" height="22"/>
                                     <size key="maxSize" width="34" height="22"/>
                                     <connections>
                                         <action selector="addInitDidClick:" target="j6k-R9-QVZ" id="FcV-0l-CLR"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="30EB70F4-8C68-410D-9517-C7DF3C6EE383" label="Remove item" paletteLabel="Remove item" tag="-1" image="minus" id="r7Z-eF-NhK">
+                                    <size key="minSize" width="34" height="22"/>
+                                    <size key="maxSize" width="34" height="22"/>
+                                    <connections>
+                                        <action selector="removeInitDidClick:" target="j6k-R9-QVZ" id="FGd-6c-PtE"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="s5H-c8-vmc"/>
                                 <toolbarItem reference="vWw-JJ-qkv"/>
+                                <toolbarItem reference="r7Z-eF-NhK"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
@@ -2907,6 +2915,7 @@ It can controls a return value to affect a test target.</string>
                         </connections>
                     </window>
                     <connections>
+                        <outlet property="removeToolbarItem" destination="r7Z-eF-NhK" id="f3h-U6-aiz"/>
                         <segue destination="n8Y-AU-HDd" kind="relationship" relationship="window.shadowedContentViewController" id="eeZ-4J-Der"/>
                     </connections>
                 </windowController>
@@ -3176,6 +3185,7 @@ It can controls a return value to affect a test target.</string>
         <image name="App" width="1024" height="1024"/>
         <image name="NSShareTemplate" width="15" height="17"/>
         <image name="add" width="25" height="16"/>
+        <image name="minus" width="25" height="16"/>
         <image name="question" width="30" height="20"/>
         <image name="step1" width="1006" height="590"/>
         <image name="step2" width="1560" height="1268"/>

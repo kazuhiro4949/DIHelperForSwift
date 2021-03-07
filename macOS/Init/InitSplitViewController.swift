@@ -17,6 +17,9 @@ class InitSplitViewController: NSSplitViewController {
         splitViewItems[0].viewController as! InitOutlineViewController
     }
     
+    var snippets: [InitSnippet] {
+        UserDefaults.group.snippets
+    }
     
     
     override func viewDidLoad() {
@@ -33,6 +36,36 @@ class InitSplitViewController: NSSplitViewController {
             initOutlineViewController.tableView.selectRowIndexes([0], byExtendingSelection: false)
             initDetailViewController.create(snnipets[0])
         }
+    }
+    
+    func removeSelectedItem() {
+        let selectedRow = initOutlineViewController.tableView.selectedRow
+        var snippets = UserDefaults.group.snippets
+        snippets.remove(at: selectedRow)
+        UserDefaults.group.snippets = snippets
+        
+        initOutlineViewController.removeSelectedItem()
+        
+        let snippet: InitSnippet
+        if 0 <= initOutlineViewController.tableView.selectedRow {
+            snippet = snippets[initOutlineViewController.tableView.selectedRow]
+            initDetailViewController.create(snippet)
+        } else {
+            initDetailViewController.reset()
+        }
+        
+    }
+    
+    func addItem() {
+        let snippet = InitSnippet(
+            name: "NewClass",
+            body: "NewClass()")
+        
+        var snippets = UserDefaults.group.snippets
+        snippets.insert(snippet, at: 0)
+        UserDefaults.group.snippets = snippets
+        initOutlineViewController.create(snippet)
+        initDetailViewController.create(snippet)
     }
 }
 

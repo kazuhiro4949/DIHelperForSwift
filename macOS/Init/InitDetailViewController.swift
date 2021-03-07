@@ -20,6 +20,7 @@ class InitDetailViewController: NSViewController {
     weak var delegate: InitDetailViewControllerDelegate?
     
     var snippet: InitSnippet?
+    var isBinding = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,15 +31,24 @@ class InitDetailViewController: NSViewController {
     }
     
     func bindData(_ snippet: InitSnippet?) {
+        isBinding = true
         titleTextField.stringValue
             = snippet?.name ?? ""
+        
+        
         textView.text
             = snippet?.body ?? ""
+        isBinding = false
     }
     
     func create(_ snippet: InitSnippet) {
         self.snippet = snippet
         bindData(snippet)
+    }
+    
+    func reset() {
+        self.snippet = nil
+        bindData(nil)
     }
 }
 
@@ -50,7 +60,7 @@ extension InitDetailViewController: SyntaxTextViewDelegate {
     
     func didChangeText(_ syntaxTextView: SyntaxTextView) {
         snippet?.body = syntaxTextView.text
-        if let snippet = snippet {
+        if let snippet = snippet, !isBinding {
             delegate?.initDetailViewController(self, didChange: snippet)
         }
     }

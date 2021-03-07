@@ -42,9 +42,32 @@ class InitOutlineViewController: NSViewController {
     
     func create(_ snippet: InitSnippet) {
         dataSource.insert(snippet, at: 0)
-        tableView.reloadData()
+        tableView.beginUpdates()
+        tableView.insertRows(at: [0], withAnimation: .slideDown)
+        tableView.endUpdates()
+        tableView.selectRowIndexes([0], byExtendingSelection: false)
+        
         let view = tableView.view(atColumn: 0, row: 0, makeIfNecessary: true) as? NSTableCellView
         view?.textField?.becomeFirstResponder()
+    }
+    
+    func removeSelectedItem() {
+        let selectedRow = tableView.selectedRow
+        dataSource.remove(at: tableView.selectedRow)
+        
+        tableView.deselectRow(selectedRow)
+        
+        tableView.beginUpdates()
+        tableView.removeRows(at: [selectedRow], withAnimation: .slideUp)
+        tableView.endUpdates()
+        
+        if dataSource.count == 0 {
+            // nothing to do
+        } else if selectedRow == 0 {
+           tableView.selectRowIndexes([0], byExtendingSelection: false)
+        } else {
+            tableView.selectRowIndexes([selectedRow], byExtendingSelection: false)
+        }
     }
 }
 
@@ -73,6 +96,10 @@ extension InitOutlineViewController: NSTextFieldDelegate {
             
             
             let row = tableView.row(for: view)
+            guard 0 <= row else {
+                return
+            }
+            
             let name = textField.stringValue
             
             dataSource[row].name = name
