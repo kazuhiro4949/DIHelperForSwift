@@ -15,6 +15,7 @@ struct InitSnippet: Codable {
 
 protocol InitOutlineViewControllerDelegate: AnyObject {
     func initOutlineViewController(_ vc: InitOutlineViewController, didSelect snippet: InitSnippet)
+    func initOutlineViewController(_ vc: InitOutlineViewController, didChange snippet: InitSnippet)
 }
 
 class InitOutlineViewController: NSViewController {
@@ -24,11 +25,14 @@ class InitOutlineViewController: NSViewController {
     
     var dataSource = [InitSnippet]()
     
+    var currentIndex: Int {
+        tableView.selectedRow
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource = UserDefaults.group.snippets
-        tableView.registerForDraggedTypes([.string])
+        tableView.registerForDraggedTypes([.string])        
     }
 
     @IBAction func didClickCell(_ sender: NSTableView) {
@@ -67,12 +71,12 @@ extension InitOutlineViewController: NSTextFieldDelegate {
         if let textField = obj.object as? NSTextField,
            let view = textField.superview as? NSTableCellView {
             
+            
             let row = tableView.row(for: view)
             let name = textField.stringValue
             
-            var snippets = UserDefaults.group.snippets
-            snippets[row].name = name
-            UserDefaults.group.snippets = snippets
+            dataSource[row].name = name
+            delegate?.initOutlineViewController(self, didChange: dataSource[row])
         }
     }
 }

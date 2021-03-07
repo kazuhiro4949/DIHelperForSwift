@@ -29,6 +29,6 @@ class InitWIndowController: NSWindowController {
         snippets.insert(snippet, at: 0)
         UserDefaults.group.snippets = snippets
         splitViewController.initOutlineViewController.create(snippet)
-//        splitViewController.initDetailViewController.create()
+        splitViewController.initDetailViewController.create(snippet)
     }
 }
