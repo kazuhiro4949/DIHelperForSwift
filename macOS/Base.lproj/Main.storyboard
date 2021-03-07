@@ -2943,6 +2943,9 @@ It can controls a return value to affect a test target.</string>
                             <constraint firstItem="7iI-9U-pQR" firstAttribute="top" secondItem="uIZ-cF-Mz2" secondAttribute="top" id="RUC-fx-Lcd"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="outlineView" destination="8DP-Tb-W01" id="rAT-bF-1SB"/>
+                    </connections>
                 </viewController>
                 <customObject id="3Xr-RT-LVx" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

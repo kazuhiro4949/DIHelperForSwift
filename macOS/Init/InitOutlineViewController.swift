@@ -14,6 +14,8 @@ struct InitSnippet {
 }
 
 class InitOutlineViewController: NSViewController {
+    @IBOutlet weak var outlineView: NSOutlineView!
+    
     var dataSource = Array(repeating: InitSnippet(name: "SomeClass", body: "SameClas()"), count: 100)
 
     override func viewDidLoad() {
