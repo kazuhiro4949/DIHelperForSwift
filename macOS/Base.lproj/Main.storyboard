@@ -2890,7 +2890,7 @@ It can controls a return value to affect a test target.</string>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="SXv-Ot-vWY"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="s5H-c8-vmc"/>
                                 <toolbarItem implicitItemIdentifier="E96EE72B-A293-42B5-93B3-0C90B4671A58" label="Add type and Initialization" paletteLabel="Add type and Initialization" tag="-1" image="add" id="vWw-JJ-qkv">
-                                    <string key="toolTip">add reserved initialization for test doubles.
+                                    <string key="toolTip">Add a custom type and the initialization.
 If you set new one, this app uses the initialization to make the type's return value</string>
                                     <size key="minSize" width="34" height="22"/>
                                     <size key="maxSize" width="34" height="22"/>
@@ -2899,7 +2899,7 @@ If you set new one, this app uses the initialization to make the type's return v
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="30EB70F4-8C68-410D-9517-C7DF3C6EE383" label="Remove type" paletteLabel="Remove type" tag="-1" image="minus" id="r7Z-eF-NhK">
-                                    <string key="toolTip">add reserved initialization for test doubles.
+                                    <string key="toolTip">Remove a custom type and the initialization.
 If you set new one, this app uses the initialization to make the type's return value</string>
                                     <size key="minSize" width="34" height="22"/>
                                     <size key="maxSize" width="34" height="22"/>
@@ -2934,6 +2934,7 @@ If you set new one, this app uses the initialization to make the type's return v
                     <view key="view" id="uIZ-cF-Mz2">
                         <rect key="frame" x="0.0" y="0.0" width="183" height="382"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <string key="toolTip">This column lists custom type names. They are used for returned values instead of placeholder. Upper elements is prior to bottoms.</string>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqn-c9-WTt">
                                 <rect key="frame" x="0.0" y="0.0" width="183" height="382"/>
@@ -3042,7 +3043,7 @@ If you set new one, this app uses the initialization to make the type's return v
         <scene sceneID="kXq-Gf-08T">
             <objects>
                 <viewController id="iwa-ZY-KIb" customClass="InitDetailViewController" customModule="DI_Helper_for_Swift" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="8Ul-VP-BwY">
+                    <view key="view" toolTip="Input default Initialization to left pane types. These values are used instead of placeholder" id="8Ul-VP-BwY">
                         <rect key="frame" x="0.0" y="0.0" width="641" height="362"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
