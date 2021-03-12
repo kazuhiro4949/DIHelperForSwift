@@ -352,7 +352,7 @@
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Teg-5g-AcQ"/>
-                                <toolbarItem implicitItemIdentifier="9204EAF1-554F-42E3-9394-448A784A3062" label="Initializers" paletteLabel="Initializers" tag="-1" image="list" id="k0s-Ye-Mg4">
+                                <toolbarItem implicitItemIdentifier="9204EAF1-554F-42E3-9394-448A784A3062" label="Initialization" paletteLabel="Initialization" toolTip="Register a custom type and initialization to replace placeholder" tag="-1" image="list" id="k0s-Ye-Mg4">
                                     <size key="minSize" width="36" height="22"/>
                                     <size key="maxSize" width="36" height="22"/>
                                     <connections>
@@ -2876,7 +2876,7 @@ It can controls a return value to affect a test target.</string>
         <scene sceneID="Irt-9e-ejg">
             <objects>
                 <windowController storyboardIdentifier="InitWIndowController" id="j6k-R9-QVZ" customClass="InitWIndowController" customModule="DI_Helper_for_Swift" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Initializers" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="RZK-OG-21t">
+                    <window key="window" title="Custom type's initialization" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="RZK-OG-21t">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="239" width="480" height="270"/>
@@ -3043,7 +3043,7 @@ If you set new one, this app uses the initialization to make the type's return v
         <scene sceneID="kXq-Gf-08T">
             <objects>
                 <viewController id="iwa-ZY-KIb" customClass="InitDetailViewController" customModule="DI_Helper_for_Swift" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" toolTip="Input default Initialization to left pane types. These values are used instead of placeholder" id="8Ul-VP-BwY">
+                    <view key="view" toolTip="Input an initialization of the left pane's type. This expression is used instead of placeholder" id="8Ul-VP-BwY">
                         <rect key="frame" x="0.0" y="0.0" width="641" height="362"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
