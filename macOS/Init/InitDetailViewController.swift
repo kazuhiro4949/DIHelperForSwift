@@ -14,7 +14,6 @@ protocol InitDetailViewControllerDelegate: AnyObject {
 }
 
 class InitDetailViewController: NSViewController {
-    @IBOutlet weak var titleTextField: NSTextField!
     @IBOutlet weak var textView: SyntaxTextView!
     
     weak var delegate: InitDetailViewControllerDelegate?
@@ -32,8 +31,6 @@ class InitDetailViewController: NSViewController {
     
     func bindData(_ snippet: InitSnippet?) {
         isBinding = true
-        titleTextField.stringValue
-            = snippet?.name ?? ""
         
         
         textView.text

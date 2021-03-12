@@ -62,7 +62,7 @@ class InitSplitViewController: NSSplitViewController {
     func addItem() {
         let snippet = InitSnippet(
             name: "UIViewController",
-            body: "UIViewController()")
+            body: "UIViewController(nibName: nil, bundle: nil)")
         
         var snippets = UserDefaults.group.snippets
         snippets.insert(snippet, at: 0)
