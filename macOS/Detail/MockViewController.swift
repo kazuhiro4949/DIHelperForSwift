@@ -31,7 +31,9 @@ class MockViewController: NSViewController {
     @IBOutlet weak var convertedSourceTextView: SyntaxTextView!
     @IBOutlet weak var documentationTextField: NSTextField!
     @IBOutlet weak var copyButton: NSButton!
-
+    
+    var observers = [NSObjectProtocol]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,6 +68,14 @@ class MockViewController: NSViewController {
         
         setupButtons()
         setupLink()
+        
+        observers.append(NotificationCenter.default.addObserver(
+            forName: InitSplitViewController.didUpdateNotification,
+            object: nil,
+            queue: .main) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateConvertedText(self.sampleSourceTextView.text)
+        })
     }
     
     private func setupLink() {

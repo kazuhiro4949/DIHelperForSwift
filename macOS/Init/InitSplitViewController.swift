@@ -10,6 +10,8 @@ import Cocoa
 
 
 class InitSplitViewController: NSSplitViewController {
+    static let didUpdateNotification = NSNotification.Name("updateTypeAndInitializarList")
+        
     var initDetailViewController: InitDetailViewController {
         splitViewItems[1].viewController as! InitDetailViewController
     }
@@ -19,6 +21,10 @@ class InitSplitViewController: NSSplitViewController {
     
     var snippets: [InitSnippet] {
         UserDefaults.group.snippets
+    }
+    
+    func postUpdate() {
+        NotificationCenter.default.post(name: InitSplitViewController.didUpdateNotification, object: self)
     }
     
     
@@ -58,7 +64,7 @@ class InitSplitViewController: NSSplitViewController {
         } else {
             initDetailViewController.reset()
         }
-        
+        postUpdate()
     }
     
     func addItem() {
@@ -71,6 +77,7 @@ class InitSplitViewController: NSSplitViewController {
         UserDefaults.group.snippets = snippets
         initOutlineViewController.create(snippet)
         initDetailViewController.create(snippet)
+        postUpdate()
     }
 }
 
@@ -78,6 +85,7 @@ extension InitSplitViewController: InitOutlineViewControllerDelegate {
     
     func initOutlineViewController(_ vc: InitOutlineViewController, didSelect snippet: InitSnippet) {
         initDetailViewController.create(snippet)
+        postUpdate()
     }
     
     func initOutlineViewController(_ vc: InitOutlineViewController, didChange snippet: InitSnippet) {
@@ -85,6 +93,7 @@ extension InitSplitViewController: InitOutlineViewControllerDelegate {
         var snippets = UserDefaults.group.snippets
         snippets[vc.currentIndex] = snippet
         UserDefaults.group.snippets = snippets
+        postUpdate()
     }
 }
 
@@ -95,5 +104,6 @@ extension InitSplitViewController: InitDetailViewControllerDelegate {
         snippets[initOutlineViewController.currentIndex] = snippet
         UserDefaults.group.snippets = snippets
         initOutlineViewController.dataSource = snippets
+        postUpdate()
     }
 }

@@ -20,6 +20,8 @@ class StubViewController: NSViewController {
     @IBOutlet weak var convertedSourceTextView: SyntaxTextView!
     @IBOutlet weak var documentationTextField: NSTextField!
     
+    var observers = [NSObjectProtocol]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTextView()
@@ -45,6 +47,14 @@ class StubViewController: NSViewController {
             .returnValueFormat ?? ""
         
         setupLink()
+        
+        observers.append(NotificationCenter.default.addObserver(
+            forName: InitSplitViewController.didUpdateNotification,
+            object: nil,
+            queue: .main) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateConvertedText(self.sampleSourceTextView.text)
+        })
     }
     
     private func setupLink() {

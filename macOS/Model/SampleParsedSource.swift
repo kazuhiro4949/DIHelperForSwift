@@ -27,6 +27,7 @@ enum SampleParsedSource {
     protocol SampleProtocol {
         var prop1: String { get }
         func func1(arg1: String) -> Int
+        func func2(arg1: String) -> UIViewController
         init()
     }
     """
