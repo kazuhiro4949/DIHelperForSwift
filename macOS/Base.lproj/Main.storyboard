@@ -2889,14 +2889,14 @@ It can controls a return value to affect a test target.</string>
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="SXv-Ot-vWY"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="s5H-c8-vmc"/>
-                                <toolbarItem implicitItemIdentifier="E96EE72B-A293-42B5-93B3-0C90B4671A58" label="Add item" paletteLabel="Add item" tag="-1" image="add" id="vWw-JJ-qkv">
+                                <toolbarItem implicitItemIdentifier="E96EE72B-A293-42B5-93B3-0C90B4671A58" label="Add Initializer" paletteLabel="Add Initializer" toolTip="add reserved initializer which is used to make test doubles" tag="-1" image="add" id="vWw-JJ-qkv">
                                     <size key="minSize" width="34" height="22"/>
                                     <size key="maxSize" width="34" height="22"/>
                                     <connections>
                                         <action selector="addInitDidClick:" target="j6k-R9-QVZ" id="FcV-0l-CLR"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="30EB70F4-8C68-410D-9517-C7DF3C6EE383" label="Remove item" paletteLabel="Remove item" tag="-1" image="minus" id="r7Z-eF-NhK">
+                                <toolbarItem implicitItemIdentifier="30EB70F4-8C68-410D-9517-C7DF3C6EE383" label="Remove Initializer" paletteLabel="Remove Initializer" toolTip="remove reserved initializer which is used to make test doubles" tag="-1" image="minus" id="r7Z-eF-NhK">
                                     <size key="minSize" width="34" height="22"/>
                                     <size key="maxSize" width="34" height="22"/>
                                     <connections>
