@@ -14,6 +14,7 @@ protocol InitDetailViewControllerDelegate: AnyObject {
 }
 
 class InitDetailViewController: NSViewController {
+    @IBOutlet weak var emptyView: NSView!
     @IBOutlet weak var textView: SyntaxTextView!
     
     weak var delegate: InitDetailViewControllerDelegate?
@@ -27,6 +28,8 @@ class InitDetailViewController: NSViewController {
         textView.delegate = self
         
         textView.theme = DefaultSourceCodeTheme()
+        emptyView.isHidden = true
+        textView.isHidden = false
     }
     
     func bindData(_ snippet: InitSnippet?) {
@@ -41,11 +44,15 @@ class InitDetailViewController: NSViewController {
     func create(_ snippet: InitSnippet) {
         self.snippet = snippet
         bindData(snippet)
+        emptyView.isHidden = true
+        textView.isHidden = false
     }
     
     func reset() {
         self.snippet = nil
         bindData(nil)
+        emptyView.isHidden = false
+        textView.isHidden = true
     }
 }
 

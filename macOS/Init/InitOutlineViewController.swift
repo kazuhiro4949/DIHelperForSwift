@@ -20,10 +20,15 @@ protocol InitOutlineViewControllerDelegate: AnyObject {
 
 class InitOutlineViewController: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var emptyView: NSView!
     
     weak var delegate: InitOutlineViewControllerDelegate?
     
-    var dataSource = [InitSnippet]()
+    var dataSource = [InitSnippet]() {
+        didSet {
+            emptyView.isHidden = !dataSource.isEmpty
+        }
+    }
     
     var currentIndex: Int {
         tableView.selectedRow
@@ -36,6 +41,10 @@ class InitOutlineViewController: NSViewController {
     }
 
     @IBAction func didClickCell(_ sender: NSTableView) {
+        guard 0 <= sender.selectedRow else {
+            return
+        }
+        
         let snippet = dataSource[sender.selectedRow]
         delegate?.initOutlineViewController(self, didSelect: snippet)
     }

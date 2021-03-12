@@ -35,6 +35,8 @@ class InitSplitViewController: NSSplitViewController {
             initOutlineViewController.tableView.reloadData()
             initOutlineViewController.tableView.selectRowIndexes([0], byExtendingSelection: false)
             initDetailViewController.create(snnipets[0])
+        } else {
+            initDetailViewController.reset()
         }
     }
     
