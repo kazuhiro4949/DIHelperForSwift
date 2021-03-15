@@ -1073,6 +1073,39 @@ class MockGeneratorTests: XCTestCase {
                         textField_set_args = newValue
                     }
                 }
+                var buttonDidClick_wasCalled = false
+                var buttonDidClick_callCount = 0
+                var buttonDidClick_args: NSButton?
+                func buttonDidClick(_ sender: NSButton) {
+                    buttonDidClick_wasCalled = true
+                    buttonDidClick_callCount += 1
+                    buttonDidClick_args = sender
+                }
+            }
+
+            """
+        )
+    }
+    
+    func test_AttributeProtocolPattern() throws {
+        XCTAssertEqual(
+            try MockGenerater.expect(
+            .spy,
+            """
+            public protocol AttributeProtocol {
+                func exec(completion: @escaping (String) -> Void)
+            }
+            """),
+            """
+            class AttributeSpy: AttributeProtocol {
+                var exec_wasCalled = false
+                var exec_callCount = 0
+                var exec_args: ((String) -> Void)?
+                func exec(completion: @escaping (String) -> Void) {
+                    exec_wasCalled = true
+                    exec_callCount += 1
+                    exec_args = completion
+                }
             }
 
             """

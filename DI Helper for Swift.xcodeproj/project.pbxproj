@@ -93,6 +93,7 @@
 		302421BB25D4F8FF00C0E53F /* GenerateDummyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302421BA25D4F8FF00C0E53F /* GenerateDummyCommand.swift */; };
 		3024221025D911E800C0E53F /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024220F25D911E800C0E53F /* DummyViewController.swift */; };
 		3024221A25D931E800C0E53F /* GenerateStubCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024221925D931E800C0E53F /* GenerateStubCommand.swift */; };
+		3025503225FF9E240061A38F /* InitOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */; };
 		303223F625AAFC41002BB110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303223F525AAFC41002BB110 /* AppDelegate.swift */; };
 		303223F825AAFC41002BB110 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303223F725AAFC41002BB110 /* ViewController.swift */; };
 		303223FA25AAFC42002BB110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 303223F925AAFC42002BB110 /* Assets.xcassets */; };
@@ -896,6 +897,7 @@
 				3014C64725EA082E000B08B3 /* MockType.swift in Sources */,
 				3014C63E25EA082E000B08B3 /* TypeInheritanceClauseSyntax+Extension.swift in Sources */,
 				3014C65A25EA082E000B08B3 /* MemberDeclBlockSyntax+Extension.swift in Sources */,
+				3025503225FF9E240061A38F /* InitOutlineViewController.swift in Sources */,
 				3014C65325EA082E000B08B3 /* VariableDeclSyntax.swift in Sources */,
 				3014C66A25EA085C000B08B3 /* BundleToken.swift in Sources */,
 				3014C64625EA082E000B08B3 /* MemberDeclListItemSyntax+Extension.swift in Sources */,
