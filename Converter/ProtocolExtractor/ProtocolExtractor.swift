@@ -98,7 +98,9 @@ class ProtocolExtractor: SyntaxVisitor {
             return initializerDecl
         }
         
-        let protocolDeclSyntax = makeProtocolDecl(identifier: node.identifier,
+        let protocolDeclSyntax = makeProtocolDecl(
+                             attributes: node.attributes,
+                             identifier: node.identifier,
                              varDecls: variables,
                              funcDelcs: functions,
                              initDecls: initilizers,
@@ -198,7 +200,9 @@ class ProtocolExtractor: SyntaxVisitor {
             return initializerDecl
         }
         
-        let protocolDeclSyntax = makeProtocolDecl(identifier: node.identifier,
+        let protocolDeclSyntax = makeProtocolDecl(
+                         attributes: node.attributes,
+                         identifier: node.identifier,
                          varDecls: variables,
                          funcDelcs: functions,
                          initDecls: initilizers,
@@ -298,11 +302,13 @@ class ProtocolExtractor: SyntaxVisitor {
             return initializerDecl
         }
         
-        let protocolDeclSyntax = makeProtocolDecl(identifier: node.identifier,
-                                                     varDecls: variables,
-                                                     funcDelcs: functions,
-                                                     initDecls: initilizers,
-                                                     isClass: true)
+        let protocolDeclSyntax = makeProtocolDecl(
+            attributes: node.attributes,
+            identifier: node.identifier,
+            varDecls: variables,
+            funcDelcs: functions,
+            initDecls: initilizers,
+            isClass: true)
         let prefiComment = """
         /// protocol of \(node.identifier.text)
         ///
@@ -319,6 +325,7 @@ class ProtocolExtractor: SyntaxVisitor {
     }
     
     private func makeProtocolDecl(
+        attributes: AttributeListSyntax?,
         identifier: TokenSyntax,
         varDecls: [VariableDeclSyntax],
         funcDelcs: [FunctionDeclSyntax],
@@ -365,6 +372,7 @@ class ProtocolExtractor: SyntaxVisitor {
         let format = Settings.shared.protocolSettings.nameFormat ?? "%@Protocol"
         let formattedString = String(format: format, identifier.text)
         return SyntaxFactory.makeProtocolForDependencyInjection(
+            attributes: attributes,
             identifier: identifier
                 .withKind(
                     .stringLiteral(

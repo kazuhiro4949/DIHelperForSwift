@@ -35,18 +35,19 @@ extension SyntaxFactory {
     }
     
     static func makeProtocolForDependencyInjection(
+        attributes: AttributeListSyntax?,
         identifier: TokenSyntax,
         members: MemberDeclListSyntax) -> ProtocolDeclSyntax {
         
         SyntaxFactory.makeProtocolDecl(
-            attributes: nil,
+            attributes: attributes?.protocolExclusiveRemoved,
             modifiers: nil,
             protocolKeyword: SyntaxFactory
                 .makeProtocolKeyword()
                 .withTrailingTrivia(.spaces(1)),
             identifier: identifier
                 .withTrailingTrivia(.spaces(1)),
-            inheritanceClause: nil, // Anyobject if class
+            inheritanceClause: nil, // TODO:- Anyobject if class
             genericWhereClause: nil,
             members: makeProtocolMemberDeclBlock(members: members))
     }

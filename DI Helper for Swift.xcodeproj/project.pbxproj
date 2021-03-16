@@ -94,6 +94,9 @@
 		3024221025D911E800C0E53F /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024220F25D911E800C0E53F /* DummyViewController.swift */; };
 		3024221A25D931E800C0E53F /* GenerateStubCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024221925D931E800C0E53F /* GenerateStubCommand.swift */; };
 		3025503225FF9E240061A38F /* InitOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051B8A125F3C2290014D3E9 /* InitOutlineViewController.swift */; };
+		3025503D2600EF250061A38F /* AttributeListSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025503C2600EF250061A38F /* AttributeListSyntax+Extension.swift */; };
+		3025503E2600EF250061A38F /* AttributeListSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025503C2600EF250061A38F /* AttributeListSyntax+Extension.swift */; };
+		3025503F2600EF250061A38F /* AttributeListSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025503C2600EF250061A38F /* AttributeListSyntax+Extension.swift */; };
 		303223F625AAFC41002BB110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303223F525AAFC41002BB110 /* AppDelegate.swift */; };
 		303223F825AAFC41002BB110 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303223F725AAFC41002BB110 /* ViewController.swift */; };
 		303223FA25AAFC42002BB110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 303223F925AAFC42002BB110 /* Assets.xcassets */; };
@@ -302,6 +305,7 @@
 		302421BA25D4F8FF00C0E53F /* GenerateDummyCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateDummyCommand.swift; sourceTree = "<group>"; };
 		3024220F25D911E800C0E53F /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		3024221925D931E800C0E53F /* GenerateStubCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateStubCommand.swift; sourceTree = "<group>"; };
+		3025503C2600EF250061A38F /* AttributeListSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttributeListSyntax+Extension.swift"; sourceTree = "<group>"; };
 		303223F225AAFC41002BB110 /* DI Helper for Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DI Helper for Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		303223F525AAFC41002BB110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		303223F725AAFC41002BB110 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -608,6 +612,7 @@
 				3024219225CFCB8E00C0E53F /* TypeSyntax+Extension.swift */,
 				3014C48F25E93596000B08B3 /* ModifierListSyntax+Exntension.swift */,
 				3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */,
+				3025503C2600EF250061A38F /* AttributeListSyntax+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -822,6 +827,7 @@
 				30559D9125E380A4003F5A2A /* OnboardingViewController.swift in Sources */,
 				30E035E525BC3059000D49EE /* MockViewController.swift in Sources */,
 				3051B8B325F48BD90014D3E9 /* InitDetailViewController.swift in Sources */,
+				3025503D2600EF250061A38F /* AttributeListSyntax+Extension.swift in Sources */,
 				3044B11A25E1341F00EC7A16 /* ProtocolNameHandler.swift in Sources */,
 				303223F825AAFC41002BB110 /* ViewController.swift in Sources */,
 				3051B8A225F3C2290014D3E9 /* InitOutlineViewController.swift in Sources */,
@@ -932,6 +938,7 @@
 				3051B88425F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift in Sources */,
 				3014C63425EA07F9000B08B3 /* ProtocolExtractorTests.swift in Sources */,
 				3014C65825EA082E000B08B3 /* MockGenerater.swift in Sources */,
+				3025503E2600EF250061A38F /* AttributeListSyntax+Extension.swift in Sources */,
 				3014C64D25EA082E000B08B3 /* TypeSyntax+Extension.swift in Sources */,
 				3032240925AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests.swift in Sources */,
 				3014C63925EA082E000B08B3 /* InitializerClauseSyntax+Extension.swift in Sources */,
@@ -1006,6 +1013,7 @@
 				3024221A25D931E800C0E53F /* GenerateStubCommand.swift in Sources */,
 				30559DAA25E3B2DB003F5A2A /* OnboardingStartViewController.swift in Sources */,
 				3024216525CFCA5B00C0E53F /* DictionaryElementListSyntax+Extension.swift in Sources */,
+				3025503F2600EF250061A38F /* AttributeListSyntax+Extension.swift in Sources */,
 				3024219325CFCB8E00C0E53F /* TypeSyntax+Extension.swift in Sources */,
 				30B8A40A25B47B2B00F643CD /* HasGenericParameter.swift in Sources */,
 				30B8A41025B47B4200F643CD /* PatternBindingSyntax.swift in Sources */,

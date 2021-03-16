@@ -198,6 +198,26 @@ class ProtocolExtractorTests: XCTestCase {
             """
         )
     }
+    
+    func test_AvailabilityMethod() throws {
+        XCTAssertEqual(
+            try ProtocolExtractor.expect(
+            """
+            @available(iOS 14.0, *)
+            @objc class Hoge: NSObject {
+                @objc class func hoge() -> SomeClass {
+                    SomeClass()
+                }
+            }
+            """),
+            """
+            @available(iOS 14.0, *)
+            protocol HogeProtocol {
+                static func hoge() -> SomeClass
+            }
+            """
+        )
+    }
 }
 
 extension ProtocolExtractor {
