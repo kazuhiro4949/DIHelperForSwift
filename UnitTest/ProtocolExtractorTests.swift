@@ -199,7 +199,7 @@ class ProtocolExtractorTests: XCTestCase {
         )
     }
     
-    func test_AvailabilityMethod() throws {
+    func test_ClassAvailabilityMethod() throws {
         XCTAssertEqual(
             try ProtocolExtractor.expect(
             """
@@ -214,6 +214,31 @@ class ProtocolExtractorTests: XCTestCase {
             @available(iOS 14.0, *)
             protocol HogeProtocol {
                 static func hoge() -> SomeClass
+            }
+            """
+        )
+    }
+    
+    func test_MemberAvailabilityMethod() throws {
+        XCTAssertEqual(
+            try ProtocolExtractor.expect(
+            """
+            @objc class Hoge: NSObject {
+                @available(iOS 14.0, *)
+                @objc class func hoge() -> SomeClass {
+                    SomeClass()
+                }
+
+                @available(iOS 14.0, *)
+                @objc var prop1: String = ""
+            }
+            """),
+            """
+            protocol HogeProtocol {
+                @available(iOS 14.0, *)
+                static func hoge() -> SomeClass
+                @available(iOS 14.0, *)
+                var prop1: String { get set }
             }
             """
         )
