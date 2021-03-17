@@ -10,14 +10,17 @@ import Foundation
 import SwiftSyntax
 
 extension AttributeListSyntax {
-    var protocolExclusiveRemoved: AttributeListSyntax {
+    var protocolExclusiveRemoved: AttributeListSyntax? {
         let attributes = filter {
             let attribute = $0.as(AttributeSyntax.self)
             return (attribute?.attributeName.text == "available")
         }
-        
-        return SyntaxFactory
-            .makeAttributeList(attributes)
-            .withTrailingTrivia(.newlines(1))
+        if attributes.isEmpty {
+            return nil
+        } else {
+            return SyntaxFactory
+                .makeAttributeList(attributes)
+                .withTrailingTrivia(.newlines(1))
+        }
     }
 }

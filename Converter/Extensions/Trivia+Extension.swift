@@ -14,6 +14,13 @@ extension Trivia {
         .spaces(Settings.shared.indentationValue)
     }
     
+    static var newlineAndIndent: Trivia {
+        [
+            .newlines(1),
+            .spaces(Settings.shared.indentationValue)
+        ]
+    }
+    
     static func indent(_ level: Int) -> Trivia {
         .spaces(Settings.shared.indentationValue * level)
     }

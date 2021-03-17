@@ -22,7 +22,9 @@ extension InitializerDeclSyntax {
                 )
         )
         return SyntaxFactory.makeInitializerDecl(
-            attributes: nil,
+            attributes: attributes?
+                .protocolExclusiveRemoved?
+                .withTrailingTrivia(.newlineAndIndent),
             modifiers: modifiers?.protocolEnabled,
             initKeyword: SyntaxFactory.makeInitKeyword(
                 leadingTrivia: .zero

@@ -26,12 +26,18 @@ extension VariableDeclSyntax {
             let keywordsFromAccessor = accessorBlock.contextualKeywords
             let keywordsFromVariable = contextualKeywords
             let protocolVariable = binding.convertForProtocol(
-                with: keywordsFromAccessor.intersection(keywordsFromVariable), modifiers: modifiers?.protocolEnabled
+                with: keywordsFromAccessor.intersection(keywordsFromVariable),
+                modifiers: modifiers?.protocolEnabled,
+                attributes: attributes?.protocolExclusiveRemoved
             )
             return [protocolVariable]
         } else if isComputedProperty {
             // computed property
-            return [binding.convertForProtocol(with: .get, modifiers: modifiers?.protocolEnabled)]
+            return [binding.convertForProtocol(
+                        with: .get,
+                        modifiers: modifiers?.protocolEnabled,
+                        attributes: attributes?.protocolExclusiveRemoved
+            )]
         } else {
             // stored property
             return makeInterfacesFromBindings()
@@ -41,7 +47,10 @@ extension VariableDeclSyntax {
     func makeInterfacesFromBindings() -> [VariableDeclSyntax] {
         makeTypeAnnotatedBindings()
             .map {
-                $0.convertForProtocol(with: contextualKeywords, modifiers: modifiers?.protocolEnabled)
+                $0.convertForProtocol(
+                    with: contextualKeywords,
+                    modifiers: modifiers?.protocolEnabled,
+                    attributes: attributes?.protocolExclusiveRemoved)
             }
     }
     

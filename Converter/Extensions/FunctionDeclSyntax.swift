@@ -24,7 +24,9 @@ extension FunctionDeclSyntax {
         )
         
         return SyntaxFactory.makeFunctionDecl(
-            attributes: nil,
+            attributes: attributes?
+                .protocolExclusiveRemoved?
+                .withTrailingTrivia(.newlineAndIndent),
             modifiers: modifiers?.protocolEnabled,
             funcKeyword: funcKeyword
                 .withLeadingTrivia(.zero)
