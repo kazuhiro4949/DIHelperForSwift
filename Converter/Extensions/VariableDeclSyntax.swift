@@ -182,7 +182,8 @@ extension VariableDeclSyntax {
             for: mockType,
             identifier: identifier,
             binding: binding,
-            modifiers: modifiers
+            modifiers: modifiers,
+            attributes: attributes
         )
         
         let accessors = mockProperties?.map { $0.accessor }
@@ -201,7 +202,7 @@ extension VariableDeclSyntax {
         let propDeclListItems = mockProperties?.map { $0.members }.flatMap { $0 } ?? []
         
         let variable = SyntaxFactory.makeVariableDecl(
-            attributes: nil,
+            attributes: attributes?.withTrailingTrivia(.newlineAndIndent),
             modifiers: modifiers,
             letOrVarKeyword: .makeFormattedVarKeyword(),
             bindings: patternList)
@@ -213,9 +214,9 @@ extension VariableDeclSyntax {
         return propDeclListItems + [declListItem]
     }
     
-    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?) -> VariableDeclSyntax {
+    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> VariableDeclSyntax {
         SyntaxFactory.makeVariableDecl(
-            attributes: nil,
+            attributes: attributes?.withTrailingTrivia(.newlineAndIndent),
             modifiers: modifiers,
             letOrVarKeyword: .makeFormattedVarKeyword(),
             bindings: .makeReturnedValForMock(identifier, typeSyntax)
@@ -240,10 +241,11 @@ extension VariableDeclSyntax {
     
     static func makeDeclWithAssign(to identifier: String,
                                    typeAnnotation: TypeAnnotationSyntax,
-                                   modifiers: ModifierListSyntax?) -> VariableDeclSyntax {
+                                   modifiers: ModifierListSyntax?,
+                                   attributes: AttributeListSyntax?) -> VariableDeclSyntax {
         
         SyntaxFactory.makeVariableDecl(
-            attributes: nil,
+            attributes: attributes?.withTrailingTrivia(.newlineAndIndent),
             modifiers: modifiers,
             letOrVarKeyword: .makeFormattedVarKeyword(),
             bindings: SyntaxFactory

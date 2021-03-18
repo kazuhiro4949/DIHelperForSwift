@@ -18,7 +18,7 @@ extension AccessorDeclSyntax {
         accessorKind.text == "get"
     }
     
-    func makeSpyProperty(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax, modifiers: ModifierListSyntax?) -> MockPropertyForAccessor {
+    func makeSpyProperty(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MockPropertyForAccessor {
         let identifierByAccessor = "\(identifier.text)_\(accessorKind.text)"
         var spyProperty = MockPropertyForAccessor(accessor: self)
         
@@ -45,7 +45,8 @@ extension AccessorDeclSyntax {
                 .makeArgsValForMock(
                     identifierByAccessor.args(.spy),
                     unwrappedType,
-                    modifiers: modifiers
+                    modifiers: modifiers,
+                    attributes: attributes
                 )
             )
             spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeNewValueArgsExprForMock(identifierByAccessor.args(.spy)).withLeadingTrivia(.indent(3)))
@@ -56,7 +57,11 @@ extension AccessorDeclSyntax {
             .type
             .withTrailingTrivia(.zero) {
             
-            spyProperty.members.append(.makeReturnedValForMock(identifierByAccessor.val(.spy), typeSyntax, modifiers: modifiers))
+            spyProperty.members.append(.makeReturnedValForMock(
+                                        identifierByAccessor.val(.spy),
+                                        typeSyntax,
+                                        modifiers: modifiers,
+                                        attributes: attributes))
             spyProperty.appendCodeBlockItem(.makeReturnExpr(identifierByAccessor.val(.spy), .indent(3)))
         }
         return spyProperty

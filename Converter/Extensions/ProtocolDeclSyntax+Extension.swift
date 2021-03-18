@@ -98,7 +98,7 @@ extension FunctionSignatureSyntax {
 extension ProtocolDeclSyntax {
     func generateMockClass(_ mockType: MockType) -> MockClassDeclSyntax {
         let classDecl = SyntaxFactory.makeClassDecl(
-            attributes: nil,
+            attributes: attributes?.protocolExclusiveRemoved,
             modifiers: nil,
             classKeyword: .makeFormattedClassKeyword(),
             identifier: mockIdentifier(mockType: mockType),

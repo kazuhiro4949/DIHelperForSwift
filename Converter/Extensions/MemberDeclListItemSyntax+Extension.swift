@@ -40,7 +40,7 @@ extension MemberDeclListItemSyntax {
             )
     }
     
-    static func makeArgsValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax {
+    static func makeArgsValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
         makeFormattedAssign(
             to: identifier,
             typeAnnotation: .makeFormatted(
@@ -51,16 +51,22 @@ extension MemberDeclListItemSyntax {
                     )
                 )
             ),
-            modifiers: modifiers
+            modifiers: modifiers,
+            attributes: attributes
         )
     }
     
-    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax {
+    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
         SyntaxFactory
             .makeMemberDeclListItem(
                 decl: DeclSyntax(
                     VariableDeclSyntax
-                        .makeReturnedValForMock(identifier, typeSyntax, modifiers: modifiers)
+                        .makeReturnedValForMock(
+                            identifier,
+                            typeSyntax,
+                            modifiers: modifiers,
+                            attributes: attributes
+                        )
                 ),
                 semicolon: nil
         )
@@ -102,13 +108,14 @@ extension MemberDeclListItemSyntax {
         )
     }
     
-    static func makeFormattedAssign(to identifier: String, typeAnnotation: TypeAnnotationSyntax, modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
+    static func makeFormattedAssign(to identifier: String, typeAnnotation: TypeAnnotationSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?)  -> MemberDeclListItemSyntax {
         SyntaxFactory.makeMemberDeclListItem(
             decl: DeclSyntax(VariableDeclSyntax
                     .makeDeclWithAssign(
                         to: identifier,
                         typeAnnotation: typeAnnotation,
-                        modifiers: modifiers
+                        modifiers: modifiers,
+                        attributes: attributes
                     ))
                 .withTrailingTrivia(.newlines(1)),
             semicolon: nil

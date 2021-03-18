@@ -1111,6 +1111,88 @@ class MockGeneratorTests: XCTestCase {
             """
         )
     }
+    
+    func test_ClassAvailabilityProtocolPattern() throws {
+        XCTAssertEqual(
+            try MockGenerater.expect(
+            .spy,
+            """
+            @available(iOS 14.0, *)
+            public protocol AttributeProtocol {
+                func exec(completion: @escaping (String) -> Void)
+            }
+            """),
+            """
+            @available(iOS 14.0, *)
+            class AttributeSpy: AttributeProtocol {
+                var exec_wasCalled = false
+                var exec_callCount = 0
+                var exec_args: ((String) -> Void)?
+                func exec(completion: @escaping (String) -> Void) {
+                    exec_wasCalled = true
+                    exec_callCount += 1
+                    exec_args = completion
+                }
+            }
+
+            """
+        )
+    }
+    
+    func test_MemberAvailabilityProtocolPattern() throws {
+        XCTAssertEqual(
+            try MockGenerater.expect(
+            .spy,
+            """
+            public protocol AttributeProtocol {
+                @available(iOS 14.0, *)
+                func exec(completion: @escaping (String) -> Void) -> String
+                @available(iOS 14.0, *)
+                var prop: Int { get set }
+            }
+            """),
+            """
+            class AttributeSpy: AttributeProtocol {
+                var exec_wasCalled = false
+                var exec_callCount = 0
+                @available(iOS 14.0, *)
+                var exec_args: ((String) -> Void)?
+                @available(iOS 14.0, *)
+                var exec_val: String = ""
+                @available(iOS 14.0, *)
+                func exec(completion: @escaping (String) -> Void) -> String {
+                    exec_wasCalled = true
+                    exec_callCount += 1
+                    exec_args = completion
+                    return exec_val
+                }
+
+                var prop_get_wasCalled = false
+                var prop_get_callCount = 0
+                @available(iOS 14.0, *)
+                var prop_get_val: Int = 0
+                var prop_set_wasCalled = false
+                var prop_set_callCount = 0
+                @available(iOS 14.0, *)
+                var prop_set_args: Int?
+                @available(iOS 14.0, *)
+                var prop: Int {
+                    get {
+                        prop_get_wasCalled = true
+                        prop_get_callCount += 1
+                        return prop_get_val
+                    }
+                    set {
+                        prop_set_wasCalled = true
+                        prop_set_callCount += 1
+                        prop_set_args = newValue
+                    }
+                }
+            }
+
+            """
+        )
+    }
 }
 
 extension MockGenerater {

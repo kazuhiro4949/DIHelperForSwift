@@ -45,11 +45,12 @@ extension AccessorBlockSyntax {
         for mockType: MockType,
         identifier: TokenSyntax,
         binding: PatternBindingSyntax,
-        modifiers: ModifierListSyntax?) -> [MockPropertyForAccessor]? {
+        modifiers: ModifierListSyntax?,
+        attributes: AttributeListSyntax?) -> [MockPropertyForAccessor]? {
         
         switch mockType {
         case .spy:
-            return accessors.map { $0.makeSpyProperty(identifier, binding, modifiers: modifiers) }
+            return accessors.map { $0.makeSpyProperty(identifier, binding, modifiers: modifiers, attributes: attributes) }
         case .dummy:
             return accessors.map { $0.makeDummyPropery(identifier, binding) }
         case .stub:

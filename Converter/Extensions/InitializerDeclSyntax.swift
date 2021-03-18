@@ -58,7 +58,8 @@ extension InitializerDeclSyntax {
                 counter: FunctionSignatureDuplication
                     .shared
                     .list[initKeyword.text],
-                modifiers: modifiers)
+                modifiers: modifiers,
+                attributes: attributes)
         case .dummy, .stub:
             return generateMemberDeclItemsFormDummy()
         }
@@ -66,7 +67,8 @@ extension InitializerDeclSyntax {
     
     func generateMemberDeclItemsFormSpy(
         counter: Counter?,
-        modifiers: ModifierListSyntax?) -> [MemberDeclListItemSyntax] {
+        modifiers: ModifierListSyntax?,
+        attributes: AttributeListSyntax?) -> [MemberDeclListItemSyntax] {
         var memberDeclListItems = [MemberDeclListItemSyntax]()
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
             memberDeclListItems.append(.makeFormattedFalseAssign(to: signatureAddedIdentifier(counter: counter).wasCalled(.spy), modifiers: modifiers))
@@ -89,13 +91,15 @@ extension InitializerDeclSyntax {
             case .singleType:
                 if let memberDeclListItem = makeSingleTypeArgsValForMock(
                     counter: counter,
-                    modifiers: modifiers) {
+                    modifiers: modifiers,
+                    attributes: attributes) {
                     memberDeclListItems.append(memberDeclListItem)
                 }
             case .tuple:
                 memberDeclListItems.append(makeTupleArgsValForMock(
                                             counter: counter,
-                                            modifiers: modifiers)
+                                            modifiers: modifiers,
+                                            attributes: attributes)
                 )
             }
         }
@@ -121,7 +125,7 @@ extension InitializerDeclSyntax {
         return _initKeyword
     }
     
-    func makeSingleTypeArgsValForMock(counter: Counter?, modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax? {
+    func makeSingleTypeArgsValForMock(counter: Counter?, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax? {
         guard let type = parameters.parameterList.first?
                 .type else { return nil }
         
@@ -131,15 +135,17 @@ extension InitializerDeclSyntax {
                 .unwrapped
                 .tparenthesizedIfNeeded
                 .withTrailingTrivia(.zero),
-            modifiers: modifiers
+            modifiers: modifiers,
+            attributes: attributes
         )
     }
     
-    func makeTupleArgsValForMock(counter: Counter?, modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax {
+    func makeTupleArgsValForMock(counter: Counter?, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
         .makeArgsValForMock(
             signatureAddedIdentifier(counter: counter).args(.spy),
             TypeSyntax(TupleTypeSyntax.make(with: parameters.parameterList.makeTupleForMemberDecl())),
-            modifiers: modifiers
+            modifiers: modifiers,
+            attributes: attributes
         )
     }
     
