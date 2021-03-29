@@ -7,8 +7,10 @@
 <img src="https://user-images.githubusercontent.com/18320004/112854742-19d37400-90e9-11eb-9d8e-8f9d807bd233.png" width=200 />
 
 
-DI Helper for Swift is macOS app.
+DI Helper for Swift is a macOS app.
+
 It generates source code of Protocol and Test doubles automatically.
+
 It can also run on Xcode as Xcode Source Extension.
 
 # Introduction
