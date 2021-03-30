@@ -33,7 +33,7 @@ extension FunctionParameterListSyntax {
             return SyntaxFactory.makeTupleTypeElement(
                 name: paramter.tokenForMockProperty,
                 colon: paramter.colon,
-                type: type,
+                type: type.removingAttributes,
                 trailingComma: paramter.trailingComma)
         }
     }

@@ -1193,6 +1193,31 @@ class MockGeneratorTests: XCTestCase {
             """
         )
     }
+    
+    func test_AttributedTupleArgsProtocolPattern() throws {
+        XCTAssertEqual(
+            try MockGenerater.expect(
+            .spy,
+            """
+            protocol SampleProtocol {
+                func func1(arg1: String, completion: @escaping () -> Void)
+            }
+            """),
+            """
+            class SampleSpy: SampleProtocol {
+                var func1_wasCalled = false
+                var func1_callCount = 0
+                var func1_args:  (arg1: String, completion: () -> Void)?
+                func func1(arg1: String, completion: @escaping () -> Void) {
+                    func1_wasCalled = true
+                    func1_callCount += 1
+                    func1_args = (arg1, completion)
+                }
+            }
+
+            """
+        )
+    }
 }
 
 extension MockGenerater {
