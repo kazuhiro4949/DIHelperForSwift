@@ -44,7 +44,10 @@ class Settings {
     }
     
     class SpySetting: TargetProvider, NameProvider {
-
+        enum Scene: Int {
+            case kvc
+        }
+        
         enum Capture: Int {
             case calledOrNot
             case callCount
@@ -110,6 +113,14 @@ class Settings {
         
         func getCapture(capture: Capture) -> Bool {
             return UserDefaults.group.bool(forKey: "SpySettings.capture\(capture.rawValue)")
+        }
+        
+        func setScene(scene: Scene, value: Bool) {
+            UserDefaults.group.set(value, forKey: "SpySettings.sceme\(scene.rawValue)")
+        }
+        
+        func getScene(scene: Scene) -> Bool {
+            return UserDefaults.group.bool(forKey: "SpySettings.sceme\(scene.rawValue)")
         }
     }
     

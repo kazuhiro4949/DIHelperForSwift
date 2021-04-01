@@ -198,6 +198,14 @@ class MockViewController: NSViewController {
         updateConvertedText(sampleSourceTextView.text)
     }
     
+    @IBAction func kvcButtonDidClick(_ sender: NSButton) {
+        Settings.shared.spySettings.setScene(
+            scene: .kvc,
+            value: sender.state != .on
+        )
+        updateConvertedText(sampleSourceTextView.text)
+    }
+    
     @IBAction func captureButtonDidClick(_ sender: NSButton) {
         guard let capture = Settings.SpySetting.Capture(rawValue: sender.tag) else {
             sender.state = sender.state.toggle()
