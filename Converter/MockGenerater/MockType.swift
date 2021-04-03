@@ -99,7 +99,7 @@ enum MockType: String {
         case .stub:
             return false
         case .spy:
-            return Settings
+            return !Settings
                 .shared
                 .spySettings
                 .getScene(scene: .kvc)
