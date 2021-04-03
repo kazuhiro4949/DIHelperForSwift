@@ -26,6 +26,10 @@ extension ModifierListSyntax {
         }
     }
     
-    
+    func inserting(modifier: DeclModifierSyntax, at index: Int) -> ModifierListSyntax {
+        var modifierElements = map { $0 }
+        modifierElements.insert(modifier, at: index)
+        return SyntaxFactory.makeModifierList(modifierElements)
+    }
 }
 

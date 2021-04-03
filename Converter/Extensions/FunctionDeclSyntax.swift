@@ -104,7 +104,32 @@ extension FunctionDeclSyntax {
     func generateMemberDeclItemsFormSpy(counter: Counter?, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> [MemberDeclListItemSyntax] {
         var memberDeclListItems = [MemberDeclListItemSyntax]()
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
-            memberDeclListItems.append(.makeFormattedFalseAssign(to: signatureAddedIdentifier(counter: counter).wasCalled(.spy), modifiers: modifiers))
+            if !Settings.shared.spySettings.getScene(scene: .kvc) {
+                let modifiers = modifiers ?? SyntaxFactory.makeBlankModifierList()
+                
+                memberDeclListItems
+                    .append(
+                        .makeFormattedDynamicFalseAssign(
+                            to: signatureAddedIdentifier(
+                                counter: counter
+                            ).wasCalled(.spy),
+                            attributes: .formattedObjc,
+                            modifiers: modifiers.inserting(
+                                    modifier: SyntaxFactory.makeDeclModifier(
+                                        name: SyntaxFactory.makeIdentifier("dynamic"),
+                                        detailLeftParen: nil,
+                                        detail: nil,
+                                        detailRightParen: nil
+                                    ).withTrailingTrivia(.spaces(1)),
+                                    at: 0)
+                        )
+                )
+                
+            } else {
+                memberDeclListItems.append(
+                    .makeFormattedFalseAssign(
+                        to: signatureAddedIdentifier(counter: counter).wasCalled(.spy), modifiers: modifiers))
+            }
         }
         if !Settings.shared.spySettings.getCapture(capture: .callCount) {
             memberDeclListItems.append(.makeFormattedZeroAssign(to: signatureAddedIdentifier(counter: counter).callCount(.spy), modifiers: modifiers))

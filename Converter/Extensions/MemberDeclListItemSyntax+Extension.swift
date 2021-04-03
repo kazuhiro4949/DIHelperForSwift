@@ -88,6 +88,24 @@ extension MemberDeclListItemSyntax {
                     .makeDeclWithAssign(
                         to: identifier,
                         from: .makeFalseKeyword(),
+                        attributes: nil,
+                        modifiers: modifiers
+                    ))
+                .withTrailingTrivia(.newlines(1)),
+            semicolon: nil
+        )
+    }
+    
+    static func makeFormattedDynamicFalseAssign(
+        to identifier: String,
+        attributes: AttributeListSyntax?,
+        modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
+        SyntaxFactory.makeMemberDeclListItem(
+            decl: DeclSyntax(VariableDeclSyntax
+                    .makeDeclWithAssign(
+                        to: identifier,
+                        from: .makeFalseKeyword(),
+                        attributes: attributes,
                         modifiers: modifiers
                     ))
                 .withTrailingTrivia(.newlines(1)),
@@ -101,6 +119,7 @@ extension MemberDeclListItemSyntax {
                     .makeDeclWithAssign(
                         to: identifier,
                         from: expr,
+                        attributes: nil,
                         modifiers: modifiers
                     ))
                 .withTrailingTrivia(.newlines(1)),

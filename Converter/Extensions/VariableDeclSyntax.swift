@@ -224,9 +224,13 @@ extension VariableDeclSyntax {
         .withLeadingTrivia(.indent)
     }
     
-    static func makeDeclWithAssign(to identifier: String, from expr: ExprSyntax, modifiers: ModifierListSyntax?) -> VariableDeclSyntax {
+    static func makeDeclWithAssign(
+        to identifier: String,
+        from expr: ExprSyntax,
+        attributes: AttributeListSyntax?,
+        modifiers: ModifierListSyntax?) -> VariableDeclSyntax {
         SyntaxFactory.makeVariableDecl(
-            attributes: nil,
+            attributes: attributes,
             modifiers: modifiers,
             letOrVarKeyword: .makeFormattedVarKeyword(),
             bindings: SyntaxFactory

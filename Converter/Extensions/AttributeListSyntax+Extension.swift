@@ -23,4 +23,18 @@ extension AttributeListSyntax {
                 .withTrailingTrivia(.newlines(1))
         }
     }
+    
+    static var formattedObjc: AttributeListSyntax? {
+        SyntaxFactory.makeAttributeList([
+            Syntax(
+                SyntaxFactory.makeCustomAttribute(
+                    atSignToken: SyntaxFactory.makeAtSignToken(),
+                    attributeName: SyntaxFactory.makeTypeIdentifier("objc"),
+                    leftParen: nil,
+                    argumentList: nil,
+                    rightParen: nil)
+            )
+        ])
+        .withTrailingTrivia(.spaces(1))
+    }
 }
