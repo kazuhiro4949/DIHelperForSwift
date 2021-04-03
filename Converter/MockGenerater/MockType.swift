@@ -91,4 +91,18 @@ enum MockType: String {
                 .returnValueFormat
         }
     }
+    
+    var supportingKVC: Bool {
+        switch self {
+        case .dummy:
+            return false
+        case .stub:
+            return false
+        case .spy:
+            return Settings
+                .shared
+                .spySettings
+                .getScene(scene: .kvc)
+        }
+    }
 }

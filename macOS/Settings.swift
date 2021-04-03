@@ -116,11 +116,11 @@ class Settings {
         }
         
         func setScene(scene: Scene, value: Bool) {
-            UserDefaults.group.set(value, forKey: "SpySettings.sceme\(scene.rawValue)")
+            UserDefaults.group.set(value, forKey: "SpySettings.scene\(scene.rawValue)")
         }
         
         func getScene(scene: Scene) -> Bool {
-            return UserDefaults.group.bool(forKey: "SpySettings.sceme\(scene.rawValue)")
+            return UserDefaults.group.bool(forKey: "SpySettings.scene\(scene.rawValue)")
         }
     }
     

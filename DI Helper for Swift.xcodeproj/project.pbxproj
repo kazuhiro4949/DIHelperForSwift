@@ -58,6 +58,12 @@
 		3014C67025EA0875000B08B3 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3063F31A25BD1B8300B6038C /* UserDefaults+Extension.swift */; };
 		3014C67425EA0B22000B08B3 /* MockGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3014C67325EA0B22000B08B3 /* MockGeneratorTests.swift */; };
 		3014C67825EA2AB8000B08B3 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3014C67725EA2AB8000B08B3 /* WindowController.swift */; };
+		3018C90D2618381600701F1B /* InheritedTypeIdentifier+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3018C90C2618381600701F1B /* InheritedTypeIdentifier+Extension.swift */; };
+		3018C90E2618381600701F1B /* InheritedTypeIdentifier+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3018C90C2618381600701F1B /* InheritedTypeIdentifier+Extension.swift */; };
+		3018C90F2618381600701F1B /* InheritedTypeIdentifier+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3018C90C2618381600701F1B /* InheritedTypeIdentifier+Extension.swift */; };
+		3018C9132618388100701F1B /* Array+InheritedTypeSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3018C9122618388100701F1B /* Array+InheritedTypeSyntax.swift */; };
+		3018C9142618388100701F1B /* Array+InheritedTypeSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3018C9122618388100701F1B /* Array+InheritedTypeSyntax.swift */; };
+		3018C9152618388100701F1B /* Array+InheritedTypeSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3018C9122618388100701F1B /* Array+InheritedTypeSyntax.swift */; };
 		3024212725CFC8EF00C0E53F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212625CFC8EF00C0E53F /* String+Extension.swift */; };
 		3024212B25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212A25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift */; };
 		3024212F25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024212E25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift */; };
@@ -270,6 +276,8 @@
 		3014C66425EA0843000B08B3 /* BundleToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleToken.swift; sourceTree = "<group>"; };
 		3014C67325EA0B22000B08B3 /* MockGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGeneratorTests.swift; sourceTree = "<group>"; };
 		3014C67725EA2AB8000B08B3 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		3018C90C2618381600701F1B /* InheritedTypeIdentifier+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InheritedTypeIdentifier+Extension.swift"; sourceTree = "<group>"; };
+		3018C9122618388100701F1B /* Array+InheritedTypeSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+InheritedTypeSyntax.swift"; sourceTree = "<group>"; };
 		3024212625CFC8EF00C0E53F /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		3024212A25CFC90500C0E53F /* ProtocolDeclSyntax+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProtocolDeclSyntax+Extension.swift"; sourceTree = "<group>"; };
 		3024212E25CFC91F00C0E53F /* CodeBlockSyntax+Extensioin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeBlockSyntax+Extensioin.swift"; sourceTree = "<group>"; };
@@ -605,6 +613,7 @@
 				3024213625CFC94300C0E53F /* TupleExprSyntax+Extension.swift */,
 				3024218A25CFCB6D00C0E53F /* PatternBindingListSyntax+Extension.swift */,
 				3024219625CFCBB500C0E53F /* TypeInheritanceClauseSyntax+Extension.swift */,
+				3018C9122618388100701F1B /* Array+InheritedTypeSyntax.swift */,
 				3024219A25CFCBD700C0E53F /* MemberDeclListSyntax+Extension.swift */,
 				3024219E25CFCBF500C0E53F /* MemberDeclListItemSyntax+Extension.swift */,
 				302421A225CFCC1D00C0E53F /* CodeBlockItemSyntax+Extension.swift */,
@@ -613,6 +622,7 @@
 				3014C48F25E93596000B08B3 /* ModifierListSyntax+Exntension.swift */,
 				3051B88225F1095C0014D3E9 /* DeclModifierSyntax+Extension.swift */,
 				3025503C2600EF250061A38F /* AttributeListSyntax+Extension.swift */,
+				3018C90C2618381600701F1B /* InheritedTypeIdentifier+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -846,12 +856,14 @@
 				3044B11B25E1341F00EC7A16 /* HasGenericParameter.swift in Sources */,
 				3044B11625E1341F00EC7A16 /* MockPropertyForAccessor.swift in Sources */,
 				3044B11525E1341F00EC7A16 /* HasGenericParameterClause.swift in Sources */,
+				3018C90D2618381600701F1B /* InheritedTypeIdentifier+Extension.swift in Sources */,
 				3014C49025E93596000B08B3 /* ModifierListSyntax+Exntension.swift in Sources */,
 				3044B13025E1343A00EC7A16 /* TypeSyntax+Extension.swift in Sources */,
 				3051B8A625F3C7F30014D3E9 /* InitTableColumn.swift in Sources */,
 				3044B12025E1343A00EC7A16 /* MemberDeclListSyntax+Extension.swift in Sources */,
 				3044B13D25E1343A00EC7A16 /* AccessorDeclSyntax+Extension.swift in Sources */,
 				3044B12525E1343A00EC7A16 /* VariableDeclSyntax.swift in Sources */,
+				3018C9132618388100701F1B /* Array+InheritedTypeSyntax.swift in Sources */,
 				3044B12925E1343A00EC7A16 /* FunctionParameterSyntax+Extension.swift in Sources */,
 				3044B12825E1343A00EC7A16 /* ImplicitlyUnwrappedOptionalTypeSyntax+Extension.swift in Sources */,
 				3044B12225E1343A00EC7A16 /* String+Extension.swift in Sources */,
@@ -899,6 +911,7 @@
 			files = (
 				3014C65B25EA082E000B08B3 /* ArrayExprSyntax+Extension.swift in Sources */,
 				3014C65E25EA082E000B08B3 /* SyntaxFactory.swift in Sources */,
+				3018C90E2618381600701F1B /* InheritedTypeIdentifier+Extension.swift in Sources */,
 				3014C66125EA082E000B08B3 /* ModifierListSyntax+Exntension.swift in Sources */,
 				3014C64725EA082E000B08B3 /* MockType.swift in Sources */,
 				3014C63E25EA082E000B08B3 /* TypeInheritanceClauseSyntax+Extension.swift in Sources */,
@@ -939,6 +952,7 @@
 				3014C63425EA07F9000B08B3 /* ProtocolExtractorTests.swift in Sources */,
 				3014C65825EA082E000B08B3 /* MockGenerater.swift in Sources */,
 				3025503E2600EF250061A38F /* AttributeListSyntax+Extension.swift in Sources */,
+				3018C9142618388100701F1B /* Array+InheritedTypeSyntax.swift in Sources */,
 				3014C64D25EA082E000B08B3 /* TypeSyntax+Extension.swift in Sources */,
 				3032240925AAFC43002BB110 /* DependencyInjectionHelperForXcodeTests.swift in Sources */,
 				3014C63925EA082E000B08B3 /* InitializerClauseSyntax+Extension.swift in Sources */,
@@ -985,6 +999,7 @@
 				30B8A40525B47B0000F643CD /* HasGenericParameterClause.swift in Sources */,
 				3024218B25CFCB6D00C0E53F /* PatternBindingListSyntax+Extension.swift in Sources */,
 				302421AB25CFCC6600C0E53F /* MockType.swift in Sources */,
+				3018C90F2618381600701F1B /* InheritedTypeIdentifier+Extension.swift in Sources */,
 				3024218125CFCB0D00C0E53F /* AccessorDeclSyntax+Extension.swift in Sources */,
 				302421AF25CFCC7B00C0E53F /* MockPropertyForAccessor.swift in Sources */,
 				3032243025AAFCEB002BB110 /* SourceEditorExtension.swift in Sources */,
@@ -1020,6 +1035,7 @@
 				3024219725CFCBB500C0E53F /* TypeInheritanceClauseSyntax+Extension.swift in Sources */,
 				3024217325CFCAAC00C0E53F /* InitializerClauseSyntax+Extension.swift in Sources */,
 				3024219F25CFCBF500C0E53F /* MemberDeclListItemSyntax+Extension.swift in Sources */,
+				3018C9152618388100701F1B /* Array+InheritedTypeSyntax.swift in Sources */,
 				3024214B25CFC9CD00C0E53F /* Trivia+Extension.swift in Sources */,
 				3024217725CFCABC00C0E53F /* ExprSyntax+Extension.swift in Sources */,
 				306FF6B425E49FDF0075F43F /* OnboardingExt4ViewControllerDelegate.swift in Sources */,

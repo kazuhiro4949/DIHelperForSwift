@@ -103,7 +103,10 @@ extension ProtocolDeclSyntax {
             classKeyword: .makeFormattedClassKeyword(),
             identifier: mockIdentifier(mockType: mockType),
             genericParameterClause: nil,
-            inheritanceClause: .makeFormattedProtocol(ProtocolNameHandler(self)),
+            inheritanceClause: .makeFormattedProtocol(
+                mockType: mockType,
+                handler: .init(self)
+            ),
             genericWhereClause: nil,
             members: .makeFormatted(with: makeMemberDeclListItems(mockType: mockType))
         )
