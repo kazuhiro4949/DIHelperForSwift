@@ -60,5 +60,18 @@ extension TokenSyntax {
             .withLeadingTrivia(indentTrivia)
             .withTrailingTrivia(.newlines(1))
     }
-    
+}
+
+extension TokenSyntax {
+    func signatureAddedIdentifier(counter: Counter? = nil) -> String {
+        var identifierBaseText = text
+        
+        if let counter = counter {
+            let digit = Int(log10(Double(counter.max)))
+            let zeroPaddingCount = String(format: "%0\(digit)d", counter.count)
+            identifierBaseText = "\(identifierBaseText)_<#T##identifier\(zeroPaddingCount)##identifier\(zeroPaddingCount)#>"
+        }
+        
+        return identifierBaseText
+    }
 }

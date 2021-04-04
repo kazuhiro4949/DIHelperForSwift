@@ -23,11 +23,21 @@ extension AccessorDeclSyntax {
         var spyProperty = MockPropertyForAccessor(accessor: self)
         
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
-            spyProperty.members.append(.makeFormattedFalseAssign(to: identifierByAccessor.wasCalled(.spy), modifiers: modifiers))
+            spyProperty.members.append(
+                .makeCalledOrNotMemberDeclListItem(
+                    identifier: identifierByAccessor.wasCalled(.spy),
+                    modifiers: modifiers,
+                    attributes: attributes)
+            )
             spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeTrueSubstitutionExpr(to: identifierByAccessor.wasCalled(.spy)).withLeadingTrivia(.indent(3)))
         }
         if !Settings.shared.spySettings.getCapture(capture: . callCount) {
-            spyProperty.members.append(.makeFormattedZeroAssign(to: identifierByAccessor.callCount(.spy), modifiers: modifiers))
+            spyProperty.members.append(
+                .makeFormattedCallCount(
+                    identifier: identifierByAccessor.callCount(.spy),
+                    modifiers: modifiers
+                )
+            )
             spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeIncrementExpr(to: identifierByAccessor.callCount(.spy)).withLeadingTrivia(.indent(3)))
         }
         if isSet,

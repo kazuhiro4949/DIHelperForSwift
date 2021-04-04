@@ -74,29 +74,18 @@ extension MemberDeclListItemSyntax {
     
     static func makeFormattedZeroAssign(
         to identifier: String,
+        attributes: AttributeListSyntax?,
         modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
         .makeFormattedAssign(
             to: identifier,
             from: .makeZeroKeyword(),
+            attributes: attributes,
             modifiers: modifiers
         )
     }
+
     
-    static func makeFormattedFalseAssign(to identifier: String, modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
-        SyntaxFactory.makeMemberDeclListItem(
-            decl: DeclSyntax(VariableDeclSyntax
-                    .makeDeclWithAssign(
-                        to: identifier,
-                        from: .makeFalseKeyword(),
-                        attributes: nil,
-                        modifiers: modifiers
-                    ))
-                .withTrailingTrivia(.newlines(1)),
-            semicolon: nil
-        )
-    }
-    
-    static func makeFormattedDynamicFalseAssign(
+    static func makeFormattedFalseAssign(
         to identifier: String,
         attributes: AttributeListSyntax?,
         modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
@@ -113,13 +102,18 @@ extension MemberDeclListItemSyntax {
         )
     }
     
-    static func makeFormattedAssign(to identifier: String, from expr: ExprSyntax, modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
+    static func makeFormattedAssign(
+        to identifier: String,
+        from expr: ExprSyntax,
+        attributes: AttributeListSyntax?,
+        modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
+        
         SyntaxFactory.makeMemberDeclListItem(
             decl: DeclSyntax(VariableDeclSyntax
                     .makeDeclWithAssign(
                         to: identifier,
                         from: expr,
-                        attributes: nil,
+                        attributes: attributes,
                         modifiers: modifiers
                     ))
                 .withTrailingTrivia(.newlines(1)),
@@ -139,5 +133,48 @@ extension MemberDeclListItemSyntax {
                 .withTrailingTrivia(.newlines(1)),
             semicolon: nil
         )
+    }
+    
+    static func makeCalledOrNotMemberDeclListItem(
+        identifier: String,
+        modifiers: ModifierListSyntax?,
+        attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
+        
+        let modifiers = modifiers ?? SyntaxFactory.makeBlankModifierList()
+
+        if !Settings.shared.spySettings.getScene(scene: .kvc) {
+            return .makeFormattedFalseAssign(
+                to: identifier,
+                attributes: .formattedObjc,
+                modifiers: modifiers.inserting(modifier: .formattedDynamic, at: 0)
+            )
+        } else {
+            return .makeFormattedFalseAssign(
+                to: identifier,
+                attributes: nil,
+                modifiers: modifiers
+            )
+        }
+    }
+    
+    static func makeFormattedCallCount(
+        identifier: String,
+        modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax {
+        
+        let modifiers = modifiers ?? SyntaxFactory.makeBlankModifierList()
+
+        if !Settings.shared.spySettings.getScene(scene: .kvc) {
+            return .makeFormattedZeroAssign(
+                to: identifier,
+                attributes: .formattedObjc,
+                modifiers: modifiers.inserting(modifier: .formattedDynamic, at: 0)
+            )
+        } else {
+            return .makeFormattedZeroAssign(
+                to: identifier,
+                attributes: nil,
+                modifiers: modifiers
+            )
+        }
     }
 }

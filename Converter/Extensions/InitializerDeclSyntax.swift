@@ -71,15 +71,17 @@ extension InitializerDeclSyntax {
         attributes: AttributeListSyntax?) -> [MemberDeclListItemSyntax] {
         var memberDeclListItems = [MemberDeclListItemSyntax]()
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
-            memberDeclListItems.append(.makeFormattedFalseAssign(to: signatureAddedIdentifier(counter: counter).wasCalled(.spy), modifiers: modifiers))
+            memberDeclListItems.append(
+                .makeCalledOrNotMemberDeclListItem(
+                    identifier: signatureAddedIdentifier(counter: counter).wasCalled(.spy),
+                    modifiers: modifiers,
+                    attributes: attributes)
+            )
         }
         if !Settings.shared.spySettings.getCapture(capture: .callCount) {
             memberDeclListItems.append(
-                .makeFormattedZeroAssign(
-                    to: signatureAddedIdentifier(
-                        counter: counter
-                    )
-                    .callCount(.spy),
+                .makeFormattedCallCount(
+                    identifier: signatureAddedIdentifier(counter: counter).callCount(.spy),
                     modifiers: modifiers
                 )
             )
