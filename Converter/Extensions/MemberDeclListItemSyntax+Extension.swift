@@ -135,7 +135,7 @@ extension MemberDeclListItemSyntax {
         )
     }
     
-    static func makeCalledOrNotMemberDeclListItem(
+    static func makeCalledOrNot(
         identifier: String,
         modifiers: ModifierListSyntax?,
         attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {

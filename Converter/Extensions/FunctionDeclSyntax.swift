@@ -105,7 +105,7 @@ extension FunctionDeclSyntax {
         var memberDeclListItems = [MemberDeclListItemSyntax]()
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
             memberDeclListItems.append(
-                .makeCalledOrNotMemberDeclListItem(
+                .makeCalledOrNot(
                     identifier: identifier.signatureAddedIdentifier(counter: counter).wasCalled(.spy),
                     modifiers: modifiers,
                     attributes: attributes)

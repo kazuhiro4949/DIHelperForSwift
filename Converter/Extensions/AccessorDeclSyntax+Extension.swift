@@ -24,7 +24,7 @@ extension AccessorDeclSyntax {
         
         if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
             spyProperty.members.append(
-                .makeCalledOrNotMemberDeclListItem(
+                .makeCalledOrNot(
                     identifier: identifierByAccessor.wasCalled(.spy),
                     modifiers: modifiers,
                     attributes: attributes)
