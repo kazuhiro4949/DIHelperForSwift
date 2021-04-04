@@ -1451,10 +1451,10 @@ Test doubles for Unit Test are made from Protocol.</string>
                                                     <rect key="frame" x="0.0" y="0.0" width="347" height="615"/>
                                                     <subviews>
                                                         <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yhS-qM-ukd">
-                                                            <rect key="frame" x="0.0" y="583" width="347" height="32"/>
+                                                            <rect key="frame" x="0.0" y="567" width="347" height="48"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Ef-jV-OOJ">
-                                                                    <rect key="frame" x="-2" y="1" width="319" height="31"/>
+                                                                    <rect key="frame" x="-2" y="9" width="319" height="31"/>
                                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Spy" id="UBT-jH-SdU">
                                                                         <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1462,7 +1462,7 @@ Test doubles for Unit Test are made from Protocol.</string>
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CBj-L4-YPO">
-                                                                    <rect key="frame" x="309" y="-6" width="44" height="44"/>
+                                                                    <rect key="frame" x="309" y="2" width="44" height="44"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="32" id="R2Q-nQ-UbQ"/>
                                                                         <constraint firstAttribute="width" constant="32" id="UVI-hc-oTz"/>
@@ -1486,13 +1486,13 @@ Test doubles for Unit Test are made from Protocol.</string>
                                                             </customSpacing>
                                                         </stackView>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="HzF-Sy-gOU">
-                                                            <rect key="frame" x="0.0" y="575" width="163" height="8"/>
+                                                            <rect key="frame" x="0.0" y="559" width="163" height="8"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="8" id="IS2-lS-d5k"/>
                                                             </constraints>
                                                         </customView>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-oV-2e9">
-                                                            <rect key="frame" x="-2" y="547" width="157" height="28"/>
+                                                            <rect key="frame" x="-2" y="531" width="157" height="28"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" id="hiq-mT-MRC">
                                                                 <font key="font" textStyle="subheadline" name=".SFNS-Regular"/>
                                                                 <string key="title">is generated from a protocol.
@@ -1502,13 +1502,13 @@ It memorizes method calls.</string>
                                                             </textFieldCell>
                                                         </textField>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fk1-TL-i9U">
-                                                            <rect key="frame" x="0.0" y="503" width="163" height="44"/>
+                                                            <rect key="frame" x="0.0" y="487" width="163" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="NTu-TW-Ynl"/>
                                                             </constraints>
                                                         </customView>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QAW-Ax-3Gd">
-                                                            <rect key="frame" x="-2" y="482" width="108" height="21"/>
+                                                            <rect key="frame" x="-2" y="466" width="108" height="21"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Name Format" id="kbR-dc-Pow">
                                                                 <font key="font" textStyle="title2" name=".SFNS-Regular"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1516,13 +1516,13 @@ It memorizes method calls.</string>
                                                             </textFieldCell>
                                                         </textField>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="klr-Sj-ALO">
-                                                            <rect key="frame" x="0.0" y="474" width="163" height="8"/>
+                                                            <rect key="frame" x="0.0" y="458" width="163" height="8"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="8" id="Llv-2A-6e5"/>
                                                             </constraints>
                                                         </customView>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JfX-kY-kBq">
-                                                            <rect key="frame" x="0.0" y="453" width="338" height="21"/>
+                                                            <rect key="frame" x="0.0" y="437" width="338" height="21"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iat-qB-4bL">
                                                                     <rect key="frame" x="-2" y="5" width="134" height="16"/>
@@ -1560,16 +1560,16 @@ It memorizes method calls.</string>
                                                             </customSpacing>
                                                         </stackView>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="u3a-tK-yx6">
-                                                            <rect key="frame" x="0.0" y="445" width="163" height="8"/>
+                                                            <rect key="frame" x="0.0" y="429" width="163" height="8"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="8" id="e4R-Tr-Kxk"/>
                                                             </constraints>
                                                         </customView>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qf4-Ek-zEz">
-                                                            <rect key="frame" x="0.0" y="408" width="338" height="37"/>
+                                                            <rect key="frame" x="0.0" y="408" width="338" height="21"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kz8-Xj-0MJ">
-                                                                    <rect key="frame" x="-2" y="21" width="134" height="16"/>
+                                                                    <rect key="frame" x="-2" y="5" width="134" height="16"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="130" id="gNV-BP-Jtk"/>
                                                                     </constraints>
@@ -1580,7 +1580,7 @@ It memorizes method calls.</string>
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1zV-VD-fYg">
-                                                                    <rect key="frame" x="138" y="16" width="200" height="21"/>
+                                                                    <rect key="frame" x="138" y="0.0" width="200" height="21"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="200" id="dCT-EI-hJA"/>
                                                                     </constraints>
@@ -1921,6 +1921,8 @@ It memorizes method calls.</string>
                                                                 </textField>
                                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wfM-oh-NqD">
                                                                     <rect key="frame" x="136" y="-1" width="124" height="18"/>
+                                                                    <string key="toolTip">If you want to test an asyncronous event, you can do that waiting the change of "@objc dynamic var" property.
+For example, XCTKVOExpectation or XCTNSPredicateExpectation can observe the change.</string>
                                                                     <buttonCell key="cell" type="check" title="Supporting KVC" bezelStyle="regularSquare" imagePosition="left" inset="2" id="USU-qK-XTN">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -2188,6 +2190,7 @@ It memorizes method calls.</string>
                         <outlet property="documentationTextField" destination="u7c-0S-87R" id="Uc2-rK-hQI"/>
                         <outlet property="functionTargetButton" destination="fda-iu-FEw" id="MCA-31-HTH"/>
                         <outlet property="initializerTargetButton" destination="k7Y-tC-zco" id="Z3N-4A-sAe"/>
+                        <outlet property="kvcButton" destination="wfM-oh-NqD" id="EVu-L4-wq5"/>
                         <outlet property="nameTextField" destination="dQm-2K-dHC" id="ASB-TJ-kDa"/>
                         <outlet property="passedArgumentCaptureButton" destination="F2p-cL-wIa" id="VEp-Sc-ut9"/>
                         <outlet property="propertyTargetButton" destination="tf1-t6-o9Q" id="DFD-Ee-g6a"/>

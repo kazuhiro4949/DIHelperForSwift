@@ -26,6 +26,8 @@ class MockViewController: NSViewController {
     @IBOutlet weak var calledOrNotCaptureButton: NSButton!
     @IBOutlet weak var callCountCaptureButton: NSButton!
     @IBOutlet weak var passedArgumentCaptureButton: NSButton!
+    @IBOutlet weak var kvcButton: NSButton!
+    
     
     @IBOutlet weak var sampleSourceTextView: SyntaxTextView!
     @IBOutlet weak var convertedSourceTextView: SyntaxTextView!
@@ -133,6 +135,9 @@ class MockViewController: NSViewController {
                 .shared
                 .spySettings.getCapture(capture: .passedArgument)
             )
+        kvcButton.state = NSControl.StateValue(
+            isOn: !Settings.shared.spySettings.getScene(scene: .kvc)
+        )
     }
     
     func updateConvertedText(_ text: String) {
