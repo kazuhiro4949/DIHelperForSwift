@@ -113,10 +113,12 @@ extension FunctionDeclSyntax {
         }
         if !Settings.shared.spySettings.getCapture(capture: .callCount) {
             memberDeclListItems.append(
-                .makeFormattedZeroAssign(
-                    to: identifier.signatureAddedIdentifier(counter: counter).callCount(.spy),
+                .makeFormattedCallCount(
+                    identifier: identifier
+                        .signatureAddedIdentifier(counter: counter).callCount(.spy),
                     attributes: attributes,
-                    modifiers: modifiers)
+                    modifiers: modifiers
+                )
             )
         }
         if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {

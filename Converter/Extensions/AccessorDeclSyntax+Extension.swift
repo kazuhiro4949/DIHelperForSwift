@@ -35,6 +35,7 @@ extension AccessorDeclSyntax {
             spyProperty.members.append(
                 .makeFormattedCallCount(
                     identifier: identifierByAccessor.callCount(.spy),
+                    attributes: attributes,
                     modifiers: modifiers
                 )
             )

@@ -10,6 +10,13 @@ import XCTest
 import SwiftSyntax
 
 class MockGeneratorTests: XCTestCase {
+    override func setUp() {
+        Settings.shared.spySettings.setScene(scene: .kvc, value: true)
+    }
+    
+    override func tearDown() {
+        Settings.shared.spySettings.setScene(scene: .kvc, value: true)
+    }
     
     // MARK:- SPY
     func test_ViewControllerPattern() throws {
@@ -1153,7 +1160,9 @@ class MockGeneratorTests: XCTestCase {
             """),
             """
             class AttributeSpy: AttributeProtocol {
+                @available(iOS 14.0, *)
                 var exec_wasCalled = false
+                @available(iOS 14.0, *)
                 var exec_callCount = 0
                 @available(iOS 14.0, *)
                 var exec_args: ((String) -> Void)?
@@ -1167,11 +1176,15 @@ class MockGeneratorTests: XCTestCase {
                     return exec_val
                 }
 
+                @available(iOS 14.0, *)
                 var prop_get_wasCalled = false
+                @available(iOS 14.0, *)
                 var prop_get_callCount = 0
                 @available(iOS 14.0, *)
                 var prop_get_val: Int = 0
+                @available(iOS 14.0, *)
                 var prop_set_wasCalled = false
+                @available(iOS 14.0, *)
                 var prop_set_callCount = 0
                 @available(iOS 14.0, *)
                 var prop_set_args: Int?
@@ -1212,6 +1225,121 @@ class MockGeneratorTests: XCTestCase {
                     func1_wasCalled = true
                     func1_callCount += 1
                     func1_args = (arg1, completion)
+                }
+            }
+
+            """
+        )
+    }
+    
+    func test_OjbcDynamicOptionPattern() throws {
+        Settings.shared.spySettings.setScene(scene: .kvc, value: false)
+        XCTAssertEqual(
+            try MockGenerater.expect(
+            .spy,
+            """
+            protocol SampleProtocol {
+                var prop1: String { get }
+                func func1(arg1: String) -> UIViewController
+                init()
+            }
+            """),
+            """
+            class SampleSpy: NSObject, SampleProtocol {
+                @objc
+                dynamic var prop1_get_wasCalled = false
+                @objc
+                dynamic var prop1_get_callCount = 0
+                var prop1_get_val: String = ""
+                var prop1: String {
+                    get {
+                        prop1_get_wasCalled = true
+                        prop1_get_callCount += 1
+                        return prop1_get_val
+                    }
+                }
+                @objc
+                dynamic var func1_wasCalled = false
+                @objc
+                dynamic var func1_callCount = 0
+                var func1_args: String?
+                var func1_val: UIViewController = UIViewController(nibName: nil, bundle: nil)
+                func func1(arg1: String) -> UIViewController {
+                    func1_wasCalled = true
+                    func1_callCount += 1
+                    func1_args = arg1
+                    return func1_val
+                }
+
+                @objc
+                dynamic var init_wasCalled = false
+                @objc
+                dynamic var init_callCount = 0
+                required init() {
+                    init_wasCalled = true
+                    init_callCount += 1
+                }
+            }
+
+            """
+        )
+    }
+    
+    func test_MultipleAttributesPattern() throws {
+        Settings.shared.spySettings.setScene(scene: .kvc, value: false)
+        XCTAssertEqual(
+            try MockGenerater.expect(
+            .spy,
+            """
+            protocol SampleProtocol {
+                @available(iOS 14.0, *)
+                var prop1: String { get }
+                @available(iOS 14.0, *)
+                func func1(arg1: String) -> UIViewController
+                @available(iOS 14.0, *)
+                init()
+            }
+            """),
+            """
+            class SampleSpy: NSObject, SampleProtocol {
+                @available(iOS 14.0, *) @objc
+                dynamic var prop1_get_wasCalled = false
+                @available(iOS 14.0, *) @objc
+                dynamic var prop1_get_callCount = 0
+                @available(iOS 14.0, *)
+                var prop1_get_val: String = ""
+                @available(iOS 14.0, *)
+                var prop1: String {
+                    get {
+                        prop1_get_wasCalled = true
+                        prop1_get_callCount += 1
+                        return prop1_get_val
+                    }
+                }
+                @available(iOS 14.0, *) @objc
+                dynamic var func1_wasCalled = false
+                @available(iOS 14.0, *) @objc
+                dynamic var func1_callCount = 0
+                @available(iOS 14.0, *)
+                var func1_args: String?
+                @available(iOS 14.0, *)
+                var func1_val: UIViewController = UIViewController(nibName: nil, bundle: nil)
+                @available(iOS 14.0, *)
+                func func1(arg1: String) -> UIViewController {
+                    func1_wasCalled = true
+                    func1_callCount += 1
+                    func1_args = arg1
+                    return func1_val
+                }
+
+                @available(iOS 14.0, *) @objc
+                dynamic var init_wasCalled = false
+                @available(iOS 14.0, *) @objc
+                dynamic var init_callCount = 0
+                @available(iOS 14.0, *)
+                required init() {
+                    init_wasCalled = true
+                    init_callCount += 1
                 }
             }
 

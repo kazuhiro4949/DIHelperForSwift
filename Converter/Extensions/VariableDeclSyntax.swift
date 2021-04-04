@@ -230,7 +230,8 @@ extension VariableDeclSyntax {
         attributes: AttributeListSyntax?,
         modifiers: ModifierListSyntax?) -> VariableDeclSyntax {
         SyntaxFactory.makeVariableDecl(
-            attributes: attributes,
+            attributes: attributes?
+                .withTrailingTrivia(.newlineAndIndent),
             modifiers: modifiers,
             letOrVarKeyword: .makeFormattedVarKeyword(),
             bindings: SyntaxFactory

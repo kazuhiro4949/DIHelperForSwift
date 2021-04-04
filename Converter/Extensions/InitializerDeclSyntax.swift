@@ -82,6 +82,7 @@ extension InitializerDeclSyntax {
             memberDeclListItems.append(
                 .makeFormattedCallCount(
                     identifier: signatureAddedIdentifier(counter: counter).callCount(.spy),
+                    attributes: attributes,
                     modifiers: modifiers
                 )
             )

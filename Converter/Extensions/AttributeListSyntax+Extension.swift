@@ -24,17 +24,29 @@ extension AttributeListSyntax {
         }
     }
     
-    static var formattedObjc: AttributeListSyntax? {
-        SyntaxFactory.makeAttributeList([
-            Syntax(
-                SyntaxFactory.makeCustomAttribute(
-                    atSignToken: SyntaxFactory.makeAtSignToken(),
-                    attributeName: SyntaxFactory.makeTypeIdentifier("objc"),
-                    leftParen: nil,
-                    argumentList: nil,
-                    rightParen: nil)
-            )
-        ])
-        .withTrailingTrivia(.spaces(1))
+    func appending(attribute: Syntax) -> AttributeListSyntax {
+        var attributeElements = enumerated().map { offset, elem -> Syntax in
+            if offset + 1 == count {
+                return elem.withTrailingTrivia(.spaces(1))
+            } else {
+                return elem
+            }
+        }
+        
+        attributeElements.append(attribute)
+        return SyntaxFactory.makeAttributeList(attributeElements)
+    }
+}
+
+extension CustomAttributeSyntax {
+
+    
+    static var objc: CustomAttributeSyntax {
+        SyntaxFactory.makeCustomAttribute(
+            atSignToken: SyntaxFactory.makeAtSignToken(),
+            attributeName: SyntaxFactory.makeTypeIdentifier("objc"),
+            leftParen: nil,
+            argumentList: nil,
+            rightParen: nil)
     }
 }

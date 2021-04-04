@@ -11,12 +11,34 @@ import SwiftSyntax
 
 extension MemberDeclListItemSyntax {
     static func makeInitForMock(_ initDecl:  InitializerDeclSyntax, _ codeBlockItems: [CodeBlockItemSyntax]) -> MemberDeclListItemSyntax {
+        let notOptionalAttributes = initDecl.attributes ?? SyntaxFactory.makeBlankAttributeList()
         let codeBlockAddedFuncDecl = DeclSyntax(
             initDecl
-                .withLeadingTrivia(.spaces(1))
-                .withModifiers(SyntaxFactory.makeModifierList([SyntaxFactory.makeDeclModifier(name: SyntaxFactory.makeIdentifier("required"), detailLeftParen: nil, detail: nil, detailRightParen: nil)]))
+                .withInitKeyword(
+                    initDecl.initKeyword.withLeadingTrivia(.zero)
+                )
+                .withModifiers(
+                    SyntaxFactory.makeModifierList(
+                        [
+                            SyntaxFactory
+                                .makeDeclModifier(
+                                    name: SyntaxFactory
+                                        .makeIdentifier("required"),
+                                    detailLeftParen: nil,
+                                    detail: nil,
+                                    detailRightParen: nil
+                                )
+                        ]
+                    )
+                    .withLeadingTrivia(.indent)
+                    .withTrailingTrivia(.spaces(1))
+                )
+                .withAttributes(
+                    notOptionalAttributes
+                        .withLeadingTrivia(.indent)
+                        .withTrailingTrivia(.newlines(1))
+                )
                 .withBody(.makeFormattedCodeBlock(codeBlockItems))
-                .withLeadingTrivia(.indent)
                 .withTrailingTrivia(.newlines(2))
         )
         return SyntaxFactory
@@ -139,19 +161,19 @@ extension MemberDeclListItemSyntax {
         identifier: String,
         modifiers: ModifierListSyntax?,
         attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
-        
-        let modifiers = modifiers ?? SyntaxFactory.makeBlankModifierList()
 
         if !Settings.shared.spySettings.getScene(scene: .kvc) {
+            let notOptionalModifiers = modifiers ?? SyntaxFactory.makeBlankModifierList()
+            let notOptionalAttributes = attributes ?? SyntaxFactory.makeBlankAttributeList()
             return .makeFormattedFalseAssign(
                 to: identifier,
-                attributes: .formattedObjc,
-                modifiers: modifiers.inserting(modifier: .formattedDynamic, at: 0)
+                attributes: notOptionalAttributes.appending(attribute: Syntax(CustomAttributeSyntax.objc)),
+                modifiers: notOptionalModifiers.inserting(modifier: .formattedDynamic, at: 0)
             )
         } else {
-            return .makeFormattedFalseAssign(
+            return MemberDeclListItemSyntax.makeFormattedFalseAssign(
                 to: identifier,
-                attributes: nil,
+                attributes: attributes,
                 modifiers: modifiers
             )
         }
@@ -159,20 +181,21 @@ extension MemberDeclListItemSyntax {
     
     static func makeFormattedCallCount(
         identifier: String,
+        attributes: AttributeListSyntax?,
         modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax {
         
-        let modifiers = modifiers ?? SyntaxFactory.makeBlankModifierList()
-
         if !Settings.shared.spySettings.getScene(scene: .kvc) {
+            let notOptionalAttributes = attributes ?? SyntaxFactory.makeBlankAttributeList()
+            let notOptionalModifiers = modifiers ?? SyntaxFactory.makeBlankModifierList()
             return .makeFormattedZeroAssign(
                 to: identifier,
-                attributes: .formattedObjc,
-                modifiers: modifiers.inserting(modifier: .formattedDynamic, at: 0)
+                attributes: notOptionalAttributes.appending(attribute: Syntax(CustomAttributeSyntax.objc)),
+                modifiers: notOptionalModifiers.inserting(modifier: .formattedDynamic, at: 0)
             )
         } else {
             return .makeFormattedZeroAssign(
                 to: identifier,
-                attributes: nil,
+                attributes: attributes,
                 modifiers: modifiers
             )
         }
