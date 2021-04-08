@@ -28,4 +28,26 @@ extension TypeInheritanceClauseSyntax {
         )
         .withTrailingTrivia(.spaces(1))
     }
+    
+    static func make(with elements: [InheritedTypeSyntax]) -> TypeInheritanceClauseSyntax {
+        SyntaxFactory.makeTypeInheritanceClause(
+            colon: SyntaxFactory
+                .makeColonToken()
+                .withTrailingTrivia(.spaces(1)),
+            inheritedTypeCollection: SyntaxFactory
+                .makeInheritedTypeList(elements)
+        )
+    }
+}
+
+extension Array where Element == InheritedTypeSyntax {
+    static var anyObject: [InheritedTypeSyntax] {
+        [SyntaxFactory
+            .makeInheritedType(
+                typeName: SyntaxFactory
+                    .makeTypeIdentifier("AnyObject"),
+                trailingComma: nil
+            )
+        ]
+    }
 }

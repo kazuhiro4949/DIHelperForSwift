@@ -471,7 +471,7 @@
                                                 <rect key="frame" x="67" y="57" width="367" height="96"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="AJN-hK-AGw">
                                                     <font key="font" metaFont="system"/>
-                                                    <string key="title">Making a class testable has some tedious steps.
+                                                    <string key="title">There are some bothering steps to make a class testable.
  1.  defining protocols for the depending classes to separate.
 2.  implementing test doubles based on the protocols.
 
@@ -1017,9 +1017,9 @@ This app automates them with Xcode Source Extension.</string>
                                                 <rect key="frame" x="-2" y="311" width="269" height="42"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" id="821-JY-48K">
                                                     <font key="font" textStyle="subheadline" name=".SFNS-Regular"/>
-                                                    <string key="title">is an interface of class, struct, and enum.
+                                                    <string key="title">is the interface of Class, Struct, and Enum.
 It can separates a dependency between the types.
-Test doubles for Unit Test are made from Protocol.</string>
+Test doubles are made from Protocol.</string>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -1492,11 +1492,11 @@ Test doubles for Unit Test are made from Protocol.</string>
                                                             </constraints>
                                                         </customView>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-oV-2e9">
-                                                            <rect key="frame" x="-2" y="531" width="157" height="28"/>
+                                                            <rect key="frame" x="-2" y="531" width="162" height="28"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" id="hiq-mT-MRC">
                                                                 <font key="font" textStyle="subheadline" name=".SFNS-Regular"/>
                                                                 <string key="title">is generated from a protocol.
-It memorizes method calls.</string>
+It can memorize method calls.</string>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>

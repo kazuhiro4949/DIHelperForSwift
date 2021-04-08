@@ -37,17 +37,18 @@ extension SyntaxFactory {
     static func makeProtocolForDependencyInjection(
         attributes: AttributeListSyntax?,
         identifier: TokenSyntax,
+        inheritanceClause: TypeInheritanceClauseSyntax?,
         members: MemberDeclListSyntax) -> ProtocolDeclSyntax {
         
         SyntaxFactory.makeProtocolDecl(
-            attributes: attributes?.protocolExclusiveRemoved,
+            attributes: attributes?
+                .protocolExclusiveRemoved,
             modifiers: nil,
             protocolKeyword: SyntaxFactory
                 .makeProtocolKeyword()
                 .withTrailingTrivia(.spaces(1)),
-            identifier: identifier
-                .withTrailingTrivia(.spaces(1)),
-            inheritanceClause: nil, // TODO:- Anyobject if class
+            identifier: identifier,
+            inheritanceClause: inheritanceClause,
             genericWhereClause: nil,
             members: makeProtocolMemberDeclBlock(members: members))
     }

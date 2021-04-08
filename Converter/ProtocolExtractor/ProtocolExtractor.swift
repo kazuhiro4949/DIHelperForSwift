@@ -98,13 +98,18 @@ class ProtocolExtractor: SyntaxVisitor {
             return initializerDecl
         }
         
+        let inheritanceClause: TypeInheritanceClauseSyntax = .make(with: .anyObject)
+        
         let protocolDeclSyntax = makeProtocolDecl(
-                             attributes: node.attributes,
-                             identifier: node.identifier,
-                             varDecls: variables,
-                             funcDelcs: functions,
-                             initDecls: initilizers,
-                             isClass: true)
+            attributes: node.attributes,
+            identifier: node.identifier
+                .withTrailingTrivia(.zero),
+            inheritanceClause: inheritanceClause
+                .withTrailingTrivia(.spaces(1)),
+            varDecls: variables,
+            funcDelcs: functions,
+            initDecls: initilizers,
+            isClass: true)
         
         let prefiComment = """
         /// protocol of \(node.identifier.text)
@@ -201,12 +206,14 @@ class ProtocolExtractor: SyntaxVisitor {
         }
         
         let protocolDeclSyntax = makeProtocolDecl(
-                         attributes: node.attributes,
-                         identifier: node.identifier,
-                         varDecls: variables,
-                         funcDelcs: functions,
-                         initDecls: initilizers,
-                         isClass: true)
+            attributes: node.attributes,
+            identifier: node.identifier
+                .withTrailingTrivia(.spaces(1)),
+            inheritanceClause: nil,
+            varDecls: variables,
+            funcDelcs: functions,
+            initDecls: initilizers,
+            isClass: true)
         
         let prefiComment = """
         /// protocol of \(node.identifier.text)
@@ -304,7 +311,9 @@ class ProtocolExtractor: SyntaxVisitor {
         
         let protocolDeclSyntax = makeProtocolDecl(
             attributes: node.attributes,
-            identifier: node.identifier,
+            identifier: node.identifier
+                .withTrailingTrivia(.spaces(1)),
+            inheritanceClause: nil,
             varDecls: variables,
             funcDelcs: functions,
             initDecls: initilizers,
@@ -327,6 +336,7 @@ class ProtocolExtractor: SyntaxVisitor {
     private func makeProtocolDecl(
         attributes: AttributeListSyntax?,
         identifier: TokenSyntax,
+        inheritanceClause: TypeInheritanceClauseSyntax?,
         varDecls: [VariableDeclSyntax],
         funcDelcs: [FunctionDeclSyntax],
         initDecls: [InitializerDeclSyntax],
@@ -379,6 +389,7 @@ class ProtocolExtractor: SyntaxVisitor {
                         formattedString
                     )
                 ),
+            inheritanceClause: inheritanceClause,
             members: SyntaxFactory.makeMemberDeclList(memberInterfaces)
         )
     }
