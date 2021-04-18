@@ -1160,13 +1160,9 @@ class MockGeneratorTests: XCTestCase {
             """),
             """
             class AttributeSpy: AttributeProtocol {
-                @available(iOS 14.0, *)
                 var exec_wasCalled = false
-                @available(iOS 14.0, *)
                 var exec_callCount = 0
-                @available(iOS 14.0, *)
                 var exec_args: ((String) -> Void)?
-                @available(iOS 14.0, *)
                 var exec_val: String = ""
                 @available(iOS 14.0, *)
                 func exec(completion: @escaping (String) -> Void) -> String {
@@ -1176,17 +1172,11 @@ class MockGeneratorTests: XCTestCase {
                     return exec_val
                 }
 
-                @available(iOS 14.0, *)
                 var prop_get_wasCalled = false
-                @available(iOS 14.0, *)
                 var prop_get_callCount = 0
-                @available(iOS 14.0, *)
                 var prop_get_val: Int = 0
-                @available(iOS 14.0, *)
                 var prop_set_wasCalled = false
-                @available(iOS 14.0, *)
                 var prop_set_callCount = 0
-                @available(iOS 14.0, *)
                 var prop_set_args: Int?
                 @available(iOS 14.0, *)
                 var prop: Int {
@@ -1302,11 +1292,10 @@ class MockGeneratorTests: XCTestCase {
             """),
             """
             class SampleSpy: NSObject, SampleProtocol {
-                @available(iOS 14.0, *) @objc
+                @objc
                 dynamic var prop1_get_wasCalled = false
-                @available(iOS 14.0, *) @objc
+                @objc
                 dynamic var prop1_get_callCount = 0
-                @available(iOS 14.0, *)
                 var prop1_get_val: String = ""
                 @available(iOS 14.0, *)
                 var prop1: String {
@@ -1316,13 +1305,11 @@ class MockGeneratorTests: XCTestCase {
                         return prop1_get_val
                     }
                 }
-                @available(iOS 14.0, *) @objc
+                @objc
                 dynamic var func1_wasCalled = false
-                @available(iOS 14.0, *) @objc
+                @objc
                 dynamic var func1_callCount = 0
-                @available(iOS 14.0, *)
                 var func1_args: String?
-                @available(iOS 14.0, *)
                 var func1_val: UIViewController = UIViewController(nibName: nil, bundle: nil)
                 @available(iOS 14.0, *)
                 func func1(arg1: String) -> UIViewController {
@@ -1332,9 +1319,9 @@ class MockGeneratorTests: XCTestCase {
                     return func1_val
                 }
 
-                @available(iOS 14.0, *) @objc
+                @objc
                 dynamic var init_wasCalled = false
-                @available(iOS 14.0, *) @objc
+                @objc
                 dynamic var init_callCount = 0
                 @available(iOS 14.0, *)
                 required init() {
