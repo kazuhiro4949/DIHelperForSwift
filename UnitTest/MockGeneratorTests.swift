@@ -33,7 +33,7 @@ class MockGeneratorTests: XCTestCase {
             class ViewControllerSpy: ViewControllerProtocol {
                 var textField_get_wasCalled = false
                 var textField_get_callCount = 0
-                var textField_get_val: NSTextField = <#T##NSTextField#>
+                var textField_get_val = <#T##NSTextField#>
                 var textField_set_wasCalled = false
                 var textField_set_callCount = 0
                 var textField_set_args: NSTextField?
@@ -76,7 +76,7 @@ class MockGeneratorTests: XCTestCase {
             class SomeFactorySpy: SomeFactoryProtocol {
                 static var make_wasCalled = false
                 static var make_callCount = 0
-                static var make_val: SomeClassProtocol = <#T##SomeClassProtocol#>
+                static var make_val = <#T##SomeClassProtocol#>
                 static func make() -> SomeClassProtocol {
                     make_wasCalled = true
                     make_callCount += 1
@@ -101,7 +101,7 @@ class MockGeneratorTests: XCTestCase {
             class SomeManagerSpy: SomeManagerProtocol {
                 static var shared_get_wasCalled = false
                 static var shared_get_callCount = 0
-                static var shared_get_val: SomeManagerProtocol = <#T##SomeManagerProtocol#>
+                static var shared_get_val = <#T##SomeManagerProtocol#>
                 static var shared: SomeManagerProtocol {
                     get {
                         shared_get_wasCalled = true
@@ -132,7 +132,7 @@ class MockGeneratorTests: XCTestCase {
             class FunctionsPattern5Spy: FunctionsPattern5Protocol {
                 var func1_<#T##identifier1##identifier1#>_wasCalled = false
                 var func1_<#T##identifier1##identifier1#>_callCount = 0
-                var func1_<#T##identifier1##identifier1#>_val: String = ""
+                var func1_<#T##identifier1##identifier1#>_val = ""
                 func func1() -> String {
                     func1_<#T##identifier1##identifier1#>_wasCalled = true
                     func1_<#T##identifier1##identifier1#>_callCount += 1
@@ -195,7 +195,7 @@ class MockGeneratorTests: XCTestCase {
 
                 var func2_wasCalled = false
                 var func2_callCount = 0
-                var func2_val: Int = 0
+                var func2_val = 0
                 func func2() -> Int {
                     func2_wasCalled = true
                     func2_callCount += 1
@@ -205,7 +205,7 @@ class MockGeneratorTests: XCTestCase {
                 var func3_wasCalled = false
                 var func3_callCount = 0
                 var func3_args:  (arg1: String, arg2: Int)?
-                var func3_val: Int = 0
+                var func3_val = 0
                 func func3(_ arg1: String, arg2: Int) -> Int {
                     func3_wasCalled = true
                     func3_callCount += 1
@@ -215,7 +215,7 @@ class MockGeneratorTests: XCTestCase {
 
                 var func4_wasCalled = false
                 var func4_callCount = 0
-                var func4_val: String = ""
+                var func4_val = ""
                 func func4() throws -> String {
                     func4_wasCalled = true
                     func4_callCount += 1
@@ -244,7 +244,7 @@ class MockGeneratorTests: XCTestCase {
             class FunctionsPattern2Spy: FunctionsPattern2Protocol {
                 var func1_wasCalled = false
                 var func1_callCount = 0
-                var func1_val: String = ""
+                var func1_val = ""
                 func func1() -> String {
                     func1_wasCalled = true
                     func1_callCount += 1
@@ -263,7 +263,7 @@ class MockGeneratorTests: XCTestCase {
                 var func3_wasCalled = false
                 var func3_callCount = 0
                 var func3_args: Int?
-                var func3_val: String = ""
+                var func3_val = ""
                 func func3(arg: Int) -> String {
                     func3_wasCalled = true
                     func3_callCount += 1
@@ -274,7 +274,7 @@ class MockGeneratorTests: XCTestCase {
                 var func4_wasCalled = false
                 var func4_callCount = 0
                 var func4_args: Int?
-                var func4_val: String = ""
+                var func4_val = ""
                 func func4(_ arg: Int) -> String {
                     func4_wasCalled = true
                     func4_callCount += 1
@@ -285,7 +285,7 @@ class MockGeneratorTests: XCTestCase {
                 var func5_wasCalled = false
                 var func5_callCount = 0
                 var func5_args:  (arg1: String, arg2: Int)?
-                var func5_val: Int = 0
+                var func5_val = 0
                 func func5(for arg1: String, arg2: Int) -> Int {
                     func5_wasCalled = true
                     func5_callCount += 1
@@ -318,7 +318,7 @@ class MockGeneratorTests: XCTestCase {
                 var func1_wasCalled = false
                 var func1_callCount = 0
                 var func1_args: Int8?
-                var func1_val: Int8 = 0
+                var func1_val = 0
                 func func1(arg: Int8) -> Int8 {
                     func1_wasCalled = true
                     func1_callCount += 1
@@ -329,7 +329,7 @@ class MockGeneratorTests: XCTestCase {
                 var func3_wasCalled = false
                 var func3_callCount = 0
                 var func3_args: Int32?
-                var func3_val: Int32 = 0
+                var func3_val = 0
                 func func3(arg: Int32) -> Int32 {
                     func3_wasCalled = true
                     func3_callCount += 1
@@ -340,7 +340,7 @@ class MockGeneratorTests: XCTestCase {
                 var func4_wasCalled = false
                 var func4_callCount = 0
                 var func4_args: Int64?
-                var func4_val: Int64 = 0
+                var func4_val = 0
                 func func4(arg: Int64) -> Int64 {
                     func4_wasCalled = true
                     func4_callCount += 1
@@ -351,7 +351,7 @@ class MockGeneratorTests: XCTestCase {
                 var func5_wasCalled = false
                 var func5_callCount = 0
                 var func5_args: Float?
-                var func5_val: Float = 0.0
+                var func5_val = 0.0
                 func func5(arg: Float) -> Float {
                     func5_wasCalled = true
                     func5_callCount += 1
@@ -362,7 +362,7 @@ class MockGeneratorTests: XCTestCase {
                 var func7_wasCalled = false
                 var func7_callCount = 0
                 var func7_args: Float64?
-                var func7_val: Float64 = 0.0
+                var func7_val = 0.0
                 func func7(arg: Float64) -> Float64 {
                     func7_wasCalled = true
                     func7_callCount += 1
@@ -373,7 +373,7 @@ class MockGeneratorTests: XCTestCase {
                 var func8_wasCalled = false
                 var func8_callCount = 0
                 var func8_args: Double?
-                var func8_val: Double = 0.0
+                var func8_val = 0.0
                 func func8(arg: Double) -> Double {
                     func8_wasCalled = true
                     func8_callCount += 1
@@ -384,7 +384,7 @@ class MockGeneratorTests: XCTestCase {
                 var func9_wasCalled = false
                 var func9_callCount = 0
                 var func9_args: CGFloat?
-                var func9_val: CGFloat = 0.0
+                var func9_val = 0.0
                 func func9(arg: CGFloat) -> CGFloat {
                     func9_wasCalled = true
                     func9_callCount += 1
@@ -412,7 +412,7 @@ class MockGeneratorTests: XCTestCase {
                 var func2_wasCalled = false
                 var func2_callCount = 0
                 var func2_args: Int16?
-                var func2_val: Int16 = 0
+                var func2_val = 0
                 func func2(arg: Int16) -> Int16 {
                     func2_wasCalled = true
                     func2_callCount += 1
@@ -423,7 +423,7 @@ class MockGeneratorTests: XCTestCase {
                 var func6_wasCalled = false
                 var func6_callCount = 0
                 var func6_args: Float32?
-                var func6_val: Float32 = 0.0
+                var func6_val = 0.0
                 func func6(arg: Float32) -> Float32 {
                     func6_wasCalled = true
                     func6_callCount += 1
@@ -453,7 +453,7 @@ class MockGeneratorTests: XCTestCase {
                 var func10_wasCalled = false
                 var func10_callCount = 0
                 var func10_args: [String]?
-                var func10_val: [String] = []
+                var func10_val = []
                 func func10(arg: [String]) -> [String] {
                     func10_wasCalled = true
                     func10_callCount += 1
@@ -464,7 +464,7 @@ class MockGeneratorTests: XCTestCase {
                 var func11_wasCalled = false
                 var func11_callCount = 0
                 var func11_args: [String: String]?
-                var func11_val: [String: String] = [:]
+                var func11_val = [:]
                 func func11(arg: [String: String]) -> [String: String] {
                     func11_wasCalled = true
                     func11_callCount += 1
@@ -475,7 +475,7 @@ class MockGeneratorTests: XCTestCase {
                 var func12_wasCalled = false
                 var func12_callCount = 0
                 var func12_args: (String, String)?
-                var func12_val: (String, String)! = <#T##(String, String)#>
+                var func12_val = <#T##(String, String)#>
                 func func12(arg: (String, String)) -> (String, String) {
                     func12_wasCalled = true
                     func12_callCount += 1
@@ -486,7 +486,7 @@ class MockGeneratorTests: XCTestCase {
                 var func13_wasCalled = false
                 var func13_callCount = 0
                 var func13_args: SomeClass?
-                var func13_val: SomeClass = <#T##SomeClass#>
+                var func13_val = <#T##SomeClass#>
                 func func13(arg: SomeClass) -> SomeClass {
                     func13_wasCalled = true
                     func13_callCount += 1
@@ -522,7 +522,7 @@ class MockGeneratorTests: XCTestCase {
 
                 var func1_<#T##identifier2##identifier2#>_wasCalled = false
                 var func1_<#T##identifier2##identifier2#>_callCount = 0
-                var func1_<#T##identifier2##identifier2#>_val: Int = 0
+                var func1_<#T##identifier2##identifier2#>_val = 0
                 func func1() -> Int {
                     func1_<#T##identifier2##identifier2#>_wasCalled = true
                     func1_<#T##identifier2##identifier2#>_callCount += 1
@@ -532,7 +532,7 @@ class MockGeneratorTests: XCTestCase {
                 var func1_<#T##identifier3##identifier3#>_wasCalled = false
                 var func1_<#T##identifier3##identifier3#>_callCount = 0
                 var func1_<#T##identifier3##identifier3#>_args:  (arg1: String, arg2: Int)?
-                var func1_<#T##identifier3##identifier3#>_val: Int = 0
+                var func1_<#T##identifier3##identifier3#>_val = 0
                 func func1(_ arg1: String, arg2: Int) -> Int {
                     func1_<#T##identifier3##identifier3#>_wasCalled = true
                     func1_<#T##identifier3##identifier3#>_callCount += 1
@@ -542,7 +542,7 @@ class MockGeneratorTests: XCTestCase {
 
                 var func1_<#T##identifier4##identifier4#>_wasCalled = false
                 var func1_<#T##identifier4##identifier4#>_callCount = 0
-                var func1_<#T##identifier4##identifier4#>_val: String = ""
+                var func1_<#T##identifier4##identifier4#>_val = ""
                 func func1() throws -> String {
                     func1_<#T##identifier4##identifier4#>_wasCalled = true
                     func1_<#T##identifier4##identifier4#>_callCount += 1
@@ -583,7 +583,7 @@ class MockGeneratorTests: XCTestCase {
             class PropertyPatternSpy: PropertyPatternProtocol {
                 var prop1_get_wasCalled = false
                 var prop1_get_callCount = 0
-                var prop1_get_val: String = ""
+                var prop1_get_val = ""
                 var prop1: String {
                     get {
                         prop1_get_wasCalled = true
@@ -593,7 +593,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop2_get_wasCalled = false
                 var prop2_get_callCount = 0
-                var prop2_get_val: String? = ""
+                var prop2_get_val = ""
                 var prop2_set_wasCalled = false
                 var prop2_set_callCount = 0
                 var prop2_set_args: String?
@@ -611,7 +611,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop3_get_wasCalled = false
                 var prop3_get_callCount = 0
-                var prop3_get_val: Int = 0
+                var prop3_get_val = 0
                 var prop3_set_wasCalled = false
                 var prop3_set_callCount = 0
                 var prop3_set_args: Int?
@@ -629,7 +629,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop4_get_wasCalled = false
                 var prop4_get_callCount = 0
-                var prop4_get_val: Int8 = 0
+                var prop4_get_val = 0
                 var prop4_set_wasCalled = false
                 var prop4_set_callCount = 0
                 var prop4_set_args: Int8?
@@ -647,7 +647,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop5_get_wasCalled = false
                 var prop5_get_callCount = 0
-                var prop5_get_val: Int16 = 0
+                var prop5_get_val = 0
                 var prop5_set_wasCalled = false
                 var prop5_set_callCount = 0
                 var prop5_set_args: Int16?
@@ -665,7 +665,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop6_get_wasCalled = false
                 var prop6_get_callCount = 0
-                var prop6_get_val: Int32 = 0
+                var prop6_get_val = 0
                 var prop6_set_wasCalled = false
                 var prop6_set_callCount = 0
                 var prop6_set_args: Int32?
@@ -683,7 +683,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop7_get_wasCalled = false
                 var prop7_get_callCount = 0
-                var prop7_get_val: Int64 = 0
+                var prop7_get_val = 0
                 var prop7_set_wasCalled = false
                 var prop7_set_callCount = 0
                 var prop7_set_args: Int64?
@@ -701,7 +701,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop8_get_wasCalled = false
                 var prop8_get_callCount = 0
-                var prop8_get_val: Float = 0.0
+                var prop8_get_val = 0.0
                 var prop8_set_wasCalled = false
                 var prop8_set_callCount = 0
                 var prop8_set_args: Float?
@@ -719,7 +719,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop9_get_wasCalled = false
                 var prop9_get_callCount = 0
-                var prop9_get_val: Float32 = 0.0
+                var prop9_get_val = 0.0
                 var prop9_set_wasCalled = false
                 var prop9_set_callCount = 0
                 var prop9_set_args: Float32?
@@ -737,7 +737,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop10_get_wasCalled = false
                 var prop10_get_callCount = 0
-                var prop10_get_val: Float64 = 0.0
+                var prop10_get_val = 0.0
                 var prop10_set_wasCalled = false
                 var prop10_set_callCount = 0
                 var prop10_set_args: Float64?
@@ -755,7 +755,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop11_get_wasCalled = false
                 var prop11_get_callCount = 0
-                var prop11_get_val: Double = 0.0
+                var prop11_get_val = 0.0
                 var prop11_set_wasCalled = false
                 var prop11_set_callCount = 0
                 var prop11_set_args: Double?
@@ -773,7 +773,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop12_get_wasCalled = false
                 var prop12_get_callCount = 0
-                var prop12_get_val: CGFloat = 0.0
+                var prop12_get_val = 0.0
                 var prop12_set_wasCalled = false
                 var prop12_set_callCount = 0
                 var prop12_set_args: CGFloat?
@@ -791,7 +791,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop13_get_wasCalled = false
                 var prop13_get_callCount = 0
-                var prop13_get_val: (() -> Void)! = <#T##() -> Void#>
+                var prop13_get_val = <#T##() -> Void#>
                 var prop13: () -> Void {
                     get {
                         prop13_get_wasCalled = true
@@ -801,7 +801,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop14_get_wasCalled = false
                 var prop14_get_callCount = 0
-                var prop14_get_val: [String] = []
+                var prop14_get_val = []
                 var prop14: [String] {
                     get {
                         prop14_get_wasCalled = true
@@ -811,7 +811,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop15_get_wasCalled = false
                 var prop15_get_callCount = 0
-                var prop15_get_val: [String: String] = [:]
+                var prop15_get_val = [:]
                 var prop15: [String: String] {
                     get {
                         prop15_get_wasCalled = true
@@ -821,7 +821,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop16_get_wasCalled = false
                 var prop16_get_callCount = 0
-                var prop16_get_val: (String, String)! = <#T##(String, String)#>
+                var prop16_get_val = <#T##(String, String)#>
                 var prop16: (String, String) {
                     get {
                         prop16_get_wasCalled = true
@@ -831,7 +831,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop17_get_wasCalled = false
                 var prop17_get_callCount = 0
-                var prop17_get_val: SomeClass = <#T##SomeClass#>
+                var prop17_get_val = <#T##SomeClass#>
                 var prop17: SomeClass {
                     get {
                         prop17_get_wasCalled = true
@@ -861,7 +861,7 @@ class MockGeneratorTests: XCTestCase {
             class PropertyPattern2Spy: PropertyPattern2Protocol {
                 var prop1_get_wasCalled = false
                 var prop1_get_callCount = 0
-                var prop1_get_val: SomeClass? = nil
+                var prop1_get_val = nil
                 var prop1: SomeClass? {
                     get {
                         prop1_get_wasCalled = true
@@ -871,7 +871,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop2_get_wasCalled = false
                 var prop2_get_callCount = 0
-                var prop2_get_val: SomeClass! = <#T##SomeClass!#>
+                var prop2_get_val = <#T##SomeClass!#>
                 var prop2: SomeClass! {
                     get {
                         prop2_get_wasCalled = true
@@ -881,7 +881,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop3_get_wasCalled = false
                 var prop3_get_callCount = 0
-                var prop3_get_val: [SomeClass]? = []
+                var prop3_get_val = []
                 var prop3_set_wasCalled = false
                 var prop3_set_callCount = 0
                 var prop3_set_args: [SomeClass]?
@@ -899,7 +899,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop4_get_wasCalled = false
                 var prop4_get_callCount = 0
-                var prop4_get_val: [SomeClass]! = []
+                var prop4_get_val = []
                 var prop4_set_wasCalled = false
                 var prop4_set_callCount = 0
                 var prop4_set_args: [SomeClass]?
@@ -937,7 +937,7 @@ class MockGeneratorTests: XCTestCase {
             class ClosurePattenSpy: ClosurePattenProtocol {
                 var arg1_get_wasCalled = false
                 var arg1_get_callCount = 0
-                var arg1_get_val: (() -> Void)! = nil
+                var arg1_get_val = nil
                 var arg1: (() -> Void)? {
                     get {
                         arg1_get_wasCalled = true
@@ -965,7 +965,7 @@ class MockGeneratorTests: XCTestCase {
 
                 var func1_<#T##identifier3##identifier3#>_wasCalled = false
                 var func1_<#T##identifier3##identifier3#>_callCount = 0
-                var func1_<#T##identifier3##identifier3#>_val: (() -> Void)! = nil
+                var func1_<#T##identifier3##identifier3#>_val = nil
                 func func1() -> (() -> Void)? {
                     func1_<#T##identifier3##identifier3#>_wasCalled = true
                     func1_<#T##identifier3##identifier3#>_callCount += 1
@@ -1064,7 +1064,7 @@ class MockGeneratorTests: XCTestCase {
             class ViewControllerSpy: ViewControllerProtocol {
                 var textField_get_wasCalled = false
                 var textField_get_callCount = 0
-                var textField_get_val: NSTextField = <#T##NSTextField#>
+                var textField_get_val = <#T##NSTextField#>
                 var textField_set_wasCalled = false
                 var textField_set_callCount = 0
                 var textField_set_args: NSTextField?
@@ -1163,7 +1163,7 @@ class MockGeneratorTests: XCTestCase {
                 var exec_wasCalled = false
                 var exec_callCount = 0
                 var exec_args: ((String) -> Void)?
-                var exec_val: String = ""
+                var exec_val = ""
                 @available(iOS 14.0, *)
                 func exec(completion: @escaping (String) -> Void) -> String {
                     exec_wasCalled = true
@@ -1174,7 +1174,7 @@ class MockGeneratorTests: XCTestCase {
 
                 var prop_get_wasCalled = false
                 var prop_get_callCount = 0
-                var prop_get_val: Int = 0
+                var prop_get_val = 0
                 var prop_set_wasCalled = false
                 var prop_set_callCount = 0
                 var prop_set_args: Int?
@@ -1240,7 +1240,7 @@ class MockGeneratorTests: XCTestCase {
                 dynamic var prop1_get_wasCalled = false
                 @objc
                 dynamic var prop1_get_callCount = 0
-                var prop1_get_val: String = ""
+                var prop1_get_val = ""
                 var prop1: String {
                     get {
                         prop1_get_wasCalled = true
@@ -1253,7 +1253,7 @@ class MockGeneratorTests: XCTestCase {
                 @objc
                 dynamic var func1_callCount = 0
                 var func1_args: String?
-                var func1_val: UIViewController = UIViewController(nibName: nil, bundle: nil)
+                var func1_val = UIViewController(nibName: nil, bundle: nil)
                 func func1(arg1: String) -> UIViewController {
                     func1_wasCalled = true
                     func1_callCount += 1
@@ -1296,7 +1296,7 @@ class MockGeneratorTests: XCTestCase {
                 dynamic var prop1_get_wasCalled = false
                 @objc
                 dynamic var prop1_get_callCount = 0
-                var prop1_get_val: String = ""
+                var prop1_get_val = ""
                 @available(iOS 14.0, *)
                 var prop1: String {
                     get {
@@ -1310,7 +1310,7 @@ class MockGeneratorTests: XCTestCase {
                 @objc
                 dynamic var func1_callCount = 0
                 var func1_args: String?
-                var func1_val: UIViewController = UIViewController(nibName: nil, bundle: nil)
+                var func1_val = UIViewController(nibName: nil, bundle: nil)
                 @available(iOS 14.0, *)
                 func func1(arg1: String) -> UIViewController {
                     func1_wasCalled = true
