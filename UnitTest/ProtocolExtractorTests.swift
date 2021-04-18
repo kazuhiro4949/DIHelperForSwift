@@ -34,7 +34,7 @@ class ProtocolExtractorTests: XCTestCase {
             }
             """),
             """
-            protocol ViewControllerProtocol {
+            protocol ViewControllerProtocol: AnyObject {
                 func viewDidLoad()
                 func buttonDidClick(_ sender: NSButton)
                 var label: NSTextField! { get set }
@@ -55,7 +55,7 @@ class ProtocolExtractorTests: XCTestCase {
             """
             ),
             """
-            protocol InheritedClassProtocol {
+            protocol InheritedClassProtocol: AnyObject {
             }
             """
         )
@@ -71,7 +71,7 @@ class ProtocolExtractorTests: XCTestCase {
             """
             ),
             """
-            protocol ObjcClassProtocol {
+            protocol ObjcClassProtocol: AnyObject {
             }
             """
         )
@@ -102,7 +102,7 @@ class ProtocolExtractorTests: XCTestCase {
             }
             """),
             """
-            protocol PropClass1Protocol {
+            protocol PropClass1Protocol: AnyObject {
                 var prop1: String? { get set }
                 var prop2 : String { get }
                 var prop3: Int { get set }
@@ -133,7 +133,7 @@ class ProtocolExtractorTests: XCTestCase {
             }
             """),
             """
-            protocol FunctionClassProtocol {
+            protocol FunctionClassProtocol: AnyObject {
                 func func1()
                 func func2(arg: Int)
                 func func3(arg: Int, arg2: String, arg3: () -> Void, arg4: (String, String))
@@ -155,7 +155,7 @@ class ProtocolExtractorTests: XCTestCase {
             }
             """),
             """
-            protocol SomeManagerProtocol {
+            protocol SomeManagerProtocol: AnyObject {
                 func exec() -> String
                 static var shared : <#T##Any#> { get }
             }
@@ -174,7 +174,7 @@ class ProtocolExtractorTests: XCTestCase {
             }
             """),
             """
-            protocol SomeFactoryProtocol {
+            protocol SomeFactoryProtocol: AnyObject {
                 static func make() -> SomeClass
             }
             """
@@ -192,7 +192,7 @@ class ProtocolExtractorTests: XCTestCase {
             }
             """),
             """
-            protocol HogeProtocol {
+            protocol HogeProtocol: AnyObject {
                 static func hoge() -> SomeClass
             }
             """
@@ -212,7 +212,7 @@ class ProtocolExtractorTests: XCTestCase {
             """),
             """
             @available(iOS 14.0, *)
-            protocol HogeProtocol {
+            protocol HogeProtocol: AnyObject {
                 static func hoge() -> SomeClass
             }
             """
@@ -234,11 +234,57 @@ class ProtocolExtractorTests: XCTestCase {
             }
             """),
             """
-            protocol HogeProtocol {
+            protocol HogeProtocol: AnyObject {
                 @available(iOS 14.0, *)
                 static func hoge() -> SomeClass
                 @available(iOS 14.0, *)
                 var prop1: String { get set }
+            }
+            """
+        )
+    }
+    
+    func test_Struct() throws {
+        XCTAssertEqual(
+            try ProtocolExtractor.expect(
+            """
+            struct Hoge {
+                func hoge() -> SomeClass {
+                    SomeClass()
+                }
+
+                var prop1: String = ""
+            }
+            """),
+            """
+            protocol HogeProtocol {
+                func hoge() -> SomeClass
+                var prop1: String { get set }
+            }
+            """
+        )
+    }
+    
+    func test_Enum() throws {
+        XCTAssertEqual(
+            try ProtocolExtractor.expect(
+            """
+            enum Hoge {
+                case case1
+                case case2
+            
+                func func1() -> String {
+                    ""
+                }
+                var prop2: String {
+                    ""
+                }
+            }
+            """),
+            """
+            protocol HogeProtocol {
+                func func1() -> String
+                var prop2: String { get }
             }
             """
         )
