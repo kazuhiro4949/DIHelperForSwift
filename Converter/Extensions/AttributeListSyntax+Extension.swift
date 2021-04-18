@@ -24,6 +24,21 @@ extension AttributeListSyntax {
         }
     }
     
+    // stored property cannot have availability
+    var storedPropertyRemoved: AttributeListSyntax? {
+        let attributes = filter {
+            let attribute = $0.as(AttributeSyntax.self)
+            return (attribute?.attributeName.text != "available")
+        }
+        if attributes.isEmpty {
+            return nil
+        } else {
+            return SyntaxFactory
+                .makeAttributeList(attributes)
+                .withTrailingTrivia(.newlines(1))
+        }
+    }
+    
     func appending(attribute: Syntax) -> AttributeListSyntax {
         var attributeElements = enumerated().map { offset, elem -> Syntax in
             if offset + 1 == count {

@@ -74,7 +74,7 @@ extension MemberDeclListItemSyntax {
                 )
             ),
             modifiers: modifiers,
-            attributes: attributes
+            attributes: attributes?.storedPropertyRemoved
         )
     }
     
@@ -87,7 +87,7 @@ extension MemberDeclListItemSyntax {
                             identifier,
                             typeSyntax,
                             modifiers: modifiers,
-                            attributes: attributes
+                            attributes: attributes?.storedPropertyRemoved
                         )
                 ),
                 semicolon: nil
@@ -167,13 +167,16 @@ extension MemberDeclListItemSyntax {
             let notOptionalAttributes = attributes ?? SyntaxFactory.makeBlankAttributeList()
             return .makeFormattedFalseAssign(
                 to: identifier,
-                attributes: notOptionalAttributes.appending(attribute: Syntax(CustomAttributeSyntax.objc)),
+                attributes: notOptionalAttributes
+                    .appending(attribute: Syntax(CustomAttributeSyntax.objc))
+                    .storedPropertyRemoved,
                 modifiers: notOptionalModifiers.inserting(modifier: .formattedDynamic, at: 0)
             )
         } else {
             return MemberDeclListItemSyntax.makeFormattedFalseAssign(
                 to: identifier,
-                attributes: attributes,
+                attributes: attributes?
+                    .storedPropertyRemoved,
                 modifiers: modifiers
             )
         }
@@ -189,13 +192,15 @@ extension MemberDeclListItemSyntax {
             let notOptionalModifiers = modifiers ?? SyntaxFactory.makeBlankModifierList()
             return .makeFormattedZeroAssign(
                 to: identifier,
-                attributes: notOptionalAttributes.appending(attribute: Syntax(CustomAttributeSyntax.objc)),
+                attributes: notOptionalAttributes
+                    .appending(attribute: Syntax(CustomAttributeSyntax.objc))
+                    .storedPropertyRemoved,
                 modifiers: notOptionalModifiers.inserting(modifier: .formattedDynamic, at: 0)
             )
         } else {
             return .makeFormattedZeroAssign(
                 to: identifier,
-                attributes: attributes,
+                attributes: attributes?.storedPropertyRemoved,
                 modifiers: modifiers
             )
         }

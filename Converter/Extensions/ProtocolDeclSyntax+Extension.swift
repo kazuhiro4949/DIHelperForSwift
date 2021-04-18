@@ -101,43 +101,8 @@ extension ProtocolDeclSyntax {
             mockType: mockType
         )
         
-        // MARK: - TODO
-        var processedDecls = [[MemberDeclListItemSyntax]]()
-        var hasAvailable = false
-        decls.forEach { declList in
-            var processedDeclList = [MemberDeclListItemSyntax]()
-            declList.forEach { decl in
-                if let variableDecl = decl.decl.as(VariableDeclSyntax.self) {
-                    var processedAttributes = [Syntax]()
-                    variableDecl.attributes?.forEach { syntax in
-                        if let attribute = syntax.as(AttributeSyntax.self) {
-                            if attribute.attributeName.text == "available" {
-                                hasAvailable = true
-                            } else {
-                                processedAttributes.append(Syntax(attribute))
-                            }
-                        }
-                    }
-                    let processedVariableDecl = variableDecl
-                        .withAttributes(
-                            SyntaxFactory
-                                .makeAttributeList(
-                                    processedAttributes
-                                )
-                        )
-                    processedDeclList.append(
-                        decl.withDecl(DeclSyntax(processedVariableDecl))
-                    )
-                } else {
-                    processedDeclList.append(decl)
-                }
-            }
-            processedDecls.append(processedDeclList)
-        }
-        // MARK: - TODO
-        
         let classDecl = SyntaxFactory.makeClassDecl(
-            attributes: attributes?.protocolExclusiveRemoved,
+            attributes: attributes,
             modifiers: nil,
             classKeyword: .makeFormattedClassKeyword(),
             identifier: mockIdentifier(mockType: mockType),
@@ -147,7 +112,7 @@ extension ProtocolDeclSyntax {
                 handler: .init(self)
             ),
             genericWhereClause: nil,
-            members: .makeFormatted(with: processedDecls)
+            members: .makeFormatted(with: decls)
         )
         
         let document = """

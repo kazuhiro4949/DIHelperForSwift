@@ -138,7 +138,14 @@ extension FunctionDeclSyntax {
             }
         }
         if let output = signature.output, !signature.isReturnedVoid {
-            memberDeclListItems.append(.makeReturnedValForMock(identifier.signatureAddedIdentifier(counter: counter).val(.spy), output.returnType, modifiers: modifiers, attributes: attributes))
+            memberDeclListItems.append(
+                .makeReturnedValForMock(
+                    identifier.signatureAddedIdentifier(counter: counter).val(.spy),
+                    output.returnType,
+                    modifiers: modifiers,
+                    attributes: attributes
+                )
+            )
         }
         let codeBlockItems = generateCodeBlockItemsForSpy(counter: counter)
         memberDeclListItems.append(.makeFunctionForMock(self, codeBlockItems))
@@ -184,7 +191,7 @@ extension FunctionDeclSyntax {
                 .tparenthesizedIfNeeded
                 .withTrailingTrivia(.zero),
             modifiers: modifiers,
-            attributes: attributes
+            attributes: attributes?.storedPropertyRemoved
         )
     }
     
@@ -208,7 +215,7 @@ extension FunctionDeclSyntax {
             identifier.signatureAddedIdentifier(counter: counter).args(.spy),
             TypeSyntax(TupleTypeSyntax.make(with: signature.input.parameterList.makeTupleForMemberDecl())),
             modifiers: modifiers,
-            attributes: attributes
+            attributes: attributes?.storedPropertyRemoved
         )
     }
     
