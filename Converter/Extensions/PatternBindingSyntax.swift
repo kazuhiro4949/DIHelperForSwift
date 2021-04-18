@@ -110,32 +110,14 @@ extension PatternBindingSyntax {
     }
 
     static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> PatternBindingSyntax {
-        let unwrappedTypeSyntax = TokenSyntax.makeUnwrapped(typeSyntax)
-        
-        let processedTypeSyntax: TypeSyntax
-        if unwrappedTypeSyntax.is(SimpleTypeIdentifierSyntax.self)
-            || unwrappedTypeSyntax.is(ArrayTypeSyntax.self)
-            || unwrappedTypeSyntax.is(DictionaryTypeSyntax.self) {
-            processedTypeSyntax = typeSyntax
-        } else if let functionTypeSyntax = unwrappedTypeSyntax.as(FunctionTypeSyntax.self) {
-            processedTypeSyntax = TypeSyntax(
-                ImplicitlyUnwrappedOptionalTypeSyntax
-                    .make(TypeSyntax(
-                            TupleTypeSyntax.makeParen(with: functionTypeSyntax)
-                    ))
-            )
-        } else {
-            processedTypeSyntax = TypeSyntax(
-                ImplicitlyUnwrappedOptionalTypeSyntax
-                    .make(unwrappedTypeSyntax)
-            )
-        }
-        
-        let valueExpr = ExprSyntax.makeReturnedValForMock(identifier, typeSyntax)
+        let valueExpr = ExprSyntax
+            .makeReturnedValForMock(identifier, typeSyntax)
         
         return SyntaxFactory.makePatternBinding(
-            pattern: .makeIdentifierPatternSyntax(with: identifier),
-            typeAnnotation: .makeFormatted(processedTypeSyntax),
+            pattern: PatternSyntax
+                .makeIdentifierPatternSyntax(with: identifier)
+                .withTrailingTrivia(.spaces(1)),
+            typeAnnotation: nil,
             initializer: .makeFormatted(valueExpr),
             accessor: nil,
             trailingComma: nil
