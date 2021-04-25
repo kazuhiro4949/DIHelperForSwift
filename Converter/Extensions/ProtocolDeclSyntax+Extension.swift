@@ -10,19 +10,19 @@ import Foundation
 import SwiftSyntax
 
 
-struct Counter {
-    var count: Int
-    var max: Int
+public struct Counter {
+    public var count: Int
+    public var max: Int
 }
 
-class FunctionSignatureDuplication {
-    static let shared = FunctionSignatureDuplication()
-    var list = [String: Counter]()
+public class FunctionSignatureDuplication {
+    public static let shared = FunctionSignatureDuplication()
+    public var list = [String: Counter]()
 
 }
 
 extension ProtocolDeclSyntax {
-    func makeMemberDeclListItems(mockType: MockType) -> [[MemberDeclListItemSyntax]] {
+    public func makeMemberDeclListItems(mockType: MockType) -> [[MemberDeclListItemSyntax]] {
         FunctionSignatureDuplication.shared.list = checkSignatureDuplication(mockType: mockType)
         
         return members.members.compactMap { (item) -> [MemberDeclListItemSyntax]? in
@@ -41,7 +41,7 @@ extension ProtocolDeclSyntax {
         }
     }
     
-    func checkSignatureDuplication(mockType: MockType) -> [String: Counter] {
+    public func checkSignatureDuplication(mockType: MockType) -> [String: Counter] {
         switch mockType {
         case .dummy:
             return [:]
@@ -52,7 +52,7 @@ extension ProtocolDeclSyntax {
         }
     }
     
-    func checkSignatureDuplicationForSpy() -> [String: Counter] {
+    public func checkSignatureDuplicationForSpy() -> [String: Counter] {
         let counter = members.members.reduce(into: [String: Counter]()) { (result, item) in
             if let funcDecl = item.decl.as(FunctionDeclSyntax.self) {
                 var counter = result[funcDecl.identifier.text] ?? Counter(count: 0, max: 0)
@@ -67,7 +67,7 @@ extension ProtocolDeclSyntax {
         return counter.filter({ 1 < $0.value.max })
     }
     
-    func checkSignatureDuplicationForStub() -> [String: Counter] {
+    public func checkSignatureDuplicationForStub() -> [String: Counter] {
         let counter = members.members.reduce(into: [String: Counter]()) { (result, item) in
             if let funcDecl = item.decl.as(FunctionDeclSyntax.self), !funcDecl.signature.isReturnedVoid {
                 var counter = result[funcDecl.identifier.text] ?? Counter(count: 0, max: 0)
@@ -80,7 +80,7 @@ extension ProtocolDeclSyntax {
 }
 
 extension FunctionSignatureSyntax {
-    var isReturnedVoid: Bool {
+    public var isReturnedVoid: Bool {
         guard let output = output else {
             return true // func f()
         }
@@ -96,7 +96,7 @@ extension FunctionSignatureSyntax {
 }
 
 extension ProtocolDeclSyntax {
-    func generateMockClass(_ mockType: MockType) -> MockClassDeclSyntax {
+    public func generateMockClass(_ mockType: MockType) -> MockClassDeclSyntax {
         let decls: [[MemberDeclListItemSyntax]] = makeMemberDeclListItems(
             mockType: mockType
         )
@@ -125,7 +125,7 @@ extension ProtocolDeclSyntax {
         return MockClassDeclSyntax(classDeclSyntax: classDecl, prefixComment: document)
     }
     
-    func mockIdentifier(mockType: MockType) -> TokenSyntax {
+    public func mockIdentifier(mockType: MockType) -> TokenSyntax {
         SyntaxFactory
             .makeIdentifier(
                 .init(

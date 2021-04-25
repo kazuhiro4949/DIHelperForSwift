@@ -8,6 +8,7 @@
 import Foundation
 import XcodeKit
 import SwiftSyntax
+import Converter
 
 // https://docs.swift.org/swift-book/LanguageGuide/Protocols.html
 class GenerateProtocolCommand: NSObject, XCSourceEditorCommand {

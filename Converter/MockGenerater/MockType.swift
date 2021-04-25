@@ -8,12 +8,12 @@
 
 import Foundation
 
-enum MockType: String {
+public enum MockType: String {
     case dummy
     case stub
     case spy
     
-    var format: String {
+    public var format: String {
         switch self {
         case .dummy:
             return Settings
@@ -33,7 +33,7 @@ enum MockType: String {
         }
     }
     
-    var wasCalledFormat: String? {
+    public var wasCalledFormat: String? {
         switch self {
         case .dummy:
             return nil
@@ -47,7 +47,7 @@ enum MockType: String {
         }
     }
     
-    var callCountFormat: String? {
+    public var callCountFormat: String? {
         switch self {
         case .dummy:
             return nil
@@ -61,7 +61,7 @@ enum MockType: String {
         }
     }
     
-    var argsFormat: String? {
+    public var argsFormat: String? {
         switch self {
         case .dummy:
             return nil
@@ -75,7 +75,7 @@ enum MockType: String {
         }
     }
     
-    var returnValueFormat: String? {
+    public var returnValueFormat: String? {
         switch self {
         case .dummy:
             return nil
@@ -92,7 +92,7 @@ enum MockType: String {
         }
     }
     
-    var supportingKVC: Bool {
+    public var supportingKVC: Bool {
         switch self {
         case .dummy:
             return false

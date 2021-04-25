@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension Array where Element == InheritedTypeSyntax {
-    static func nsObject(with protocolName: String) -> [InheritedTypeSyntax] {
+    public static func nsObject(with protocolName: String) -> [InheritedTypeSyntax] {
         [
             .formattedNSObject,
             .formattedProtocol(protocolName)

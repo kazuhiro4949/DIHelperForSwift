@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension MemberDeclListSyntax {
-    static func makeFormattedMemberDeclList(_ decls: [[MemberDeclListItemSyntax]]) -> MemberDeclListSyntax {
+    public static func makeFormattedMemberDeclList(_ decls: [[MemberDeclListItemSyntax]]) -> MemberDeclListSyntax {
         SyntaxFactory
             .makeMemberDeclList(decls.flatMap { $0 })
             .withLeadingTrivia(.indent)

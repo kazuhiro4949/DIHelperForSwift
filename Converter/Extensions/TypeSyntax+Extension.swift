@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension TypeSyntax {
-    var unwrapped: TypeSyntax {
+    public var unwrapped: TypeSyntax {
         if let optionalType = self.as(OptionalTypeSyntax.self) {
             return optionalType
                 .wrappedType
@@ -22,7 +22,7 @@ extension TypeSyntax {
         }
     }
     
-    var removingAttributes: TypeSyntax {
+    public var removingAttributes: TypeSyntax {
         if let attributedTypSyntax = self.as(AttributedTypeSyntax.self) {
             return attributedTypSyntax.baseType
         } else {
@@ -30,7 +30,7 @@ extension TypeSyntax {
         }
     }
     
-    var tparenthesizedIfNeeded: TypeSyntax {
+    public var tparenthesizedIfNeeded: TypeSyntax {
         if self.is(FunctionTypeSyntax.self) {
             return TypeSyntax(SyntaxFactory.makeTupleType(
                 leftParen: SyntaxFactory.makeLeftParenToken(),
@@ -52,7 +52,7 @@ extension TypeSyntax {
 
 extension TypeSyntax {
     /// needs to assign an explicit type to the returned property
-    enum ReturnValue {
+    public enum ReturnValue {
         case simple(ExprSyntax)
         case array
         case dictionary
@@ -60,7 +60,7 @@ extension TypeSyntax {
         case function
         case reserved(InitSnippet)
         
-        init?(typeSyntax: TypeSyntax) {
+        public init?(typeSyntax: TypeSyntax) {
             let unwrappedTypeSyntax = TokenSyntax.makeUnwrapped(typeSyntax)
             
             if let type = unwrappedTypeSyntax.as(SimpleTypeIdentifierSyntax.self),
@@ -79,7 +79,7 @@ extension TypeSyntax {
             }
         }
         
-        var needsExplicit: Bool {
+        public var needsExplicit: Bool {
             switch self {
             case .simple, .array, .dictionary, .optional:
                 return true

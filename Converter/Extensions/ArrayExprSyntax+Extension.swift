@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension ArrayExprSyntax {
-    static func makeBlank() -> ArrayExprSyntax {
+    public static func makeBlank() -> ArrayExprSyntax {
         SyntaxFactory
             .makeArrayExpr(
                 leftSquare: SyntaxFactory

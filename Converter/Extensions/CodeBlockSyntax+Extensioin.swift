@@ -11,7 +11,7 @@ import SwiftSyntax
 
 
 extension CodeBlockSyntax {
-    static func makeFormattedCodeBlock(_ codeBlockItems: [CodeBlockItemSyntax]) -> CodeBlockSyntax {
+    public static func makeFormattedCodeBlock(_ codeBlockItems: [CodeBlockItemSyntax]) -> CodeBlockSyntax {
         SyntaxFactory.makeCodeBlock(
             leftBrace: SyntaxFactory.makeLeftBraceToken(
                 leadingTrivia: .spaces(1),

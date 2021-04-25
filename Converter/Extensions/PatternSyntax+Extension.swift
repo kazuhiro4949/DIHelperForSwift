@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension PatternSyntax {
-    static func makeIdentifierPatternSyntax(with name: String) -> PatternSyntax {
+    public static func makeIdentifierPatternSyntax(with name: String) -> PatternSyntax {
         PatternSyntax(SyntaxFactory
             .makeIdentifierPattern(
                 identifier: SyntaxFactory.makeIdentifier(

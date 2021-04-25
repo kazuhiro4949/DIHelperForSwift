@@ -9,17 +9,17 @@
 import Foundation
 import SwiftSyntax
 
-class ProtocolNameHandler {
-    let node: ProtocolDeclSyntax
-    init(_ node: ProtocolDeclSyntax) {
+public class ProtocolNameHandler {
+    public let node: ProtocolDeclSyntax
+    public init(_ node: ProtocolDeclSyntax) {
         self.node = node
     }
     
-    var originalName: String {
+    public var originalName: String {
         node.identifier.text
     }
     
-    func getBaseName() -> String {
+    public func getBaseName() -> String {
         let nameFormat = Settings
             .shared
             .protocolSettings

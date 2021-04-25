@@ -3,22 +3,22 @@
 //  DependencyInjectionHelperForXcode
 //
 //  Created by Kazuhiro Hayashi on 2021/01/17.
-//  
+//
 //
 
 import Foundation
 import SwiftSyntax
 
-struct GeneratedProtocolDeclSyntax {
-    let protocolDeclSyntax: ProtocolDeclSyntax
-    let prefixComment: String
+public struct GeneratedProtocolDeclSyntax {
+    public let protocolDeclSyntax: ProtocolDeclSyntax
+    public let prefixComment: String
 }
 
-class ProtocolExtractor: SyntaxVisitor {
+public class ProtocolExtractor: SyntaxVisitor {
     
-    var protocolDeclSyntaxList = [GeneratedProtocolDeclSyntax]()
+    public var protocolDeclSyntaxList = [GeneratedProtocolDeclSyntax]()
     
-    override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
+    public override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
         guard !node.hasGenerics() else {
             return .skipChildren
         }
@@ -126,7 +126,7 @@ class ProtocolExtractor: SyntaxVisitor {
         return .skipChildren
     }
 
-    override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
+    public override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
         guard !node.hasGenerics() else {
             return .skipChildren
         }
@@ -230,7 +230,7 @@ class ProtocolExtractor: SyntaxVisitor {
         return .skipChildren
     }
 
-    override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
+    public override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
         guard !node.hasGenerics() else {
             return .skipChildren
         }

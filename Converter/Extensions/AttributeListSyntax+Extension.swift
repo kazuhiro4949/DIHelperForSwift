@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension AttributeListSyntax {
-    var protocolExclusiveRemoved: AttributeListSyntax? {
+    public var protocolExclusiveRemoved: AttributeListSyntax? {
         let attributes = filter {
             let attribute = $0.as(AttributeSyntax.self)
             return (attribute?.attributeName.text == "available")
@@ -25,7 +25,7 @@ extension AttributeListSyntax {
     }
     
     // stored property cannot have availability
-    var storedPropertyRemoved: AttributeListSyntax? {
+    public var storedPropertyRemoved: AttributeListSyntax? {
         let attributes = filter {
             let attribute = $0.as(AttributeSyntax.self)
             return (attribute?.attributeName.text != "available")
@@ -39,7 +39,7 @@ extension AttributeListSyntax {
         }
     }
     
-    func appending(attribute: Syntax) -> AttributeListSyntax {
+    public func appending(attribute: Syntax) -> AttributeListSyntax {
         var attributeElements = enumerated().map { offset, elem -> Syntax in
             if offset + 1 == count {
                 return elem.withTrailingTrivia(.spaces(1))
@@ -56,7 +56,7 @@ extension AttributeListSyntax {
 extension CustomAttributeSyntax {
 
     
-    static var objc: CustomAttributeSyntax {
+    public static var objc: CustomAttributeSyntax {
         SyntaxFactory.makeCustomAttribute(
             atSignToken: SyntaxFactory.makeAtSignToken(),
             attributeName: SyntaxFactory.makeTypeIdentifier("objc"),

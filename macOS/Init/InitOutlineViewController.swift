@@ -7,11 +7,7 @@
 //
 
 import Cocoa
-
-struct InitSnippet: Codable {
-    var name: String
-    var body: String
-}
+import Converter
 
 protocol InitOutlineViewControllerDelegate: AnyObject {
     func initOutlineViewController(_ vc: InitOutlineViewController, didSelect snippet: InitSnippet)

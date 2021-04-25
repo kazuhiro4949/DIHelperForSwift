@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension TypeAnnotationSyntax {
-    static func makeFormatted(_ typeSyntax: TypeSyntax) -> TypeAnnotationSyntax {
+    public static func makeFormatted(_ typeSyntax: TypeSyntax) -> TypeAnnotationSyntax {
         SyntaxFactory
             .makeTypeAnnotation(
                 colon: SyntaxFactory

@@ -10,15 +10,15 @@ import Foundation
 import SwiftSyntax
 
 extension AccessorDeclSyntax {
-    var isSet: Bool {
+    public var isSet: Bool {
         accessorKind.text == "set"
     }
     
-    var isGet: Bool {
+    public var isGet: Bool {
         accessorKind.text == "get"
     }
     
-    func makeSpyProperty(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MockPropertyForAccessor {
+    public func makeSpyProperty(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MockPropertyForAccessor {
         let identifierByAccessor = "\(identifier.text)_\(accessorKind.text)"
         var spyProperty = MockPropertyForAccessor(accessor: self)
         
@@ -78,7 +78,7 @@ extension AccessorDeclSyntax {
         return spyProperty
     }
     
-    func makeDummyPropery(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax)  -> MockPropertyForAccessor {
+    public func makeDummyPropery(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax)  -> MockPropertyForAccessor {
         let identifierByAccessor = "\(identifier.text)_\(accessorKind.text)"
         var mockProperty = MockPropertyForAccessor(accessor: self)
 
@@ -98,7 +98,7 @@ extension AccessorDeclSyntax {
         return mockProperty
     }
     
-    func makeAccessorDeclForMock(_ codeBlockItems: [CodeBlockItemSyntax]) -> AccessorDeclSyntax {
+    public func makeAccessorDeclForMock(_ codeBlockItems: [CodeBlockItemSyntax]) -> AccessorDeclSyntax {
         SyntaxFactory.makeAccessorDecl(
             attributes: attributes,
             modifier: modifier,

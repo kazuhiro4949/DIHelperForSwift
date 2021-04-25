@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension FunctionParameterSyntax {
-    var tokenForMockProperty: TokenSyntax {
+    public var tokenForMockProperty: TokenSyntax {
         if let secondName = secondName {
             return secondName
         } else if let firstName = firstName {

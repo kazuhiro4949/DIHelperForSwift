@@ -10,14 +10,14 @@ import Foundation
 import SwiftSyntax
 
 extension SimpleTypeIdentifierSyntax {
-    enum SimpleDefaultValue {
+    public enum SimpleDefaultValue {
         case bool
         case string
         case integer
         case float
     }
     
-    enum Literal: String {
+    public enum Literal: String {
         
         case bool
         
@@ -43,12 +43,12 @@ extension SimpleTypeIdentifierSyntax {
         case float64
         case cGFloat
 
-        init?(capitalizedString: String) {
+        public init?(capitalizedString: String) {
             let rawValue = capitalizedString.prefix(1).lowercased() + capitalizedString.dropFirst()
             self.init(rawValue: rawValue)
         }
         
-        var defaultValue: SimpleDefaultValue {
+        public var defaultValue: SimpleDefaultValue {
             switch self {
             case .bool:
                 return .bool
@@ -66,7 +66,7 @@ extension SimpleTypeIdentifierSyntax {
 }
 
 extension SimpleTypeIdentifierSyntax {
-    func tryToConvertToLiteralExpr() -> ExprSyntax? {
+    public func tryToConvertToLiteralExpr() -> ExprSyntax? {
         guard let literal = Literal(capitalizedString: name.text) else {
             return nil
         }

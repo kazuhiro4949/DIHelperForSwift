@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension MemberDeclBlockSyntax {
-    static func makeFormatted(with decls: [[MemberDeclListItemSyntax]]) -> MemberDeclBlockSyntax {
+    public static func makeFormatted(with decls: [[MemberDeclListItemSyntax]]) -> MemberDeclBlockSyntax {
         SyntaxFactory.makeMemberDeclBlock(
             leftBrace: .makeCleanFormattedLeftBrance(),
             members: .makeFormattedMemberDeclList(decls),

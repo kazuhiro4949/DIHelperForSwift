@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension DictionaryElementListSyntax {
-    static func makeBlank() -> DictionaryElementListSyntax {
+    public static func makeBlank() -> DictionaryElementListSyntax {
         SyntaxFactory
             .makeDictionaryElementList(
                 [.makeBlank()]

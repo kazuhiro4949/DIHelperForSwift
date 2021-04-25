@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension TupleExprSyntax {
-    static func make(with elements: [TupleExprElementSyntax]) -> TupleExprSyntax {
+    public static func make(with elements: [TupleExprElementSyntax]) -> TupleExprSyntax {
         SyntaxFactory.makeTupleExpr(
             leftParen: SyntaxFactory.makeLeftParenToken(),
             elementList: SyntaxFactory
