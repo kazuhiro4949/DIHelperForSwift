@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension PatternBindingListSyntax {
-    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> PatternBindingListSyntax {
+    public static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> PatternBindingListSyntax {
         SyntaxFactory
             .makePatternBindingList([
                 .makeReturnedValForMock(identifier, typeSyntax)

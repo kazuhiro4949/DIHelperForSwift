@@ -8,6 +8,7 @@
 
 import Cocoa
 import Sourceful
+import Converter
 
 protocol InitDetailViewControllerDelegate: AnyObject {
     func initDetailViewController(_ vc: InitDetailViewController, didChange snippet: InitSnippet)

@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension TokenSyntax {
-    static func makeUnwrapped(_ typeSyntax: TypeSyntax) -> TypeSyntax {
+    public static func makeUnwrapped(_ typeSyntax: TypeSyntax) -> TypeSyntax {
         let unwrappedTypeSyntax: TypeSyntax
         
         if let optionalTypeSyntax = typeSyntax.as(OptionalTypeSyntax.self) {
@@ -24,7 +24,7 @@ extension TokenSyntax {
         return unwrappedTypeSyntax
     }
     
-    static func makeFormattedEqual() -> TokenSyntax {
+    public static func makeFormattedEqual() -> TokenSyntax {
         SyntaxFactory
             .makeEqualToken()
             .withTrailingTrivia(.spaces(1))
@@ -33,13 +33,13 @@ extension TokenSyntax {
 
 
 extension TokenSyntax {
-    static func makeFormattedVarKeyword() -> TokenSyntax {
+    public static func makeFormattedVarKeyword() -> TokenSyntax {
         SyntaxFactory
             .makeVarKeyword()
             .withTrailingTrivia(.spaces(1))
     }
     
-    static func makeFormattedClassKeyword() -> TokenSyntax {
+    public static func makeFormattedClassKeyword() -> TokenSyntax {
         SyntaxFactory
             .makeClassKeyword(
                 leadingTrivia: .zero,
@@ -47,14 +47,14 @@ extension TokenSyntax {
             )
     }
     
-    static func makeCleanFormattedLeftBrance(_ indentTrivia: Trivia = .zero) -> TokenSyntax {
+    public static func makeCleanFormattedLeftBrance(_ indentTrivia: Trivia = .zero) -> TokenSyntax {
         SyntaxFactory
             .makeLeftBraceToken()
             .withLeadingTrivia(indentTrivia)
             .withTrailingTrivia(.newlines(1))
     }
     
-    static func makeCleanFormattedRightBrance(_ indentTrivia: Trivia = .zero) -> TokenSyntax {
+    public static func makeCleanFormattedRightBrance(_ indentTrivia: Trivia = .zero) -> TokenSyntax {
         SyntaxFactory
             .makeRightBraceToken()
             .withLeadingTrivia(indentTrivia)
@@ -63,7 +63,7 @@ extension TokenSyntax {
 }
 
 extension TokenSyntax {
-    func signatureAddedIdentifier(counter: Counter? = nil) -> String {
+    public func signatureAddedIdentifier(counter: Counter? = nil) -> String {
         var identifierBaseText = text
         
         if let counter = counter {

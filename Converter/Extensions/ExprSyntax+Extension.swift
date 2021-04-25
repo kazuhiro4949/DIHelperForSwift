@@ -3,14 +3,14 @@
 //  DependencyInjectionHelperForXcode
 //
 //  Created by Kazuhiro Hayashi on 2021/02/07.
-//  
+//
 //
 
 import Foundation
 import SwiftSyntax
 
 extension ExprSyntax {
-    static func makeFalseKeyword() -> ExprSyntax {
+    public static func makeFalseKeyword() -> ExprSyntax {
         ExprSyntax(SyntaxFactory
                 .makeBooleanLiteralExpr(
                     booleanLiteral: SyntaxFactory
@@ -19,7 +19,7 @@ extension ExprSyntax {
         )
     }
     
-    static func makeZeroKeyword() -> ExprSyntax {
+    public static func makeZeroKeyword() -> ExprSyntax {
         ExprSyntax(SyntaxFactory
                 .makeBooleanLiteralExpr(
                     booleanLiteral: SyntaxFactory.makeIntegerLiteral("0")
@@ -29,7 +29,7 @@ extension ExprSyntax {
 }
 
 extension ExprSyntax {
-    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> ExprSyntax {
+    public static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> ExprSyntax {
         switch TypeSyntax.ReturnValue(typeSyntax: typeSyntax) {
         case .simple(let literal):
             return literal

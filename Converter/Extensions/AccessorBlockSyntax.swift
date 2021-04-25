@@ -10,13 +10,13 @@ import Foundation
 import SwiftSyntax
 
 extension AccessorBlockSyntax {
-    var hasGetter: Bool {
+    public var hasGetter: Bool {
         accessors.contains {
             $0.accessorKind.text == "get"
         }
     }
     
-    var contextualKeywords: PatternBindingSyntax.ContextualKeyword {
+    public var contextualKeywords: PatternBindingSyntax.ContextualKeyword {
         accessors.reduce(into: PatternBindingSyntax.ContextualKeyword()) { (result, accessor) in
             if accessor.accessorKind.text == "get" {
                 result.insert(.get)
@@ -26,7 +26,7 @@ extension AccessorBlockSyntax {
         }
     }
     
-    static func makeAccessorBlock(accessors: [AccessorDeclSyntax]?) -> AccessorBlockSyntax? {
+    public static func makeAccessorBlock(accessors: [AccessorDeclSyntax]?) -> AccessorBlockSyntax? {
         guard let accessors = accessors else {
             return nil
         }
@@ -41,7 +41,7 @@ extension AccessorBlockSyntax {
             )
     }
     
-    func makeMockPropertyForAccessors(
+    public func makeMockPropertyForAccessors(
         for mockType: MockType,
         identifier: TokenSyntax,
         binding: PatternBindingSyntax,

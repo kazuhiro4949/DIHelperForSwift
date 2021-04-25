@@ -38,6 +38,16 @@
                ReferencedContainer = "container:DI Helper for Swift.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "301E1BB72635545D00574DFE"
+               BuildableName = "ConverterTests.xctest"
+               BlueprintName = "ConverterTests"
+               ReferencedContainer = "container:DI Helper for Swift.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

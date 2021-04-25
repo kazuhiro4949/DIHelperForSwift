@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension MemberDeclListItemSyntax {
-    static func makeInitForMock(_ initDecl:  InitializerDeclSyntax, _ codeBlockItems: [CodeBlockItemSyntax]) -> MemberDeclListItemSyntax {
+    public static func makeInitForMock(_ initDecl:  InitializerDeclSyntax, _ codeBlockItems: [CodeBlockItemSyntax]) -> MemberDeclListItemSyntax {
         let notOptionalAttributes = initDecl.attributes ?? SyntaxFactory.makeBlankAttributeList()
         let codeBlockAddedFuncDecl = DeclSyntax(
             initDecl
@@ -48,7 +48,7 @@ extension MemberDeclListItemSyntax {
             )
     }
     
-    static func makeFunctionForMock(_ funcDecl:  FunctionDeclSyntax, _ codeBlockItems: [CodeBlockItemSyntax]) -> MemberDeclListItemSyntax {
+    public static func makeFunctionForMock(_ funcDecl:  FunctionDeclSyntax, _ codeBlockItems: [CodeBlockItemSyntax]) -> MemberDeclListItemSyntax {
         let codeBlockAddedFuncDecl = DeclSyntax(
             funcDecl
                 .withBody(.makeFormattedCodeBlock(codeBlockItems))
@@ -62,7 +62,7 @@ extension MemberDeclListItemSyntax {
             )
     }
     
-    static func makeArgsValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
+    public static func makeArgsValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
         makeFormattedAssign(
             to: identifier,
             typeAnnotation: .makeFormatted(
@@ -78,7 +78,7 @@ extension MemberDeclListItemSyntax {
         )
     }
     
-    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
+    public static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
         SyntaxFactory
             .makeMemberDeclListItem(
                 decl: DeclSyntax(
@@ -94,7 +94,7 @@ extension MemberDeclListItemSyntax {
         )
     }
     
-    static func makeFormattedZeroAssign(
+    public static func makeFormattedZeroAssign(
         to identifier: String,
         attributes: AttributeListSyntax?,
         modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
@@ -107,7 +107,7 @@ extension MemberDeclListItemSyntax {
     }
 
     
-    static func makeFormattedFalseAssign(
+    public static func makeFormattedFalseAssign(
         to identifier: String,
         attributes: AttributeListSyntax?,
         modifiers: ModifierListSyntax?)  -> MemberDeclListItemSyntax {
@@ -124,7 +124,7 @@ extension MemberDeclListItemSyntax {
         )
     }
     
-    static func makeFormattedAssign(
+    public static func makeFormattedAssign(
         to identifier: String,
         from expr: ExprSyntax,
         attributes: AttributeListSyntax?,
@@ -143,7 +143,7 @@ extension MemberDeclListItemSyntax {
         )
     }
     
-    static func makeFormattedAssign(to identifier: String, typeAnnotation: TypeAnnotationSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?)  -> MemberDeclListItemSyntax {
+    public static func makeFormattedAssign(to identifier: String, typeAnnotation: TypeAnnotationSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?)  -> MemberDeclListItemSyntax {
         SyntaxFactory.makeMemberDeclListItem(
             decl: DeclSyntax(VariableDeclSyntax
                     .makeDeclWithAssign(
@@ -157,7 +157,7 @@ extension MemberDeclListItemSyntax {
         )
     }
     
-    static func makeCalledOrNot(
+    public static func makeCalledOrNot(
         identifier: String,
         modifiers: ModifierListSyntax?,
         attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
@@ -182,7 +182,7 @@ extension MemberDeclListItemSyntax {
         }
     }
     
-    static func makeFormattedCallCount(
+    public static func makeFormattedCallCount(
         identifier: String,
         attributes: AttributeListSyntax?,
         modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax {

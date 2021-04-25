@@ -10,14 +10,18 @@ import Foundation
 import SwiftSyntax
 
 extension PatternBindingSyntax {
-    struct ContextualKeyword : OptionSet {
-        let rawValue: UInt
+    public struct ContextualKeyword : OptionSet {
+        public init(rawValue: UInt) {
+            self.rawValue = rawValue
+        }
         
-        static let get = ContextualKeyword(rawValue: 1 << 0)
-        static let set   = ContextualKeyword(rawValue: 1 << 1)
+        public let rawValue: UInt
+        
+        public static let get = ContextualKeyword(rawValue: 1 << 0)
+        public static let set   = ContextualKeyword(rawValue: 1 << 1)
     }
     
-    func convertForProtocol(with contextualKeyword: ContextualKeyword, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> VariableDeclSyntax {
+    public func convertForProtocol(with contextualKeyword: ContextualKeyword, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> VariableDeclSyntax {
         let accessorDeclSyntaxes: [AccessorDeclSyntax]
         if contextualKeyword == [.get, .set] {
             accessorDeclSyntaxes = [
@@ -76,7 +80,7 @@ extension PatternBindingSyntax {
 }
 
 extension PatternBindingSyntax {
-    func makeAccessorForMock(accessors: [AccessorDeclSyntax]?, initializer: InitializerClauseSyntax?) -> PatternBindingSyntax {
+    public func makeAccessorForMock(accessors: [AccessorDeclSyntax]?, initializer: InitializerClauseSyntax?) -> PatternBindingSyntax {
         SyntaxFactory.makePatternBinding(
             pattern: pattern,
             typeAnnotation: typeAnnotation,
@@ -85,7 +89,7 @@ extension PatternBindingSyntax {
             trailingComma: nil)
     }
     
-    static func makeAssign(to identifier: String,
+    public static func makeAssign(to identifier: String,
                            from expr: ExprSyntax? = nil,
                            typeAnnotation: TypeAnnotationSyntax? = nil) -> PatternBindingSyntax {
         SyntaxFactory.makePatternBinding(
@@ -109,7 +113,7 @@ extension PatternBindingSyntax {
         )
     }
 
-    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> PatternBindingSyntax {
+    public static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> PatternBindingSyntax {
         let typeAnnotation: TypeSyntax?
         if let returnValue = TypeSyntax.ReturnValue(typeSyntax: typeSyntax),
            returnValue.needsExplicit {

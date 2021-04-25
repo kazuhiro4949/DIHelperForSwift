@@ -8,15 +8,15 @@
 
 import Foundation
 
-class Settings {
-    enum Target: Int {
+public class Settings {
+    public enum Target: Int {
         case property
         case function
         case initilizer
     }
     
-    class ProtocolSetting {
-        enum Ignorance: Int {
+    public class ProtocolSetting {
+        public enum Ignorance: Int {
             case storedProperty
             case computedGetterSetterProperty
             case function
@@ -25,7 +25,7 @@ class Settings {
             case override
         }
         
-        var nameFormat: String? {
+        public var nameFormat: String? {
             get {
                 UserDefaults.group.string(forKey: "nameFormat")
             }
@@ -34,27 +34,27 @@ class Settings {
             }
         }
         
-        func setIgnorance(ignorance: Ignorance, value: Bool) {
+        public func setIgnorance(ignorance: Ignorance, value: Bool) {
             UserDefaults.group.set(value, forKey: "ignorance\(ignorance.rawValue)")
         }
         
-        func getIgnorance(ignorance: Ignorance) -> Bool {
+        public func getIgnorance(ignorance: Ignorance) -> Bool {
             return UserDefaults.group.bool(forKey: "ignorance\(ignorance.rawValue)")
         }
     }
     
-    class SpySetting: TargetProvider, NameProvider {
-        enum Scene: Int {
+    public class SpySetting: TargetProvider, NameProvider {
+        public enum Scene: Int {
             case kvc
         }
         
-        enum Capture: Int {
+        public enum Capture: Int {
             case calledOrNot
             case callCount
             case passedArgument
         }
         
-        var nameFormat: String? {
+        public var nameFormat: String? {
             get {
                 UserDefaults.group.string(forKey: "SpySettings.nameFormat")
             }
@@ -63,7 +63,7 @@ class Settings {
             }
         }
         
-        var wasCalledFormat: String? {
+        public var wasCalledFormat: String? {
             get {
                 UserDefaults.group.string(forKey: "SpySettings.wasCalledFormat")
             }
@@ -72,7 +72,7 @@ class Settings {
             }
         }
         
-        var callCountFormat: String? {
+        public var callCountFormat: String? {
             get {
                 UserDefaults.group.string(forKey: "SpySettings.callCountFormat")
             }
@@ -81,7 +81,7 @@ class Settings {
             }
         }
         
-        var passedArgumentFormat: String? {
+        public var passedArgumentFormat: String? {
             get {
                 UserDefaults.group.string(forKey: "SpySettings.passedArgumentFormat")
             }
@@ -90,7 +90,7 @@ class Settings {
             }
         }
         
-        var returnValueFormat: String? {
+        public var returnValueFormat: String? {
             get {
                 UserDefaults.group.string(forKey: "SpySettings.returnValueFormat")
             }
@@ -99,33 +99,33 @@ class Settings {
             }
         }
         
-        func setTarget(target: Target, value: Bool) {
+        public func setTarget(target: Target, value: Bool) {
             UserDefaults.group.set(value, forKey: "SpySettings.target\(target.rawValue)")
         }
         
-        func getTarget(target: Target) -> Bool {
+        public func getTarget(target: Target) -> Bool {
             return UserDefaults.group.bool(forKey: "SpySettings.target\(target.rawValue)")
         }
         
-        func setCapture(capture: Capture, value: Bool) {
+        public func setCapture(capture: Capture, value: Bool) {
             UserDefaults.group.set(value, forKey: "SpySettings.capture\(capture.rawValue)")
         }
         
-        func getCapture(capture: Capture) -> Bool {
+        public func getCapture(capture: Capture) -> Bool {
             return UserDefaults.group.bool(forKey: "SpySettings.capture\(capture.rawValue)")
         }
         
-        func setScene(scene: Scene, value: Bool) {
+        public func setScene(scene: Scene, value: Bool) {
             UserDefaults.group.set(value, forKey: "SpySettings.scene\(scene.rawValue)")
         }
         
-        func getScene(scene: Scene) -> Bool {
+        public func getScene(scene: Scene) -> Bool {
             return UserDefaults.group.bool(forKey: "SpySettings.scene\(scene.rawValue)")
         }
     }
     
-    class DummySetting: NameProvider {
-        var nameFormat: String? {
+    public class DummySetting: NameProvider {
+        public var nameFormat: String? {
             get {
                 UserDefaults.group.string(forKey: "DummySettings.nameFormat")
             }
@@ -135,8 +135,8 @@ class Settings {
         }
     }
     
-    class StubSetting: NameProvider {
-        var nameFormat: String? {
+    public class StubSetting: NameProvider {
+        public var nameFormat: String? {
             get {
                 UserDefaults.group.string(forKey: "StubSettings.nameFormat")
             }
@@ -146,7 +146,7 @@ class Settings {
         }
         
         
-        var returnValueFormat: String? {
+        public var returnValueFormat: String? {
             get {
                 UserDefaults.group.string(forKey: "StubSettings.returnValueFormat")
             }
@@ -156,13 +156,13 @@ class Settings {
         }
     }
     
-    static let shared = Settings()
-    let protocolSettings = ProtocolSetting()
-    let spySettings = SpySetting()
-    let dummySettings = DummySetting()
-    let stubSettings = StubSetting()
+    public static let shared = Settings()
+    public let protocolSettings = ProtocolSetting()
+    public let spySettings = SpySetting()
+    public let dummySettings = DummySetting()
+    public let stubSettings = StubSetting()
     
-    func target(from mockType: MockType) -> TargetProvider? {
+    public func target(from mockType: MockType) -> TargetProvider? {
         switch mockType {
         case .spy:
             return SpySetting()
@@ -173,26 +173,26 @@ class Settings {
         }
     }
     
-    var indentationValue: Int {
+    public var indentationValue: Int {
         4
     }
 }
 
-struct DefaultFalseTarget: TargetProvider {
-    func setTarget(target: Settings.Target, value: Bool) {
+public struct DefaultFalseTarget: TargetProvider {
+    public func setTarget(target: Settings.Target, value: Bool) {
         
     }
     
-    func getTarget(target: Settings.Target) -> Bool {
+    public func getTarget(target: Settings.Target) -> Bool {
         false
     }
 }
 
-protocol NameProvider {
+public protocol NameProvider {
     var nameFormat: String? { get }
 }
 
-protocol TargetProvider {
+public protocol TargetProvider {
     func setTarget(target: Settings.Target, value: Bool)
     func getTarget(target: Settings.Target) -> Bool
 }

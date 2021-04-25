@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension ModifierListSyntax {
-    var protocolEnabled: ModifierListSyntax? {
+    public var protocolEnabled: ModifierListSyntax? {
         let classToStaicModifiers = map {
             $0.replaceClassModifierToStaticIfNeeded()
         }
@@ -26,7 +26,7 @@ extension ModifierListSyntax {
         }
     }
     
-    func inserting(modifier: DeclModifierSyntax, at index: Int) -> ModifierListSyntax {
+    public func inserting(modifier: DeclModifierSyntax, at index: Int) -> ModifierListSyntax {
         var modifierElements = map { $0 }
         modifierElements.insert(modifier, at: index)
         return SyntaxFactory.makeModifierList(modifierElements)

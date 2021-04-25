@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension TypeInheritanceClauseSyntax {
-    static func makeFormattedProtocol(mockType: MockType, handler: ProtocolNameHandler) -> TypeInheritanceClauseSyntax {
+    public static func makeFormattedProtocol(mockType: MockType, handler: ProtocolNameHandler) -> TypeInheritanceClauseSyntax {
         let inheritedTypes: [InheritedTypeSyntax]
         if mockType.supportingKVC {
             inheritedTypes = .nsObject(with: handler.originalName)
@@ -29,7 +29,7 @@ extension TypeInheritanceClauseSyntax {
         .withTrailingTrivia(.spaces(1))
     }
     
-    static func make(with elements: [InheritedTypeSyntax]) -> TypeInheritanceClauseSyntax {
+    public static func make(with elements: [InheritedTypeSyntax]) -> TypeInheritanceClauseSyntax {
         SyntaxFactory.makeTypeInheritanceClause(
             colon: SyntaxFactory
                 .makeColonToken()
@@ -41,7 +41,7 @@ extension TypeInheritanceClauseSyntax {
 }
 
 extension Array where Element == InheritedTypeSyntax {
-    static var anyObject: [InheritedTypeSyntax] {
+    public static var anyObject: [InheritedTypeSyntax] {
         [SyntaxFactory
             .makeInheritedType(
                 typeName: SyntaxFactory

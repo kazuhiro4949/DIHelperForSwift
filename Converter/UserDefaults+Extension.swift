@@ -3,13 +3,13 @@
 //  DependencyInjectionHelperForXcode
 //
 //  Created by Kazuhiro Hayashi on 2021/01/24.
-//  
+//
 //
 
 import Foundation
 
 extension UserDefaults {
-    static var group: UserDefaults {
+    public static var group: UserDefaults {
         if ProcessInfo.processInfo.environment["UNIT_TEST"] == "YES" {
             return UserDefaults.standard
         } else {
@@ -21,7 +21,7 @@ extension UserDefaults {
 }
 
 extension UserDefaults {
-    var snippets: [InitSnippet] {
+    public var snippets: [InitSnippet] {
         get {
             let snippetData = data(forKey: "snippet") ?? Data()
             let decoder = JSONDecoder()

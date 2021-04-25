@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension DeclModifierSyntax {
-    static var formattedDynamic: DeclModifierSyntax {
+    public static var formattedDynamic: DeclModifierSyntax {
         SyntaxFactory.makeDeclModifier(
             name: SyntaxFactory.makeIdentifier("dynamic"),
             detailLeftParen: nil,
@@ -20,7 +20,7 @@ extension DeclModifierSyntax {
     }
     
     
-    func replaceClassModifierToStaticIfNeeded() -> DeclModifierSyntax {
+    public func replaceClassModifierToStaticIfNeeded() -> DeclModifierSyntax {
         if name.text == "class" {
             return withName(
                     SyntaxFactory

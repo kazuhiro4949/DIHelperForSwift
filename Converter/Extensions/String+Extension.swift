@@ -3,35 +3,35 @@
 //  DependencyInjectionHelperForXcode
 //
 //  Created by Kazuhiro Hayashi on 2021/02/07.
-//  
+//
 //
 
 import Foundation
 
 extension String {
-    func wasCalled(_ mockType: MockType) -> String {
+    public func wasCalled(_ mockType: MockType) -> String {
         String(format: (mockType.wasCalledFormat ?? "%@_wasCalled"), self)
     }
     
-    func callCount(_ mockType: MockType) -> String {
+    public func callCount(_ mockType: MockType) -> String {
         String(format: (mockType.callCountFormat ?? "%@_callCount"), self)
     }
     
-    func args(_ mockType: MockType) -> String {
+    public func args(_ mockType: MockType) -> String {
         String(format: (mockType.argsFormat ??  "%@_args"), self)
     }
     
-    func val(_ mockType: MockType) -> String {
+    public func val(_ mockType: MockType) -> String {
         String(format: (mockType.returnValueFormat ??  "%@_val"), self)
     }
 }
 
 extension String {
-    var nsString: NSString {
+    public var nsString: NSString {
         self as NSString
     }
     
-    func replacingToVariableAllowedString() -> String {
+    public func replacingToVariableAllowedString() -> String {
         var encodedString = replacingOccurrences(
                 of: "[\\n\\s\\t]",
                 with: "",

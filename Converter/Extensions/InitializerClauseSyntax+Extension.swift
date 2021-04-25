@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension InitializerClauseSyntax {
-    static func makeFormatted(_ valueExpr: ExprSyntax?) -> InitializerClauseSyntax? {
+    public static func makeFormatted(_ valueExpr: ExprSyntax?) -> InitializerClauseSyntax? {
         valueExpr.flatMap {
             SyntaxFactory.makeInitializerClause(
                 equal: .makeFormattedEqual(),
@@ -18,7 +18,7 @@ extension InitializerClauseSyntax {
         }
     }
 
-    static func makeInitialiizer(
+    public static func makeInitialiizer(
         for mockType: MockType,
         identifier: TokenSyntax,
         binding: PatternBindingSyntax) -> InitializerClauseSyntax? {

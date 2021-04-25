@@ -9,6 +9,7 @@
 import Foundation
 import XcodeKit
 import SwiftSyntax
+import Converter
 
 /// [Test Stub](http://xunitpatterns.com/Test%20Stub.html)
 class GenerateStubCommand: NSObject, XCSourceEditorCommand {

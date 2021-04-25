@@ -9,6 +9,7 @@
 import Cocoa
 import SwiftSyntax
 import Sourceful
+import Converter
 
 class StubViewController: NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!

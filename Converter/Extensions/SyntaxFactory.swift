@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension SyntaxFactory {
-    static func makeAccessorDecl(with contextualKeywordString: String) -> AccessorDeclSyntax {
+    public static func makeAccessorDecl(with contextualKeywordString: String) -> AccessorDeclSyntax {
         makeAccessorDecl(
             attributes: nil,
             modifier: nil,
@@ -22,7 +22,7 @@ extension SyntaxFactory {
             body: nil)
     }
     
-    static func makeProtocolMemberDeclBlock(members: MemberDeclListSyntax) -> MemberDeclBlockSyntax {
+    public static func makeProtocolMemberDeclBlock(members: MemberDeclListSyntax) -> MemberDeclBlockSyntax {
         SyntaxFactory.makeMemberDeclBlock(
             leftBrace: SyntaxFactory.makeLeftBraceToken(
                 leadingTrivia: .zero,
@@ -34,7 +34,7 @@ extension SyntaxFactory {
         )
     }
     
-    static func makeProtocolForDependencyInjection(
+    public static func makeProtocolForDependencyInjection(
         attributes: AttributeListSyntax?,
         identifier: TokenSyntax,
         inheritanceClause: TypeInheritanceClauseSyntax?,
@@ -55,14 +55,14 @@ extension SyntaxFactory {
 }
 
 extension SyntaxFactory {
-    func makeIdentifier(_ text: String) -> TokenSyntax {
+    public func makeIdentifier(_ text: String) -> TokenSyntax {
         SyntaxFactory
             .makeToken(.identifier(text), presence: .present)
     }
 }
 
 extension SyntaxFactory {
-    static func makeCleanFormattedLeftBrance() -> TokenSyntax {
+    public static func makeCleanFormattedLeftBrance() -> TokenSyntax {
         SyntaxFactory
             .makeLeftBraceToken()
             .withLeadingTrivia(.zero)
@@ -70,7 +70,7 @@ extension SyntaxFactory {
     }
     
     
-    static func makeCleanFormattedRightBrance() -> TokenSyntax {
+    public static func makeCleanFormattedRightBrance() -> TokenSyntax {
         SyntaxFactory
             .makeRightBraceToken()
             .withLeadingTrivia(.zero)

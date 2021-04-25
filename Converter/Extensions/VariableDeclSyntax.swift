@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension VariableDeclSyntax {
-    func makeInterfaces() -> [VariableDeclSyntax] {
+    public func makeInterfaces() -> [VariableDeclSyntax] {
         if hasMultipleProps {
             // comma separated stored properties
             return makeInterfacesFromBindings()
@@ -44,7 +44,7 @@ extension VariableDeclSyntax {
         }
     }
     
-    func makeInterfacesFromBindings() -> [VariableDeclSyntax] {
+    public func makeInterfacesFromBindings() -> [VariableDeclSyntax] {
         makeTypeAnnotatedBindings()
             .map {
                 $0.convertForProtocol(
@@ -54,7 +54,7 @@ extension VariableDeclSyntax {
             }
     }
     
-    func makeTypeAnnotatedBindings() -> [PatternBindingSyntax] {
+    public func makeTypeAnnotatedBindings() -> [PatternBindingSyntax] {
         typealias ReducedResult = (syntaxList: [PatternBindingSyntax], currentValue: Either<TypeAnnotationSyntax, ExprSyntax>?)
         return bindings.reversed().reduce(ReducedResult([], nil)) { (result, binding) in
             let either: Either<TypeAnnotationSyntax, ExprSyntax>?
@@ -104,7 +104,7 @@ extension VariableDeclSyntax {
         .syntaxList
     }
     
-    var contextualKeywords: PatternBindingSyntax.ContextualKeyword {
+    public var contextualKeywords: PatternBindingSyntax.ContextualKeyword {
         if letOrVarKeyword.tokenKind == .letKeyword || hasPrivateSetter {
             return .get
         } else {
@@ -112,45 +112,45 @@ extension VariableDeclSyntax {
         }
     }
     
-    var hasMultipleProps: Bool {
+    public var hasMultipleProps: Bool {
         bindings.count != 1
     }
     
-    var hasPrivateGetterSetter: Bool {
+    public var hasPrivateGetterSetter: Bool {
         modifiers?.contains(where: { (modifier) -> Bool in
             (modifier.name.text == "private" || modifier.name.text == "fileprivate")
                 && modifier.detail == nil
         }) ?? false
     }
     
-    var hasPrivateSetter: Bool {
+    public var hasPrivateSetter: Bool {
         modifiers?.contains(where: { (modifier) -> Bool in
             (modifier.name.text == "private" || modifier.name.text == "fileprivate")
                 && modifier.detail?.text == "set"
         }) ?? false
     }
     
-    var hasOverrdie: Bool {
+    public var hasOverrdie: Bool {
         modifiers?.contains(where: { (modifier) -> Bool in
             modifier.name.text == "override"
         }) ?? false
     }
     
-    var hasPublic: Bool {
+    public var hasPublic: Bool {
         modifiers?.contains(where: { (modifier) -> Bool in
             modifier.name.text == "public"
         }) ?? false
     }
     
-    var notHasOverrdie: Bool {
+    public var notHasOverrdie: Bool {
         !hasOverrdie
     }
     
-    var notHasPrivateGetterSetter: Bool {
+    public var notHasPrivateGetterSetter: Bool {
         !hasPrivateGetterSetter
     }
     
-    var isComputedProperty: Bool {
+    public var isComputedProperty: Bool {
         guard bindings.count == 1 else {
             return false
         }
@@ -160,7 +160,7 @@ extension VariableDeclSyntax {
         return binding.accessor?.is(CodeBlockSyntax.self) == true
     }
     
-    var toMemberDeclListItem: MemberDeclListItemSyntax {
+    public var toMemberDeclListItem: MemberDeclListItemSyntax {
         SyntaxFactory.makeMemberDeclListItem(
             decl: DeclSyntax(self)
                 .withLeadingTrivia(.spaces(4))
@@ -171,7 +171,7 @@ extension VariableDeclSyntax {
 }
 
 extension VariableDeclSyntax {
-    func generateMemberDeclItemsForMock(mockType: MockType) -> [MemberDeclListItemSyntax] {
+    public func generateMemberDeclItemsForMock(mockType: MockType) -> [MemberDeclListItemSyntax] {
         guard let binding = bindings.first,
               let accessorBlock = binding.accessor?.as(AccessorBlockSyntax.self),
               let identifier =  binding.pattern.as(IdentifierPatternSyntax.self)?.identifier else {
@@ -214,7 +214,7 @@ extension VariableDeclSyntax {
         return propDeclListItems + [declListItem]
     }
     
-    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> VariableDeclSyntax {
+    public static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> VariableDeclSyntax {
         SyntaxFactory.makeVariableDecl(
             attributes: attributes?.withTrailingTrivia(.newlineAndIndent),
             modifiers: modifiers,
@@ -224,7 +224,7 @@ extension VariableDeclSyntax {
         .withLeadingTrivia(.indent)
     }
     
-    static func makeDeclWithAssign(
+    public static func makeDeclWithAssign(
         to identifier: String,
         from expr: ExprSyntax,
         attributes: AttributeListSyntax?,
@@ -244,7 +244,7 @@ extension VariableDeclSyntax {
             .withLeadingTrivia(.indent)
     }
     
-    static func makeDeclWithAssign(to identifier: String,
+    public static func makeDeclWithAssign(to identifier: String,
                                    typeAnnotation: TypeAnnotationSyntax,
                                    modifiers: ModifierListSyntax?,
                                    attributes: AttributeListSyntax?) -> VariableDeclSyntax {

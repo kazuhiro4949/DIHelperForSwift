@@ -9,6 +9,7 @@
 import Foundation
 import XcodeKit
 import SwiftSyntax
+import Converter
 
 // [Test Spy](http://xunitpatterns.com/Test%20Spy.html)
 class GenerateSpyCommand: NSObject, XCSourceEditorCommand {

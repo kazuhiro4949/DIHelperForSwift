@@ -10,7 +10,7 @@ import Foundation
 import SwiftSyntax
 
 extension CodeBlockItemSyntax {
-    static func makeNewValueArgsExprForMock(_ identifier: String) -> CodeBlockItemSyntax {
+    public static func makeNewValueArgsExprForMock(_ identifier: String) -> CodeBlockItemSyntax {
         CodeBlockItemSyntax
             .makeArgsExprForMock(
                 identifier,
@@ -18,7 +18,7 @@ extension CodeBlockItemSyntax {
             )
     }
     
-    static func makeArgsExprForMock(_ identifier: String, _ exprSyntax: ExprSyntax) -> CodeBlockItemSyntax {
+    public static func makeArgsExprForMock(_ identifier: String, _ exprSyntax: ExprSyntax) -> CodeBlockItemSyntax {
         makeFormattedExpr(
             left: SyntaxFactory.makeIdentifier(identifier),
             expr: SyntaxFactory.makeEqualToken(),
@@ -26,7 +26,7 @@ extension CodeBlockItemSyntax {
         )
     }
     
-    static func makeReturnExpr(_ identifier: String, _ indent: Trivia) -> CodeBlockItemSyntax {
+    public static func makeReturnExpr(_ identifier: String, _ indent: Trivia) -> CodeBlockItemSyntax {
         makeFormattedExpr(
             expr: SyntaxFactory.makeReturnKeyword(),
             right: SyntaxFactory.makeIdentifier(identifier)
@@ -34,14 +34,14 @@ extension CodeBlockItemSyntax {
         .withLeadingTrivia(indent)
     }
     
-    static func makeReturnForDummy(identifier: String, typeSyntax: TypeSyntax) -> CodeBlockItemSyntax {
+    public static func makeReturnForDummy(identifier: String, typeSyntax: TypeSyntax) -> CodeBlockItemSyntax {
         .makeFormattedExpr(
             expr: SyntaxFactory.makeReturnKeyword(),
             right: .makeReturnedValForMock(identifier, typeSyntax)
         )
     }
     
-    static func makeIncrementExpr(to identifier: String) -> CodeBlockItemSyntax {
+    public static func makeIncrementExpr(to identifier: String) -> CodeBlockItemSyntax {
         .makeFormattedExpr(
             left: SyntaxFactory
                 .makeIdentifier(identifier),
@@ -50,7 +50,7 @@ extension CodeBlockItemSyntax {
         )
     }
     
-    static func makeFormattedExpr(expr: TokenSyntax, right: TokenSyntax) -> CodeBlockItemSyntax {
+    public static func makeFormattedExpr(expr: TokenSyntax, right: TokenSyntax) -> CodeBlockItemSyntax {
         SyntaxFactory.makeCodeBlockItem(
             item: Syntax(SyntaxFactory.makeSequenceExpr(
                 elements: SyntaxFactory
@@ -75,7 +75,7 @@ extension CodeBlockItemSyntax {
             errorTokens: nil)
     }
     
-    static func makeFormattedExpr(expr: TokenSyntax, right: ExprSyntax) -> CodeBlockItemSyntax {
+    public static func makeFormattedExpr(expr: TokenSyntax, right: ExprSyntax) -> CodeBlockItemSyntax {
         SyntaxFactory.makeCodeBlockItem(
             item: Syntax(SyntaxFactory.makeSequenceExpr(
                 elements: SyntaxFactory
@@ -94,7 +94,7 @@ extension CodeBlockItemSyntax {
             errorTokens: nil)
     }
     
-    static func makeFormattedExpr(left: TokenSyntax, expr: TokenSyntax, right: TokenSyntax) -> CodeBlockItemSyntax {
+    public static func makeFormattedExpr(left: TokenSyntax, expr: TokenSyntax, right: TokenSyntax) -> CodeBlockItemSyntax {
         makeFormattedExpr(
             left: ExprSyntax(SyntaxFactory
                                 .makeIdentifierExpr(
@@ -121,7 +121,7 @@ extension CodeBlockItemSyntax {
         )
     }
     
-    static func makeFormattedExpr(left: TokenSyntax, expr: TokenSyntax, right: ExprSyntax) -> CodeBlockItemSyntax {
+    public static func makeFormattedExpr(left: TokenSyntax, expr: TokenSyntax, right: ExprSyntax) -> CodeBlockItemSyntax {
         makeFormattedExpr(
             left: ExprSyntax(SyntaxFactory
                                 .makeIdentifierExpr(
@@ -142,7 +142,7 @@ extension CodeBlockItemSyntax {
         )
     }
     
-    static func makeFormattedExpr(left: ExprSyntax, expr: ExprSyntax, right: ExprSyntax) -> CodeBlockItemSyntax {
+    public static func makeFormattedExpr(left: ExprSyntax, expr: ExprSyntax, right: ExprSyntax) -> CodeBlockItemSyntax {
         SyntaxFactory.makeCodeBlockItem(
             item: Syntax(SyntaxFactory.makeSequenceExpr(
                 elements: SyntaxFactory
@@ -155,7 +155,7 @@ extension CodeBlockItemSyntax {
             errorTokens: nil)
     }
     
-    static func makeTrueSubstitutionExpr(to callIdentifier: String) -> CodeBlockItemSyntax {
+    public static func makeTrueSubstitutionExpr(to callIdentifier: String) -> CodeBlockItemSyntax {
         makeFormattedExpr(
             left: SyntaxFactory.makeIdentifier(callIdentifier),
             expr: SyntaxFactory.makeEqualToken(),

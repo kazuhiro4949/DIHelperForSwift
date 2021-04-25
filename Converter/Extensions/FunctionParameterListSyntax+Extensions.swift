@@ -3,20 +3,20 @@
 //  DependencyInjectionHelperForXcode
 //
 //  Created by Kazuhiro Hayashi on 2021/02/07.
-//  
+//
 //
 
 import Foundation
 import SwiftSyntax
 
 extension FunctionParameterListSyntax {
-    enum MockParameter {
+    public enum MockParameter {
         case none
         case singleType
         case tuple
     }
     
-    var mockParameter: MockParameter {
+    public var mockParameter: MockParameter {
         if isEmpty {
             return .none
         } else if count == 1 {
@@ -26,7 +26,7 @@ extension FunctionParameterListSyntax {
         }
     }
     
-    func makeTupleForMemberDecl() -> [TupleTypeElementSyntax] {
+    public func makeTupleForMemberDecl() -> [TupleTypeElementSyntax] {
         compactMap { paramter -> TupleTypeElementSyntax? in
             guard let type = paramter.type else { return nil }
             
@@ -38,7 +38,7 @@ extension FunctionParameterListSyntax {
         }
     }
     
-    func makeTupleForCodeBlockItem() -> [TupleExprElementSyntax] {
+    public func makeTupleForCodeBlockItem() -> [TupleExprElementSyntax] {
         compactMap { paramter -> TupleExprElementSyntax? in
             return SyntaxFactory.makeTupleExprElement(
                 label: nil,
