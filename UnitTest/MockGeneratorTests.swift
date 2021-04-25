@@ -33,7 +33,7 @@ class MockGeneratorTests: XCTestCase {
             class ViewControllerSpy: ViewControllerProtocol {
                 var textField_get_wasCalled = false
                 var textField_get_callCount = 0
-                var textField_get_val: NSTextField = <#T##NSTextField#>
+                var textField_get_val = <#T##NSTextField#>
                 var textField_set_wasCalled = false
                 var textField_set_callCount = 0
                 var textField_set_args: NSTextField?
@@ -58,8 +58,7 @@ class MockGeneratorTests: XCTestCase {
                     buttonDidClick_args = sender
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -76,15 +75,14 @@ class MockGeneratorTests: XCTestCase {
             class SomeFactorySpy: SomeFactoryProtocol {
                 static var make_wasCalled = false
                 static var make_callCount = 0
-                static var make_val: SomeClassProtocol = <#T##SomeClassProtocol#>
+                static var make_val = <#T##SomeClassProtocol#>
                 static func make() -> SomeClassProtocol {
                     make_wasCalled = true
                     make_callCount += 1
                     return make_val
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
 
@@ -101,7 +99,7 @@ class MockGeneratorTests: XCTestCase {
             class SomeManagerSpy: SomeManagerProtocol {
                 static var shared_get_wasCalled = false
                 static var shared_get_callCount = 0
-                static var shared_get_val: SomeManagerProtocol = <#T##SomeManagerProtocol#>
+                static var shared_get_val = <#T##SomeManagerProtocol#>
                 static var shared: SomeManagerProtocol {
                     get {
                         shared_get_wasCalled = true
@@ -110,8 +108,7 @@ class MockGeneratorTests: XCTestCase {
                     }
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -167,8 +164,7 @@ class MockGeneratorTests: XCTestCase {
                     func4_callCount += 1
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -222,8 +218,7 @@ class MockGeneratorTests: XCTestCase {
                     return func4_val
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -293,8 +288,7 @@ class MockGeneratorTests: XCTestCase {
                     return func5_val
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -392,8 +386,7 @@ class MockGeneratorTests: XCTestCase {
                     return func9_val
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -431,8 +424,7 @@ class MockGeneratorTests: XCTestCase {
                     return func6_val
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -475,7 +467,7 @@ class MockGeneratorTests: XCTestCase {
                 var func12_wasCalled = false
                 var func12_callCount = 0
                 var func12_args: (String, String)?
-                var func12_val: (String, String)! = <#T##(String, String)#>
+                var func12_val = <#T##(String, String)#>
                 func func12(arg: (String, String)) -> (String, String) {
                     func12_wasCalled = true
                     func12_callCount += 1
@@ -486,7 +478,7 @@ class MockGeneratorTests: XCTestCase {
                 var func13_wasCalled = false
                 var func13_callCount = 0
                 var func13_args: SomeClass?
-                var func13_val: SomeClass = <#T##SomeClass#>
+                var func13_val = <#T##SomeClass#>
                 func func13(arg: SomeClass) -> SomeClass {
                     func13_wasCalled = true
                     func13_callCount += 1
@@ -494,8 +486,7 @@ class MockGeneratorTests: XCTestCase {
                     return func13_val
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -549,8 +540,7 @@ class MockGeneratorTests: XCTestCase {
                     return func1_<#T##identifier4##identifier4#>_val
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -791,7 +781,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop13_get_wasCalled = false
                 var prop13_get_callCount = 0
-                var prop13_get_val: (() -> Void)! = <#T##() -> Void#>
+                var prop13_get_val = <#T##() -> Void#>
                 var prop13: () -> Void {
                     get {
                         prop13_get_wasCalled = true
@@ -821,7 +811,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop16_get_wasCalled = false
                 var prop16_get_callCount = 0
-                var prop16_get_val: (String, String)! = <#T##(String, String)#>
+                var prop16_get_val = <#T##(String, String)#>
                 var prop16: (String, String) {
                     get {
                         prop16_get_wasCalled = true
@@ -831,7 +821,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop17_get_wasCalled = false
                 var prop17_get_callCount = 0
-                var prop17_get_val: SomeClass = <#T##SomeClass#>
+                var prop17_get_val = <#T##SomeClass#>
                 var prop17: SomeClass {
                     get {
                         prop17_get_wasCalled = true
@@ -840,8 +830,7 @@ class MockGeneratorTests: XCTestCase {
                     }
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -871,7 +860,7 @@ class MockGeneratorTests: XCTestCase {
                 }
                 var prop2_get_wasCalled = false
                 var prop2_get_callCount = 0
-                var prop2_get_val: SomeClass! = <#T##SomeClass!#>
+                var prop2_get_val = <#T##SomeClass!#>
                 var prop2: SomeClass! {
                     get {
                         prop2_get_wasCalled = true
@@ -916,8 +905,7 @@ class MockGeneratorTests: XCTestCase {
                     }
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -937,7 +925,7 @@ class MockGeneratorTests: XCTestCase {
             class ClosurePattenSpy: ClosurePattenProtocol {
                 var arg1_get_wasCalled = false
                 var arg1_get_callCount = 0
-                var arg1_get_val: (() -> Void)! = nil
+                var arg1_get_val: (() -> Void)? = nil
                 var arg1: (() -> Void)? {
                     get {
                         arg1_get_wasCalled = true
@@ -965,15 +953,14 @@ class MockGeneratorTests: XCTestCase {
 
                 var func1_<#T##identifier3##identifier3#>_wasCalled = false
                 var func1_<#T##identifier3##identifier3#>_callCount = 0
-                var func1_<#T##identifier3##identifier3#>_val: (() -> Void)! = nil
+                var func1_<#T##identifier3##identifier3#>_val: (() -> Void)? = nil
                 func func1() -> (() -> Void)? {
                     func1_<#T##identifier3##identifier3#>_wasCalled = true
                     func1_<#T##identifier3##identifier3#>_callCount += 1
                     return func1_<#T##identifier3##identifier3#>_val
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -1045,8 +1032,7 @@ class MockGeneratorTests: XCTestCase {
                     init_<#T##identifier6##identifier6#>_args = arg3
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -1064,7 +1050,7 @@ class MockGeneratorTests: XCTestCase {
             class ViewControllerSpy: ViewControllerProtocol {
                 var textField_get_wasCalled = false
                 var textField_get_callCount = 0
-                var textField_get_val: NSTextField = <#T##NSTextField#>
+                var textField_get_val = <#T##NSTextField#>
                 var textField_set_wasCalled = false
                 var textField_set_callCount = 0
                 var textField_set_args: NSTextField?
@@ -1089,8 +1075,7 @@ class MockGeneratorTests: XCTestCase {
                     buttonDidClick_args = sender
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -1114,8 +1099,7 @@ class MockGeneratorTests: XCTestCase {
                     exec_args = completion
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -1141,8 +1125,7 @@ class MockGeneratorTests: XCTestCase {
                     exec_args = completion
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -1192,8 +1175,7 @@ class MockGeneratorTests: XCTestCase {
                     }
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -1217,8 +1199,7 @@ class MockGeneratorTests: XCTestCase {
                     func1_args = (arg1, completion)
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -1253,7 +1234,7 @@ class MockGeneratorTests: XCTestCase {
                 @objc
                 dynamic var func1_callCount = 0
                 var func1_args: String?
-                var func1_val: UIViewController = UIViewController(nibName: nil, bundle: nil)
+                var func1_val = UIViewController(nibName: nil, bundle: nil)
                 func func1(arg1: String) -> UIViewController {
                     func1_wasCalled = true
                     func1_callCount += 1
@@ -1270,8 +1251,7 @@ class MockGeneratorTests: XCTestCase {
                     init_callCount += 1
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
     
@@ -1310,7 +1290,7 @@ class MockGeneratorTests: XCTestCase {
                 @objc
                 dynamic var func1_callCount = 0
                 var func1_args: String?
-                var func1_val: UIViewController = UIViewController(nibName: nil, bundle: nil)
+                var func1_val = UIViewController(nibName: nil, bundle: nil)
                 @available(iOS 14.0, *)
                 func func1(arg1: String) -> UIViewController {
                     func1_wasCalled = true
@@ -1329,8 +1309,7 @@ class MockGeneratorTests: XCTestCase {
                     init_callCount += 1
                 }
             }
-
-            """
+            """.trimmingCharacters(in: .whitespacesAndNewlines)
         )
     }
 }
@@ -1340,6 +1319,6 @@ extension MockGenerater {
         let sourceFile = try SyntaxParser.parse(source: txt)
         let generator = MockGenerater(mockType: mockType)
         generator.walk(sourceFile)
-        return generator.mockClasses.first!.classDeclSyntax.description
+        return generator.mockClasses.first!.classDeclSyntax.description.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

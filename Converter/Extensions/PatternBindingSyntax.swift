@@ -110,58 +110,24 @@ extension PatternBindingSyntax {
     }
 
     static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> PatternBindingSyntax {
-        let unwrappedTypeSyntax = TokenSyntax.makeUnwrapped(typeSyntax)
-        
-        let processedTypeSyntax: TypeSyntax
-        if unwrappedTypeSyntax.is(SimpleTypeIdentifierSyntax.self)
-            || unwrappedTypeSyntax.is(ArrayTypeSyntax.self)
-            || unwrappedTypeSyntax.is(DictionaryTypeSyntax.self) {
-            processedTypeSyntax = typeSyntax
-        } else if let functionTypeSyntax = unwrappedTypeSyntax.as(FunctionTypeSyntax.self) {
-            processedTypeSyntax = TypeSyntax(
-                ImplicitlyUnwrappedOptionalTypeSyntax
-                    .make(TypeSyntax(
-                            TupleTypeSyntax.makeParen(with: functionTypeSyntax)
-                    ))
-            )
+        let typeAnnotation: TypeSyntax?
+        if let returnValue = TypeSyntax.ReturnValue(typeSyntax: typeSyntax),
+           returnValue.needsExplicit {
+            typeAnnotation = typeSyntax
         } else {
-            processedTypeSyntax = TypeSyntax(
-                ImplicitlyUnwrappedOptionalTypeSyntax
-                    .make(unwrappedTypeSyntax)
-            )
+            typeAnnotation = nil
         }
-        
+
         let valueExpr = ExprSyntax.makeReturnedValForMock(identifier, typeSyntax)
         
         return SyntaxFactory.makePatternBinding(
             pattern: .makeIdentifierPatternSyntax(with: identifier),
-            typeAnnotation: .makeFormatted(processedTypeSyntax),
-            initializer: .makeFormatted(valueExpr),
+            typeAnnotation: typeAnnotation.flatMap { .makeFormatted($0) },
+            initializer: InitializerClauseSyntax
+                .makeFormatted(valueExpr)?
+                .withLeadingTrivia(.spaces(1)),
             accessor: nil,
             trailingComma: nil
         )
-    }
-}
-
-extension ExprSyntax {
-    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> ExprSyntax {
-        let unwrappedTypeSyntax = TokenSyntax.makeUnwrapped(typeSyntax)
-        if let simpleType = unwrappedTypeSyntax.as(SimpleTypeIdentifierSyntax.self),
-            let literal = simpleType.tryToConvertToLiteralExpr() {
-            return literal
-        } else if unwrappedTypeSyntax.is(ArrayTypeSyntax.self) {
-            return ExprSyntax(ArrayExprSyntax.makeBlank())
-        } else if unwrappedTypeSyntax.is(DictionaryTypeSyntax.self) {
-            return ExprSyntax(DictionaryExprSyntax.makeBlank())
-        } else if unwrappedTypeSyntax.is(FunctionTypeSyntax.self) {
-            return ExprSyntax(SyntaxFactory.makeVariableExpr("<#T##\(typeSyntax.description)#>"))
-        } else if typeSyntax.is(OptionalTypeSyntax.self) {
-            return ExprSyntax(SyntaxFactory
-                                .makeNilLiteralExpr(nilKeyword: SyntaxFactory.makeNilKeyword()))
-        } else if let snippet = UserDefaults.group.snippets.first(where: { $0.name == unwrappedTypeSyntax.description }) {
-            return ExprSyntax(SyntaxFactory.makeVariableExpr(snippet.body))
-        } else {
-            return ExprSyntax(SyntaxFactory.makeVariableExpr("<#T##\(typeSyntax.description)#>"))
-        }
     }
 }

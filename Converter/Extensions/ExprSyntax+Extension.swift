@@ -27,3 +27,28 @@ extension ExprSyntax {
         )
     }
 }
+
+extension ExprSyntax {
+    static func makeReturnedValForMock(_ identifier: String, _ typeSyntax: TypeSyntax) -> ExprSyntax {
+        switch TypeSyntax.ReturnValue(typeSyntax: typeSyntax) {
+        case .simple(let literal):
+            return literal
+        case .array:
+            return ExprSyntax(ArrayExprSyntax.makeBlank())
+        case .dictionary:
+            return ExprSyntax(DictionaryExprSyntax.makeBlank())
+        case .function:
+            return ExprSyntax(SyntaxFactory.makeVariableExpr("<#T##\(typeSyntax.description)#>"))
+        case .optional:
+            return ExprSyntax(
+                SyntaxFactory.makeNilLiteralExpr(
+                    nilKeyword: SyntaxFactory.makeNilKeyword()
+                )
+            )
+        case .reserved(let snippet):
+            return ExprSyntax(SyntaxFactory.makeVariableExpr(snippet.body))
+        case .none:
+            return ExprSyntax(SyntaxFactory.makeVariableExpr("<#T##\(typeSyntax.description)#>"))
+        }
+    }
+}

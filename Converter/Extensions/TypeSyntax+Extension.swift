@@ -49,3 +49,43 @@ extension TypeSyntax {
         }
     }
 }
+
+extension TypeSyntax {
+    /// needs to assign an explicit type to the returned property
+    enum ReturnValue {
+        case simple(ExprSyntax)
+        case array
+        case dictionary
+        case optional
+        case function
+        case reserved(InitSnippet)
+        
+        init?(typeSyntax: TypeSyntax) {
+            let unwrappedTypeSyntax = TokenSyntax.makeUnwrapped(typeSyntax)
+            
+            if let type = unwrappedTypeSyntax.as(SimpleTypeIdentifierSyntax.self),
+               let literal = type.tryToConvertToLiteralExpr() {
+                self = .simple(literal)
+            } else if unwrappedTypeSyntax.is(ArrayTypeSyntax.self) {
+                self = .array
+            } else if unwrappedTypeSyntax.is(DictionaryTypeSyntax.self) {
+                self = .dictionary
+            } else if typeSyntax.is(OptionalTypeSyntax.self) {
+                self = .optional
+            } else if let snippet = UserDefaults.group.snippets.first(where: { $0.name == unwrappedTypeSyntax.description }) {
+                self = .reserved(snippet)
+            } else {
+                return nil
+            }
+        }
+        
+        var needsExplicit: Bool {
+            switch self {
+            case .simple, .array, .dictionary, .optional:
+                return true
+            case .function, .reserved:
+                return false
+            }
+        }
+    }
+}

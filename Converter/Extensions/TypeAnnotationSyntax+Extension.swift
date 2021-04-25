@@ -18,7 +18,6 @@ extension TypeAnnotationSyntax {
                     .withTrailingTrivia(.spaces(1)),
                 type: typeSyntax
             )
-            .withTrailingTrivia(.spaces(1))
     }
 }
 

@@ -10,44 +10,92 @@ import Foundation
 import SwiftSyntax
 
 extension SimpleTypeIdentifierSyntax {
+    enum SimpleDefaultValue {
+        case bool
+        case string
+        case integer
+        case float
+    }
+    
+    enum Literal: String {
+        
+        case bool
+        
+        case string
+        case nSString
+        
+        case int
+        case int8
+        case int16
+        case int32
+        case int64
+        case nSInteger
+        
+        case uInt
+        case uInt8
+        case uInt16
+        case uInt32
+        case uInt64
+        
+        case double
+        case float
+        case float32
+        case float64
+        case cGFloat
+
+        init?(capitalizedString: String) {
+            let rawValue = capitalizedString.prefix(1).lowercased() + capitalizedString.dropFirst()
+            self.init(rawValue: rawValue)
+        }
+        
+        var defaultValue: SimpleDefaultValue {
+            switch self {
+            case .bool:
+                return .bool
+            case .string, .nSString:
+                return .string
+            case .int, .int8, .int16, .int32, .int64, .nSInteger:
+                return .integer
+            case .uInt, .uInt8, .uInt16, .uInt32, .uInt64:
+                return .integer
+            case .double, .float, .float32, .float64, .cGFloat:
+                return .float
+            }
+        }
+    }
+}
+
+extension SimpleTypeIdentifierSyntax {
     func tryToConvertToLiteralExpr() -> ExprSyntax? {
-        switch name.text {
-        case "Bool":
+        guard let literal = Literal(capitalizedString: name.text) else {
+            return nil
+        }
+        
+        switch literal.defaultValue {
+        case .bool:
             return ExprSyntax(SyntaxFactory
                     .makeBooleanLiteralExpr(
                         booleanLiteral: SyntaxFactory
                             .makeFalseKeyword()
                     )
             )
-        case "String":
+        case .string:
             return ExprSyntax(SyntaxFactory
                 .makeStringLiteralExpr(""))
-        case "NSString":
-            return ExprSyntax(SyntaxFactory
-                .makeStringLiteralExpr(""))
-        case "Int", "Int8", "Int16","Int32", "Int64", "NSInteger":
+        case .integer:
             return ExprSyntax(SyntaxFactory
                 .makeIntegerLiteralExpr(
                     digits: SyntaxFactory
                         .makeIntegerLiteral("0")
                 )
             )
-        case "UInt", "UInt8", "UInt16","UInt32", "UInt64":
-            return ExprSyntax(SyntaxFactory
-                .makeIntegerLiteralExpr(
-                    digits: SyntaxFactory
-                        .makeIntegerLiteral("0")
-                )
-            )
-        case "Double", "Float", "Float32", "Float64", "CGFloat":
+        case .float:
             return ExprSyntax(SyntaxFactory
                 .makeFloatLiteralExpr(
                     floatingDigits: SyntaxFactory
                         .makeFloatingLiteral("0.0")
                 )
             )
-        default:
-            return nil
         }
     }
 }
