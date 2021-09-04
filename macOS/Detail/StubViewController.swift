@@ -106,7 +106,7 @@ class StubViewController: NSViewController {
     
     @IBAction func returnValueTextFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
-        Settings.shared.spySettings.returnValueFormat = value
+        Settings.shared.mockSettings.returnValueFormat = value
         updateConvertedText(sampleSourceTextView.text)
     }
     

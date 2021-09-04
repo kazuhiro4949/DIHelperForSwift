@@ -52,21 +52,21 @@ class MockViewController: NSViewController {
         
         wasCalledTextField.stringValue = Settings
             .shared
-            .spySettings
+            .mockSettings
             .wasCalledFormat ?? ""
         
         callCountTextField.stringValue = Settings
             .shared
-            .spySettings
+            .mockSettings
             .callCountFormat ?? ""
         
         argsTextField.stringValue = Settings
             .shared
-            .spySettings
+            .mockSettings
             .passedArgumentFormat ?? ""
         valTextField.stringValue = Settings
             .shared
-            .spySettings
+            .mockSettings
             .returnValueFormat ?? ""
         
         setupButtons()
@@ -106,38 +106,38 @@ class MockViewController: NSViewController {
         propertyTargetButton.state = NSControl.StateValue(
             isOn: !Settings
                 .shared
-                .spySettings.getTarget(target: .property)
+                .mockSettings.getTarget(target: .property)
         )
         functionTargetButton.state = NSControl.StateValue(
             isOn: !Settings
                 .shared
-                .spySettings.getTarget(target: .function)
+                .mockSettings.getTarget(target: .function)
         )
         initializerTargetButton.state = NSControl.StateValue(
             isOn: !Settings
                 .shared
-                .spySettings.getTarget(target: .initilizer)
+                .mockSettings.getTarget(target: .initilizer)
         )
         
         calledOrNotCaptureButton.state = NSControl.StateValue(
             isOn: !Settings
                 .shared
-                .spySettings.getCapture(capture: .calledOrNot)
+                .mockSettings.getCapture(capture: .calledOrNot)
             )
         
         callCountCaptureButton.state = NSControl.StateValue(
             isOn: !Settings
                 .shared
-                .spySettings.getCapture(capture: .callCount)
+                .mockSettings.getCapture(capture: .callCount)
             )
         
         passedArgumentCaptureButton.state = NSControl.StateValue(
             isOn: !Settings
                 .shared
-                .spySettings.getCapture(capture: .passedArgument)
+                .mockSettings.getCapture(capture: .passedArgument)
             )
         kvcButton.state = NSControl.StateValue(
-            isOn: !Settings.shared.spySettings.getScene(scene: .kvc)
+            isOn: !Settings.shared.mockSettings.getScene(scene: .kvc)
         )
     }
     
@@ -148,7 +148,7 @@ class MockViewController: NSViewController {
                 source: text
             )
             
-            let generater = MockGenerater(mockType: .spy)
+            let generater = MockGenerater(mockType: .mock)
             generater.walk(sourceFile)
             
             convertedSourceTextView.text = generater
@@ -163,31 +163,31 @@ class MockViewController: NSViewController {
     
     @IBAction func textFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
-        Settings.shared.spySettings.nameFormat = value
+        Settings.shared.mockSettings.nameFormat = value
         updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func wasCalledTextFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
-        Settings.shared.spySettings.wasCalledFormat = value
+        Settings.shared.mockSettings.wasCalledFormat = value
         updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func callCountTextFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
-        Settings.shared.spySettings.callCountFormat = value
+        Settings.shared.mockSettings.callCountFormat = value
         updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func passedArgumentTextFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
-        Settings.shared.spySettings.passedArgumentFormat = value
+        Settings.shared.mockSettings.passedArgumentFormat = value
         updateConvertedText(sampleSourceTextView.text)
     }
     
     @IBAction func returnValueTextFieldDidChangeValue(_ sender: NSTextField) {
         let value = sender.stringValue.isEmpty ? nil : sender.stringValue
-        Settings.shared.spySettings.returnValueFormat = value
+        Settings.shared.mockSettings.returnValueFormat = value
         updateConvertedText(sampleSourceTextView.text)
     }
     
@@ -197,7 +197,7 @@ class MockViewController: NSViewController {
             return
         }
         
-        Settings.shared.spySettings.setTarget(
+        Settings.shared.mockSettings.setTarget(
             target: target,
             value: sender.state != .on
         )
@@ -205,7 +205,7 @@ class MockViewController: NSViewController {
     }
     
     @IBAction func kvcButtonDidClick(_ sender: NSButton) {
-        Settings.shared.spySettings.setScene(
+        Settings.shared.mockSettings.setScene(
             scene: .kvc,
             value: sender.state != .on
         )
@@ -213,12 +213,12 @@ class MockViewController: NSViewController {
     }
     
     @IBAction func captureButtonDidClick(_ sender: NSButton) {
-        guard let capture = Settings.SpySetting.Capture(rawValue: sender.tag) else {
+        guard let capture = Settings.MockSetting.Capture(rawValue: sender.tag) else {
             sender.state = sender.state.toggle()
             return
         }
         
-        Settings.shared.spySettings.setCapture(
+        Settings.shared.mockSettings.setCapture(
             capture: capture,
             value: sender.state != .on
         )

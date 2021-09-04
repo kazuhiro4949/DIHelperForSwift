@@ -45,14 +45,14 @@ extension ProtocolDeclSyntax {
         switch mockType {
         case .dummy:
             return [:]
-        case .spy:
-            return checkSignatureDuplicationForSpy()
+        case .mock:
+            return checkSignatureDuplicationForMock()
         case .stub:
             return checkSignatureDuplicationForStub()
         }
     }
     
-    public func checkSignatureDuplicationForSpy() -> [String: Counter] {
+    public func checkSignatureDuplicationForMock() -> [String: Counter] {
         let counter = members.members.reduce(into: [String: Counter]()) { (result, item) in
             if let funcDecl = item.decl.as(FunctionDeclSyntax.self) {
                 var counter = result[funcDecl.identifier.text] ?? Counter(count: 0, max: 0)

@@ -18,28 +18,28 @@ extension AccessorDeclSyntax {
         accessorKind.text == "get"
     }
     
-    public func makeSpyProperty(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MockPropertyForAccessor {
+    public func makeMockProperty(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MockPropertyForAccessor {
         let identifierByAccessor = "\(identifier.text)_\(accessorKind.text)"
-        var spyProperty = MockPropertyForAccessor(accessor: self)
+        var mockProperty = MockPropertyForAccessor(accessor: self)
         
-        if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
-            spyProperty.members.append(
+        if !Settings.shared.mockSettings.getCapture(capture: .calledOrNot) {
+            mockProperty.members.append(
                 .makeCalledOrNot(
-                    identifier: identifierByAccessor.wasCalled(.spy),
+                    identifier: identifierByAccessor.wasCalled(.mock),
                     modifiers: modifiers,
                     attributes: attributes)
             )
-            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeTrueSubstitutionExpr(to: identifierByAccessor.wasCalled(.spy)).withLeadingTrivia(.indent(3)))
+            mockProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeTrueSubstitutionExpr(to: identifierByAccessor.wasCalled(.mock)).withLeadingTrivia(.indent(3)))
         }
-        if !Settings.shared.spySettings.getCapture(capture: . callCount) {
-            spyProperty.members.append(
+        if !Settings.shared.mockSettings.getCapture(capture: . callCount) {
+            mockProperty.members.append(
                 .makeFormattedCallCount(
-                    identifier: identifierByAccessor.callCount(.spy),
+                    identifier: identifierByAccessor.callCount(.mock),
                     attributes: attributes,
                     modifiers: modifiers
                 )
             )
-            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeIncrementExpr(to: identifierByAccessor.callCount(.spy)).withLeadingTrivia(.indent(3)))
+            mockProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeIncrementExpr(to: identifierByAccessor.callCount(.mock)).withLeadingTrivia(.indent(3)))
         }
         if isSet,
            let unwrappedType = binding
@@ -49,18 +49,18 @@ extension AccessorDeclSyntax {
             .withTrailingTrivia(.zero),
            !Settings
             .shared
-            .spySettings
+            .mockSettings
             .getCapture(capture: .passedArgument) {
             
-            spyProperty.members.append(
+            mockProperty.members.append(
                 .makeArgsValForMock(
-                    identifierByAccessor.args(.spy),
+                    identifierByAccessor.args(.mock),
                     unwrappedType,
                     modifiers: modifiers,
                     attributes: attributes
                 )
             )
-            spyProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeNewValueArgsExprForMock(identifierByAccessor.args(.spy)).withLeadingTrivia(.indent(3)))
+            mockProperty.appendCodeBlockItem(CodeBlockItemSyntax.makeNewValueArgsExprForMock(identifierByAccessor.args(.mock)).withLeadingTrivia(.indent(3)))
         }
         if isGet,
            let typeSyntax = binding
@@ -68,14 +68,14 @@ extension AccessorDeclSyntax {
             .type
             .withTrailingTrivia(.zero) {
             
-            spyProperty.members.append(.makeReturnedValForMock(
-                                        identifierByAccessor.val(.spy),
+            mockProperty.members.append(.makeReturnedValForMock(
+                                        identifierByAccessor.val(.mock),
                                         typeSyntax,
                                         modifiers: modifiers,
                                         attributes: attributes))
-            spyProperty.appendCodeBlockItem(.makeReturnExpr(identifierByAccessor.val(.spy), .indent(3)))
+            mockProperty.appendCodeBlockItem(.makeReturnExpr(identifierByAccessor.val(.mock), .indent(3)))
         }
-        return spyProperty
+        return mockProperty
     }
     
     public func makeDummyPropery(_ identifier: TokenSyntax, _ binding: PatternBindingSyntax)  -> MockPropertyForAccessor {

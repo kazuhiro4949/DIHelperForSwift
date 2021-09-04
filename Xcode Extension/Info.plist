@@ -38,11 +38,11 @@
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).GenerateSpyCommand</string>
+					<string>$(PRODUCT_MODULE_NAME).GenerateMockCommand</string>
 					<key>XCSourceEditorCommandIdentifier</key>
-					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateSpyCommand</string>
+					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateMockCommand</string>
 					<key>XCSourceEditorCommandName</key>
-					<string>generate Spy from selected areas</string>
+					<string>generate Mock from selected areas</string>
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>

@@ -49,28 +49,28 @@ extension FunctionDeclSyntax {
 }
 
 extension FunctionDeclSyntax {
-    public func generateCodeBlockItemsForSpy(counter: Counter?) -> [CodeBlockItemSyntax] {
+    public func generateCodeBlockItemsForMock(counter: Counter?) -> [CodeBlockItemSyntax] {
         var codeBlockItems = [CodeBlockItemSyntax]()
-        if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
-            codeBlockItems.append(.makeTrueSubstitutionExpr(to: identifier.signatureAddedIdentifier(counter: counter).wasCalled(.spy)))
+        if !Settings.shared.mockSettings.getCapture(capture: .calledOrNot) {
+            codeBlockItems.append(.makeTrueSubstitutionExpr(to: identifier.signatureAddedIdentifier(counter: counter).wasCalled(.mock)))
         }
-        if !Settings.shared.spySettings.getCapture(capture: .callCount) {
-            codeBlockItems.append(.makeIncrementExpr(to: identifier.signatureAddedIdentifier(counter: counter).callCount(.spy)))
+        if !Settings.shared.mockSettings.getCapture(capture: .callCount) {
+            codeBlockItems.append(.makeIncrementExpr(to: identifier.signatureAddedIdentifier(counter: counter).callCount(.mock)))
         }
-        if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
+        if !Settings.shared.mockSettings.getCapture(capture: .passedArgument) {
             switch signature.input.parameterList.mockParameter {
             case .none:
                 break
             case .singleType:
-                if let codeBlock = makeSingleTypeArgsExprForSpy(counter: counter) {
+                if let codeBlock = makeSingleTypeArgsExprForMock(counter: counter) {
                     codeBlockItems.append(codeBlock)
                 }
             case .tuple:
-                codeBlockItems.append(makeTupleArgsExprForSpy(counter: counter))
+                codeBlockItems.append(makeTupleArgsExprForMock(counter: counter))
             }
         }
         if !signature.isReturnedVoid {
-            codeBlockItems.append(.makeReturnExpr(identifier.signatureAddedIdentifier(counter: counter).val(.spy), .indent(2)))
+            codeBlockItems.append(.makeReturnExpr(identifier.signatureAddedIdentifier(counter: counter).val(.mock), .indent(2)))
         }
         return codeBlockItems
     }
@@ -78,16 +78,16 @@ extension FunctionDeclSyntax {
     public func generateCodeBlockItemsForStub(counter: Counter?) -> [CodeBlockItemSyntax] {
         var codeBlockItems = [CodeBlockItemSyntax]()
         if !signature.isReturnedVoid {
-            codeBlockItems.append(.makeReturnExpr(identifier.signatureAddedIdentifier(counter: counter).val(.spy), .indent(2)))
+            codeBlockItems.append(.makeReturnExpr(identifier.signatureAddedIdentifier(counter: counter).val(.mock), .indent(2)))
         }
         return codeBlockItems
     }
     
     public func generateMemberDeclItemsForMock(mockType: MockType) -> [MemberDeclListItemSyntax] {
         switch mockType {
-        case .spy:
+        case .mock:
             FunctionSignatureDuplication.shared.list[identifier.text]?.count += 1
-            return generateMemberDeclItemsFormSpy(
+            return generateMemberDeclItemsFormMock(
                 counter: FunctionSignatureDuplication
                     .shared
                     .list[identifier.text],
@@ -101,36 +101,36 @@ extension FunctionDeclSyntax {
         }
     }
     
-    public func generateMemberDeclItemsFormSpy(counter: Counter?, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> [MemberDeclListItemSyntax] {
+    public func generateMemberDeclItemsFormMock(counter: Counter?, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> [MemberDeclListItemSyntax] {
         var memberDeclListItems = [MemberDeclListItemSyntax]()
-        if !Settings.shared.spySettings.getCapture(capture: .calledOrNot) {
+        if !Settings.shared.mockSettings.getCapture(capture: .calledOrNot) {
             memberDeclListItems.append(
                 .makeCalledOrNot(
-                    identifier: identifier.signatureAddedIdentifier(counter: counter).wasCalled(.spy),
+                    identifier: identifier.signatureAddedIdentifier(counter: counter).wasCalled(.mock),
                     modifiers: modifiers,
                     attributes: attributes)
             )
         }
-        if !Settings.shared.spySettings.getCapture(capture: .callCount) {
+        if !Settings.shared.mockSettings.getCapture(capture: .callCount) {
             memberDeclListItems.append(
                 .makeFormattedCallCount(
                     identifier: identifier
-                        .signatureAddedIdentifier(counter: counter).callCount(.spy),
+                        .signatureAddedIdentifier(counter: counter).callCount(.mock),
                     attributes: attributes,
                     modifiers: modifiers
                 )
             )
         }
-        if !Settings.shared.spySettings.getCapture(capture: .passedArgument) {
+        if !Settings.shared.mockSettings.getCapture(capture: .passedArgument) {
             switch signature.input.parameterList.mockParameter {
             case .none:
                 break
             case .singleType:
-                if let singleTypeArgs = makeSingleTypeArgsValForSpy(counter: counter) {
+                if let singleTypeArgs = makeSingleTypeArgsValForMock(counter: counter) {
                     memberDeclListItems.append(singleTypeArgs)
                 }
             case .tuple:
-                memberDeclListItems.append(makeTupleArgsValForSpy(
+                memberDeclListItems.append(makeTupleArgsValForMock(
                                             counter: counter,
                                             modifiers: modifiers,
                                             attributes: attributes)
@@ -140,14 +140,14 @@ extension FunctionDeclSyntax {
         if let output = signature.output, !signature.isReturnedVoid {
             memberDeclListItems.append(
                 .makeReturnedValForMock(
-                    identifier.signatureAddedIdentifier(counter: counter).val(.spy),
+                    identifier.signatureAddedIdentifier(counter: counter).val(.mock),
                     output.returnType,
                     modifiers: modifiers,
                     attributes: attributes
                 )
             )
         }
-        let codeBlockItems = generateCodeBlockItemsForSpy(counter: counter)
+        let codeBlockItems = generateCodeBlockItemsForMock(counter: counter)
         memberDeclListItems.append(.makeFunctionForMock(self, codeBlockItems))
         return memberDeclListItems
     }
@@ -178,14 +178,14 @@ extension FunctionDeclSyntax {
         return memberDeclListItems
     }
     
-    public func makeSingleTypeArgsValForSpy(counter: Counter?) -> MemberDeclListItemSyntax? {
+    public func makeSingleTypeArgsValForMock(counter: Counter?) -> MemberDeclListItemSyntax? {
         guard let type = signature.input.parameterList.first?
             .type else {
             return nil
         }
         
         return .makeArgsValForMock(
-            identifier.signatureAddedIdentifier(counter: counter).args(.spy),
+            identifier.signatureAddedIdentifier(counter: counter).args(.mock),
             type.removingAttributes
                 .unwrapped
                 .tparenthesizedIfNeeded
@@ -195,13 +195,13 @@ extension FunctionDeclSyntax {
         )
     }
     
-    public func makeSingleTypeArgsExprForSpy(counter: Counter?) -> CodeBlockItemSyntax? {
+    public func makeSingleTypeArgsExprForMock(counter: Counter?) -> CodeBlockItemSyntax? {
         guard let parameter = signature.input.parameterList.first else {
             return nil
         }
         
         return .makeArgsExprForMock(
-            identifier.signatureAddedIdentifier(counter: counter).args(.spy),
+            identifier.signatureAddedIdentifier(counter: counter).args(.mock),
             ExprSyntax(IdentifierExprSyntax
                         .makeFormattedVariableExpr(
                             parameter.tokenForMockProperty
@@ -210,18 +210,18 @@ extension FunctionDeclSyntax {
         )
     }
     
-    public func makeTupleArgsValForSpy(counter: Counter?, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
+    public func makeTupleArgsValForMock(counter: Counter?, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
         .makeArgsValForMock(
-            identifier.signatureAddedIdentifier(counter: counter).args(.spy),
+            identifier.signatureAddedIdentifier(counter: counter).args(.mock),
             TypeSyntax(TupleTypeSyntax.make(with: signature.input.parameterList.makeTupleForMemberDecl())),
             modifiers: modifiers,
             attributes: attributes?.storedPropertyRemoved
         )
     }
     
-    public func makeTupleArgsExprForSpy(counter: Counter?) -> CodeBlockItemSyntax {
+    public func makeTupleArgsExprForMock(counter: Counter?) -> CodeBlockItemSyntax {
         .makeArgsExprForMock(
-            identifier.signatureAddedIdentifier(counter: counter).args(.spy),
+            identifier.signatureAddedIdentifier(counter: counter).args(.mock),
             ExprSyntax(TupleExprSyntax.make(with: signature.input.parameterList.makeTupleForCodeBlockItem()))
         )
     }

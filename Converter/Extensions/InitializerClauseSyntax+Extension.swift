@@ -23,7 +23,7 @@ extension InitializerClauseSyntax {
         identifier: TokenSyntax,
         binding: PatternBindingSyntax) -> InitializerClauseSyntax? {
         switch mockType {
-        case .spy:
+        case .mock:
             return nil
         case .dummy:
             return nil
