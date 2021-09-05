@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:DIHelperforSwift.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:SampleCode/SampleCode.xcodeproj">
    </FileRef>
 </Workspace>

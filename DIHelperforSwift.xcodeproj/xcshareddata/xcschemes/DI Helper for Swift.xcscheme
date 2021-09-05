@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "303223F125AAFC41002BB110"
-               BuildableName = "DIHelperforXcode.app"
+               BuildableName = "DIHelperforSwift.app"
                BlueprintName = "DIHelperforSwift"
                ReferencedContainer = "container:DIHelperforSwift.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "303223F125AAFC41002BB110"
-            BuildableName = "DIHelperforXcode.app"
+            BuildableName = "DIHelperforSwift.app"
             BlueprintName = "DIHelperforSwift"
             ReferencedContainer = "container:DIHelperforSwift.xcodeproj">
          </BuildableReference>
@@ -82,7 +82,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "303223F125AAFC41002BB110"
-            BuildableName = "DIHelperforXcode.app"
+            BuildableName = "DIHelperforSwift.app"
             BlueprintName = "DIHelperforSwift"
             ReferencedContainer = "container:DIHelperforSwift.xcodeproj">
          </BuildableReference>
