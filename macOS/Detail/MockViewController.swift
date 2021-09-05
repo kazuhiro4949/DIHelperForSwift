@@ -83,9 +83,9 @@ class MockViewController: NSViewController {
     
     private func setupLink() {
         let linkAttrValue = NSAttributedString(
-            string: "https://bit.ly/3buxrp4",
+            string: "https://bit.ly/2WVj9ux",
             attributes: [
-                .link: URL(string: "https://bit.ly/3buxrp4")!,
+                .link: URL(string: "https://bit.ly/2WVj9ux")!,
                 .font: NSFont.systemFont(ofSize: 12)
                 
         ])
