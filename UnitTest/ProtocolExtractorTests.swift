@@ -8,6 +8,7 @@
 
 import XCTest
 import SwiftSyntax
+import Converter
 
 class ProtocolExtractorTests: XCTestCase {
     func test_ViewController() throws {

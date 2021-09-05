@@ -7,5 +7,6 @@
 //
 
 import Foundation
+import Converter
 
 class BundleToken {}

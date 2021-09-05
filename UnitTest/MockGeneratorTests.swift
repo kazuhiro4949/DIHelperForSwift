@@ -8,6 +8,7 @@
 
 import XCTest
 import SwiftSyntax
+import Converter
 
 class MockGeneratorTests: XCTestCase {
     override func setUp() {
@@ -1234,7 +1235,7 @@ class MockGeneratorTests: XCTestCase {
                 @objc
                 dynamic var func1_callCount = 0
                 var func1_args: String?
-                var func1_val = UIViewController(nibName: nil, bundle: nil)
+                var func1_val = <#T##UIViewController#>
                 func func1(arg1: String) -> UIViewController {
                     func1_wasCalled = true
                     func1_callCount += 1
@@ -1290,7 +1291,7 @@ class MockGeneratorTests: XCTestCase {
                 @objc
                 dynamic var func1_callCount = 0
                 var func1_args: String?
-                var func1_val = UIViewController(nibName: nil, bundle: nil)
+                var func1_val = <#T##UIViewController#>
                 @available(iOS 14.0, *)
                 func func1(arg1: String) -> UIViewController {
                     func1_wasCalled = true

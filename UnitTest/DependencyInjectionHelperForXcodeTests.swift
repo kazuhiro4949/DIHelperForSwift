@@ -7,6 +7,7 @@
 
 import XCTest
 import SwiftSyntax
+import Converter
 
 class DependencyInjectionHelperForXcodeTests: XCTestCase {
     
