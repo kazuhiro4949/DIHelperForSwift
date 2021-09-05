@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1430,10 +1429,10 @@ Test doubles are made from Protocol.</string>
             </objects>
             <point key="canvasLocation" x="1705" y="437.5"/>
         </scene>
-        <!--Spy-->
+        <!--Mock-->
         <scene sceneID="vAt-aE-Gfv">
             <objects>
-                <viewController title="Spy" storyboardIdentifier="MockViewController" id="Ewn-fR-1gh" customClass="MockViewController" customModule="DI_Helper_for_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Mock" storyboardIdentifier="MockViewController" id="Ewn-fR-1gh" customClass="MockViewController" customModule="DI_Helper_for_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="jqv-GE-Set">
                         <rect key="frame" x="0.0" y="0.0" width="1128" height="670"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1445,7 +1444,7 @@ Test doubles are made from Protocol.</string>
                                         <rect key="frame" x="0.0" y="15" width="347" height="615"/>
                                         <clipView key="contentView" drawsBackground="NO" id="kHe-DV-Gsk">
                                             <rect key="frame" x="0.0" y="0.0" width="347" height="615"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWV-Q7-dlu">
                                                     <rect key="frame" x="0.0" y="0.0" width="347" height="615"/>
@@ -1455,7 +1454,7 @@ Test doubles are made from Protocol.</string>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Ef-jV-OOJ">
                                                                     <rect key="frame" x="-2" y="9" width="319" height="31"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Spy" id="UBT-jH-SdU">
+                                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Mock" id="UBT-jH-SdU">
                                                                         <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1540,7 +1539,7 @@ It can memorize method calls.</string>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="200" id="skv-LS-9Ao"/>
                                                                     </constraints>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="%@Spy" drawsBackground="YES" id="mtv-6F-6fH">
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="%@Mock" drawsBackground="YES" id="mtv-6F-6fH">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2987,7 +2986,7 @@ If you set new one, this app uses the initialization to make the type's return v
                                 <rect key="frame" x="0.0" y="0.0" width="183" height="382"/>
                                 <clipView key="contentView" drawsBackground="NO" id="lRl-XV-RBg">
                                     <rect key="frame" x="1" y="1" width="181" height="380"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="sourceList" selectionHighlightStyle="sourceList" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" viewBased="YES" id="hIN-hN-Ack">
                                             <rect key="frame" x="0.0" y="0.0" width="181" height="380"/>

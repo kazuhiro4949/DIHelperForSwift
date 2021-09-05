@@ -43,7 +43,7 @@ public class Settings {
         }
     }
     
-    public class SpySetting: TargetProvider, NameProvider {
+    public class MockSetting: TargetProvider, NameProvider {
         public enum Scene: Int {
             case kvc
         }
@@ -56,71 +56,71 @@ public class Settings {
         
         public var nameFormat: String? {
             get {
-                UserDefaults.group.string(forKey: "SpySettings.nameFormat")
+                UserDefaults.group.string(forKey: "MockSettings.nameFormat")
             }
             set {
-                UserDefaults.group.set(newValue, forKey: "SpySettings.nameFormat")
+                UserDefaults.group.set(newValue, forKey: "MockSettings.nameFormat")
             }
         }
         
         public var wasCalledFormat: String? {
             get {
-                UserDefaults.group.string(forKey: "SpySettings.wasCalledFormat")
+                UserDefaults.group.string(forKey: "MockSettings.wasCalledFormat")
             }
             set {
-                UserDefaults.group.set(newValue, forKey: "SpySettings.wasCalledFormat")
+                UserDefaults.group.set(newValue, forKey: "MockSettings.wasCalledFormat")
             }
         }
         
         public var callCountFormat: String? {
             get {
-                UserDefaults.group.string(forKey: "SpySettings.callCountFormat")
+                UserDefaults.group.string(forKey: "MockSettings.callCountFormat")
             }
             set {
-                UserDefaults.group.set(newValue, forKey: "SpySettings.callCountFormat")
+                UserDefaults.group.set(newValue, forKey: "MockSettings.callCountFormat")
             }
         }
         
         public var passedArgumentFormat: String? {
             get {
-                UserDefaults.group.string(forKey: "SpySettings.passedArgumentFormat")
+                UserDefaults.group.string(forKey: "MockSettings.passedArgumentFormat")
             }
             set {
-                UserDefaults.group.set(newValue, forKey: "SpySettings.passedArgumentFormat")
+                UserDefaults.group.set(newValue, forKey: "MockSettings.passedArgumentFormat")
             }
         }
         
         public var returnValueFormat: String? {
             get {
-                UserDefaults.group.string(forKey: "SpySettings.returnValueFormat")
+                UserDefaults.group.string(forKey: "MockSettings.returnValueFormat")
             }
             set {
-                UserDefaults.group.set(newValue, forKey: "SpySettings.returnValueFormat")
+                UserDefaults.group.set(newValue, forKey: "MockSettings.returnValueFormat")
             }
         }
         
         public func setTarget(target: Target, value: Bool) {
-            UserDefaults.group.set(value, forKey: "SpySettings.target\(target.rawValue)")
+            UserDefaults.group.set(value, forKey: "MockSettings.target\(target.rawValue)")
         }
         
         public func getTarget(target: Target) -> Bool {
-            return UserDefaults.group.bool(forKey: "SpySettings.target\(target.rawValue)")
+            return UserDefaults.group.bool(forKey: "MockSettings.target\(target.rawValue)")
         }
         
         public func setCapture(capture: Capture, value: Bool) {
-            UserDefaults.group.set(value, forKey: "SpySettings.capture\(capture.rawValue)")
+            UserDefaults.group.set(value, forKey: "MockSettings.capture\(capture.rawValue)")
         }
         
         public func getCapture(capture: Capture) -> Bool {
-            return UserDefaults.group.bool(forKey: "SpySettings.capture\(capture.rawValue)")
+            return UserDefaults.group.bool(forKey: "MockSettings.capture\(capture.rawValue)")
         }
         
         public func setScene(scene: Scene, value: Bool) {
-            UserDefaults.group.set(value, forKey: "SpySettings.scene\(scene.rawValue)")
+            UserDefaults.group.set(value, forKey: "MockSettings.scene\(scene.rawValue)")
         }
         
         public func getScene(scene: Scene) -> Bool {
-            return UserDefaults.group.bool(forKey: "SpySettings.scene\(scene.rawValue)")
+            return UserDefaults.group.bool(forKey: "MockSettings.scene\(scene.rawValue)")
         }
     }
     
@@ -158,14 +158,14 @@ public class Settings {
     
     public static let shared = Settings()
     public let protocolSettings = ProtocolSetting()
-    public let spySettings = SpySetting()
+    public let mockSettings = MockSetting()
     public let dummySettings = DummySetting()
     public let stubSettings = StubSetting()
     
     public func target(from mockType: MockType) -> TargetProvider? {
         switch mockType {
-        case .spy:
-            return SpySetting()
+        case .mock:
+            return MockSetting()
         case .stub:
             return DefaultFalseTarget()
         case .dummy:

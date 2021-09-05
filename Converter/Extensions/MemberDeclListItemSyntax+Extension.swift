@@ -162,7 +162,7 @@ extension MemberDeclListItemSyntax {
         modifiers: ModifierListSyntax?,
         attributes: AttributeListSyntax?) -> MemberDeclListItemSyntax {
 
-        if !Settings.shared.spySettings.getScene(scene: .kvc) {
+        if !Settings.shared.mockSettings.getScene(scene: .kvc) {
             let notOptionalModifiers = modifiers ?? SyntaxFactory.makeBlankModifierList()
             let notOptionalAttributes = attributes ?? SyntaxFactory.makeBlankAttributeList()
             return .makeFormattedFalseAssign(
@@ -187,7 +187,7 @@ extension MemberDeclListItemSyntax {
         attributes: AttributeListSyntax?,
         modifiers: ModifierListSyntax?) -> MemberDeclListItemSyntax {
         
-        if !Settings.shared.spySettings.getScene(scene: .kvc) {
+        if !Settings.shared.mockSettings.getScene(scene: .kvc) {
             let notOptionalAttributes = attributes ?? SyntaxFactory.makeBlankAttributeList()
             let notOptionalModifiers = modifiers ?? SyntaxFactory.makeBlankModifierList()
             return .makeFormattedZeroAssign(

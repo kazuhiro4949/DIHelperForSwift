@@ -11,7 +11,7 @@ import Foundation
 public enum MockType: String {
     case dummy
     case stub
-    case spy
+    case mock
     
     public var format: String {
         switch self {
@@ -25,11 +25,11 @@ public enum MockType: String {
                 .shared
                 .stubSettings
                 .nameFormat ?? "%@Stub"
-        case .spy:
+        case .mock:
             return Settings
                 .shared
-                .spySettings
-                .nameFormat ?? "%@Spy"
+                .mockSettings
+                .nameFormat ?? "%@Mock"
         }
     }
     
@@ -39,10 +39,10 @@ public enum MockType: String {
             return nil
         case .stub:
             return nil
-        case .spy:
+        case .mock:
             return Settings
                 .shared
-                .spySettings
+                .mockSettings
                 .wasCalledFormat
         }
     }
@@ -53,10 +53,10 @@ public enum MockType: String {
             return nil
         case .stub:
             return nil
-        case .spy:
+        case .mock:
             return Settings
                 .shared
-                .spySettings
+                .mockSettings
                 .callCountFormat
         }
     }
@@ -67,10 +67,10 @@ public enum MockType: String {
             return nil
         case .stub:
             return nil
-        case .spy:
+        case .mock:
             return Settings
                 .shared
-                .spySettings
+                .mockSettings
                 .passedArgumentFormat
         }
     }
@@ -84,10 +84,10 @@ public enum MockType: String {
                 .shared
                 .stubSettings
                 .returnValueFormat
-        case .spy:
+        case .mock:
             return Settings
                 .shared
-                .spySettings
+                .mockSettings
                 .returnValueFormat
         }
     }
@@ -98,10 +98,10 @@ public enum MockType: String {
             return false
         case .stub:
             return false
-        case .spy:
+        case .mock:
             return !Settings
                 .shared
-                .spySettings
+                .mockSettings
                 .getScene(scene: .kvc)
         }
     }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		300E22CC26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 300E22CB26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib */; };
+		300E22CD26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 300E22CB26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3014C63425EA07F9000B08B3 /* ProtocolExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3014C63325EA07F9000B08B3 /* ProtocolExtractorTests.swift */; };
 		3014C66A25EA085C000B08B3 /* BundleToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3014C66425EA0843000B08B3 /* BundleToken.swift */; };
 		3014C67425EA0B22000B08B3 /* MockGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3014C67325EA0B22000B08B3 /* MockGeneratorTests.swift */; };
@@ -18,8 +20,6 @@
 		301E1BC62635545D00574DFE /* Converter.framework in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 301E1BB02635545D00574DFE /* Converter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		301E1BD12635548400574DFE /* Converter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301E1BB02635545D00574DFE /* Converter.framework */; };
 		301E1BDA2635549700574DFE /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 301E1BD92635549700574DFE /* SwiftSyntax */; };
-		301E1BDF263554BC00574DFE /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; };
-		301E1BE0263554BC00574DFE /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		301E1BF22635558200574DFE /* SimpleTypeIdentifierSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024215025CFC9FD00C0E53F /* SimpleTypeIdentifierSyntax+Extension.swift */; };
 		301E1BF32635558200574DFE /* ExprSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024217625CFCABC00C0E53F /* ExprSyntax+Extension.swift */; };
 		301E1BF42635558200574DFE /* ImplicitlyUnwrappedOptionalTypeSyntax+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024217A25CFCAC800C0E53F /* ImplicitlyUnwrappedOptionalTypeSyntax+Extension.swift */; };
@@ -172,13 +172,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		301E1BE1263554BC00574DFE /* Embed Libraries */ = {
+		300E22CE26E3275200D18A60 /* Embed Libraries */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				301E1BE0263554BC00574DFE /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */,
+				300E22CD26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */,
 			);
 			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,6 +219,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		300E22CB26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = lib_InternalSwiftSyntaxParser.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/lib_InternalSwiftSyntaxParser.dylib; sourceTree = DEVELOPER_DIR; };
 		3014C48F25E93596000B08B3 /* ModifierListSyntax+Exntension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModifierListSyntax+Exntension.swift"; sourceTree = "<group>"; };
 		3014C63325EA07F9000B08B3 /* ProtocolExtractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolExtractorTests.swift; sourceTree = "<group>"; };
 		3014C66425EA0843000B08B3 /* BundleToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleToken.swift; sourceTree = "<group>"; };
@@ -332,7 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				301E1BDA2635549700574DFE /* SwiftSyntax in Frameworks */,
-				301E1BDF263554BC00574DFE /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */,
+				300E22CC26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,6 +506,7 @@
 			isa = PBXGroup;
 			children = (
 				30B8A3DC25B2EA6B00F643CD /* lib_InternalSwiftSyntaxParser.dylib */,
+				300E22CB26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib */,
 				3032242A25AAFCEB002BB110 /* Cocoa.framework */,
 				3032242C25AAFCEB002BB110 /* XcodeKit.framework */,
 			);
@@ -665,7 +667,7 @@
 				301E1BAC2635545D00574DFE /* Sources */,
 				301E1BAD2635545D00574DFE /* Frameworks */,
 				301E1BAE2635545D00574DFE /* Resources */,
-				301E1BE1263554BC00574DFE /* Embed Libraries */,
+				300E22CE26E3275200D18A60 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -1545,7 +1547,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-syntax.git";
 			requirement = {
-				branch = "swift-5.3-DEVELOPMENT-SNAPSHOT-2020-11-11-a";
+				branch = "swift-5.4-RELEASE";
 				kind = branch;
 			};
 		};

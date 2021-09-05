@@ -11,18 +11,18 @@ import SwiftSyntax
 
 class MockGeneratorTests: XCTestCase {
     override func setUp() {
-        Settings.shared.spySettings.setScene(scene: .kvc, value: true)
+        Settings.shared.mockSettings.setScene(scene: .kvc, value: true)
     }
     
     override func tearDown() {
-        Settings.shared.spySettings.setScene(scene: .kvc, value: true)
+        Settings.shared.mockSettings.setScene(scene: .kvc, value: true)
     }
     
     // MARK:- SPY
     func test_ViewControllerPattern() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol ViewControllerProtocol {
                 var textField: NSTextField { get set }
@@ -30,7 +30,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class ViewControllerSpy: ViewControllerProtocol {
+            class ViewControllerMock: ViewControllerProtocol {
                 var textField_get_wasCalled = false
                 var textField_get_callCount = 0
                 var textField_get_val = <#T##NSTextField#>
@@ -65,14 +65,14 @@ class MockGeneratorTests: XCTestCase {
     func test_FactoryPattern() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol SomeFactoryProtocol {
                 static func make() -> SomeClassProtocol
             }
             """),
             """
-            class SomeFactorySpy: SomeFactoryProtocol {
+            class SomeFactoryMock: SomeFactoryProtocol {
                 static var make_wasCalled = false
                 static var make_callCount = 0
                 static var make_val = <#T##SomeClassProtocol#>
@@ -89,14 +89,14 @@ class MockGeneratorTests: XCTestCase {
     func test_ManagerPattern() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol SomeManagerProtocol {
                 static var shared: SomeManagerProtocol { get }
             }
             """),
             """
-            class SomeManagerSpy: SomeManagerProtocol {
+            class SomeManagerMock: SomeManagerProtocol {
                 static var shared_get_wasCalled = false
                 static var shared_get_callCount = 0
                 static var shared_get_val = <#T##SomeManagerProtocol#>
@@ -115,7 +115,7 @@ class MockGeneratorTests: XCTestCase {
     func test_FunctionsPattern5Protocol() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol FunctionsPattern5Protocol {
                 func func1() -> String
@@ -126,7 +126,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class FunctionsPattern5Spy: FunctionsPattern5Protocol {
+            class FunctionsPattern5Mock: FunctionsPattern5Protocol {
                 var func1_<#T##identifier1##identifier1#>_wasCalled = false
                 var func1_<#T##identifier1##identifier1#>_callCount = 0
                 var func1_<#T##identifier1##identifier1#>_val: String = ""
@@ -171,7 +171,7 @@ class MockGeneratorTests: XCTestCase {
     func test_FunctionsPattern1Protocol() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol FunctionsPattern1Protocol {
                 func func1()
@@ -181,7 +181,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class FunctionsPattern1Spy: FunctionsPattern1Protocol {
+            class FunctionsPattern1Mock: FunctionsPattern1Protocol {
                 var func1_wasCalled = false
                 var func1_callCount = 0
                 func func1() {
@@ -225,7 +225,7 @@ class MockGeneratorTests: XCTestCase {
     func test_FunctionsProtoco2() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol FunctionsPattern2Protocol {
                 func func1() -> String
@@ -236,7 +236,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class FunctionsPattern2Spy: FunctionsPattern2Protocol {
+            class FunctionsPattern2Mock: FunctionsPattern2Protocol {
                 var func1_wasCalled = false
                 var func1_callCount = 0
                 var func1_val: String = ""
@@ -295,7 +295,7 @@ class MockGeneratorTests: XCTestCase {
     func test_FunctionsPattern3() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol FunctionsPattern3Protocol {
                 func func1(arg: Int8) -> Int8
@@ -308,7 +308,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class FunctionsPattern3Spy: FunctionsPattern3Protocol {
+            class FunctionsPattern3Mock: FunctionsPattern3Protocol {
                 var func1_wasCalled = false
                 var func1_callCount = 0
                 var func1_args: Int8?
@@ -393,7 +393,7 @@ class MockGeneratorTests: XCTestCase {
     func test_FunctionsPattern6() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol FunctionsPattern6Protocol {
                 func func2(arg: Int16) -> Int16
@@ -401,7 +401,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class FunctionsPattern6Spy: FunctionsPattern6Protocol {
+            class FunctionsPattern6Mock: FunctionsPattern6Protocol {
                 var func2_wasCalled = false
                 var func2_callCount = 0
                 var func2_args: Int16?
@@ -431,7 +431,7 @@ class MockGeneratorTests: XCTestCase {
     func test_FunctionsPattern7() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol FunctionsPattern7Protocol {
                 func func10(arg: [String]) -> [String]
@@ -441,7 +441,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class FunctionsPattern7Spy: FunctionsPattern7Protocol {
+            class FunctionsPattern7Mock: FunctionsPattern7Protocol {
                 var func10_wasCalled = false
                 var func10_callCount = 0
                 var func10_args: [String]?
@@ -493,7 +493,7 @@ class MockGeneratorTests: XCTestCase {
     func test_FunctionsPattern4() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol FunctionsPattern4Protocol {
                 func func1()
@@ -503,7 +503,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class FunctionsPattern4Spy: FunctionsPattern4Protocol {
+            class FunctionsPattern4Mock: FunctionsPattern4Protocol {
                 var func1_<#T##identifier1##identifier1#>_wasCalled = false
                 var func1_<#T##identifier1##identifier1#>_callCount = 0
                 func func1() {
@@ -547,7 +547,7 @@ class MockGeneratorTests: XCTestCase {
     func test_PropertyPattern() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol PropertyPatternProtocol {
                 var prop1: String { get }
@@ -570,7 +570,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class PropertyPatternSpy: PropertyPatternProtocol {
+            class PropertyPatternMock: PropertyPatternProtocol {
                 var prop1_get_wasCalled = false
                 var prop1_get_callCount = 0
                 var prop1_get_val: String = ""
@@ -837,7 +837,7 @@ class MockGeneratorTests: XCTestCase {
     func test_PropertyPattern2() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-                .spy,
+                .mock,
             """
             protocol PropertyPattern2Protocol {
                 var prop1: SomeClass? { get }
@@ -847,7 +847,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class PropertyPattern2Spy: PropertyPattern2Protocol {
+            class PropertyPattern2Mock: PropertyPattern2Protocol {
                 var prop1_get_wasCalled = false
                 var prop1_get_callCount = 0
                 var prop1_get_val: SomeClass? = nil
@@ -912,7 +912,7 @@ class MockGeneratorTests: XCTestCase {
     func test_ClosurePatten() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol ClosurePattenProtocol {
                 var arg1: (() -> Void)? { get }
@@ -922,7 +922,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class ClosurePattenSpy: ClosurePattenProtocol {
+            class ClosurePattenMock: ClosurePattenProtocol {
                 var arg1_get_wasCalled = false
                 var arg1_get_callCount = 0
                 var arg1_get_val: (() -> Void)? = nil
@@ -967,7 +967,7 @@ class MockGeneratorTests: XCTestCase {
     func test_InitPattern() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol InitPatternProtocol {
                 init()
@@ -979,7 +979,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class InitPatternSpy: InitPatternProtocol {
+            class InitPatternMock: InitPatternProtocol {
                 var init_<#T##identifier1##identifier1#>_wasCalled = false
                 var init_<#T##identifier1##identifier1#>_callCount = 0
                 required init() {
@@ -1039,7 +1039,7 @@ class MockGeneratorTests: XCTestCase {
     func test_PublicProtocolPattern() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             public protocol ViewControllerProtocol {
                 var textField: NSTextField { get set }
@@ -1047,7 +1047,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class ViewControllerSpy: ViewControllerProtocol {
+            class ViewControllerMock: ViewControllerProtocol {
                 var textField_get_wasCalled = false
                 var textField_get_callCount = 0
                 var textField_get_val = <#T##NSTextField#>
@@ -1082,14 +1082,14 @@ class MockGeneratorTests: XCTestCase {
     func test_AttributeProtocolPattern() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             public protocol AttributeProtocol {
                 func exec(completion: @escaping (String) -> Void)
             }
             """),
             """
-            class AttributeSpy: AttributeProtocol {
+            class AttributeMock: AttributeProtocol {
                 var exec_wasCalled = false
                 var exec_callCount = 0
                 var exec_args: ((String) -> Void)?
@@ -1106,7 +1106,7 @@ class MockGeneratorTests: XCTestCase {
     func test_ClassAvailabilityProtocolPattern() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             @available(iOS 14.0, *)
             public protocol AttributeProtocol {
@@ -1115,7 +1115,7 @@ class MockGeneratorTests: XCTestCase {
             """),
             """
             @available(iOS 14.0, *)
-            class AttributeSpy: AttributeProtocol {
+            class AttributeMock: AttributeProtocol {
                 var exec_wasCalled = false
                 var exec_callCount = 0
                 var exec_args: ((String) -> Void)?
@@ -1132,7 +1132,7 @@ class MockGeneratorTests: XCTestCase {
     func test_MemberAvailabilityProtocolPattern() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             public protocol AttributeProtocol {
                 @available(iOS 14.0, *)
@@ -1142,7 +1142,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class AttributeSpy: AttributeProtocol {
+            class AttributeMock: AttributeProtocol {
                 var exec_wasCalled = false
                 var exec_callCount = 0
                 var exec_args: ((String) -> Void)?
@@ -1182,14 +1182,14 @@ class MockGeneratorTests: XCTestCase {
     func test_AttributedTupleArgsProtocolPattern() throws {
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol SampleProtocol {
                 func func1(arg1: String, completion: @escaping () -> Void)
             }
             """),
             """
-            class SampleSpy: SampleProtocol {
+            class SampleMock: SampleProtocol {
                 var func1_wasCalled = false
                 var func1_callCount = 0
                 var func1_args:  (arg1: String, completion: () -> Void)?
@@ -1204,10 +1204,10 @@ class MockGeneratorTests: XCTestCase {
     }
     
     func test_OjbcDynamicOptionPattern() throws {
-        Settings.shared.spySettings.setScene(scene: .kvc, value: false)
+        Settings.shared.mockSettings.setScene(scene: .kvc, value: false)
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol SampleProtocol {
                 var prop1: String { get }
@@ -1216,7 +1216,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class SampleSpy: NSObject, SampleProtocol {
+            class SampleMock: NSObject, SampleProtocol {
                 @objc
                 dynamic var prop1_get_wasCalled = false
                 @objc
@@ -1256,10 +1256,10 @@ class MockGeneratorTests: XCTestCase {
     }
     
     func test_MultipleAttributesPattern() throws {
-        Settings.shared.spySettings.setScene(scene: .kvc, value: false)
+        Settings.shared.mockSettings.setScene(scene: .kvc, value: false)
         XCTAssertEqual(
             try MockGenerater.expect(
-            .spy,
+            .mock,
             """
             protocol SampleProtocol {
                 @available(iOS 14.0, *)
@@ -1271,7 +1271,7 @@ class MockGeneratorTests: XCTestCase {
             }
             """),
             """
-            class SampleSpy: NSObject, SampleProtocol {
+            class SampleMock: NSObject, SampleProtocol {
                 @objc
                 dynamic var prop1_get_wasCalled = false
                 @objc
