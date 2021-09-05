@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/kazuhiro/Projects/DependencyInjectionHelperForXcode/DI Helper for Swift.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:SampleCode/SampleCode.xcodeproj">
    </FileRef>
 </Workspace>

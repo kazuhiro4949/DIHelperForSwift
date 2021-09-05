@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "303223F125AAFC41002BB110"
-               BuildableName = "DI Helper for Swift.app"
-               BlueprintName = "DI Helper for Swift"
-               ReferencedContainer = "container:DI Helper for Swift.xcodeproj">
+               BuildableName = "DIHelperforXcode.app"
+               BlueprintName = "DIHelperforSwift"
+               ReferencedContainer = "container:DIHelperforSwift.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3032240325AAFC43002BB110"
-               BuildableName = "DI Helper for SwiftTests.xctest"
-               BlueprintName = "DI Helper for SwiftTests"
-               ReferencedContainer = "container:DI Helper for Swift.xcodeproj">
+               BuildableName = "DIHelperforSwiftTests.xctest"
+               BlueprintName = "DIHelperforSwiftTests"
+               ReferencedContainer = "container:DIHelperforSwift.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "301E1BB72635545D00574DFE"
                BuildableName = "ConverterTests.xctest"
                BlueprintName = "ConverterTests"
-               ReferencedContainer = "container:DI Helper for Swift.xcodeproj">
+               ReferencedContainer = "container:DIHelperforSwift.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "303223F125AAFC41002BB110"
-            BuildableName = "DI Helper for Swift.app"
-            BlueprintName = "DI Helper for Swift"
-            ReferencedContainer = "container:DI Helper for Swift.xcodeproj">
+            BuildableName = "DIHelperforXcode.app"
+            BlueprintName = "DIHelperforSwift"
+            ReferencedContainer = "container:DIHelperforSwift.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -82,9 +82,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "303223F125AAFC41002BB110"
-            BuildableName = "DI Helper for Swift.app"
-            BlueprintName = "DI Helper for Swift"
-            ReferencedContainer = "container:DI Helper for Swift.xcodeproj">
+            BuildableName = "DIHelperforXcode.app"
+            BlueprintName = "DIHelperforSwift"
+            ReferencedContainer = "container:DIHelperforSwift.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

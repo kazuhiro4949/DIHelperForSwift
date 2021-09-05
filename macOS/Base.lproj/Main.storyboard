@@ -940,7 +940,7 @@ This app automates them with Xcode Source Extension.</string>
                     <tabView key="tabView" id="t7I-WN-0YA">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <font key="font" metaFont="message"/>
+                        <font key="font" usesAppearanceFont="YES"/>
                         <connections>
                             <outlet property="delegate" destination="stu-7R-Ivy" id="BF2-Qd-Y4s"/>
                         </connections>
@@ -3269,7 +3269,7 @@ If you set new one, this app uses the initialization to make the type's return v
     </scenes>
     <resources>
         <image name="App" width="1024" height="1024"/>
-        <image name="NSShareTemplate" width="15" height="17"/>
+        <image name="NSShareTemplate" width="16" height="17"/>
         <image name="add" width="25" height="16"/>
         <image name="list" width="26" height="16"/>
         <image name="minus" width="25" height="16"/>
