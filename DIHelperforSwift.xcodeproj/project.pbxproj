@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CA813AB26EE0C05006A8AF9 /* UIStoryboard+SyntaxSugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA813AA26EE0C05006A8AF9 /* UIStoryboard+SyntaxSugar.swift */; };
+		2CA813AC26EE0D80006A8AF9 /* UIStoryboard+SyntaxSugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA813AA26EE0C05006A8AF9 /* UIStoryboard+SyntaxSugar.swift */; };
+		2CA813AE26EE0EE7006A8AF9 /* NSAttributedString+SyntaxSugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA813AD26EE0EE7006A8AF9 /* NSAttributedString+SyntaxSugar.swift */; };
 		300E22CC26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 300E22CB26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib */; };
 		300E22CD26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 300E22CB26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3014C63425EA07F9000B08B3 /* ProtocolExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3014C63325EA07F9000B08B3 /* ProtocolExtractorTests.swift */; };
@@ -219,6 +222,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2CA813AA26EE0C05006A8AF9 /* UIStoryboard+SyntaxSugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+SyntaxSugar.swift"; sourceTree = "<group>"; };
+		2CA813AD26EE0EE7006A8AF9 /* NSAttributedString+SyntaxSugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+SyntaxSugar.swift"; sourceTree = "<group>"; };
 		300E22CB26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = lib_InternalSwiftSyntaxParser.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/lib_InternalSwiftSyntaxParser.dylib; sourceTree = DEVELOPER_DIR; };
 		3014C48F25E93596000B08B3 /* ModifierListSyntax+Exntension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModifierListSyntax+Exntension.swift"; sourceTree = "<group>"; };
 		3014C63325EA07F9000B08B3 /* ProtocolExtractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolExtractorTests.swift; sourceTree = "<group>"; };
@@ -381,6 +386,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2CA813A926EE0BF2006A8AF9 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				2CA813AA26EE0C05006A8AF9 /* UIStoryboard+SyntaxSugar.swift */,
+				2CA813AD26EE0EE7006A8AF9 /* NSAttributedString+SyntaxSugar.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		301E1BB12635545D00574DFE /* Converter */ = {
 			isa = PBXGroup;
 			children = (
@@ -464,6 +478,7 @@
 		303223F425AAFC41002BB110 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				2CA813A926EE0BF2006A8AF9 /* Extension */,
 				3051B88A25F389480014D3E9 /* Init */,
 				306FF6A225E49E990075F43F /* Onboarding */,
 				3044B14825E210E400EC7A16 /* Utility */,
@@ -965,12 +980,14 @@
 				303223F825AAFC41002BB110 /* ViewController.swift in Sources */,
 				3051B8A225F3C2290014D3E9 /* InitOutlineViewController.swift in Sources */,
 				3044B11825E1341F00EC7A16 /* Either.swift in Sources */,
+				2CA813AE26EE0EE7006A8AF9 /* NSAttributedString+SyntaxSugar.swift in Sources */,
 				3014C67825EA2AB8000B08B3 /* WindowController.swift in Sources */,
 				30559DB225E3BEFC003F5A2A /* OnboardingExt1ViewController.swift in Sources */,
 				3051B89C25F38B6D0014D3E9 /* InitSplitViewController.swift in Sources */,
 				3051B8AB25F460ED0014D3E9 /* InitWIndowController.swift in Sources */,
 				30E035DF25BC303B000D49EE /* ProtocolViewController.swift in Sources */,
 				3051B8A625F3C7F30014D3E9 /* InitTableColumn.swift in Sources */,
+				2CA813AB26EE0C05006A8AF9 /* UIStoryboard+SyntaxSugar.swift in Sources */,
 				3044B14A25E210F600EC7A16 /* NSTextView+Extension.swift in Sources */,
 				30B8A42725BC27B500F643CD /* MenuViewController.swift in Sources */,
 				3044B15725E2173C00EC7A16 /* StubViewController.swift in Sources */,
@@ -1011,6 +1028,7 @@
 			files = (
 				306FF6A525E49F150075F43F /* OnboardingExt2ViewController.swift in Sources */,
 				306FF6AD25E49FBC0075F43F /* OnboardingExt3ViewController.swift in Sources */,
+				2CA813AC26EE0D80006A8AF9 /* UIStoryboard+SyntaxSugar.swift in Sources */,
 				3051B8C025F493C80014D3E9 /* InitOutlineViewController.swift in Sources */,
 				309BB2EA25C15FDB0067D991 /* GenerateSpyCommand.swift in Sources */,
 				3032243025AAFCEB002BB110 /* SourceEditorExtension.swift in Sources */,
