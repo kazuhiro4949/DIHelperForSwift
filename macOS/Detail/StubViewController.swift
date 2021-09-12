@@ -27,9 +27,12 @@ class StubViewController: NSViewController {
         super.viewDidLoad()
         setupTextView()
         
+        // TODO:- refactoring
         shareToolbarButton.bezelStyle = .recessed
         shareToolbarButton.showsBorderOnlyWhileMouseInside = true
         
+        
+        // TODO:- refactoring
         copyButton.bezelStyle = .recessed
         copyButton.showsBorderOnlyWhileMouseInside = true
         
@@ -38,6 +41,7 @@ class StubViewController: NSViewController {
         sampleSourceTextView.text = SampleParsedSource.protocolSample
         updateConvertedText(sampleSourceTextView.text)
         
+        // TODO:- refactoring
         nameTextField.stringValue = Settings
             .shared
             .stubSettings
@@ -59,13 +63,10 @@ class StubViewController: NSViewController {
     }
     
     private func setupLink() {
-        let linkAttrValue = NSAttributedString(
-            string: "https://bit.ly/37ybXq6",
-            attributes: [
-                .link: URL(string: "https://bit.ly/37ybXq6")!,
-                .font: NSFont.systemFont(ofSize: 12)
-                
-        ])
+        // TODO:- refactoring
+        let linkAttrValue = NSAttributedString.makeLink(
+            URL(string: "https://bit.ly/37ybXq6")!
+        )
         documentationTextField.attributedStringValue = linkAttrValue
         documentationTextField.isSelectable = true
     }
