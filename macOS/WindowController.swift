@@ -37,7 +37,9 @@ class WindowController: NSWindowController {
         self.initWindowController = windowController
     }
     
-
+    @IBAction func inqueryDidClick(_ sender: NSToolbarItem) {
+    }
+    
     override func windowDidLoad() {
         super.windowDidLoad()
     }
