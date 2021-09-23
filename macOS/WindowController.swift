@@ -38,6 +38,7 @@ class WindowController: NSWindowController {
     }
     
     @IBAction func inqueryDidClick(_ sender: NSToolbarItem) {
+        NSWorkspace.shared.open(URL(string: "https://github.com/kazuhiro4949/DIHelperForSwift/issues")!)
     }
     
     override func windowDidLoad() {
