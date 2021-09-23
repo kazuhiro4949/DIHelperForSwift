@@ -104,7 +104,7 @@ extension ProtocolDeclSyntax {
         let classDecl = SyntaxFactory.makeClassDecl(
             attributes: attributes?.withTrailingTrivia(.newlines(1)),
             modifiers: nil,
-            classKeyword: .makeFormattedClassKeyword(),
+            classOrActorKeyword: .makeFormattedClassKeyword(), // TODO:- support actor
             identifier: mockIdentifier(mockType: mockType),
             genericParameterClause: nil,
             inheritanceClause: .makeFormattedProtocol(

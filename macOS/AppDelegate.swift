@@ -9,8 +9,16 @@ import Cocoa
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
+    static let appAppearanceChanged = NSNotification.Name("appAppearanceChanged")
+    
+    private var effectiveAppearanceObserver: NSObjectProtocol?
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        effectiveAppearanceObserver = NSApp.observe(\.effectiveAppearance, options: [.new, .old]) { app, change in
+            var dict = [AnyHashable : Any]()
+            dict["effectiveAppearance"] = change.newValue
+            NotificationCenter.default.post(name: AppDelegate.appAppearanceChanged, object: app, userInfo: dict)
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -31,7 +39,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             delegate.presentAsSheet(vc)
         }
     }
-    
-    
 }
 

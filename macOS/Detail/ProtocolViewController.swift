@@ -74,6 +74,7 @@ class ProtocolViewController: NSViewController {
     private func setupTextView() {
         sampleSourceTextView.delegate = self
         sampleSourceTextView.theme = DefaultSourceCodeTheme()
+        sampleSourceTextView.contentTextView.insertionPointColor = NSColor.white
         
         convertedSourceTextView.delegate = self
         convertedSourceTextView.contentTextView.isEditable = false

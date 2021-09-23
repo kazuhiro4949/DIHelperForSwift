@@ -106,6 +106,8 @@ extension AccessorDeclSyntax {
                 .withLeadingTrivia(.indent(3))
                 .withTrailingTrivia(.zero),
             parameter: parameter,
+            asyncKeyword: nil, // TODO: support async
+            throwsKeyword: nil, // TODO: support throw
             body: SyntaxFactory.makeCodeBlock(
                 leftBrace: .makeCleanFormattedLeftBrance(.spaces(1)),
                 statements: SyntaxFactory

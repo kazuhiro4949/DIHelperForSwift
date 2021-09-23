@@ -19,6 +19,8 @@ extension SyntaxFactory {
                 presence: .present
             ),
             parameter: nil,
+            asyncKeyword: nil, // TODO: support async/await
+            throwsKeyword: nil, // TODO: support throw
             body: nil)
     }
     

@@ -1547,7 +1547,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-syntax.git";
 			requirement = {
-				branch = "swift-5.4-RELEASE";
+				branch = "swift-5.5-RELEASE";
 				kind = branch;
 			};
 		};
