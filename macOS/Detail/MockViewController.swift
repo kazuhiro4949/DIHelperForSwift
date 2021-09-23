@@ -82,13 +82,9 @@ class MockViewController: NSViewController {
     }
     
     private func setupLink() {
-        let linkAttrValue = NSAttributedString(
-            string: "https://bit.ly/2WVj9ux",
-            attributes: [
-                .link: URL(string: "https://bit.ly/2WVj9ux")!,
-                .font: NSFont.systemFont(ofSize: 12)
-                
-        ])
+        let linkAttrValue = NSAttributedString.makeLink(
+            URL(string: "https://bit.ly/2WVj9ux")!
+        )
         documentationTextField.attributedStringValue = linkAttrValue
         documentationTextField.isSelectable = true
     }
