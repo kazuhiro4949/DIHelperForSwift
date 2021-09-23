@@ -9,6 +9,8 @@
 import Foundation
 import SwiftSyntax
 
+//MARK :- for protocol extractor
+
 extension ModifierListSyntax {
     public var protocolEnabled: ModifierListSyntax? {
         let classToStaicModifiers = map {
@@ -16,7 +18,7 @@ extension ModifierListSyntax {
         }
         
         let protocolEnabledModifiers = classToStaicModifiers.filter({ (declModifier) in
-            declModifier.name.text == "static"
+            declModifier.name.text == "static" || declModifier.name.text == "nonisolated"
         })
         
         if protocolEnabledModifiers.isEmpty {

@@ -25,8 +25,33 @@ extension VariableDeclSyntax {
             // getter or getter,setter
             let keywordsFromAccessor = accessorBlock.contextualKeywords
             let keywordsFromVariable = contextualKeywords
+            
+            // async
+            let asyncKeyword: TokenSyntax?
+            if hasAsyncKeyword {
+                asyncKeyword = SyntaxFactory.makeToken(
+                    .identifier("async"),
+                    presence: .present
+                ).withLeadingTrivia(.spaces(1))
+            } else {
+                asyncKeyword = nil
+            }
+            
+            // throws
+            let throwsKeyword: TokenSyntax?
+            if hasThrowsKeyword {
+                throwsKeyword = SyntaxFactory.makeToken(
+                    .identifier("throws"),
+                    presence: .present
+                ).withLeadingTrivia(.spaces(1))
+            } else {
+                throwsKeyword = nil
+            }
+            
             let protocolVariable = binding.convertForProtocol(
                 with: keywordsFromAccessor.intersection(keywordsFromVariable),
+                asyncKeyword: asyncKeyword,
+                throwsKeyword: throwsKeyword,
                 modifiers: modifiers?.protocolEnabled,
                 attributes: attributes?.protocolExclusiveRemoved
             )
@@ -35,6 +60,8 @@ extension VariableDeclSyntax {
             // computed property
             return [binding.convertForProtocol(
                         with: .get,
+                        asyncKeyword: nil,
+                        throwsKeyword: nil,
                         modifiers: modifiers?.protocolEnabled,
                         attributes: attributes?.protocolExclusiveRemoved
             )]
@@ -49,6 +76,8 @@ extension VariableDeclSyntax {
             .map {
                 $0.convertForProtocol(
                     with: contextualKeywords,
+                    asyncKeyword: nil,
+                    throwsKeyword: nil,
                     modifiers: modifiers?.protocolEnabled,
                     attributes: attributes?.protocolExclusiveRemoved)
             }
@@ -110,6 +139,24 @@ extension VariableDeclSyntax {
         } else {
             return [.get, .set]
         }
+    }
+    
+    public var hasAsyncKeyword: Bool {
+        bindings
+            .first?
+            .accessor?
+            .as(AccessorBlockSyntax.self)?
+            .accessors
+            .contains(where: { $0.asyncKeyword != nil }) == true
+    }
+    
+    public var hasThrowsKeyword: Bool {
+        bindings
+            .first?
+            .accessor?
+            .as(AccessorBlockSyntax.self)?
+            .accessors
+            .contains(where: { $0.throwsKeyword != nil }) == true
     }
     
     public var hasMultipleProps: Bool {

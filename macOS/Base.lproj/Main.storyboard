@@ -352,7 +352,7 @@
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Teg-5g-AcQ"/>
-                                <toolbarItem implicitItemIdentifier="9204EAF1-554F-42E3-9394-448A784A3062" label="Initialization" paletteLabel="Initialization" toolTip="Register initializations to replace placeholders" tag="-1" image="list" id="k0s-Ye-Mg4">
+                                <toolbarItem implicitItemIdentifier="9204EAF1-554F-42E3-9394-448A784A3062" label="custom type" paletteLabel="custom type" toolTip="Register initializations to replace placeholders" tag="-1" image="list.bullet" catalog="system" id="k0s-Ye-Mg4">
                                     <size key="minSize" width="36" height="22"/>
                                     <size key="maxSize" width="36" height="22"/>
                                     <connections>
@@ -1288,13 +1288,13 @@ Test doubles are made from Protocol.</string>
                                         <rect key="frame" x="420" y="349" width="688" height="120"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yf7-kq-eGe">
-                                                <rect key="frame" x="0.0" y="1" width="342" height="119"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="342" height="120"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bwf-jz-HYT">
-                                                        <rect key="frame" x="0.0" y="104" width="37" height="15"/>
+                                                        <rect key="frame" x="0.0" y="104" width="37" height="16"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kA9-OY-JIE">
-                                                                <rect key="frame" x="-2" y="0.0" width="41" height="15"/>
+                                                                <rect key="frame" x="-2" y="1" width="41" height="15"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="INPUT" id="zd4-Z2-ZPT">
                                                                     <font key="font" textStyle="callout" name=".SFNS-Regular"/>
                                                                     <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
@@ -1522,10 +1522,10 @@ It can memorize method calls.</string>
                                                             </constraints>
                                                         </customView>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JfX-kY-kBq">
-                                                            <rect key="frame" x="0.0" y="453" width="338" height="21"/>
+                                                            <rect key="frame" x="0.0" y="437" width="338" height="37"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iat-qB-4bL">
-                                                                    <rect key="frame" x="-2" y="5" width="134" height="16"/>
+                                                                    <rect key="frame" x="-2" y="21" width="134" height="16"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="130" id="KXZ-62-rvv"/>
                                                                     </constraints>
@@ -1536,7 +1536,7 @@ It can memorize method calls.</string>
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dQm-2K-dHC">
-                                                                    <rect key="frame" x="138" y="0.0" width="200" height="21"/>
+                                                                    <rect key="frame" x="138" y="16" width="200" height="21"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="200" id="skv-LS-9Ao"/>
                                                                     </constraints>
@@ -1560,13 +1560,13 @@ It can memorize method calls.</string>
                                                             </customSpacing>
                                                         </stackView>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="u3a-tK-yx6">
-                                                            <rect key="frame" x="0.0" y="445" width="163" height="8"/>
+                                                            <rect key="frame" x="0.0" y="429" width="163" height="8"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="8" id="e4R-Tr-Kxk"/>
                                                             </constraints>
                                                         </customView>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qf4-Ek-zEz">
-                                                            <rect key="frame" x="0.0" y="424" width="338" height="21"/>
+                                                            <rect key="frame" x="0.0" y="408" width="338" height="21"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kz8-Xj-0MJ">
                                                                     <rect key="frame" x="-2" y="5" width="134" height="16"/>
@@ -1604,16 +1604,16 @@ It can memorize method calls.</string>
                                                             </customSpacing>
                                                         </stackView>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="kSN-Ot-LEO">
-                                                            <rect key="frame" x="0.0" y="416" width="163" height="8"/>
+                                                            <rect key="frame" x="0.0" y="400" width="163" height="8"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="8" id="yRu-9f-IAA"/>
                                                             </constraints>
                                                         </customView>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TWC-Ue-Anv">
-                                                            <rect key="frame" x="0.0" y="379" width="338" height="37"/>
+                                                            <rect key="frame" x="0.0" y="379" width="338" height="21"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JB1-Hg-8NL">
-                                                                    <rect key="frame" x="-2" y="21" width="134" height="16"/>
+                                                                    <rect key="frame" x="-2" y="5" width="134" height="16"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="130" id="FtL-0g-qSM"/>
                                                                     </constraints>
@@ -1624,7 +1624,7 @@ It can memorize method calls.</string>
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yrr-OI-g3S">
-                                                                    <rect key="frame" x="138" y="16" width="200" height="21"/>
+                                                                    <rect key="frame" x="138" y="0.0" width="200" height="21"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="200" id="byr-du-sPU"/>
                                                                     </constraints>
@@ -3272,7 +3272,7 @@ If you set new one, this app uses the initialization to make the type's return v
         <image name="App" width="1024" height="1024"/>
         <image name="NSShareTemplate" width="15" height="17"/>
         <image name="add" width="25" height="16"/>
-        <image name="list" width="26" height="16"/>
+        <image name="list.bullet" catalog="system" width="16" height="12"/>
         <image name="minus" width="25" height="16"/>
         <image name="question" width="30" height="20"/>
         <image name="step1" width="1006" height="590"/>
