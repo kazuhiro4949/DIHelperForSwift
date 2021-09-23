@@ -3,15 +3,15 @@
     "pins": [
       {
         "package": "Sourceful",
-        "repositoryURL": "https://github.com/twostraws/Sourceful",
+        "repositoryURL": "https://github.com/kazuhiro4949/Sourceful.git",
         "state": {
-          "branch": null,
-          "revision": "442989f8e9d290f9c3b893d907a90937b80870c3",
-          "version": "0.3.0"
+          "branch": "feature/actor_keyword",
+          "revision": "8bcd9fd701b13543d6568593a1d04da1be4e5da7",
+          "version": null
         }
       },
       {
-        "package": "SwiftSyntax",
+        "package": "swift-syntax",
         "repositoryURL": "https://github.com/apple/swift-syntax.git",
         "state": {
           "branch": "swift-5.5-RELEASE",

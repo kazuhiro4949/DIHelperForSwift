@@ -98,13 +98,11 @@ public class ProtocolExtractor: SyntaxVisitor {
             return initializerDecl
         }
         
-        let inheritanceClause: TypeInheritanceClauseSyntax = .make(with: .anyObject)
-        
         let protocolDeclSyntax = makeProtocolDecl(
             attributes: node.attributes,
             identifier: node.identifier
                 .withTrailingTrivia(.zero),
-            inheritanceClause: inheritanceClause
+            inheritanceClause: .makeProtocol(for: node)
                 .withTrailingTrivia(.spaces(1)),
             varDecls: variables,
             funcDelcs: functions,
