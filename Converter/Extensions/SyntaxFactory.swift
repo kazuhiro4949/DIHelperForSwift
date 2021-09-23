@@ -10,8 +10,13 @@ import Foundation
 import SwiftSyntax
 
 extension SyntaxFactory {
-    public static func makeAccessorDecl(with contextualKeywordString: String) -> AccessorDeclSyntax {
-        makeAccessorDecl(
+    public static func makeAccessorDecl(
+        with contextualKeywordString: String,
+        asyncKeyword: TokenSyntax? = nil,
+        throwsKeyword: TokenSyntax? = nil
+    ) -> AccessorDeclSyntax {
+        
+            makeAccessorDecl(
             attributes: nil,
             modifier: nil,
             accessorKind: SyntaxFactory.makeToken(
@@ -19,8 +24,8 @@ extension SyntaxFactory {
                 presence: .present
             ),
             parameter: nil,
-            asyncKeyword: nil, // TODO: support async/await
-            throwsKeyword: nil, // TODO: support throw
+            asyncKeyword: asyncKeyword,
+            throwsKeyword: throwsKeyword,
             body: nil)
     }
     

@@ -21,11 +21,18 @@ extension PatternBindingSyntax {
         public static let set   = ContextualKeyword(rawValue: 1 << 1)
     }
     
-    public func convertForProtocol(with contextualKeyword: ContextualKeyword, modifiers: ModifierListSyntax?, attributes: AttributeListSyntax?) -> VariableDeclSyntax {
+    public func convertForProtocol(
+        with contextualKeyword: ContextualKeyword,
+        asyncKeyword: TokenSyntax?,
+        throwsKeyword: TokenSyntax?,
+        modifiers: ModifierListSyntax?,
+        attributes: AttributeListSyntax?) -> VariableDeclSyntax {
         let accessorDeclSyntaxes: [AccessorDeclSyntax]
         if contextualKeyword == [.get, .set] {
             accessorDeclSyntaxes = [
-                SyntaxFactory.makeAccessorDecl(with: "get")
+                SyntaxFactory.makeAccessorDecl(with: "get",
+                                               asyncKeyword: asyncKeyword,
+                                               throwsKeyword: throwsKeyword)
                     .withLeadingTrivia(.spaces(1))
                     .withTrailingTrivia(.spaces(1)),
                 SyntaxFactory.makeAccessorDecl(with: "set")
@@ -33,7 +40,9 @@ extension PatternBindingSyntax {
             ]
         } else if contextualKeyword == .get {
             accessorDeclSyntaxes = [
-                SyntaxFactory.makeAccessorDecl(with: "get")
+                SyntaxFactory.makeAccessorDecl(with: "get",
+                                               asyncKeyword: asyncKeyword,
+                                               throwsKeyword: throwsKeyword)
                     .withLeadingTrivia(.spaces(1))
                     .withTrailingTrivia(.spaces(1))
             ]
