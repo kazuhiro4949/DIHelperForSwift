@@ -11,7 +11,7 @@
         }
       },
       {
-        "package": "swift-syntax",
+        "package": "SwiftSyntax",
         "repositoryURL": "https://github.com/apple/swift-syntax.git",
         "state": {
           "branch": "swift-5.5-RELEASE",
