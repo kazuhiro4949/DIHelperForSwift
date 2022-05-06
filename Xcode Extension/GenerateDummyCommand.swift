@@ -9,6 +9,7 @@
 import Foundation
 import XcodeKit
 import SwiftSyntax
+import SwiftSyntaxParser
 import Converter
 
 // [Fake Object](http://xunitpatterns.com/Fake%20Object.html)

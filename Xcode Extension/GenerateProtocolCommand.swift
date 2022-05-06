@@ -8,6 +8,7 @@
 import Foundation
 import XcodeKit
 import SwiftSyntax
+import SwiftSyntaxParser
 import Converter
 
 // https://docs.swift.org/swift-book/LanguageGuide/Protocols.html

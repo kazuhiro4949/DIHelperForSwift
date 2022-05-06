@@ -8,6 +8,7 @@
 
 import XCTest
 import SwiftSyntax
+import SwiftSyntaxParser
 import Converter
 
 class ProtocolExtractorTests: XCTestCase {

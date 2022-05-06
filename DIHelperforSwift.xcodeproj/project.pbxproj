@@ -10,6 +10,8 @@
 		2CA813AB26EE0C05006A8AF9 /* UIStoryboard+SyntaxSugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA813AA26EE0C05006A8AF9 /* UIStoryboard+SyntaxSugar.swift */; };
 		2CA813AC26EE0D80006A8AF9 /* UIStoryboard+SyntaxSugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA813AA26EE0C05006A8AF9 /* UIStoryboard+SyntaxSugar.swift */; };
 		2CA813AE26EE0EE7006A8AF9 /* NSAttributedString+SyntaxSugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA813AD26EE0EE7006A8AF9 /* NSAttributedString+SyntaxSugar.swift */; };
+		2CEB138428254DEC00765099 /* SwiftSyntaxBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 2CEB138328254DEC00765099 /* SwiftSyntaxBuilder */; };
+		2CEB138628254DEC00765099 /* SwiftSyntaxParser in Frameworks */ = {isa = PBXBuildFile; productRef = 2CEB138528254DEC00765099 /* SwiftSyntaxParser */; };
 		2CFC3DC026FC3BBC00600BE2 /* Sourceful in Frameworks */ = {isa = PBXBuildFile; productRef = 2CFC3DBF26FC3BBC00600BE2 /* Sourceful */; };
 		2CFC3DFB26FC3F4700600BE2 /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 300E22CB26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib */; };
 		2CFC3DFD26FC3FF400600BE2 /* ClassDeclSyntax+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC3DFC26FC3FF400600BE2 /* ClassDeclSyntax+Extensions.swift */; };
@@ -341,6 +343,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				301E1BDA2635549700574DFE /* SwiftSyntax in Frameworks */,
+				2CEB138428254DEC00765099 /* SwiftSyntaxBuilder in Frameworks */,
+				2CEB138628254DEC00765099 /* SwiftSyntaxParser in Frameworks */,
 				2CFC3DFB26FC3F4700600BE2 /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */,
 				300E22CC26E3275200D18A60 /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */,
 			);
@@ -696,6 +700,8 @@
 			name = Converter;
 			packageProductDependencies = (
 				301E1BD92635549700574DFE /* SwiftSyntax */,
+				2CEB138328254DEC00765099 /* SwiftSyntaxBuilder */,
+				2CEB138528254DEC00765099 /* SwiftSyntaxParser */,
 			);
 			productName = Converter;
 			productReference = 301E1BB02635545D00574DFE /* Converter.framework */;
@@ -1326,7 +1332,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
@@ -1335,7 +1341,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 7;
+				MARKETING_VERSION = 8;
 				PRODUCT_BUNDLE_IDENTIFIER = kazuhiro.hayashi.DependencyInjectionHelperForXcode;
 				PRODUCT_NAME = DIHelperforSwift;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1353,7 +1359,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = R33Y42SDDR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
@@ -1362,7 +1368,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 7;
+				MARKETING_VERSION = 8;
 				PRODUCT_BUNDLE_IDENTIFIER = kazuhiro.hayashi.DependencyInjectionHelperForXcode;
 				PRODUCT_NAME = DIHelperforSwift;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1581,13 +1587,23 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-syntax.git";
 			requirement = {
-				branch = "swift-5.5-RELEASE";
+				branch = "swift-5.6-RELEASE";
 				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2CEB138328254DEC00765099 /* SwiftSyntaxBuilder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3032244025AAFD2D002BB110 /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntaxBuilder;
+		};
+		2CEB138528254DEC00765099 /* SwiftSyntaxParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3032244025AAFD2D002BB110 /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntaxParser;
+		};
 		2CFC3DBF26FC3BBC00600BE2 /* Sourceful */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2CFC3DBE26FC3BBC00600BE2 /* XCRemoteSwiftPackageReference "Sourceful" */;

@@ -9,6 +9,7 @@
 import Foundation
 import XcodeKit
 import SwiftSyntax
+import SwiftSyntaxParser
 import Converter
 
 // [Test Mock](http://xunitpatterns.com/Test%20Mock.html)

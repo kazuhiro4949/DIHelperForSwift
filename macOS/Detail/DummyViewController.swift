@@ -8,6 +8,7 @@
 
 import Cocoa
 import SwiftSyntax
+import SwiftSyntaxParser
 import Sourceful
 import Converter
 
